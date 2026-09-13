@@ -2,7 +2,7 @@
 
 *****************
 
-## Release ONDEWO VTSI Java Client 0.1.0
+## Release ONDEWO VTSI Java Client 8.7.0
 
 ### New Features
 
@@ -16,7 +16,13 @@
   `com.ondewo:ondewo-vtsi-client-java`, compiled with `maven.compiler.release=11`, and ships a
   sources jar alongside the binary jar.
 * `make build` regenerates the whole client from the pinned submodules - api protos and proto
-  compiler - and `make test` verifies that every `.proto` produced java code before running the
-  maven test suite. Both run in CI on JDK 11 and JDK 21.
+  compiler - and `make test` verifies that every `.proto` produced java code before running
+  `mvn verify`: the JUnit 5 suite over the **committed** stubs (432 generated java files, 23 gRPC
+  services) plus the JaCoCo gate. Both run in CI on JDK 11 and JDK 21, unconditionally - a
+  missing or truncated client turns the run red instead of skipping a step.
+* Adds the one hand-written class of this client, `com/ondewo/vtsi/auth/BearerToken.java`, which wraps the
+  `authorization: Bearer <token>` header every ONDEWO server expects and decorates any generated
+  stub with it. Coverage is measured over the hand-written sources only and the build fails below
+  100% instruction, branch and method coverage.
 
 *****************

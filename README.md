@@ -115,11 +115,9 @@ ls src/main/java/ondewo/vtsi/*Grpc.java
 A minimal call, with the bearer token ONDEWO servers expect attached to every request:
 
 ```java
-import io.grpc.CallCredentials;
+import com.ondewo.vtsi.auth.BearerToken;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.Metadata;
-import io.grpc.stub.MetadataUtils;
 
 String host = System.getenv("ONDEWO_HOST");
 int port = Integer.parseInt(System.getenv("ONDEWO_PORT"));
@@ -130,21 +128,25 @@ ManagedChannel channel = ManagedChannelBuilder
     .useTransportSecurity()   // .usePlaintext() for a local, unencrypted server
     .build();
 
-Metadata headers = new Metadata();
-headers.put(Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER), "Bearer " + accessToken);
-
-// Replace <Service> with one of the services declared in the ondewo-vtsi-api protos.
-<Service>Grpc.<Service>BlockingStub stub = <Service>Grpc
-    .newBlockingStub(channel)
-    .withInterceptors(MetadataUtils.newAttachHeadersInterceptor(headers));
+// Replace <Service> with one of the services declared in the ondewo-vtsi-api protos,
+// for example `CallsGrpc`.
+<Service>Grpc.<Service>BlockingStub stub = new BearerToken(accessToken)
+    .attachTo(<Service>Grpc.newBlockingStub(channel));
 
 // ... issue requests through `stub`, then shut the channel down:
 channel.shutdownNow();
 ```
 
-Note that the protos do not set `java_multiple_files`, so messages are nested inside the outer
-class protoc names after the proto file (`entity_type.proto` → `EntityTypeProto`,
-`agent.proto` → `Agent` or `AgentOuterClass` when a message of the same name exists).
+`BearerToken` is the one hand-written class of this client (see
+[Hand-written code beside the stubs](#hand-written-code-beside-the-stubs)); it wraps the
+`authorization: Bearer <token>` header every ONDEWO server expects. Attaching the header by hand
+with `MetadataUtils.newAttachHeadersInterceptor(...)` works just as well.
+
+Note that most protos do not set `java_multiple_files`, so their messages are nested inside the
+outer class protoc names after the proto file (`calls.proto` → `Calls` or `CallsOuterClass` when
+a message of the same name exists). The exceptions are the four vendored ondewo-nlu-api protos
+that do set it — `context.proto`, `entity_type.proto`, `session.proto` and `common.proto` — whose
+messages become top-level classes under `com/ondewo/nlu/`. Stubs therefore land under `ondewo.vtsi`, `ondewo.nlu`, `ondewo.qa`, `ondewo.s2t`, `ondewo.t2s` and `ondewo.sip`.
 
 ## Repository structure
 
@@ -153,7 +155,8 @@ class protoc names after the proto file (`entity_type.proto` → `EntityTypeProt
 ├── ondewo-vtsi-api/               <----- submodule: the .proto definitions (input)
 ├── ondewo-proto-compiler/    <----- submodule: the code generator (pinned to a release tag)
 ├── src/
-│   └── main/java/            <----- generated stubs (committed), plus hand-written sources
+│   ├── main/java/            <----- generated stubs (committed), plus hand-written sources
+│   └── test/java/            <----- the JUnit 5 suite over the committed stubs
 ├── pom.xml                   <----- generated build descriptor (committed)
 ├── target/                   <----- build output (git-ignored)
 ├── Makefile                  <----- every workflow: build, test, release
@@ -228,11 +231,28 @@ a regeneration as long as they live in their own package (for example
 ## Testing
 
 ```bash
-make test
+make test          # check_build + mvn verify (suite + coverage gate)
+mvn -B verify      # the same without the submodule-dependent check_build
 ```
 
-runs `check_build` (every proto produced java code) and then `mvn test`. The same two steps run
-in CI for JDK 11 and JDK 21 on every push — see `.github/workflows/ci.yml`.
+The JUnit 5 suite under `src/test/java` exercises the **committed** stubs — it never builds the
+compiler image and never runs protoc:
+
+| Test class | What it proves |
+| --- | --- |
+| `com.ondewo.vtsi.stubs.GeneratedMessagesTest` | messages of both java flavours (the vendored nlu protos that set `java_multiple_files` → `com.ondewo.nlu`, everything else → an outer class in `ondewo.vtsi` / `ondewo.nlu` / `ondewo.qa` / `ondewo.s2t` / `ondewo.t2s` / `ondewo.sip`) survive a serialize/parse round trip, `optional` scalars keep explicit presence on the wire, enums keep their zero member, and the proto package in the descriptor is untouched by the `java_package` rewrite |
+| `com.ondewo.vtsi.stubs.GeneratedServicesTest` | all 23 generated `*Grpc` classes (found on the compiled classpath, not listed by hand) expose a usable `ServiceDescriptor`; a unary call runs end to end over the in-process transport and the real generated marshallers; all three stub flavours build against a plain target channel |
+| `com.ondewo.vtsi.auth.BearerTokenTest` | the hand-written `BearerToken` — validation, header shape, stub immutability |
+
+Coverage is measured with **JaCoCo over the hand-written sources only**
+(`com/ondewo/vtsi/auth/**`). Generated stubs are machine output and are excluded from the metric,
+but they are exercised by the two test classes above. The gate is bound to `verify` and fails the
+build below **100 %** instruction, branch and method coverage; the HTML report lands in
+`target/site/jacoco/`.
+
+CI runs the whole thing on `ubuntu-latest` for JDK 11 and JDK 21 on every push and pull request
+— see `.github/workflows/ci.yml`. No step is conditional: a missing or truncated client turns the
+run red instead of skipping.
 
 ## Release
 
