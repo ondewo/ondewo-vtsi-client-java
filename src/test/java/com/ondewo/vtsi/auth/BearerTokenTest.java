@@ -1,6 +1,7 @@
 package com.ondewo.vtsi.auth;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import io.grpc.ManagedChannel;
 import io.grpc.Metadata;
 import io.grpc.inprocess.InProcessChannelBuilder;
+
 import ondewo.vtsi.CallsGrpc;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,14 +76,17 @@ class BearerTokenTest {
     void attachToReturnsAnAuthenticatedCopyOfEveryStubFlavour() {
         // gRPC stubs are immutable: withInterceptors() has to return a copy, never mutate.
         final BearerToken token = new BearerToken("s3cr3t");
-        final CallsGrpc.CallsBlockingStub blocking =
-                CallsGrpc.newBlockingStub(channel);
-        final CallsGrpc.CallsFutureStub future =
-                CallsGrpc.newFutureStub(channel);
+        final CallsGrpc.CallsBlockingStub blocking = CallsGrpc.newBlockingStub(channel);
+        final CallsGrpc.CallsFutureStub future = CallsGrpc.newFutureStub(channel);
         final CallsGrpc.CallsStub async = CallsGrpc.newStub(channel);
 
         assertNotSame(blocking, token.attachTo(blocking));
         assertNotSame(future, token.attachTo(future));
         assertNotSame(async, token.attachTo(async));
+    }
+
+    @Test
+    void toStringDoesNotRenderTheToken() {
+        assertFalse(new BearerToken("s3cr3t").toString().contains("s3cr3t"));
     }
 }
