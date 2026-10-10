@@ -28,6 +28,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 import ondewo.vtsi.CallsGrpc;
 import ondewo.vtsi.CallsOuterClass;
+import ondewo.vtsi.CampaignsGrpc;
+import ondewo.vtsi.CampaignsOuterClass;
+import ondewo.vtsi.EventsGrpc;
+import ondewo.vtsi.EventsOuterClass;
+import ondewo.vtsi.SoftphonesGrpc;
+import ondewo.vtsi.SoftphonesOuterClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,14 +46,15 @@ import org.junit.jupiter.api.Test;
 class GeneratedServicesTest {
 
     /**
-     * Number of {@code *Grpc} classes protoc must emit for this product: the three
-     * {@code ondewo.vtsi} services (Calls, Projects, Logs) plus the 16 ondewo.nlu services and
+     * Number of {@code *Grpc} classes protoc must emit for this product: the six
+     * {@code ondewo.vtsi} services (Calls, Projects, Logs, and since ondewo-vtsi-api 9.0.0
+     * Softphones, Campaigns, Events) plus the 16 ondewo.nlu services and
      * {@code ondewo.qa.QA}, {@code ondewo.s2t.Speech2Text}, {@code ondewo.t2s.Text2Speech},
      * {@code ondewo.sip.Sip} - ondewo-vtsi-api vendors those apis. Bump it when the api adds or
      * drops a service - that is exactly the kind of silent generator regression this test
      * exists to catch.
      */
-    private static final int EXPECTED_SERVICE_COUNT = 23;
+    private static final int EXPECTED_SERVICE_COUNT = 26;
 
     private static final Metadata.Key<String> AUTHORIZATION =
             Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER);
@@ -137,6 +144,127 @@ class GeneratedServicesTest {
     }
 
     /**
+     * The services and streaming rpcs added in ondewo-vtsi-api 9.0.0, under their exact proto
+     * names: a generator that drops or renames one of them fails here.
+     */
+    @Test
+    void exposesTheServicesAndStreamsAddedInApi9() {
+        assertEquals("ondewo.vtsi.Softphones", SoftphonesGrpc.getServiceDescriptor().getName());
+        assertEquals("ondewo.vtsi.Campaigns", CampaignsGrpc.getServiceDescriptor().getName());
+        assertEquals("ondewo.vtsi.Events", EventsGrpc.getServiceDescriptor().getName());
+        assertEquals(
+                MethodDescriptor.MethodType.SERVER_STREAMING,
+                CampaignsGrpc.getStreamCampaignStatusMethod().getType());
+        assertEquals(
+                MethodDescriptor.MethodType.SERVER_STREAMING,
+                EventsGrpc.getSubscribeVtsiEventsMethod().getType());
+        assertEquals(
+                MethodDescriptor.MethodType.BIDI_STREAMING,
+                CallsGrpc.getStreamCallAudioMethod().getType());
+        assertEquals(
+                MethodDescriptor.MethodType.SERVER_STREAMING,
+                CallsGrpc.getListenCallAudioMethod().getType());
+        assertEquals(
+                MethodDescriptor.MethodType.SERVER_STREAMING,
+                CallsGrpc.getStreamCallerStatusMethod().getType());
+        assertEquals(
+                MethodDescriptor.MethodType.UNARY,
+                CallsGrpc.getAddCallersToCampaignMethod().getType());
+    }
+
+    /**
+     * One unary call into each service added in ondewo-vtsi-api 9.0.0, over the in-process
+     * transport and the real generated marshallers, with the bearer token attached.
+     */
+    @Test
+    void servesAUnaryCallOnEachServiceAddedInApi9() throws Exception {
+        final SoftphonesGrpc.SoftphonesImplBase softphones =
+                new SoftphonesGrpc.SoftphonesImplBase() {
+                    @Override
+                    public void getSoftphoneAccount(
+                            final SoftphonesOuterClass.GetSoftphoneAccountRequest request,
+                            final StreamObserver<SoftphonesOuterClass.SoftphoneAccount>
+                                    responseObserver) {
+                        responseObserver.onNext(
+                                SoftphonesOuterClass.SoftphoneAccount.newBuilder()
+                                        .setName(request.getName())
+                                        .build());
+                        responseObserver.onCompleted();
+                    }
+                };
+        final CampaignsGrpc.CampaignsImplBase campaigns =
+                new CampaignsGrpc.CampaignsImplBase() {
+                    @Override
+                    public void getCampaign(
+                            final CampaignsOuterClass.GetCampaignRequest request,
+                            final StreamObserver<CampaignsOuterClass.Campaign> responseObserver) {
+                        responseObserver.onNext(
+                                CampaignsOuterClass.Campaign.newBuilder()
+                                        .setName(request.getName())
+                                        .build());
+                        responseObserver.onCompleted();
+                    }
+                };
+        final EventsGrpc.EventsImplBase events =
+                new EventsGrpc.EventsImplBase() {
+                    @Override
+                    public void getWebhook(
+                            final EventsOuterClass.GetWebhookRequest request,
+                            final StreamObserver<EventsOuterClass.Webhook> responseObserver) {
+                        responseObserver.onNext(
+                                EventsOuterClass.Webhook.newBuilder()
+                                        .setName(request.getName())
+                                        .build());
+                        responseObserver.onCompleted();
+                    }
+                };
+
+        final String name = InProcessServerBuilder.generateName();
+        final Server newServices =
+                InProcessServerBuilder.forName(name)
+                        .directExecutor()
+                        .addService(softphones)
+                        .addService(campaigns)
+                        .addService(events)
+                        .build()
+                        .start();
+        final ManagedChannel newChannel = InProcessChannelBuilder.forName(name).build();
+        final BearerToken token = new BearerToken("s3cr3t");
+        final String project = "projects/6a1b2c3d-0000-4000-8000-000000000000";
+        try {
+            assertEquals(
+                    project + "/softphone_accounts/a1",
+                    token.attachTo(SoftphonesGrpc.newBlockingStub(newChannel))
+                            .getSoftphoneAccount(
+                                    SoftphonesOuterClass.GetSoftphoneAccountRequest.newBuilder()
+                                            .setName(project + "/softphone_accounts/a1")
+                                            .build())
+                            .getName());
+            assertEquals(
+                    project + "/campaigns/c1",
+                    token.attachTo(CampaignsGrpc.newBlockingStub(newChannel))
+                            .getCampaign(
+                                    CampaignsOuterClass.GetCampaignRequest.newBuilder()
+                                            .setName(project + "/campaigns/c1")
+                                            .build())
+                            .getName());
+            assertEquals(
+                    project + "/webhooks/w1",
+                    token.attachTo(EventsGrpc.newBlockingStub(newChannel))
+                            .getWebhook(
+                                    EventsOuterClass.GetWebhookRequest.newBuilder()
+                                            .setName(project + "/webhooks/w1")
+                                            .build())
+                            .getName());
+        } finally {
+            newChannel.shutdownNow();
+            newServices.shutdownNow();
+            newChannel.awaitTermination(10, TimeUnit.SECONDS);
+            newServices.awaitTermination(10, TimeUnit.SECONDS);
+        }
+    }
+
+    /**
      * Every generated service class, found on the compiled classpath rather than listed by
      * hand, so a service added to the api is picked up without touching this test.
      */
@@ -213,6 +341,15 @@ class GeneratedServicesTest {
             assertNotNull(CallsGrpc.newBlockingStub(dummy));
             assertNotNull(CallsGrpc.newFutureStub(dummy));
             assertNotNull(CallsGrpc.newStub(dummy));
+            assertNotNull(SoftphonesGrpc.newBlockingStub(dummy));
+            assertNotNull(SoftphonesGrpc.newFutureStub(dummy));
+            assertNotNull(SoftphonesGrpc.newStub(dummy));
+            assertNotNull(CampaignsGrpc.newBlockingStub(dummy));
+            assertNotNull(CampaignsGrpc.newFutureStub(dummy));
+            assertNotNull(CampaignsGrpc.newStub(dummy));
+            assertNotNull(EventsGrpc.newBlockingStub(dummy));
+            assertNotNull(EventsGrpc.newFutureStub(dummy));
+            assertNotNull(EventsGrpc.newStub(dummy));
         } finally {
             dummy.shutdownNow();
         }

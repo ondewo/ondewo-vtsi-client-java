@@ -573,6 +573,68 @@ public final class CallsGrpc {
     return getStartScheduledCallersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest,
+      ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> getAddCallersToCampaignMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AddCallersToCampaign",
+      requestType = ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest,
+      ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> getAddCallersToCampaignMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest, ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> getAddCallersToCampaignMethod;
+    if ((getAddCallersToCampaignMethod = CallsGrpc.getAddCallersToCampaignMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getAddCallersToCampaignMethod = CallsGrpc.getAddCallersToCampaignMethod) == null) {
+          CallsGrpc.getAddCallersToCampaignMethod = getAddCallersToCampaignMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest, ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AddCallersToCampaign"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("AddCallersToCampaign"))
+              .build();
+        }
+      }
+    }
+    return getAddCallersToCampaignMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest,
+      ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> getAddScheduledCallersToCampaignMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AddScheduledCallersToCampaign",
+      requestType = ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest,
+      ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> getAddScheduledCallersToCampaignMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest, ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> getAddScheduledCallersToCampaignMethod;
+    if ((getAddScheduledCallersToCampaignMethod = CallsGrpc.getAddScheduledCallersToCampaignMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getAddScheduledCallersToCampaignMethod = CallsGrpc.getAddScheduledCallersToCampaignMethod) == null) {
+          CallsGrpc.getAddScheduledCallersToCampaignMethod = getAddScheduledCallersToCampaignMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest, ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AddScheduledCallersToCampaign"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("AddScheduledCallersToCampaign"))
+              .build();
+        }
+      }
+    }
+    return getAddScheduledCallersToCampaignMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest,
       ondewo.vtsi.CallsOuterClass.ScheduledCaller> getGetScheduledCallerMethod;
 
@@ -883,6 +945,254 @@ public final class CallsGrpc {
     return getListCallsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamCallerStatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamCallerStatus",
+      requestType = ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamCallerStatusMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamCallerStatusMethod;
+    if ((getStreamCallerStatusMethod = CallsGrpc.getStreamCallerStatusMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getStreamCallerStatusMethod = CallsGrpc.getStreamCallerStatusMethod) == null) {
+          CallsGrpc.getStreamCallerStatusMethod = getStreamCallerStatusMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamCallerStatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("StreamCallerStatus"))
+              .build();
+        }
+      }
+    }
+    return getStreamCallerStatusMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamListenerStatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamListenerStatus",
+      requestType = ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamListenerStatusMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamListenerStatusMethod;
+    if ((getStreamListenerStatusMethod = CallsGrpc.getStreamListenerStatusMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getStreamListenerStatusMethod = CallsGrpc.getStreamListenerStatusMethod) == null) {
+          CallsGrpc.getStreamListenerStatusMethod = getStreamListenerStatusMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamListenerStatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("StreamListenerStatus"))
+              .build();
+        }
+      }
+    }
+    return getStreamListenerStatusMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamScheduledCallerStatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamScheduledCallerStatus",
+      requestType = ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamScheduledCallerStatusMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> getStreamScheduledCallerStatusMethod;
+    if ((getStreamScheduledCallerStatusMethod = CallsGrpc.getStreamScheduledCallerStatusMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getStreamScheduledCallerStatusMethod = CallsGrpc.getStreamScheduledCallerStatusMethod) == null) {
+          CallsGrpc.getStreamScheduledCallerStatusMethod = getStreamScheduledCallerStatusMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamScheduledCallerStatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("StreamScheduledCallerStatus"))
+              .build();
+        }
+      }
+    }
+    return getStreamScheduledCallerStatusMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.InviteToCallRequest,
+      ondewo.vtsi.CallsOuterClass.InviteToCallResponse> getInviteToCallMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "InviteToCall",
+      requestType = ondewo.vtsi.CallsOuterClass.InviteToCallRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.InviteToCallResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.InviteToCallRequest,
+      ondewo.vtsi.CallsOuterClass.InviteToCallResponse> getInviteToCallMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.InviteToCallRequest, ondewo.vtsi.CallsOuterClass.InviteToCallResponse> getInviteToCallMethod;
+    if ((getInviteToCallMethod = CallsGrpc.getInviteToCallMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getInviteToCallMethod = CallsGrpc.getInviteToCallMethod) == null) {
+          CallsGrpc.getInviteToCallMethod = getInviteToCallMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.InviteToCallRequest, ondewo.vtsi.CallsOuterClass.InviteToCallResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "InviteToCall"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.InviteToCallRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.InviteToCallResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("InviteToCall"))
+              .build();
+        }
+      }
+    }
+    return getInviteToCallMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest,
+      ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> getRemoveCallParticipantMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RemoveCallParticipant",
+      requestType = ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest,
+      ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> getRemoveCallParticipantMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest, ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> getRemoveCallParticipantMethod;
+    if ((getRemoveCallParticipantMethod = CallsGrpc.getRemoveCallParticipantMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getRemoveCallParticipantMethod = CallsGrpc.getRemoveCallParticipantMethod) == null) {
+          CallsGrpc.getRemoveCallParticipantMethod = getRemoveCallParticipantMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest, ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RemoveCallParticipant"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("RemoveCallParticipant"))
+              .build();
+        }
+      }
+    }
+    return getRemoveCallParticipantMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest,
+      ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> getSetCallMediaControlMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetCallMediaControl",
+      requestType = ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest,
+      ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> getSetCallMediaControlMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest, ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> getSetCallMediaControlMethod;
+    if ((getSetCallMediaControlMethod = CallsGrpc.getSetCallMediaControlMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getSetCallMediaControlMethod = CallsGrpc.getSetCallMediaControlMethod) == null) {
+          CallsGrpc.getSetCallMediaControlMethod = getSetCallMediaControlMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest, ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetCallMediaControl"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("SetCallMediaControl"))
+              .build();
+        }
+      }
+    }
+    return getSetCallMediaControlMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getStreamCallAudioMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamCallAudio",
+      requestType = ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getStreamCallAudioMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getStreamCallAudioMethod;
+    if ((getStreamCallAudioMethod = CallsGrpc.getStreamCallAudioMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getStreamCallAudioMethod = CallsGrpc.getStreamCallAudioMethod) == null) {
+          CallsGrpc.getStreamCallAudioMethod = getStreamCallAudioMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamCallAudio"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("StreamCallAudio"))
+              .build();
+        }
+      }
+    }
+    return getStreamCallAudioMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getListenCallAudioMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListenCallAudio",
+      requestType = ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest,
+      ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getListenCallAudioMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> getListenCallAudioMethod;
+    if ((getListenCallAudioMethod = CallsGrpc.getListenCallAudioMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getListenCallAudioMethod = CallsGrpc.getListenCallAudioMethod) == null) {
+          CallsGrpc.getListenCallAudioMethod = getListenCallAudioMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListenCallAudio"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("ListenCallAudio"))
+              .build();
+        }
+      }
+    }
+    return getListenCallAudioMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -1131,6 +1441,32 @@ public final class CallsGrpc {
 
     /**
      * <pre>
+     * &lt;p&gt;Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+     * &lt;code&gt;max_parallel_calls&lt;/code&gt; at a time. The request is atomic: either the campaign (when new), every
+     * campaign call is stored, or nothing is. Errors are gRPC status codes (see &lt;code&gt;CampaignAssignment&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Rolling updates: a VTSI server that predates this RPC answers &lt;code&gt;UNIMPLEMENTED&lt;/code&gt; and starts
+     * nothing. Do not fall back to &lt;code&gt;StartCallers&lt;/code&gt; on &lt;code&gt;UNIMPLEMENTED&lt;/code&gt;; retry later.&lt;/p&gt;
+     * </pre>
+     */
+    default void addCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddCallersToCampaignMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+     * free slot, and follows the campaign&amp;apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+     * behaviour as &lt;code&gt;AddCallersToCampaign&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void addScheduledCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddScheduledCallersToCampaignMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
      * </pre>
      */
@@ -1152,6 +1488,11 @@ public final class CallsGrpc {
     /**
      * <pre>
      * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
+     * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
+     * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
+     * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
+     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
      * </pre>
      */
     default void cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request,
@@ -1193,7 +1534,24 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer a call to a phone number, a softphone account, another listener or the listener queue.&lt;/p&gt;
+     * &lt;p&gt;The target is either the typed &lt;code&gt;target&lt;/code&gt; or the legacy raw &lt;code&gt;transfer_id&lt;/code&gt;, never both. It is
+     * resolved and validated before anything is sent; an invalid target is answered with
+     * &lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt; and an &lt;code&gt;error_reason&lt;/code&gt;, and the call is untouched.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;TRANSFER_MODE_BLIND&lt;/code&gt; (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
+     * call with the bot. &lt;code&gt;TRANSFER_MODE_WARM&lt;/code&gt; rings the target into the call first, and the bot leaves only
+     * after the target joined (Asterisk 22 only).&lt;/p&gt;
+     * &lt;p&gt;Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an &lt;code&gt;outcome&lt;/code&gt;.
+     * Refusals before any side effect also return a gRPC status with &lt;code&gt;reason=&amp;lt;token&amp;gt;&lt;/code&gt; in its details:
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (both targets set, malformed target), &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or target not
+     * found, including another project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;,
+     * &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;participants-present&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;ABORTED&lt;/code&gt;
+     * (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;sip-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     default void transferCall(ondewo.vtsi.CallsOuterClass.TransferCallRequest request,
@@ -1203,7 +1561,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     default void transferCalls(ondewo.vtsi.CallsOuterClass.TransferCallsRequest request,
@@ -1229,6 +1591,146 @@ public final class CallsGrpc {
     default void listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request,
         io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListCallsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the callers of a project: a snapshot first
+     * (&lt;code&gt;snapshot = true&lt;/code&gt;), then every caller whose call or SIP status changed, plus
+     * keep-alive messages. Ends when the client disconnects or at the server-side maximum stream
+     * duration.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when
+     * the server has no free stream slot.&lt;/p&gt;
+     * </pre>
+     */
+    default void streamCallerStatus(ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStreamCallerStatusMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the listeners of a project, like &lt;code&gt;StreamCallerStatus&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void streamListenerStatus(ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStreamListenerStatusMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the scheduled callers of a project, like
+     * &lt;code&gt;StreamCallerStatus&lt;/code&gt;. The snapshot holds every PENDING and FIRING scheduled caller
+     * and those that finished in the last hour.&lt;/p&gt;
+     * </pre>
+     */
+    default void streamScheduledCallerStatus(ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStreamScheduledCallerStatusMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Invite a registered softphone account of the project into a connected call. Returns the participant in
+     * &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;; follow &lt;code&gt;Call.participants&lt;/code&gt; or the events
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_*&lt;/code&gt; for JOINED, FAILED and LEFT.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;PARTICIPANT_MODE_CONFERENCE&lt;/code&gt; (default) joins the softphone into the call: Asterisk mixes the caller,
+     * the bot and the participant, and by default the bot keeps talking and listening
+     * (&lt;code&gt;BOT_POLICY_ON_JOIN_KEEP&lt;/code&gt;). &lt;code&gt;PARTICIPANT_MODE_MONITOR&lt;/code&gt; lets the participant listen only.
+     * When the bot&amp;apos;s leg ends, every participant is hung up; the caller is handed over only by a WARM
+     * &lt;code&gt;TransferCall&lt;/code&gt;. Idempotent per &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or softphone account, including another
+     * project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;,
+     * &lt;code&gt;softphone-not-registered&lt;/code&gt;, &lt;code&gt;softphone-disabled&lt;/code&gt;, &lt;code&gt;softphone-unrouted&lt;/code&gt;,
+     * &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;bot-channel-ambiguous&lt;/code&gt;, &lt;code&gt;asterisk-not-local&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;), &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; (the softphone is already ringing or joined),
+     * &lt;code&gt;ABORTED&lt;/code&gt; (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (participant cap),
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;asterisk-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    default void inviteToCall(ondewo.vtsi.CallsOuterClass.InviteToCallRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.InviteToCallResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getInviteToCallMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
+     * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
+     * affected.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void removeCallParticipant(ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRemoveCallParticipantMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
+     * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
+     * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
+     * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
+     * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
+     * bot did not apply the level: a requested pause is rolled back, a requested mute is kept).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    default void setCallMediaControl(ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetCallMediaControlMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Live audio of a connected call, both ways. The first request MUST be &lt;code&gt;config&lt;/code&gt; (within 2 seconds).
+     * LISTEN receives the caller mixed with the bot. TALK sends the agent&amp;apos;s audio to the caller and REQUIRES
+     * &lt;code&gt;take_over&lt;/code&gt;: the bot is muted and does not listen while the stream is connected, and resumes when it
+     * ends; in TALK the agent hears the caller only. Audio is LINEAR16 little-endian mono in 20 ms frames.&lt;/p&gt;
+     * &lt;p&gt;Bidirectional streaming: available to native gRPC clients (python, nodejs) only. Browser (grpc-web) clients
+     * use &lt;code&gt;ListenCallAudio&lt;/code&gt;, plus a softphone (&lt;code&gt;InviteToCall&lt;/code&gt;) to talk.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (no or invalid &lt;code&gt;config&lt;/code&gt;, TALK without
+     * &lt;code&gt;take_over&lt;/code&gt;, wrong frame size), &lt;code&gt;NOT_FOUND&lt;/code&gt;, &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;,
+     * &lt;code&gt;bot-still-speaking&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (stream cap, a
+     * second TALK). A normal end sends one &lt;code&gt;ended&lt;/code&gt; message, then OK. A second &lt;code&gt;config&lt;/code&gt; or audio
+     * sent in LISTEN mode ends the stream with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A client half-close ends the stream
+     * (&lt;code&gt;CALL_AUDIO_END_REASON_CLIENT_CLOSED&lt;/code&gt;), so a listening client keeps its request stream open.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    default io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest> streamCallAudio(
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> responseObserver) {
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamCallAudioMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Listen-only live audio of a connected call, like &lt;code&gt;StreamCallAudio&lt;/code&gt; in LISTEN mode, as a server
+     * stream that grpc-web (browser) clients can consume. &lt;code&gt;config.mode&lt;/code&gt; must be LISTEN or unspecified and
+     * &lt;code&gt;config.take_over&lt;/code&gt; must be false, otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; &lt;code&gt;reason=listen-only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    default void listenCallAudio(ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListenCallAudioMethod(), responseObserver);
     }
   }
 
@@ -1465,6 +1967,34 @@ public final class CallsGrpc {
 
     /**
      * <pre>
+     * &lt;p&gt;Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+     * &lt;code&gt;max_parallel_calls&lt;/code&gt; at a time. The request is atomic: either the campaign (when new), every
+     * campaign call is stored, or nothing is. Errors are gRPC status codes (see &lt;code&gt;CampaignAssignment&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Rolling updates: a VTSI server that predates this RPC answers &lt;code&gt;UNIMPLEMENTED&lt;/code&gt; and starts
+     * nothing. Do not fall back to &lt;code&gt;StartCallers&lt;/code&gt; on &lt;code&gt;UNIMPLEMENTED&lt;/code&gt;; retry later.&lt;/p&gt;
+     * </pre>
+     */
+    public void addCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getAddCallersToCampaignMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+     * free slot, and follows the campaign&amp;apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+     * behaviour as &lt;code&gt;AddCallersToCampaign&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void addScheduledCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getAddScheduledCallersToCampaignMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
      * </pre>
      */
@@ -1488,6 +2018,11 @@ public final class CallsGrpc {
     /**
      * <pre>
      * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
+     * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
+     * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
+     * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
+     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
      * </pre>
      */
     public void cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request,
@@ -1533,7 +2068,24 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer a call to a phone number, a softphone account, another listener or the listener queue.&lt;/p&gt;
+     * &lt;p&gt;The target is either the typed &lt;code&gt;target&lt;/code&gt; or the legacy raw &lt;code&gt;transfer_id&lt;/code&gt;, never both. It is
+     * resolved and validated before anything is sent; an invalid target is answered with
+     * &lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt; and an &lt;code&gt;error_reason&lt;/code&gt;, and the call is untouched.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;TRANSFER_MODE_BLIND&lt;/code&gt; (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
+     * call with the bot. &lt;code&gt;TRANSFER_MODE_WARM&lt;/code&gt; rings the target into the call first, and the bot leaves only
+     * after the target joined (Asterisk 22 only).&lt;/p&gt;
+     * &lt;p&gt;Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an &lt;code&gt;outcome&lt;/code&gt;.
+     * Refusals before any side effect also return a gRPC status with &lt;code&gt;reason=&amp;lt;token&amp;gt;&lt;/code&gt; in its details:
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (both targets set, malformed target), &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or target not
+     * found, including another project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;,
+     * &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;participants-present&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;ABORTED&lt;/code&gt;
+     * (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;sip-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public void transferCall(ondewo.vtsi.CallsOuterClass.TransferCallRequest request,
@@ -1544,7 +2096,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public void transferCalls(ondewo.vtsi.CallsOuterClass.TransferCallsRequest request,
@@ -1573,6 +2129,154 @@ public final class CallsGrpc {
         io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListCallsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the callers of a project: a snapshot first
+     * (&lt;code&gt;snapshot = true&lt;/code&gt;), then every caller whose call or SIP status changed, plus
+     * keep-alive messages. Ends when the client disconnects or at the server-side maximum stream
+     * duration.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when
+     * the server has no free stream slot.&lt;/p&gt;
+     * </pre>
+     */
+    public void streamCallerStatus(ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getStreamCallerStatusMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the listeners of a project, like &lt;code&gt;StreamCallerStatus&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void streamListenerStatus(ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getStreamListenerStatusMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the scheduled callers of a project, like
+     * &lt;code&gt;StreamCallerStatus&lt;/code&gt;. The snapshot holds every PENDING and FIRING scheduled caller
+     * and those that finished in the last hour.&lt;/p&gt;
+     * </pre>
+     */
+    public void streamScheduledCallerStatus(ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getStreamScheduledCallerStatusMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Invite a registered softphone account of the project into a connected call. Returns the participant in
+     * &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;; follow &lt;code&gt;Call.participants&lt;/code&gt; or the events
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_*&lt;/code&gt; for JOINED, FAILED and LEFT.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;PARTICIPANT_MODE_CONFERENCE&lt;/code&gt; (default) joins the softphone into the call: Asterisk mixes the caller,
+     * the bot and the participant, and by default the bot keeps talking and listening
+     * (&lt;code&gt;BOT_POLICY_ON_JOIN_KEEP&lt;/code&gt;). &lt;code&gt;PARTICIPANT_MODE_MONITOR&lt;/code&gt; lets the participant listen only.
+     * When the bot&amp;apos;s leg ends, every participant is hung up; the caller is handed over only by a WARM
+     * &lt;code&gt;TransferCall&lt;/code&gt;. Idempotent per &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or softphone account, including another
+     * project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;,
+     * &lt;code&gt;softphone-not-registered&lt;/code&gt;, &lt;code&gt;softphone-disabled&lt;/code&gt;, &lt;code&gt;softphone-unrouted&lt;/code&gt;,
+     * &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;bot-channel-ambiguous&lt;/code&gt;, &lt;code&gt;asterisk-not-local&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;), &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; (the softphone is already ringing or joined),
+     * &lt;code&gt;ABORTED&lt;/code&gt; (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (participant cap),
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;asterisk-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public void inviteToCall(ondewo.vtsi.CallsOuterClass.InviteToCallRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.InviteToCallResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getInviteToCallMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
+     * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
+     * affected.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void removeCallParticipant(ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRemoveCallParticipantMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
+     * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
+     * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
+     * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
+     * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
+     * bot did not apply the level: a requested pause is rolled back, a requested mute is kept).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public void setCallMediaControl(ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetCallMediaControlMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Live audio of a connected call, both ways. The first request MUST be &lt;code&gt;config&lt;/code&gt; (within 2 seconds).
+     * LISTEN receives the caller mixed with the bot. TALK sends the agent&amp;apos;s audio to the caller and REQUIRES
+     * &lt;code&gt;take_over&lt;/code&gt;: the bot is muted and does not listen while the stream is connected, and resumes when it
+     * ends; in TALK the agent hears the caller only. Audio is LINEAR16 little-endian mono in 20 ms frames.&lt;/p&gt;
+     * &lt;p&gt;Bidirectional streaming: available to native gRPC clients (python, nodejs) only. Browser (grpc-web) clients
+     * use &lt;code&gt;ListenCallAudio&lt;/code&gt;, plus a softphone (&lt;code&gt;InviteToCall&lt;/code&gt;) to talk.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (no or invalid &lt;code&gt;config&lt;/code&gt;, TALK without
+     * &lt;code&gt;take_over&lt;/code&gt;, wrong frame size), &lt;code&gt;NOT_FOUND&lt;/code&gt;, &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;,
+     * &lt;code&gt;bot-still-speaking&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (stream cap, a
+     * second TALK). A normal end sends one &lt;code&gt;ended&lt;/code&gt; message, then OK. A second &lt;code&gt;config&lt;/code&gt; or audio
+     * sent in LISTEN mode ends the stream with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A client half-close ends the stream
+     * (&lt;code&gt;CALL_AUDIO_END_REASON_CLIENT_CLOSED&lt;/code&gt;), so a listening client keeps its request stream open.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest> streamCallAudio(
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> responseObserver) {
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
+          getChannel().newCall(getStreamCallAudioMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Listen-only live audio of a connected call, like &lt;code&gt;StreamCallAudio&lt;/code&gt; in LISTEN mode, as a server
+     * stream that grpc-web (browser) clients can consume. &lt;code&gt;config.mode&lt;/code&gt; must be LISTEN or unspecified and
+     * &lt;code&gt;config.take_over&lt;/code&gt; must be false, otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; &lt;code&gt;reason=listen-only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public void listenCallAudio(ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getListenCallAudioMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -1777,6 +2481,32 @@ public final class CallsGrpc {
 
     /**
      * <pre>
+     * &lt;p&gt;Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+     * &lt;code&gt;max_parallel_calls&lt;/code&gt; at a time. The request is atomic: either the campaign (when new), every
+     * campaign call is stored, or nothing is. Errors are gRPC status codes (see &lt;code&gt;CampaignAssignment&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Rolling updates: a VTSI server that predates this RPC answers &lt;code&gt;UNIMPLEMENTED&lt;/code&gt; and starts
+     * nothing. Do not fall back to &lt;code&gt;StartCallers&lt;/code&gt; on &lt;code&gt;UNIMPLEMENTED&lt;/code&gt;; retry later.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse addCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getAddCallersToCampaignMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+     * free slot, and follows the campaign&amp;apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+     * behaviour as &lt;code&gt;AddCallersToCampaign&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse addScheduledCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getAddScheduledCallersToCampaignMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
      * </pre>
      */
@@ -1798,6 +2528,11 @@ public final class CallsGrpc {
     /**
      * <pre>
      * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
+     * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
+     * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
+     * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
+     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request) throws io.grpc.StatusException {
@@ -1839,7 +2574,24 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer a call to a phone number, a softphone account, another listener or the listener queue.&lt;/p&gt;
+     * &lt;p&gt;The target is either the typed &lt;code&gt;target&lt;/code&gt; or the legacy raw &lt;code&gt;transfer_id&lt;/code&gt;, never both. It is
+     * resolved and validated before anything is sent; an invalid target is answered with
+     * &lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt; and an &lt;code&gt;error_reason&lt;/code&gt;, and the call is untouched.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;TRANSFER_MODE_BLIND&lt;/code&gt; (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
+     * call with the bot. &lt;code&gt;TRANSFER_MODE_WARM&lt;/code&gt; rings the target into the call first, and the bot leaves only
+     * after the target joined (Asterisk 22 only).&lt;/p&gt;
+     * &lt;p&gt;Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an &lt;code&gt;outcome&lt;/code&gt;.
+     * Refusals before any side effect also return a gRPC status with &lt;code&gt;reason=&amp;lt;token&amp;gt;&lt;/code&gt; in its details:
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (both targets set, malformed target), &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or target not
+     * found, including another project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;,
+     * &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;participants-present&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;ABORTED&lt;/code&gt;
+     * (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;sip-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.TransferCallResponse transferCall(ondewo.vtsi.CallsOuterClass.TransferCallRequest request) throws io.grpc.StatusException {
@@ -1849,7 +2601,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.TransferCallsResponse transferCalls(ondewo.vtsi.CallsOuterClass.TransferCallsRequest request) throws io.grpc.StatusException {
@@ -1875,6 +2631,156 @@ public final class CallsGrpc {
     public ondewo.vtsi.CallsOuterClass.ListCallsResponse listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request) throws io.grpc.StatusException {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getListCallsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the callers of a project: a snapshot first
+     * (&lt;code&gt;snapshot = true&lt;/code&gt;), then every caller whose call or SIP status changed, plus
+     * keep-alive messages. Ends when the client disconnects or at the server-side maximum stream
+     * duration.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when
+     * the server has no free stream slot.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>
+        streamCallerStatus(ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getStreamCallerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the listeners of a project, like &lt;code&gt;StreamCallerStatus&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>
+        streamListenerStatus(ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getStreamListenerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the scheduled callers of a project, like
+     * &lt;code&gt;StreamCallerStatus&lt;/code&gt;. The snapshot holds every PENDING and FIRING scheduled caller
+     * and those that finished in the last hour.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>
+        streamScheduledCallerStatus(ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getStreamScheduledCallerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Invite a registered softphone account of the project into a connected call. Returns the participant in
+     * &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;; follow &lt;code&gt;Call.participants&lt;/code&gt; or the events
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_*&lt;/code&gt; for JOINED, FAILED and LEFT.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;PARTICIPANT_MODE_CONFERENCE&lt;/code&gt; (default) joins the softphone into the call: Asterisk mixes the caller,
+     * the bot and the participant, and by default the bot keeps talking and listening
+     * (&lt;code&gt;BOT_POLICY_ON_JOIN_KEEP&lt;/code&gt;). &lt;code&gt;PARTICIPANT_MODE_MONITOR&lt;/code&gt; lets the participant listen only.
+     * When the bot&amp;apos;s leg ends, every participant is hung up; the caller is handed over only by a WARM
+     * &lt;code&gt;TransferCall&lt;/code&gt;. Idempotent per &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or softphone account, including another
+     * project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;,
+     * &lt;code&gt;softphone-not-registered&lt;/code&gt;, &lt;code&gt;softphone-disabled&lt;/code&gt;, &lt;code&gt;softphone-unrouted&lt;/code&gt;,
+     * &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;bot-channel-ambiguous&lt;/code&gt;, &lt;code&gt;asterisk-not-local&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;), &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; (the softphone is already ringing or joined),
+     * &lt;code&gt;ABORTED&lt;/code&gt; (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (participant cap),
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;asterisk-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.InviteToCallResponse inviteToCall(ondewo.vtsi.CallsOuterClass.InviteToCallRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getInviteToCallMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
+     * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
+     * affected.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse removeCallParticipant(ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getRemoveCallParticipantMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
+     * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
+     * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
+     * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
+     * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
+     * bot did not apply the level: a requested pause is rolled back, a requested mute is kept).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse setCallMediaControl(ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getSetCallMediaControlMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Live audio of a connected call, both ways. The first request MUST be &lt;code&gt;config&lt;/code&gt; (within 2 seconds).
+     * LISTEN receives the caller mixed with the bot. TALK sends the agent&amp;apos;s audio to the caller and REQUIRES
+     * &lt;code&gt;take_over&lt;/code&gt;: the bot is muted and does not listen while the stream is connected, and resumes when it
+     * ends; in TALK the agent hears the caller only. Audio is LINEAR16 little-endian mono in 20 ms frames.&lt;/p&gt;
+     * &lt;p&gt;Bidirectional streaming: available to native gRPC clients (python, nodejs) only. Browser (grpc-web) clients
+     * use &lt;code&gt;ListenCallAudio&lt;/code&gt;, plus a softphone (&lt;code&gt;InviteToCall&lt;/code&gt;) to talk.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (no or invalid &lt;code&gt;config&lt;/code&gt;, TALK without
+     * &lt;code&gt;take_over&lt;/code&gt;, wrong frame size), &lt;code&gt;NOT_FOUND&lt;/code&gt;, &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;,
+     * &lt;code&gt;bot-still-speaking&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (stream cap, a
+     * second TALK). A normal end sends one &lt;code&gt;ended&lt;/code&gt; message, then OK. A second &lt;code&gt;config&lt;/code&gt; or audio
+     * sent in LISTEN mode ends the stream with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A client half-close ends the stream
+     * (&lt;code&gt;CALL_AUDIO_END_REASON_CLIENT_CLOSED&lt;/code&gt;), so a listening client keeps its request stream open.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>
+        streamCallAudio() {
+      return io.grpc.stub.ClientCalls.blockingBidiStreamingCall(
+          getChannel(), getStreamCallAudioMethod(), getCallOptions());
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Listen-only live audio of a connected call, like &lt;code&gt;StreamCallAudio&lt;/code&gt; in LISTEN mode, as a server
+     * stream that grpc-web (browser) clients can consume. &lt;code&gt;config.mode&lt;/code&gt; must be LISTEN or unspecified and
+     * &lt;code&gt;config.take_over&lt;/code&gt; must be false, otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; &lt;code&gt;reason=listen-only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>
+        listenCallAudio(ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getListenCallAudioMethod(), getCallOptions(), request);
     }
   }
 
@@ -2079,6 +2985,32 @@ public final class CallsGrpc {
 
     /**
      * <pre>
+     * &lt;p&gt;Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+     * &lt;code&gt;max_parallel_calls&lt;/code&gt; at a time. The request is atomic: either the campaign (when new), every
+     * campaign call is stored, or nothing is. Errors are gRPC status codes (see &lt;code&gt;CampaignAssignment&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Rolling updates: a VTSI server that predates this RPC answers &lt;code&gt;UNIMPLEMENTED&lt;/code&gt; and starts
+     * nothing. Do not fall back to &lt;code&gt;StartCallers&lt;/code&gt; on &lt;code&gt;UNIMPLEMENTED&lt;/code&gt;; retry later.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse addCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getAddCallersToCampaignMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+     * free slot, and follows the campaign&amp;apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+     * behaviour as &lt;code&gt;AddCallersToCampaign&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse addScheduledCallersToCampaign(ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getAddScheduledCallersToCampaignMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
      * </pre>
      */
@@ -2100,6 +3032,11 @@ public final class CallsGrpc {
     /**
      * <pre>
      * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
+     * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
+     * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
+     * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
+     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request) {
@@ -2141,7 +3078,24 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer a call to a phone number, a softphone account, another listener or the listener queue.&lt;/p&gt;
+     * &lt;p&gt;The target is either the typed &lt;code&gt;target&lt;/code&gt; or the legacy raw &lt;code&gt;transfer_id&lt;/code&gt;, never both. It is
+     * resolved and validated before anything is sent; an invalid target is answered with
+     * &lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt; and an &lt;code&gt;error_reason&lt;/code&gt;, and the call is untouched.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;TRANSFER_MODE_BLIND&lt;/code&gt; (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
+     * call with the bot. &lt;code&gt;TRANSFER_MODE_WARM&lt;/code&gt; rings the target into the call first, and the bot leaves only
+     * after the target joined (Asterisk 22 only).&lt;/p&gt;
+     * &lt;p&gt;Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an &lt;code&gt;outcome&lt;/code&gt;.
+     * Refusals before any side effect also return a gRPC status with &lt;code&gt;reason=&amp;lt;token&amp;gt;&lt;/code&gt; in its details:
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (both targets set, malformed target), &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or target not
+     * found, including another project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;,
+     * &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;participants-present&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;ABORTED&lt;/code&gt;
+     * (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;sip-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.TransferCallResponse transferCall(ondewo.vtsi.CallsOuterClass.TransferCallRequest request) {
@@ -2151,7 +3105,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.TransferCallsResponse transferCalls(ondewo.vtsi.CallsOuterClass.TransferCallsRequest request) {
@@ -2177,6 +3135,124 @@ public final class CallsGrpc {
     public ondewo.vtsi.CallsOuterClass.ListCallsResponse listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListCallsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the callers of a project: a snapshot first
+     * (&lt;code&gt;snapshot = true&lt;/code&gt;), then every caller whose call or SIP status changed, plus
+     * keep-alive messages. Ends when the client disconnects or at the server-side maximum stream
+     * duration.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when
+     * the server has no free stream slot.&lt;/p&gt;
+     * </pre>
+     */
+    public java.util.Iterator<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> streamCallerStatus(
+        ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getStreamCallerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the listeners of a project, like &lt;code&gt;StreamCallerStatus&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public java.util.Iterator<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> streamListenerStatus(
+        ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getStreamListenerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Streams the status of the scheduled callers of a project, like
+     * &lt;code&gt;StreamCallerStatus&lt;/code&gt;. The snapshot holds every PENDING and FIRING scheduled caller
+     * and those that finished in the last hour.&lt;/p&gt;
+     * </pre>
+     */
+    public java.util.Iterator<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse> streamScheduledCallerStatus(
+        ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getStreamScheduledCallerStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Invite a registered softphone account of the project into a connected call. Returns the participant in
+     * &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;; follow &lt;code&gt;Call.participants&lt;/code&gt; or the events
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_*&lt;/code&gt; for JOINED, FAILED and LEFT.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;PARTICIPANT_MODE_CONFERENCE&lt;/code&gt; (default) joins the softphone into the call: Asterisk mixes the caller,
+     * the bot and the participant, and by default the bot keeps talking and listening
+     * (&lt;code&gt;BOT_POLICY_ON_JOIN_KEEP&lt;/code&gt;). &lt;code&gt;PARTICIPANT_MODE_MONITOR&lt;/code&gt; lets the participant listen only.
+     * When the bot&amp;apos;s leg ends, every participant is hung up; the caller is handed over only by a WARM
+     * &lt;code&gt;TransferCall&lt;/code&gt;. Idempotent per &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or softphone account, including another
+     * project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;,
+     * &lt;code&gt;softphone-not-registered&lt;/code&gt;, &lt;code&gt;softphone-disabled&lt;/code&gt;, &lt;code&gt;softphone-unrouted&lt;/code&gt;,
+     * &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;bot-channel-ambiguous&lt;/code&gt;, &lt;code&gt;asterisk-not-local&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;), &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; (the softphone is already ringing or joined),
+     * &lt;code&gt;ABORTED&lt;/code&gt; (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (participant cap),
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;asterisk-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.InviteToCallResponse inviteToCall(ondewo.vtsi.CallsOuterClass.InviteToCallRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getInviteToCallMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
+     * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
+     * affected.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse removeCallParticipant(ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRemoveCallParticipantMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
+     * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
+     * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
+     * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
+     * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
+     * bot did not apply the level: a requested pause is rolled back, a requested mute is kept).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse setCallMediaControl(ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetCallMediaControlMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Listen-only live audio of a connected call, like &lt;code&gt;StreamCallAudio&lt;/code&gt; in LISTEN mode, as a server
+     * stream that grpc-web (browser) clients can consume. &lt;code&gt;config.mode&lt;/code&gt; must be LISTEN or unspecified and
+     * &lt;code&gt;config.take_over&lt;/code&gt; must be false, otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; &lt;code&gt;reason=listen-only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public java.util.Iterator<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse> listenCallAudio(
+        ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getListenCallAudioMethod(), getCallOptions(), request);
     }
   }
 
@@ -2399,6 +3475,34 @@ public final class CallsGrpc {
 
     /**
      * <pre>
+     * &lt;p&gt;Adds callers to a campaign instead of starting them. The campaign then starts them, at most
+     * &lt;code&gt;max_parallel_calls&lt;/code&gt; at a time. The request is atomic: either the campaign (when new), every
+     * campaign call is stored, or nothing is. Errors are gRPC status codes (see &lt;code&gt;CampaignAssignment&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Rolling updates: a VTSI server that predates this RPC answers &lt;code&gt;UNIMPLEMENTED&lt;/code&gt; and starts
+     * nothing. Do not fall back to &lt;code&gt;StartCallers&lt;/code&gt; on &lt;code&gt;UNIMPLEMENTED&lt;/code&gt;; retry later.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse> addCallersToCampaign(
+        ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getAddCallersToCampaignMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Adds scheduled callers to a campaign: each fires at or after its scheduled time AND when the campaign has a
+     * free slot, and follows the campaign&amp;apos;s retries, stop and hard stop. Same atomicity, errors and rolling-update
+     * behaviour as &lt;code&gt;AddCallersToCampaign&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse> addScheduledCallersToCampaign(
+        ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getAddScheduledCallersToCampaignMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
      * </pre>
      */
@@ -2422,6 +3526,11 @@ public final class CallsGrpc {
     /**
      * <pre>
      * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
+     * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
+     * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
+     * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
+     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse> cancelScheduledCaller(
@@ -2467,7 +3576,24 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer a call to a phone number, a softphone account, another listener or the listener queue.&lt;/p&gt;
+     * &lt;p&gt;The target is either the typed &lt;code&gt;target&lt;/code&gt; or the legacy raw &lt;code&gt;transfer_id&lt;/code&gt;, never both. It is
+     * resolved and validated before anything is sent; an invalid target is answered with
+     * &lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt; and an &lt;code&gt;error_reason&lt;/code&gt;, and the call is untouched.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;TRANSFER_MODE_BLIND&lt;/code&gt; (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
+     * call with the bot. &lt;code&gt;TRANSFER_MODE_WARM&lt;/code&gt; rings the target into the call first, and the bot leaves only
+     * after the target joined (Asterisk 22 only).&lt;/p&gt;
+     * &lt;p&gt;Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an &lt;code&gt;outcome&lt;/code&gt;.
+     * Refusals before any side effect also return a gRPC status with &lt;code&gt;reason=&amp;lt;token&amp;gt;&lt;/code&gt; in its details:
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; (both targets set, malformed target), &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or target not
+     * found, including another project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;,
+     * &lt;code&gt;amd-in-progress&lt;/code&gt;, &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;participants-present&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;, &lt;code&gt;sip-image-too-old&lt;/code&gt;), &lt;code&gt;ABORTED&lt;/code&gt;
+     * (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;sip-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.TransferCallResponse> transferCall(
@@ -2478,7 +3604,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer a call from a listener to another&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.TransferCallsResponse> transferCalls(
@@ -2508,6 +3638,70 @@ public final class CallsGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListCallsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Invite a registered softphone account of the project into a connected call. Returns the participant in
+     * &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;; follow &lt;code&gt;Call.participants&lt;/code&gt; or the events
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_*&lt;/code&gt; for JOINED, FAILED and LEFT.&lt;/p&gt;
+     * &lt;p&gt;&lt;code&gt;PARTICIPANT_MODE_CONFERENCE&lt;/code&gt; (default) joins the softphone into the call: Asterisk mixes the caller,
+     * the bot and the participant, and by default the bot keeps talking and listening
+     * (&lt;code&gt;BOT_POLICY_ON_JOIN_KEEP&lt;/code&gt;). &lt;code&gt;PARTICIPANT_MODE_MONITOR&lt;/code&gt; lets the participant listen only.
+     * When the bot&amp;apos;s leg ends, every participant is hung up; the caller is handed over only by a WARM
+     * &lt;code&gt;TransferCall&lt;/code&gt;. Idempotent per &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, &lt;code&gt;NOT_FOUND&lt;/code&gt; (call or softphone account, including another
+     * project&amp;apos;s), &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (&lt;code&gt;call-not-connected&lt;/code&gt;, &lt;code&gt;amd-in-progress&lt;/code&gt;,
+     * &lt;code&gt;softphone-not-registered&lt;/code&gt;, &lt;code&gt;softphone-disabled&lt;/code&gt;, &lt;code&gt;softphone-unrouted&lt;/code&gt;,
+     * &lt;code&gt;call-not-yet-identified&lt;/code&gt;, &lt;code&gt;bot-channel-ambiguous&lt;/code&gt;, &lt;code&gt;asterisk-not-local&lt;/code&gt;,
+     * &lt;code&gt;asterisk-version-unsupported&lt;/code&gt;), &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; (the softphone is already ringing or joined),
+     * &lt;code&gt;ABORTED&lt;/code&gt; (&lt;code&gt;transfer-in-progress&lt;/code&gt;), &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; (participant cap),
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; (&lt;code&gt;asterisk-unreachable&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.InviteToCallResponse> inviteToCall(
+        ondewo.vtsi.CallsOuterClass.InviteToCallRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getInviteToCallMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
+     * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
+     * affected.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse> removeCallParticipant(
+        ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRemoveCallParticipantMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
+     * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
+     * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
+     * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
+     * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
+     * bot did not apply the level: a requested pause is rolled back, a requested mute is kept).&lt;/p&gt;
+     * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
+     * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
+     * Every action writes an audit record (who, call, when, mode, target). No announcement is played to the caller.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse> setCallMediaControl(
+        ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetCallMediaControlMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_START_CALLER = 0;
@@ -2528,16 +3722,26 @@ public final class CallsGrpc {
   private static final int METHODID_DELETE_LISTENERS = 15;
   private static final int METHODID_START_SCHEDULED_CALLER = 16;
   private static final int METHODID_START_SCHEDULED_CALLERS = 17;
-  private static final int METHODID_GET_SCHEDULED_CALLER = 18;
-  private static final int METHODID_LIST_SCHEDULED_CALLERS = 19;
-  private static final int METHODID_CANCEL_SCHEDULED_CALLER = 20;
-  private static final int METHODID_STOP_CALL = 21;
-  private static final int METHODID_STOP_CALLS = 22;
-  private static final int METHODID_STOP_ALL_CALLS = 23;
-  private static final int METHODID_TRANSFER_CALL = 24;
-  private static final int METHODID_TRANSFER_CALLS = 25;
-  private static final int METHODID_GET_CALL = 26;
-  private static final int METHODID_LIST_CALLS = 27;
+  private static final int METHODID_ADD_CALLERS_TO_CAMPAIGN = 18;
+  private static final int METHODID_ADD_SCHEDULED_CALLERS_TO_CAMPAIGN = 19;
+  private static final int METHODID_GET_SCHEDULED_CALLER = 20;
+  private static final int METHODID_LIST_SCHEDULED_CALLERS = 21;
+  private static final int METHODID_CANCEL_SCHEDULED_CALLER = 22;
+  private static final int METHODID_STOP_CALL = 23;
+  private static final int METHODID_STOP_CALLS = 24;
+  private static final int METHODID_STOP_ALL_CALLS = 25;
+  private static final int METHODID_TRANSFER_CALL = 26;
+  private static final int METHODID_TRANSFER_CALLS = 27;
+  private static final int METHODID_GET_CALL = 28;
+  private static final int METHODID_LIST_CALLS = 29;
+  private static final int METHODID_STREAM_CALLER_STATUS = 30;
+  private static final int METHODID_STREAM_LISTENER_STATUS = 31;
+  private static final int METHODID_STREAM_SCHEDULED_CALLER_STATUS = 32;
+  private static final int METHODID_INVITE_TO_CALL = 33;
+  private static final int METHODID_REMOVE_CALL_PARTICIPANT = 34;
+  private static final int METHODID_SET_CALL_MEDIA_CONTROL = 35;
+  private static final int METHODID_LISTEN_CALL_AUDIO = 36;
+  private static final int METHODID_STREAM_CALL_AUDIO = 37;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -2628,6 +3832,14 @@ public final class CallsGrpc {
           serviceImpl.startScheduledCallers((ondewo.vtsi.CallsOuterClass.StartScheduledCallersRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StartScheduledCallersResponse>) responseObserver);
           break;
+        case METHODID_ADD_CALLERS_TO_CAMPAIGN:
+          serviceImpl.addCallersToCampaign((ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse>) responseObserver);
+          break;
+        case METHODID_ADD_SCHEDULED_CALLERS_TO_CAMPAIGN:
+          serviceImpl.addScheduledCallersToCampaign((ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse>) responseObserver);
+          break;
         case METHODID_GET_SCHEDULED_CALLER:
           serviceImpl.getScheduledCaller((ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller>) responseObserver);
@@ -2668,6 +3880,34 @@ public final class CallsGrpc {
           serviceImpl.listCalls((ondewo.vtsi.CallsOuterClass.ListCallsRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse>) responseObserver);
           break;
+        case METHODID_STREAM_CALLER_STATUS:
+          serviceImpl.streamCallerStatus((ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>) responseObserver);
+          break;
+        case METHODID_STREAM_LISTENER_STATUS:
+          serviceImpl.streamListenerStatus((ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>) responseObserver);
+          break;
+        case METHODID_STREAM_SCHEDULED_CALLER_STATUS:
+          serviceImpl.streamScheduledCallerStatus((ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>) responseObserver);
+          break;
+        case METHODID_INVITE_TO_CALL:
+          serviceImpl.inviteToCall((ondewo.vtsi.CallsOuterClass.InviteToCallRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.InviteToCallResponse>) responseObserver);
+          break;
+        case METHODID_REMOVE_CALL_PARTICIPANT:
+          serviceImpl.removeCallParticipant((ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse>) responseObserver);
+          break;
+        case METHODID_SET_CALL_MEDIA_CONTROL:
+          serviceImpl.setCallMediaControl((ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse>) responseObserver);
+          break;
+        case METHODID_LISTEN_CALL_AUDIO:
+          serviceImpl.listenCallAudio((ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -2678,6 +3918,9 @@ public final class CallsGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_STREAM_CALL_AUDIO:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.streamCallAudio(
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -2813,6 +4056,20 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.StartScheduledCallersResponse>(
                 service, METHODID_START_SCHEDULED_CALLERS)))
         .addMethod(
+          getAddCallersToCampaignMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.AddCallersToCampaignRequest,
+              ondewo.vtsi.CallsOuterClass.AddCallersToCampaignResponse>(
+                service, METHODID_ADD_CALLERS_TO_CAMPAIGN)))
+        .addMethod(
+          getAddScheduledCallersToCampaignMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignRequest,
+              ondewo.vtsi.CallsOuterClass.AddScheduledCallersToCampaignResponse>(
+                service, METHODID_ADD_SCHEDULED_CALLERS_TO_CAMPAIGN)))
+        .addMethod(
           getGetScheduledCallerMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -2882,6 +4139,62 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.ListCallsRequest,
               ondewo.vtsi.CallsOuterClass.ListCallsResponse>(
                 service, METHODID_LIST_CALLS)))
+        .addMethod(
+          getStreamCallerStatusMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest,
+              ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>(
+                service, METHODID_STREAM_CALLER_STATUS)))
+        .addMethod(
+          getStreamListenerStatusMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.StreamListenerStatusRequest,
+              ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>(
+                service, METHODID_STREAM_LISTENER_STATUS)))
+        .addMethod(
+          getStreamScheduledCallerStatusMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.StreamScheduledCallerStatusRequest,
+              ondewo.vtsi.CallsOuterClass.StreamCallResourceStatusResponse>(
+                service, METHODID_STREAM_SCHEDULED_CALLER_STATUS)))
+        .addMethod(
+          getInviteToCallMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.InviteToCallRequest,
+              ondewo.vtsi.CallsOuterClass.InviteToCallResponse>(
+                service, METHODID_INVITE_TO_CALL)))
+        .addMethod(
+          getRemoveCallParticipantMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.RemoveCallParticipantRequest,
+              ondewo.vtsi.CallsOuterClass.RemoveCallParticipantResponse>(
+                service, METHODID_REMOVE_CALL_PARTICIPANT)))
+        .addMethod(
+          getSetCallMediaControlMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.SetCallMediaControlRequest,
+              ondewo.vtsi.CallsOuterClass.SetCallMediaControlResponse>(
+                service, METHODID_SET_CALL_MEDIA_CONTROL)))
+        .addMethod(
+          getStreamCallAudioMethod(),
+          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.StreamCallAudioRequest,
+              ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>(
+                service, METHODID_STREAM_CALL_AUDIO)))
+        .addMethod(
+          getListenCallAudioMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.ListenCallAudioRequest,
+              ondewo.vtsi.CallsOuterClass.StreamCallAudioResponse>(
+                service, METHODID_LISTEN_CALL_AUDIO)))
         .build();
   }
 
@@ -2948,6 +4261,8 @@ public final class CallsGrpc {
               .addMethod(getDeleteListenersMethod())
               .addMethod(getStartScheduledCallerMethod())
               .addMethod(getStartScheduledCallersMethod())
+              .addMethod(getAddCallersToCampaignMethod())
+              .addMethod(getAddScheduledCallersToCampaignMethod())
               .addMethod(getGetScheduledCallerMethod())
               .addMethod(getListScheduledCallersMethod())
               .addMethod(getCancelScheduledCallerMethod())
@@ -2958,6 +4273,14 @@ public final class CallsGrpc {
               .addMethod(getTransferCallsMethod())
               .addMethod(getGetCallMethod())
               .addMethod(getListCallsMethod())
+              .addMethod(getStreamCallerStatusMethod())
+              .addMethod(getStreamListenerStatusMethod())
+              .addMethod(getStreamScheduledCallerStatusMethod())
+              .addMethod(getInviteToCallMethod())
+              .addMethod(getRemoveCallParticipantMethod())
+              .addMethod(getSetCallMediaControlMethod())
+              .addMethod(getStreamCallAudioMethod())
+              .addMethod(getListenCallAudioMethod())
               .build();
         }
       }
