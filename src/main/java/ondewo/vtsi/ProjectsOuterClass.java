@@ -267,6 +267,179 @@ public final class ProjectsOuterClass {
 
   /**
    * <pre>
+   * Transport for the SIP trunk of an Asterisk server.
+   * </pre>
+   *
+   * Protobuf enum {@code ondewo.vtsi.SipTrunkTransport}
+   */
+  public enum SipTrunkTransport
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Unspecified transport: identical to &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;. Encryption is
+     * the default, so the zero value is the secure one.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_UNSPECIFIED = 0;</code>
+     */
+    SIP_TRUNK_TRANSPORT_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * TLS transport with SRTP media. The trunk is authenticated by certificate and needs no source CIDR.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_TLS = 1;</code>
+     */
+    SIP_TRUNK_TRANSPORT_TLS(1),
+    /**
+     * <pre>
+     * Plain UDP transport. Requires &lt;pre&gt;&lt;code&gt;sip_trunk_source_cidr&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_UDP = 2;</code>
+     */
+    SIP_TRUNK_TRANSPORT_UDP(2),
+    /**
+     * <pre>
+     * Plain TCP transport. Requires &lt;pre&gt;&lt;code&gt;sip_trunk_source_cidr&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_TCP = 3;</code>
+     */
+    SIP_TRUNK_TRANSPORT_TCP(3),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        SipTrunkTransport.class.getName());
+    }
+    /**
+     * <pre>
+     * Unspecified transport: identical to &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;. Encryption is
+     * the default, so the zero value is the secure one.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_UNSPECIFIED = 0;</code>
+     */
+    public static final int SIP_TRUNK_TRANSPORT_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * TLS transport with SRTP media. The trunk is authenticated by certificate and needs no source CIDR.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_TLS = 1;</code>
+     */
+    public static final int SIP_TRUNK_TRANSPORT_TLS_VALUE = 1;
+    /**
+     * <pre>
+     * Plain UDP transport. Requires &lt;pre&gt;&lt;code&gt;sip_trunk_source_cidr&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_UDP = 2;</code>
+     */
+    public static final int SIP_TRUNK_TRANSPORT_UDP_VALUE = 2;
+    /**
+     * <pre>
+     * Plain TCP transport. Requires &lt;pre&gt;&lt;code&gt;sip_trunk_source_cidr&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>SIP_TRUNK_TRANSPORT_TCP = 3;</code>
+     */
+    public static final int SIP_TRUNK_TRANSPORT_TCP_VALUE = 3;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static SipTrunkTransport valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static SipTrunkTransport forNumber(int value) {
+      switch (value) {
+        case 0: return SIP_TRUNK_TRANSPORT_UNSPECIFIED;
+        case 1: return SIP_TRUNK_TRANSPORT_TLS;
+        case 2: return SIP_TRUNK_TRANSPORT_UDP;
+        case 3: return SIP_TRUNK_TRANSPORT_TCP;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<SipTrunkTransport>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        SipTrunkTransport> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SipTrunkTransport>() {
+            public SipTrunkTransport findValueByNumber(int number) {
+              return SipTrunkTransport.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final SipTrunkTransport[] VALUES = values();
+
+    public static SipTrunkTransport valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private SipTrunkTransport(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ondewo.vtsi.SipTrunkTransport)
+  }
+
+  /**
+   * <pre>
    * Sorting mode
    * </pre>
    *
@@ -384,7 +557,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(1);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final VtsiProjectSortingMode[] VALUES = values();
@@ -561,7 +734,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(2);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final VtsiProjectView[] VALUES = values();
@@ -889,6 +1062,71 @@ public final class ProjectsOuterClass {
      * @return The deployedListeners.
      */
     int getDeployedListeners();
+
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @return A list containing the transferPhoneNumberAllowlist.
+     */
+    java.util.List<java.lang.String>
+        getTransferPhoneNumberAllowlistList();
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @return The count of transferPhoneNumberAllowlist.
+     */
+    int getTransferPhoneNumberAllowlistCount();
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @param index The index of the element to return.
+     * @return The transferPhoneNumberAllowlist at the given index.
+     */
+    java.lang.String getTransferPhoneNumberAllowlist(int index);
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the transferPhoneNumberAllowlist at the given index.
+     */
+    com.google.protobuf.ByteString
+        getTransferPhoneNumberAllowlistBytes(int index);
   }
   /**
    * <pre>
@@ -922,6 +1160,8 @@ public final class ProjectsOuterClass {
       createdBy_ = "";
       modifiedBy_ = "";
       nluAgentNames_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      transferPhoneNumberAllowlist_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
@@ -1433,6 +1673,83 @@ public final class ProjectsOuterClass {
       return deployedListeners_;
     }
 
+    public static final int TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER = 17;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList transferPhoneNumberAllowlist_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @return A list containing the transferPhoneNumberAllowlist.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getTransferPhoneNumberAllowlistList() {
+      return transferPhoneNumberAllowlist_;
+    }
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @return The count of transferPhoneNumberAllowlist.
+     */
+    public int getTransferPhoneNumberAllowlistCount() {
+      return transferPhoneNumberAllowlist_.size();
+    }
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @param index The index of the element to return.
+     * @return The transferPhoneNumberAllowlist at the given index.
+     */
+    public java.lang.String getTransferPhoneNumberAllowlist(int index) {
+      return transferPhoneNumberAllowlist_.get(index);
+    }
+    /**
+     * <pre>
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+     * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+     * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+     * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+     * </pre>
+     *
+     * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the transferPhoneNumberAllowlist at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getTransferPhoneNumberAllowlistBytes(int index) {
+      return transferPhoneNumberAllowlist_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1494,6 +1811,9 @@ public final class ProjectsOuterClass {
       }
       if (deployedListeners_ != 0) {
         output.writeInt32(16, deployedListeners_);
+      }
+      for (int i = 0; i < transferPhoneNumberAllowlist_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 17, transferPhoneNumberAllowlist_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -1568,6 +1888,14 @@ public final class ProjectsOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(16, deployedListeners_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < transferPhoneNumberAllowlist_.size(); i++) {
+          dataSize += computeStringSizeNoTag(transferPhoneNumberAllowlist_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getTransferPhoneNumberAllowlistList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1623,6 +1951,8 @@ public final class ProjectsOuterClass {
           != other.getDeployedCallers()) return false;
       if (getDeployedListeners()
           != other.getDeployedListeners()) return false;
+      if (!getTransferPhoneNumberAllowlistList()
+          .equals(other.getTransferPhoneNumberAllowlistList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1674,6 +2004,10 @@ public final class ProjectsOuterClass {
       hash = (53 * hash) + getDeployedCallers();
       hash = (37 * hash) + DEPLOYED_LISTENERS_FIELD_NUMBER;
       hash = (53 * hash) + getDeployedListeners();
+      if (getTransferPhoneNumberAllowlistCount() > 0) {
+        hash = (37 * hash) + TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER;
+        hash = (53 * hash) + getTransferPhoneNumberAllowlistList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1846,6 +2180,8 @@ public final class ProjectsOuterClass {
             com.google.protobuf.LazyStringArrayList.emptyList();
         deployedCallers_ = 0;
         deployedListeners_ = 0;
+        transferPhoneNumberAllowlist_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -1938,6 +2274,10 @@ public final class ProjectsOuterClass {
         if (((from_bitField0_ & 0x00008000) != 0)) {
           result.deployedListeners_ = deployedListeners_;
         }
+        if (((from_bitField0_ & 0x00010000) != 0)) {
+          transferPhoneNumberAllowlist_.makeImmutable();
+          result.transferPhoneNumberAllowlist_ = transferPhoneNumberAllowlist_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -2015,6 +2355,16 @@ public final class ProjectsOuterClass {
         }
         if (other.getDeployedListeners() != 0) {
           setDeployedListeners(other.getDeployedListeners());
+        }
+        if (!other.transferPhoneNumberAllowlist_.isEmpty()) {
+          if (transferPhoneNumberAllowlist_.isEmpty()) {
+            transferPhoneNumberAllowlist_ = other.transferPhoneNumberAllowlist_;
+            bitField0_ |= 0x00010000;
+          } else {
+            ensureTransferPhoneNumberAllowlistIsMutable();
+            transferPhoneNumberAllowlist_.addAll(other.transferPhoneNumberAllowlist_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -2129,6 +2479,12 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00008000;
                 break;
               } // case 128
+              case 138: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureTransferPhoneNumberAllowlistIsMutable();
+                transferPhoneNumberAllowlist_.add(s);
+                break;
+              } // case 138
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3530,6 +3886,207 @@ public final class ProjectsOuterClass {
         return this;
       }
 
+      private com.google.protobuf.LazyStringArrayList transferPhoneNumberAllowlist_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureTransferPhoneNumberAllowlistIsMutable() {
+        if (!transferPhoneNumberAllowlist_.isModifiable()) {
+          transferPhoneNumberAllowlist_ = new com.google.protobuf.LazyStringArrayList(transferPhoneNumberAllowlist_);
+        }
+        bitField0_ |= 0x00010000;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @return A list containing the transferPhoneNumberAllowlist.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getTransferPhoneNumberAllowlistList() {
+        transferPhoneNumberAllowlist_.makeImmutable();
+        return transferPhoneNumberAllowlist_;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @return The count of transferPhoneNumberAllowlist.
+       */
+      public int getTransferPhoneNumberAllowlistCount() {
+        return transferPhoneNumberAllowlist_.size();
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param index The index of the element to return.
+       * @return The transferPhoneNumberAllowlist at the given index.
+       */
+      public java.lang.String getTransferPhoneNumberAllowlist(int index) {
+        return transferPhoneNumberAllowlist_.get(index);
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the transferPhoneNumberAllowlist at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getTransferPhoneNumberAllowlistBytes(int index) {
+        return transferPhoneNumberAllowlist_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param index The index to set the value at.
+       * @param value The transferPhoneNumberAllowlist to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTransferPhoneNumberAllowlist(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureTransferPhoneNumberAllowlistIsMutable();
+        transferPhoneNumberAllowlist_.set(index, value);
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param value The transferPhoneNumberAllowlist to add.
+       * @return This builder for chaining.
+       */
+      public Builder addTransferPhoneNumberAllowlist(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureTransferPhoneNumberAllowlistIsMutable();
+        transferPhoneNumberAllowlist_.add(value);
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param values The transferPhoneNumberAllowlist to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllTransferPhoneNumberAllowlist(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureTransferPhoneNumberAllowlistIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, transferPhoneNumberAllowlist_);
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTransferPhoneNumberAllowlist() {
+        transferPhoneNumberAllowlist_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00010000);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+       * &lt;pre&gt;&lt;code&gt;TransferCall&lt;/code&gt;&lt;/pre&gt; and a &lt;pre&gt;&lt;code&gt;CallTarget.phone_number&lt;/code&gt;&lt;/pre&gt;. Each entry is an E.164
+       * number or number prefix (&lt;pre&gt;&lt;code&gt;^&#92;+[1-9][0-9]{0,14}$&lt;/code&gt;&lt;/pre&gt;), e.g. &lt;pre&gt;&lt;code&gt;+43&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;+4312345678&lt;/code&gt;&lt;/pre&gt;; a number is allowed when it starts with any entry. Empty: any valid E.164
+       * number is allowed. A refused number answers &lt;pre&gt;&lt;code&gt;TRANSFER_OUTCOME_TARGET_INVALID&lt;/code&gt;&lt;/pre&gt; with
+       * &lt;pre&gt;&lt;code&gt;error_reason = number-not-allowed&lt;/code&gt;&lt;/pre&gt; and nothing is sent.
+       * Updatable with the update mask path &lt;pre&gt;&lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;&lt;/pre&gt;.
+       * </pre>
+       *
+       * <code>repeated string transfer_phone_number_allowlist = 17;</code>
+       * @param value The bytes of the transferPhoneNumberAllowlist to add.
+       * @return This builder for chaining.
+       */
+      public Builder addTransferPhoneNumberAllowlistBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureTransferPhoneNumberAllowlistIsMutable();
+        transferPhoneNumberAllowlist_.add(value);
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.VtsiProject)
     }
 
@@ -3704,6 +4261,271 @@ public final class ProjectsOuterClass {
      */
     com.google.protobuf.ByteString
         getSipTrunkPhoneNumberBytes();
+
+    /**
+     * <pre>
+     * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+     * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @return The enum numeric value on the wire for sipTrunkTransport.
+     */
+    int getSipTrunkTransportValue();
+    /**
+     * <pre>
+     * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+     * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @return The sipTrunkTransport.
+     */
+    ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport getSipTrunkTransport();
+
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return Whether the sipTrunkSourceCidr field is set.
+     */
+    boolean hasSipTrunkSourceCidr();
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return The sipTrunkSourceCidr.
+     */
+    java.lang.String getSipTrunkSourceCidr();
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return The bytes for sipTrunkSourceCidr.
+     */
+    com.google.protobuf.ByteString
+        getSipTrunkSourceCidrBytes();
+
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return Whether the sipTrunkCaCertificatesPem field is set.
+     */
+    boolean hasSipTrunkCaCertificatesPem();
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return The sipTrunkCaCertificatesPem.
+     */
+    java.lang.String getSipTrunkCaCertificatesPem();
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return The bytes for sipTrunkCaCertificatesPem.
+     */
+    com.google.protobuf.ByteString
+        getSipTrunkCaCertificatesPemBytes();
+
+    /**
+     * <pre>
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+     * </pre>
+     *
+     * <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @return Whether the sipTrunkVerifyServer field is set.
+     */
+    boolean hasSipTrunkVerifyServer();
+    /**
+     * <pre>
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+     * </pre>
+     *
+     * <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @return The sipTrunkVerifyServer.
+     */
+    boolean getSipTrunkVerifyServer();
+
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @return A list containing the softphonePermitCidrs.
+     */
+    java.util.List<java.lang.String>
+        getSoftphonePermitCidrsList();
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @return The count of softphonePermitCidrs.
+     */
+    int getSoftphonePermitCidrsCount();
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @param index The index of the element to return.
+     * @return The softphonePermitCidrs at the given index.
+     */
+    java.lang.String getSoftphonePermitCidrs(int index);
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the softphonePermitCidrs at the given index.
+     */
+    com.google.protobuf.ByteString
+        getSoftphonePermitCidrsBytes(int index);
   }
   /**
    * <pre>
@@ -3737,6 +4559,11 @@ public final class ProjectsOuterClass {
       transferNumber_ = "";
       transferNumberHost_ = "";
       sipTrunkPhoneNumber_ = "";
+      sipTrunkTransport_ = 0;
+      sipTrunkSourceCidr_ = "";
+      sipTrunkCaCertificatesPem_ = "";
+      softphonePermitCidrs_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -3752,6 +4579,7 @@ public final class ProjectsOuterClass {
               ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsVariables.class, ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsVariables.Builder.class);
     }
 
+    private int bitField0_;
     public static final int SIP_TRUNK_USERNAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object sipTrunkUsername_ = "";
@@ -4034,6 +4862,358 @@ public final class ProjectsOuterClass {
       }
     }
 
+    public static final int SIP_TRUNK_TRANSPORT_FIELD_NUMBER = 7;
+    private int sipTrunkTransport_ = 0;
+    /**
+     * <pre>
+     * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+     * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @return The enum numeric value on the wire for sipTrunkTransport.
+     */
+    @java.lang.Override public int getSipTrunkTransportValue() {
+      return sipTrunkTransport_;
+    }
+    /**
+     * <pre>
+     * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+     * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @return The sipTrunkTransport.
+     */
+    @java.lang.Override public ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport getSipTrunkTransport() {
+      ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport result = ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.forNumber(sipTrunkTransport_);
+      return result == null ? ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.UNRECOGNIZED : result;
+    }
+
+    public static final int SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER = 8;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object sipTrunkSourceCidr_ = "";
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return Whether the sipTrunkSourceCidr field is set.
+     */
+    @java.lang.Override
+    public boolean hasSipTrunkSourceCidr() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return The sipTrunkSourceCidr.
+     */
+    @java.lang.Override
+    public java.lang.String getSipTrunkSourceCidr() {
+      java.lang.Object ref = sipTrunkSourceCidr_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sipTrunkSourceCidr_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+     * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+     * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return The bytes for sipTrunkSourceCidr.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSipTrunkSourceCidrBytes() {
+      java.lang.Object ref = sipTrunkSourceCidr_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sipTrunkSourceCidr_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER = 9;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object sipTrunkCaCertificatesPem_ = "";
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return Whether the sipTrunkCaCertificatesPem field is set.
+     */
+    @java.lang.Override
+    public boolean hasSipTrunkCaCertificatesPem() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return The sipTrunkCaCertificatesPem.
+     */
+    @java.lang.Override
+    public java.lang.String getSipTrunkCaCertificatesPem() {
+      java.lang.Object ref = sipTrunkCaCertificatesPem_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sipTrunkCaCertificatesPem_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+     * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+     * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     * </pre>
+     *
+     * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return The bytes for sipTrunkCaCertificatesPem.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSipTrunkCaCertificatesPemBytes() {
+      java.lang.Object ref = sipTrunkCaCertificatesPem_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sipTrunkCaCertificatesPem_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER = 10;
+    private boolean sipTrunkVerifyServer_ = false;
+    /**
+     * <pre>
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+     * </pre>
+     *
+     * <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @return Whether the sipTrunkVerifyServer field is set.
+     */
+    @java.lang.Override
+    public boolean hasSipTrunkVerifyServer() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+     * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+     * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+     * </pre>
+     *
+     * <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @return The sipTrunkVerifyServer.
+     */
+    @java.lang.Override
+    public boolean getSipTrunkVerifyServer() {
+      return sipTrunkVerifyServer_;
+    }
+
+    public static final int SOFTPHONE_PERMIT_CIDRS_FIELD_NUMBER = 11;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList softphonePermitCidrs_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @return A list containing the softphonePermitCidrs.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getSoftphonePermitCidrsList() {
+      return softphonePermitCidrs_;
+    }
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @return The count of softphonePermitCidrs.
+     */
+    public int getSoftphonePermitCidrsCount() {
+      return softphonePermitCidrs_.size();
+    }
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @param index The index of the element to return.
+     * @return The softphonePermitCidrs at the given index.
+     */
+    public java.lang.String getSoftphonePermitCidrs(int index) {
+      return softphonePermitCidrs_.get(index);
+    }
+    /**
+     * <pre>
+     * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+     * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+     * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+     * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+     * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+     * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the softphonePermitCidrs at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getSoftphonePermitCidrsBytes(int index) {
+      return softphonePermitCidrs_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4066,6 +5246,21 @@ public final class ProjectsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sipTrunkPhoneNumber_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 6, sipTrunkPhoneNumber_);
       }
+      if (sipTrunkTransport_ != ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.SIP_TRUNK_TRANSPORT_UNSPECIFIED.getNumber()) {
+        output.writeEnum(7, sipTrunkTransport_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 8, sipTrunkSourceCidr_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 9, sipTrunkCaCertificatesPem_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeBool(10, sipTrunkVerifyServer_);
+      }
+      for (int i = 0; i < softphonePermitCidrs_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 11, softphonePermitCidrs_.getRaw(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -4092,6 +5287,28 @@ public final class ProjectsOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sipTrunkPhoneNumber_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(6, sipTrunkPhoneNumber_);
+      }
+      if (sipTrunkTransport_ != ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.SIP_TRUNK_TRANSPORT_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, sipTrunkTransport_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, sipTrunkSourceCidr_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(9, sipTrunkCaCertificatesPem_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, sipTrunkVerifyServer_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < softphonePermitCidrs_.size(); i++) {
+          dataSize += computeStringSizeNoTag(softphonePermitCidrs_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getSoftphonePermitCidrsList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -4120,6 +5337,24 @@ public final class ProjectsOuterClass {
           .equals(other.getTransferNumberHost())) return false;
       if (!getSipTrunkPhoneNumber()
           .equals(other.getSipTrunkPhoneNumber())) return false;
+      if (sipTrunkTransport_ != other.sipTrunkTransport_) return false;
+      if (hasSipTrunkSourceCidr() != other.hasSipTrunkSourceCidr()) return false;
+      if (hasSipTrunkSourceCidr()) {
+        if (!getSipTrunkSourceCidr()
+            .equals(other.getSipTrunkSourceCidr())) return false;
+      }
+      if (hasSipTrunkCaCertificatesPem() != other.hasSipTrunkCaCertificatesPem()) return false;
+      if (hasSipTrunkCaCertificatesPem()) {
+        if (!getSipTrunkCaCertificatesPem()
+            .equals(other.getSipTrunkCaCertificatesPem())) return false;
+      }
+      if (hasSipTrunkVerifyServer() != other.hasSipTrunkVerifyServer()) return false;
+      if (hasSipTrunkVerifyServer()) {
+        if (getSipTrunkVerifyServer()
+            != other.getSipTrunkVerifyServer()) return false;
+      }
+      if (!getSoftphonePermitCidrsList()
+          .equals(other.getSoftphonePermitCidrsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -4143,6 +5378,25 @@ public final class ProjectsOuterClass {
       hash = (53 * hash) + getTransferNumberHost().hashCode();
       hash = (37 * hash) + SIP_TRUNK_PHONE_NUMBER_FIELD_NUMBER;
       hash = (53 * hash) + getSipTrunkPhoneNumber().hashCode();
+      hash = (37 * hash) + SIP_TRUNK_TRANSPORT_FIELD_NUMBER;
+      hash = (53 * hash) + sipTrunkTransport_;
+      if (hasSipTrunkSourceCidr()) {
+        hash = (37 * hash) + SIP_TRUNK_SOURCE_CIDR_FIELD_NUMBER;
+        hash = (53 * hash) + getSipTrunkSourceCidr().hashCode();
+      }
+      if (hasSipTrunkCaCertificatesPem()) {
+        hash = (37 * hash) + SIP_TRUNK_CA_CERTIFICATES_PEM_FIELD_NUMBER;
+        hash = (53 * hash) + getSipTrunkCaCertificatesPem().hashCode();
+      }
+      if (hasSipTrunkVerifyServer()) {
+        hash = (37 * hash) + SIP_TRUNK_VERIFY_SERVER_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getSipTrunkVerifyServer());
+      }
+      if (getSoftphonePermitCidrsCount() > 0) {
+        hash = (37 * hash) + SOFTPHONE_PERMIT_CIDRS_FIELD_NUMBER;
+        hash = (53 * hash) + getSoftphonePermitCidrsList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4284,6 +5538,12 @@ public final class ProjectsOuterClass {
         transferNumber_ = "";
         transferNumberHost_ = "";
         sipTrunkPhoneNumber_ = "";
+        sipTrunkTransport_ = 0;
+        sipTrunkSourceCidr_ = "";
+        sipTrunkCaCertificatesPem_ = "";
+        sipTrunkVerifyServer_ = false;
+        softphonePermitCidrs_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -4335,6 +5595,27 @@ public final class ProjectsOuterClass {
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.sipTrunkPhoneNumber_ = sipTrunkPhoneNumber_;
         }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.sipTrunkTransport_ = sipTrunkTransport_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.sipTrunkSourceCidr_ = sipTrunkSourceCidr_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.sipTrunkCaCertificatesPem_ = sipTrunkCaCertificatesPem_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.sipTrunkVerifyServer_ = sipTrunkVerifyServer_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          softphonePermitCidrs_.makeImmutable();
+          result.softphonePermitCidrs_ = softphonePermitCidrs_;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -4377,6 +5658,32 @@ public final class ProjectsOuterClass {
         if (!other.getSipTrunkPhoneNumber().isEmpty()) {
           sipTrunkPhoneNumber_ = other.sipTrunkPhoneNumber_;
           bitField0_ |= 0x00000020;
+          onChanged();
+        }
+        if (other.sipTrunkTransport_ != 0) {
+          setSipTrunkTransportValue(other.getSipTrunkTransportValue());
+        }
+        if (other.hasSipTrunkSourceCidr()) {
+          sipTrunkSourceCidr_ = other.sipTrunkSourceCidr_;
+          bitField0_ |= 0x00000080;
+          onChanged();
+        }
+        if (other.hasSipTrunkCaCertificatesPem()) {
+          sipTrunkCaCertificatesPem_ = other.sipTrunkCaCertificatesPem_;
+          bitField0_ |= 0x00000100;
+          onChanged();
+        }
+        if (other.hasSipTrunkVerifyServer()) {
+          setSipTrunkVerifyServer(other.getSipTrunkVerifyServer());
+        }
+        if (!other.softphonePermitCidrs_.isEmpty()) {
+          if (softphonePermitCidrs_.isEmpty()) {
+            softphonePermitCidrs_ = other.softphonePermitCidrs_;
+            bitField0_ |= 0x00000400;
+          } else {
+            ensureSoftphonePermitCidrsIsMutable();
+            softphonePermitCidrs_.addAll(other.softphonePermitCidrs_);
+          }
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -4435,6 +5742,32 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00000020;
                 break;
               } // case 50
+              case 56: {
+                sipTrunkTransport_ = input.readEnum();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 56
+              case 66: {
+                sipTrunkSourceCidr_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 66
+              case 74: {
+                sipTrunkCaCertificatesPem_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 74
+              case 80: {
+                sipTrunkVerifyServer_ = input.readBool();
+                bitField0_ |= 0x00000200;
+                break;
+              } // case 80
+              case 90: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureSoftphonePermitCidrsIsMutable();
+                softphonePermitCidrs_.add(s);
+                break;
+              } // case 90
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5004,6 +6337,757 @@ public final class ProjectsOuterClass {
         return this;
       }
 
+      private int sipTrunkTransport_ = 0;
+      /**
+       * <pre>
+       * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+       * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+       * nothing gets an encrypted trunk.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+       * @return The enum numeric value on the wire for sipTrunkTransport.
+       */
+      @java.lang.Override public int getSipTrunkTransportValue() {
+        return sipTrunkTransport_;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+       * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+       * nothing gets an encrypted trunk.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+       * @param value The enum numeric value on the wire for sipTrunkTransport to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkTransportValue(int value) {
+        sipTrunkTransport_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+       * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+       * nothing gets an encrypted trunk.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+       * @return The sipTrunkTransport.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport getSipTrunkTransport() {
+        ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport result = ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.forNumber(sipTrunkTransport_);
+        return result == null ? ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+       * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+       * nothing gets an encrypted trunk.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+       * @param value The sipTrunkTransport to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkTransport(ondewo.vtsi.ProjectsOuterClass.SipTrunkTransport value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000040;
+        sipTrunkTransport_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: transport for the SIP trunk. Unset == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UNSPECIFIED&lt;/code&gt;&lt;/pre&gt;
+       * == &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TLS&lt;/code&gt;&lt;/pre&gt;: encryption is the default, so a caller that says
+       * nothing gets an encrypted trunk.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSipTrunkTransport() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        sipTrunkTransport_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sipTrunkSourceCidr_ = "";
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @return Whether the sipTrunkSourceCidr field is set.
+       */
+      public boolean hasSipTrunkSourceCidr() {
+        return ((bitField0_ & 0x00000080) != 0);
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @return The sipTrunkSourceCidr.
+       */
+      public java.lang.String getSipTrunkSourceCidr() {
+        java.lang.Object ref = sipTrunkSourceCidr_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sipTrunkSourceCidr_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @return The bytes for sipTrunkSourceCidr.
+       */
+      public com.google.protobuf.ByteString
+          getSipTrunkSourceCidrBytes() {
+        java.lang.Object ref = sipTrunkSourceCidr_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sipTrunkSourceCidr_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @param value The sipTrunkSourceCidr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkSourceCidr(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        sipTrunkSourceCidr_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSipTrunkSourceCidr() {
+        sipTrunkSourceCidr_ = getDefaultInstance().getSipTrunkSourceCidr();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the source address or CIDR the carrier sends from, e.g. &lt;pre&gt;&lt;code&gt;203.0.113.7/32&lt;/code&gt;&lt;/pre&gt;.
+       * REQUIRED when &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt; is
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;,
+       * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+       * otherwise. A hostname is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;: Asterisk drops a
+       * &lt;pre&gt;&lt;code&gt;type=identify&lt;/code&gt;&lt;/pre&gt; section whose &lt;pre&gt;&lt;code&gt;match=&lt;/code&gt;&lt;/pre&gt; does not resolve,
+       * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+       * inbound call.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_source_cidr = 8;</code>
+       * @param value The bytes for sipTrunkSourceCidr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkSourceCidrBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        sipTrunkSourceCidr_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sipTrunkCaCertificatesPem_ = "";
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @return Whether the sipTrunkCaCertificatesPem field is set.
+       */
+      public boolean hasSipTrunkCaCertificatesPem() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @return The sipTrunkCaCertificatesPem.
+       */
+      public java.lang.String getSipTrunkCaCertificatesPem() {
+        java.lang.Object ref = sipTrunkCaCertificatesPem_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sipTrunkCaCertificatesPem_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @return The bytes for sipTrunkCaCertificatesPem.
+       */
+      public com.google.protobuf.ByteString
+          getSipTrunkCaCertificatesPemBytes() {
+        java.lang.Object ref = sipTrunkCaCertificatesPem_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sipTrunkCaCertificatesPem_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @param value The sipTrunkCaCertificatesPem to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkCaCertificatesPem(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        sipTrunkCaCertificatesPem_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSipTrunkCaCertificatesPem() {
+        sipTrunkCaCertificatesPem_ = getDefaultInstance().getSipTrunkCaCertificatesPem();
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+       * or more &lt;pre&gt;&lt;code&gt;-----BEGIN CERTIFICATE-----&lt;/code&gt;&lt;/pre&gt; blocks and nothing else.
+       * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+       * certificate chain and host name only when &lt;pre&gt;&lt;code&gt;sip_trunk_verify_server&lt;/code&gt;&lt;/pre&gt; is also
+       * true. With verification off the bundle is validated and stored, so it can be staged before
+       * verification is switched on, and the trunk behaves exactly as without it.
+       * Applies only to the TLS trunk transport: setting it while &lt;pre&gt;&lt;code&gt;sip_trunk_transport&lt;/code&gt;&lt;/pre&gt;
+       * is &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt;
+       * is REFUSED with &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, as is a bundle that is not PEM, contains a
+       * private key or any block other than a certificate, contains a certificate that is not a CA
+       * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+       * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+       * </pre>
+       *
+       * <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+       * @param value The bytes for sipTrunkCaCertificatesPem to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkCaCertificatesPemBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        sipTrunkCaCertificatesPem_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+
+      private boolean sipTrunkVerifyServer_ ;
+      /**
+       * <pre>
+       * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+       * When true, Asterisk verifies the carrier's certificate chain against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+       * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+       * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+       * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+       * </pre>
+       *
+       * <code>optional bool sip_trunk_verify_server = 10;</code>
+       * @return Whether the sipTrunkVerifyServer field is set.
+       */
+      @java.lang.Override
+      public boolean hasSipTrunkVerifyServer() {
+        return ((bitField0_ & 0x00000200) != 0);
+      }
+      /**
+       * <pre>
+       * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+       * When true, Asterisk verifies the carrier's certificate chain against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+       * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+       * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+       * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+       * </pre>
+       *
+       * <code>optional bool sip_trunk_verify_server = 10;</code>
+       * @return The sipTrunkVerifyServer.
+       */
+      @java.lang.Override
+      public boolean getSipTrunkVerifyServer() {
+        return sipTrunkVerifyServer_;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+       * When true, Asterisk verifies the carrier's certificate chain against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+       * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+       * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+       * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+       * </pre>
+       *
+       * <code>optional bool sip_trunk_verify_server = 10;</code>
+       * @param value The sipTrunkVerifyServer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipTrunkVerifyServer(boolean value) {
+
+        sipTrunkVerifyServer_ = value;
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+       * When true, Asterisk verifies the carrier's certificate chain against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_ca_certificates_pem&lt;/code&gt;&lt;/pre&gt; and its host name against
+       * &lt;pre&gt;&lt;code&gt;sip_trunk_host&lt;/code&gt;&lt;/pre&gt; (&lt;pre&gt;&lt;code&gt;verify_server=yes&lt;/code&gt;&lt;/pre&gt;), and refuses a
+       * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;, because the verification it asks for cannot happen.
+       * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+       * Applies only to the TLS trunk transport: true on a &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_UDP&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;SIP_TRUNK_TRANSPORT_TCP&lt;/code&gt;&lt;/pre&gt; trunk is REFUSED with
+       * &lt;pre&gt;&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;&lt;/pre&gt;; false there is accepted and changes nothing.
+       * </pre>
+       *
+       * <code>optional bool sip_trunk_verify_server = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSipTrunkVerifyServer() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        sipTrunkVerifyServer_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList softphonePermitCidrs_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureSoftphonePermitCidrsIsMutable() {
+        if (!softphonePermitCidrs_.isModifiable()) {
+          softphonePermitCidrs_ = new com.google.protobuf.LazyStringArrayList(softphonePermitCidrs_);
+        }
+        bitField0_ |= 0x00000400;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @return A list containing the softphonePermitCidrs.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getSoftphonePermitCidrsList() {
+        softphonePermitCidrs_.makeImmutable();
+        return softphonePermitCidrs_;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @return The count of softphonePermitCidrs.
+       */
+      public int getSoftphonePermitCidrsCount() {
+        return softphonePermitCidrs_.size();
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param index The index of the element to return.
+       * @return The softphonePermitCidrs at the given index.
+       */
+      public java.lang.String getSoftphonePermitCidrs(int index) {
+        return softphonePermitCidrs_.get(index);
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the softphonePermitCidrs at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getSoftphonePermitCidrsBytes(int index) {
+        return softphonePermitCidrs_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param index The index to set the value at.
+       * @param value The softphonePermitCidrs to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSoftphonePermitCidrs(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureSoftphonePermitCidrsIsMutable();
+        softphonePermitCidrs_.set(index, value);
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param value The softphonePermitCidrs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSoftphonePermitCidrs(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureSoftphonePermitCidrsIsMutable();
+        softphonePermitCidrs_.add(value);
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param values The softphonePermitCidrs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSoftphonePermitCidrs(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureSoftphonePermitCidrsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, softphonePermitCidrs_);
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSoftphonePermitCidrs() {
+        softphonePermitCidrs_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000400);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional: Source addresses that may reach this project&amp;apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+       * written in full with an explicit prefix length (e.g. &lt;code&gt;203.0.113.0/24&lt;/code&gt;). Every softphone account gets
+       * &lt;code&gt;deny&lt;/code&gt; for every IPv4 and IPv6 source plus one &lt;code&gt;permit&lt;/code&gt; per entry. This is the source
+       * allow-list of the project&amp;apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+       * BOTH TLS ports, because an account&amp;apos;s ACL cannot tell ports apart and its transport restricts nothing
+       * inbound. Empty: the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS&lt;/code&gt;, by default the
+       * private networks (&lt;code&gt;10.0.0.0/8&lt;/code&gt;, &lt;code&gt;172.16.0.0/12&lt;/code&gt;, &lt;code&gt;192.168.0.0/16&lt;/code&gt;,
+       * &lt;code&gt;fc00::/7&lt;/code&gt;). That server value is a CEILING: every entry here must lie inside it, so a project can
+       * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+       * default route (&lt;code&gt;0.0.0.0/0&lt;/code&gt;), entries that together cover a whole address family and shorthand
+       * spellings are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The list is only effective when the port sees the real
+       * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+       * &lt;code&gt;sip_trunk_source_cidr&lt;/code&gt; or authenticated by its registration); VTSI&amp;apos;s own call containers are
+       * scoped separately by the server. Updatable with the rest of &lt;code&gt;asterisk_configs&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated string softphone_permit_cidrs = 11;</code>
+       * @param value The bytes of the softphonePermitCidrs to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSoftphonePermitCidrsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureSoftphonePermitCidrsIsMutable();
+        softphonePermitCidrs_.add(value);
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.AsteriskConfigsVariables)
     }
 
@@ -5061,23 +7145,33 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+     * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      * </pre>
      *
-     * <code>string sip_conf_file_string = 1;</code>
-     * @return The sipConfFileString.
+     * <code>string pjsip_conf_file_string = 1;</code>
+     * @return The pjsipConfFileString.
      */
-    java.lang.String getSipConfFileString();
+    java.lang.String getPjsipConfFileString();
     /**
      * <pre>
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+     * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      * </pre>
      *
-     * <code>string sip_conf_file_string = 1;</code>
-     * @return The bytes for sipConfFileString.
+     * <code>string pjsip_conf_file_string = 1;</code>
+     * @return The bytes for pjsipConfFileString.
      */
     com.google.protobuf.ByteString
-        getSipConfFileStringBytes();
+        getPjsipConfFileStringBytes();
 
     /**
      * <pre>
@@ -5165,7 +7259,7 @@ public final class ProjectsOuterClass {
       super(builder);
     }
     private AsteriskConfigsFiles() {
-      sipConfFileString_ = "";
+      pjsipConfFileString_ = "";
       extensionsConfFileString_ = "";
       queuesConfFileString_ = "";
       modulesConfFileString_ = "";
@@ -5184,47 +7278,57 @@ public final class ProjectsOuterClass {
               ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles.class, ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles.Builder.class);
     }
 
-    public static final int SIP_CONF_FILE_STRING_FIELD_NUMBER = 1;
+    public static final int PJSIP_CONF_FILE_STRING_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object sipConfFileString_ = "";
+    private volatile java.lang.Object pjsipConfFileString_ = "";
     /**
      * <pre>
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+     * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      * </pre>
      *
-     * <code>string sip_conf_file_string = 1;</code>
-     * @return The sipConfFileString.
+     * <code>string pjsip_conf_file_string = 1;</code>
+     * @return The pjsipConfFileString.
      */
     @java.lang.Override
-    public java.lang.String getSipConfFileString() {
-      java.lang.Object ref = sipConfFileString_;
+    public java.lang.String getPjsipConfFileString() {
+      java.lang.Object ref = pjsipConfFileString_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        sipConfFileString_ = s;
+        pjsipConfFileString_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+     * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      * </pre>
      *
-     * <code>string sip_conf_file_string = 1;</code>
-     * @return The bytes for sipConfFileString.
+     * <code>string pjsip_conf_file_string = 1;</code>
+     * @return The bytes for pjsipConfFileString.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getSipConfFileStringBytes() {
-      java.lang.Object ref = sipConfFileString_;
+        getPjsipConfFileStringBytes() {
+      java.lang.Object ref = pjsipConfFileString_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        sipConfFileString_ = b;
+        pjsipConfFileString_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -5386,8 +7490,8 @@ public final class ProjectsOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sipConfFileString_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, sipConfFileString_);
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pjsipConfFileString_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, pjsipConfFileString_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(extensionsConfFileString_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, extensionsConfFileString_);
@@ -5407,8 +7511,8 @@ public final class ProjectsOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sipConfFileString_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, sipConfFileString_);
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(pjsipConfFileString_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, pjsipConfFileString_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(extensionsConfFileString_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, extensionsConfFileString_);
@@ -5434,8 +7538,8 @@ public final class ProjectsOuterClass {
       }
       ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles other = (ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles) obj;
 
-      if (!getSipConfFileString()
-          .equals(other.getSipConfFileString())) return false;
+      if (!getPjsipConfFileString()
+          .equals(other.getPjsipConfFileString())) return false;
       if (!getExtensionsConfFileString()
           .equals(other.getExtensionsConfFileString())) return false;
       if (!getQueuesConfFileString()
@@ -5453,8 +7557,8 @@ public final class ProjectsOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + SIP_CONF_FILE_STRING_FIELD_NUMBER;
-      hash = (53 * hash) + getSipConfFileString().hashCode();
+      hash = (37 * hash) + PJSIP_CONF_FILE_STRING_FIELD_NUMBER;
+      hash = (53 * hash) + getPjsipConfFileString().hashCode();
       hash = (37 * hash) + EXTENSIONS_CONF_FILE_STRING_FIELD_NUMBER;
       hash = (53 * hash) + getExtensionsConfFileString().hashCode();
       hash = (37 * hash) + QUEUES_CONF_FILE_STRING_FIELD_NUMBER;
@@ -5596,7 +7700,7 @@ public final class ProjectsOuterClass {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        sipConfFileString_ = "";
+        pjsipConfFileString_ = "";
         extensionsConfFileString_ = "";
         queuesConfFileString_ = "";
         modulesConfFileString_ = "";
@@ -5634,7 +7738,7 @@ public final class ProjectsOuterClass {
       private void buildPartial0(ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.sipConfFileString_ = sipConfFileString_;
+          result.pjsipConfFileString_ = pjsipConfFileString_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.extensionsConfFileString_ = extensionsConfFileString_;
@@ -5659,8 +7763,8 @@ public final class ProjectsOuterClass {
 
       public Builder mergeFrom(ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles other) {
         if (other == ondewo.vtsi.ProjectsOuterClass.AsteriskConfigsFiles.getDefaultInstance()) return this;
-        if (!other.getSipConfFileString().isEmpty()) {
-          sipConfFileString_ = other.sipConfFileString_;
+        if (!other.getPjsipConfFileString().isEmpty()) {
+          pjsipConfFileString_ = other.pjsipConfFileString_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
@@ -5706,7 +7810,7 @@ public final class ProjectsOuterClass {
                 done = true;
                 break;
               case 10: {
-                sipConfFileString_ = input.readStringRequireUtf8();
+                pjsipConfFileString_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
@@ -5742,22 +7846,27 @@ public final class ProjectsOuterClass {
       }
       private int bitField0_;
 
-      private java.lang.Object sipConfFileString_ = "";
+      private java.lang.Object pjsipConfFileString_ = "";
       /**
        * <pre>
-       * sip.conf file as string
+       * pjsip.conf file as string.
+       * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+       * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+       * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+       * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+       * wire-compatible in both directions and source-breaking only.
        * </pre>
        *
-       * <code>string sip_conf_file_string = 1;</code>
-       * @return The sipConfFileString.
+       * <code>string pjsip_conf_file_string = 1;</code>
+       * @return The pjsipConfFileString.
        */
-      public java.lang.String getSipConfFileString() {
-        java.lang.Object ref = sipConfFileString_;
+      public java.lang.String getPjsipConfFileString() {
+        java.lang.Object ref = pjsipConfFileString_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          sipConfFileString_ = s;
+          pjsipConfFileString_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -5765,20 +7874,25 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * sip.conf file as string
+       * pjsip.conf file as string.
+       * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+       * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+       * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+       * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+       * wire-compatible in both directions and source-breaking only.
        * </pre>
        *
-       * <code>string sip_conf_file_string = 1;</code>
-       * @return The bytes for sipConfFileString.
+       * <code>string pjsip_conf_file_string = 1;</code>
+       * @return The bytes for pjsipConfFileString.
        */
       public com.google.protobuf.ByteString
-          getSipConfFileStringBytes() {
-        java.lang.Object ref = sipConfFileString_;
+          getPjsipConfFileStringBytes() {
+        java.lang.Object ref = pjsipConfFileString_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          sipConfFileString_ = b;
+          pjsipConfFileString_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -5786,49 +7900,64 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * sip.conf file as string
+       * pjsip.conf file as string.
+       * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+       * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+       * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+       * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+       * wire-compatible in both directions and source-breaking only.
        * </pre>
        *
-       * <code>string sip_conf_file_string = 1;</code>
-       * @param value The sipConfFileString to set.
+       * <code>string pjsip_conf_file_string = 1;</code>
+       * @param value The pjsipConfFileString to set.
        * @return This builder for chaining.
        */
-      public Builder setSipConfFileString(
+      public Builder setPjsipConfFileString(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        sipConfFileString_ = value;
+        pjsipConfFileString_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * sip.conf file as string
+       * pjsip.conf file as string.
+       * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+       * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+       * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+       * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+       * wire-compatible in both directions and source-breaking only.
        * </pre>
        *
-       * <code>string sip_conf_file_string = 1;</code>
+       * <code>string pjsip_conf_file_string = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearSipConfFileString() {
-        sipConfFileString_ = getDefaultInstance().getSipConfFileString();
+      public Builder clearPjsipConfFileString() {
+        pjsipConfFileString_ = getDefaultInstance().getPjsipConfFileString();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * sip.conf file as string
+       * pjsip.conf file as string.
+       * Renamed from &lt;pre&gt;&lt;code&gt;sip_conf_file_string&lt;/code&gt;&lt;/pre&gt; in 9.0.0: the chan_sip driver this field
+       * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+       * &lt;pre&gt;&lt;code&gt;pjsip.conf&lt;/code&gt;&lt;/pre&gt;. Field number 1 and type &lt;pre&gt;&lt;code&gt;string&lt;/code&gt;&lt;/pre&gt; are
+       * unchanged and no &lt;pre&gt;&lt;code&gt;json_name&lt;/code&gt;&lt;/pre&gt; override was added, so the change is binary
+       * wire-compatible in both directions and source-breaking only.
        * </pre>
        *
-       * <code>string sip_conf_file_string = 1;</code>
-       * @param value The bytes for sipConfFileString to set.
+       * <code>string pjsip_conf_file_string = 1;</code>
+       * @param value The bytes for pjsipConfFileString to set.
        * @return This builder for chaining.
        */
-      public Builder setSipConfFileStringBytes(
+      public Builder setPjsipConfFileStringBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        sipConfFileString_ = value;
+        pjsipConfFileString_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -19550,7 +21679,7 @@ public final class ProjectsOuterClass {
       "\n\032ondewo/vtsi/projects.proto\022\013ondewo.vts" +
       "i\032 google/protobuf/field_mask.proto\032\034goo" +
       "gle/protobuf/struct.proto\032\037google/protob" +
-      "uf/timestamp.proto\"\364\003\n\013VtsiProject\022\014\n\004na" +
+      "uf/timestamp.proto\"\235\004\n\013VtsiProject\022\014\n\004na" +
       "me\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t\022\023\n\013max_ca" +
       "llers\030\003 \001(\005\022\025\n\rmax_listeners\030\004 \001(\005\0226\n\020as" +
       "terisk_configs\030\005 \001(\0132\034.ondewo.vtsi.Aster" +
@@ -19563,89 +21692,101 @@ public final class ProjectsOuterClass {
       "ive_listeners\030\014 \001(\005\022\025\n\rasterisk_port\030\r \001" +
       "(\005\022\027\n\017nlu_agent_names\030\016 \003(\t\022\030\n\020deployed_" +
       "callers\030\017 \001(\005\022\032\n\022deployed_listeners\030\020 \001(" +
-      "\005\"\301\001\n\030AsteriskConfigsVariables\022\032\n\022sip_tr" +
-      "unk_username\030\001 \001(\t\022\032\n\022sip_trunk_password" +
-      "\030\002 \001(\t\022\026\n\016sip_trunk_host\030\003 \001(\t\022\027\n\017transf" +
-      "er_number\030\004 \001(\t\022\034\n\024transfer_number_host\030" +
-      "\005 \001(\t\022\036\n\026sip_trunk_phone_number\030\006 \001(\t\"\234\001" +
-      "\n\024AsteriskConfigsFiles\022\034\n\024sip_conf_file_" +
-      "string\030\001 \001(\t\022#\n\033extensions_conf_file_str" +
-      "ing\030\002 \001(\t\022\037\n\027queues_conf_file_string\030\003 \001" +
-      "(\t\022 \n\030modules_conf_file_string\030\004 \001(\t\"\272\002\n" +
-      "\017AsteriskConfigs\022K\n\032asterisk_configs_var" +
-      "iables\030\001 \001(\0132%.ondewo.vtsi.AsteriskConfi" +
-      "gsVariablesH\000\022C\n\026asterisk_configs_files\030" +
-      "\002 \001(\0132!.ondewo.vtsi.AsteriskConfigsFiles" +
-      "H\000\0220\n&asterisk_configs_target_directory_" +
-      "name\030\003 \001(\tH\000\022\025\n\rasterisk_port\030\004 \001(\005\022\035\n\020a" +
-      "sterisk_version\030\005 \001(\tH\001\210\001\001B\030\n\026asterisk_c" +
-      "onfigs_oneofB\023\n\021_asterisk_version\"a\n\030Cre" +
-      "ateVtsiProjectRequest\022.\n\014vtsi_project\030\001 " +
-      "\001(\0132\030.ondewo.vtsi.VtsiProject\022\025\n\rerror_m" +
-      "essage\030\002 \001(\t\"b\n\031CreateVtsiProjectRespons" +
-      "e\022.\n\014vtsi_project\030\001 \001(\0132\030.ondewo.vtsi.Vt" +
-      "siProject\022\025\n\rerror_message\030\002 \001(\t\"^\n\025GetV" +
-      "tsiProjectRequest\022\014\n\004name\030\001 \001(\t\0227\n\021vtsi_" +
-      "project_view\030\002 \001(\0162\034.ondewo.vtsi.VtsiPro" +
-      "jectView\"\360\001\n\027ListVtsiProjectsRequest\0227\n\021" +
-      "vtsi_project_view\030\001 \001(\0162\034.ondewo.vtsi.Vt" +
-      "siProjectView\022\027\n\npage_token\030\002 \001(\tH\000\210\001\001\022B" +
-      "\n\024vtsi_project_sorting\030\003 \001(\0132\037.ondewo.vt" +
-      "si.VtsiProjectSortingH\001\210\001\001\022\027\n\017nlu_agent_" +
-      "names\030\004 \003(\tB\r\n\013_page_tokenB\027\n\025_vtsi_proj" +
-      "ect_sorting\"d\n\030ListVtsiProjectsResponse\022" +
-      "/\n\rvtsi_projects\030\001 \003(\0132\030.ondewo.vtsi.Vts" +
-      "iProject\022\027\n\017next_page_token\030\002 \001(\t\"\233\003\n\022Vt" +
-      "siProjectSorting\022S\n\rsorting_field\030\001 \001(\0162" +
-      "7.ondewo.vtsi.VtsiProjectSorting.VtsiPro" +
-      "jectSortingFieldH\000\210\001\001\022>\n\014sorting_mode\030\002 " +
-      "\001(\0162#.ondewo.vtsi.VtsiProjectSortingMode" +
-      "H\001\210\001\001\"\314\001\n\027VtsiProjectSortingField\022\033\n\027NO_" +
-      "VTSI_PROJECT_SORTING\020\000\022\035\n\031SORT_VTSI_PROJ" +
-      "ECT_BY_NAME\020\001\022%\n!SORT_VTSI_PROJECT_BY_DI" +
-      "SPLAY_NAME\020\002\022&\n\"SORT_VTSI_PROJECT_BY_CRE" +
-      "ATION_DATE\020\003\022&\n\"SORT_VTSI_PROJECT_BY_LAS" +
-      "T_MODIFIED\020\004B\020\n\016_sorting_fieldB\017\n\r_sorti" +
-      "ng_mode\"{\n\030UpdateVtsiProjectRequest\022.\n\014v" +
-      "tsi_project\030\001 \001(\0132\030.ondewo.vtsi.VtsiProj" +
-      "ect\022/\n\013update_mask\030\002 \001(\0132\032.google.protob" +
-      "uf.FieldMask\"@\n\031UpdateVtsiProjectRespons" +
-      "e\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t\"(" +
-      "\n\030DeleteVtsiProjectRequest\022\014\n\004name\030\001 \001(\t" +
-      "\"@\n\031DeleteVtsiProjectResponse\022\014\n\004name\030\001 " +
-      "\001(\t\022\025\n\rerror_message\030\002 \001(\t\"(\n\030DeployVtsi" +
-      "ProjectRequest\022\014\n\004name\030\001 \001(\t\"@\n\031DeployVt" +
-      "siProjectResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerror" +
-      "_message\030\002 \001(\t\"*\n\032UndeployVtsiProjectReq" +
-      "uest\022\014\n\004name\030\001 \001(\t\"B\n\033UndeployVtsiProjec" +
-      "tResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_message" +
-      "\030\002 \001(\t*\213\001\n\021VtsiProjectStatus\022\017\n\013UNSPECIF" +
-      "IED\020\000\022\016\n\nUNDEPLOYED\020\001\022\014\n\010UPDATING\020\002\022\r\n\tD" +
-      "EPLOYING\020\003\022\014\n\010DEPLOYED\020\004\022\017\n\013UNDEPLOYING\020" +
-      "\005\022\014\n\010DELETING\020\006\022\013\n\007DELETED\020\007*7\n\026VtsiProj" +
-      "ectSortingMode\022\r\n\tASCENDING\020\000\022\016\n\nDESCEND" +
-      "ING\020\001*\216\001\n\017VtsiProjectView\022!\n\035VTSI_PROJEC" +
-      "T_VIEW_UNSPECIFIED\020\000\022\032\n\026VTSI_PROJECT_VIE" +
-      "W_FULL\020\001\022\035\n\031VTSI_PROJECT_VIEW_SHALLOW\020\002\022" +
-      "\035\n\031VTSI_PROJECT_VIEW_MINIMUM\020\0032\265\005\n\010Proje" +
-      "cts\022b\n\021CreateVtsiProject\022%.ondewo.vtsi.C" +
-      "reateVtsiProjectRequest\032&.ondewo.vtsi.Cr" +
-      "eateVtsiProjectResponse\022N\n\016GetVtsiProjec" +
-      "t\022\".ondewo.vtsi.GetVtsiProjectRequest\032\030." +
-      "ondewo.vtsi.VtsiProject\022b\n\021UpdateVtsiPro" +
-      "ject\022%.ondewo.vtsi.UpdateVtsiProjectRequ" +
-      "est\032&.ondewo.vtsi.UpdateVtsiProjectRespo" +
-      "nse\022b\n\021DeleteVtsiProject\022%.ondewo.vtsi.D" +
-      "eleteVtsiProjectRequest\032&.ondewo.vtsi.De" +
-      "leteVtsiProjectResponse\022b\n\021DeployVtsiPro" +
-      "ject\022%.ondewo.vtsi.DeployVtsiProjectRequ" +
-      "est\032&.ondewo.vtsi.DeployVtsiProjectRespo" +
-      "nse\022h\n\023UndeployVtsiProject\022\'.ondewo.vtsi" +
-      ".UndeployVtsiProjectRequest\032(.ondewo.vts" +
-      "i.UndeployVtsiProjectResponse\022_\n\020ListVts" +
-      "iProjects\022$.ondewo.vtsi.ListVtsiProjects" +
-      "Request\032%.ondewo.vtsi.ListVtsiProjectsRe" +
-      "sponseb\006proto3"
+      "\005\022\'\n\037transfer_phone_number_allowlist\030\021 \003" +
+      "(\t\"\354\003\n\030AsteriskConfigsVariables\022\032\n\022sip_t" +
+      "runk_username\030\001 \001(\t\022\032\n\022sip_trunk_passwor" +
+      "d\030\002 \001(\t\022\026\n\016sip_trunk_host\030\003 \001(\t\022\027\n\017trans" +
+      "fer_number\030\004 \001(\t\022\034\n\024transfer_number_host" +
+      "\030\005 \001(\t\022\036\n\026sip_trunk_phone_number\030\006 \001(\t\022;" +
+      "\n\023sip_trunk_transport\030\007 \001(\0162\036.ondewo.vts" +
+      "i.SipTrunkTransport\022\"\n\025sip_trunk_source_" +
+      "cidr\030\010 \001(\tH\000\210\001\001\022*\n\035sip_trunk_ca_certific" +
+      "ates_pem\030\t \001(\tH\001\210\001\001\022$\n\027sip_trunk_verify_" +
+      "server\030\n \001(\010H\002\210\001\001\022\036\n\026softphone_permit_ci" +
+      "drs\030\013 \003(\tB\030\n\026_sip_trunk_source_cidrB \n\036_" +
+      "sip_trunk_ca_certificates_pemB\032\n\030_sip_tr" +
+      "unk_verify_server\"\236\001\n\024AsteriskConfigsFil" +
+      "es\022\036\n\026pjsip_conf_file_string\030\001 \001(\t\022#\n\033ex" +
+      "tensions_conf_file_string\030\002 \001(\t\022\037\n\027queue" +
+      "s_conf_file_string\030\003 \001(\t\022 \n\030modules_conf" +
+      "_file_string\030\004 \001(\t\"\272\002\n\017AsteriskConfigs\022K" +
+      "\n\032asterisk_configs_variables\030\001 \001(\0132%.ond" +
+      "ewo.vtsi.AsteriskConfigsVariablesH\000\022C\n\026a" +
+      "sterisk_configs_files\030\002 \001(\0132!.ondewo.vts" +
+      "i.AsteriskConfigsFilesH\000\0220\n&asterisk_con" +
+      "figs_target_directory_name\030\003 \001(\tH\000\022\025\n\ras" +
+      "terisk_port\030\004 \001(\005\022\035\n\020asterisk_version\030\005 " +
+      "\001(\tH\001\210\001\001B\030\n\026asterisk_configs_oneofB\023\n\021_a" +
+      "sterisk_version\"a\n\030CreateVtsiProjectRequ" +
+      "est\022.\n\014vtsi_project\030\001 \001(\0132\030.ondewo.vtsi." +
+      "VtsiProject\022\025\n\rerror_message\030\002 \001(\t\"b\n\031Cr" +
+      "eateVtsiProjectResponse\022.\n\014vtsi_project\030" +
+      "\001 \001(\0132\030.ondewo.vtsi.VtsiProject\022\025\n\rerror" +
+      "_message\030\002 \001(\t\"^\n\025GetVtsiProjectRequest\022" +
+      "\014\n\004name\030\001 \001(\t\0227\n\021vtsi_project_view\030\002 \001(\016" +
+      "2\034.ondewo.vtsi.VtsiProjectView\"\360\001\n\027ListV" +
+      "tsiProjectsRequest\0227\n\021vtsi_project_view\030" +
+      "\001 \001(\0162\034.ondewo.vtsi.VtsiProjectView\022\027\n\np" +
+      "age_token\030\002 \001(\tH\000\210\001\001\022B\n\024vtsi_project_sor" +
+      "ting\030\003 \001(\0132\037.ondewo.vtsi.VtsiProjectSort" +
+      "ingH\001\210\001\001\022\027\n\017nlu_agent_names\030\004 \003(\tB\r\n\013_pa" +
+      "ge_tokenB\027\n\025_vtsi_project_sorting\"d\n\030Lis" +
+      "tVtsiProjectsResponse\022/\n\rvtsi_projects\030\001" +
+      " \003(\0132\030.ondewo.vtsi.VtsiProject\022\027\n\017next_p" +
+      "age_token\030\002 \001(\t\"\233\003\n\022VtsiProjectSorting\022S" +
+      "\n\rsorting_field\030\001 \001(\01627.ondewo.vtsi.Vtsi" +
+      "ProjectSorting.VtsiProjectSortingFieldH\000" +
+      "\210\001\001\022>\n\014sorting_mode\030\002 \001(\0162#.ondewo.vtsi." +
+      "VtsiProjectSortingModeH\001\210\001\001\"\314\001\n\027VtsiProj" +
+      "ectSortingField\022\033\n\027NO_VTSI_PROJECT_SORTI" +
+      "NG\020\000\022\035\n\031SORT_VTSI_PROJECT_BY_NAME\020\001\022%\n!S" +
+      "ORT_VTSI_PROJECT_BY_DISPLAY_NAME\020\002\022&\n\"SO" +
+      "RT_VTSI_PROJECT_BY_CREATION_DATE\020\003\022&\n\"SO" +
+      "RT_VTSI_PROJECT_BY_LAST_MODIFIED\020\004B\020\n\016_s" +
+      "orting_fieldB\017\n\r_sorting_mode\"{\n\030UpdateV" +
+      "tsiProjectRequest\022.\n\014vtsi_project\030\001 \001(\0132" +
+      "\030.ondewo.vtsi.VtsiProject\022/\n\013update_mask" +
+      "\030\002 \001(\0132\032.google.protobuf.FieldMask\"@\n\031Up" +
+      "dateVtsiProjectResponse\022\014\n\004name\030\001 \001(\t\022\025\n" +
+      "\rerror_message\030\002 \001(\t\"(\n\030DeleteVtsiProjec" +
+      "tRequest\022\014\n\004name\030\001 \001(\t\"@\n\031DeleteVtsiProj" +
+      "ectResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_messa" +
+      "ge\030\002 \001(\t\"(\n\030DeployVtsiProjectRequest\022\014\n\004" +
+      "name\030\001 \001(\t\"@\n\031DeployVtsiProjectResponse\022" +
+      "\014\n\004name\030\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t\"*\n\032" +
+      "UndeployVtsiProjectRequest\022\014\n\004name\030\001 \001(\t" +
+      "\"B\n\033UndeployVtsiProjectResponse\022\014\n\004name\030" +
+      "\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t*\213\001\n\021VtsiPro" +
+      "jectStatus\022\017\n\013UNSPECIFIED\020\000\022\016\n\nUNDEPLOYE" +
+      "D\020\001\022\014\n\010UPDATING\020\002\022\r\n\tDEPLOYING\020\003\022\014\n\010DEPL" +
+      "OYED\020\004\022\017\n\013UNDEPLOYING\020\005\022\014\n\010DELETING\020\006\022\013\n" +
+      "\007DELETED\020\007*\217\001\n\021SipTrunkTransport\022#\n\037SIP_" +
+      "TRUNK_TRANSPORT_UNSPECIFIED\020\000\022\033\n\027SIP_TRU" +
+      "NK_TRANSPORT_TLS\020\001\022\033\n\027SIP_TRUNK_TRANSPOR" +
+      "T_UDP\020\002\022\033\n\027SIP_TRUNK_TRANSPORT_TCP\020\003*7\n\026" +
+      "VtsiProjectSortingMode\022\r\n\tASCENDING\020\000\022\016\n" +
+      "\nDESCENDING\020\001*\216\001\n\017VtsiProjectView\022!\n\035VTS" +
+      "I_PROJECT_VIEW_UNSPECIFIED\020\000\022\032\n\026VTSI_PRO" +
+      "JECT_VIEW_FULL\020\001\022\035\n\031VTSI_PROJECT_VIEW_SH" +
+      "ALLOW\020\002\022\035\n\031VTSI_PROJECT_VIEW_MINIMUM\020\0032\265" +
+      "\005\n\010Projects\022b\n\021CreateVtsiProject\022%.ondew" +
+      "o.vtsi.CreateVtsiProjectRequest\032&.ondewo" +
+      ".vtsi.CreateVtsiProjectResponse\022N\n\016GetVt" +
+      "siProject\022\".ondewo.vtsi.GetVtsiProjectRe" +
+      "quest\032\030.ondewo.vtsi.VtsiProject\022b\n\021Updat" +
+      "eVtsiProject\022%.ondewo.vtsi.UpdateVtsiPro" +
+      "jectRequest\032&.ondewo.vtsi.UpdateVtsiProj" +
+      "ectResponse\022b\n\021DeleteVtsiProject\022%.ondew" +
+      "o.vtsi.DeleteVtsiProjectRequest\032&.ondewo" +
+      ".vtsi.DeleteVtsiProjectResponse\022b\n\021Deplo" +
+      "yVtsiProject\022%.ondewo.vtsi.DeployVtsiPro" +
+      "jectRequest\032&.ondewo.vtsi.DeployVtsiProj" +
+      "ectResponse\022h\n\023UndeployVtsiProject\022\'.ond" +
+      "ewo.vtsi.UndeployVtsiProjectRequest\032(.on" +
+      "dewo.vtsi.UndeployVtsiProjectResponse\022_\n" +
+      "\020ListVtsiProjects\022$.ondewo.vtsi.ListVtsi" +
+      "ProjectsRequest\032%.ondewo.vtsi.ListVtsiPr" +
+      "ojectsResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -19659,19 +21800,19 @@ public final class ProjectsOuterClass {
     internal_static_ondewo_vtsi_VtsiProject_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_VtsiProject_descriptor,
-        new java.lang.String[] { "Name", "DisplayName", "MaxCallers", "MaxListeners", "AsteriskConfigs", "VtsiProjectStatus", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "ActiveCallers", "ActiveListeners", "AsteriskPort", "NluAgentNames", "DeployedCallers", "DeployedListeners", });
+        new java.lang.String[] { "Name", "DisplayName", "MaxCallers", "MaxListeners", "AsteriskConfigs", "VtsiProjectStatus", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "ActiveCallers", "ActiveListeners", "AsteriskPort", "NluAgentNames", "DeployedCallers", "DeployedListeners", "TransferPhoneNumberAllowlist", });
     internal_static_ondewo_vtsi_AsteriskConfigsVariables_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ondewo_vtsi_AsteriskConfigsVariables_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_AsteriskConfigsVariables_descriptor,
-        new java.lang.String[] { "SipTrunkUsername", "SipTrunkPassword", "SipTrunkHost", "TransferNumber", "TransferNumberHost", "SipTrunkPhoneNumber", });
+        new java.lang.String[] { "SipTrunkUsername", "SipTrunkPassword", "SipTrunkHost", "TransferNumber", "TransferNumberHost", "SipTrunkPhoneNumber", "SipTrunkTransport", "SipTrunkSourceCidr", "SipTrunkCaCertificatesPem", "SipTrunkVerifyServer", "SoftphonePermitCidrs", });
     internal_static_ondewo_vtsi_AsteriskConfigsFiles_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_ondewo_vtsi_AsteriskConfigsFiles_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_AsteriskConfigsFiles_descriptor,
-        new java.lang.String[] { "SipConfFileString", "ExtensionsConfFileString", "QueuesConfFileString", "ModulesConfFileString", });
+        new java.lang.String[] { "PjsipConfFileString", "ExtensionsConfFileString", "QueuesConfFileString", "ModulesConfFileString", });
     internal_static_ondewo_vtsi_AsteriskConfigs_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_ondewo_vtsi_AsteriskConfigs_fieldAccessorTable = new

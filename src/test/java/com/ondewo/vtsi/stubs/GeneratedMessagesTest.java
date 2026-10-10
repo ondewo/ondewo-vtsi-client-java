@@ -2,12 +2,14 @@ package com.ondewo.vtsi.stubs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.protobuf.Timestamp;
 import com.ondewo.nlu.Context;
 import java.util.stream.Stream;
 import ondewo.vtsi.CallsOuterClass;
+import ondewo.vtsi.ProjectsOuterClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -105,6 +107,44 @@ class GeneratedMessagesTest {
                         .getPageToken());
         // An explicitly set zero value has to reach the wire, an unset field must not.
         assertTrue(explicitEmpty.toByteArray().length > unset.toByteArray().length);
+    }
+
+    /**
+     * ondewo-vtsi-api 9.0.0 renamed {@code sip_conf_file_string} to {@code pjsip_conf_file_string}
+     * on the same field number 1, so the bytes an 8.7.x client wrote still decode into it.
+     */
+    @Test
+    void readsThePjsipConfFileOnTheFieldNumberOfTheOldSipConfFile() throws Exception {
+        assertEquals(
+                1,
+                ProjectsOuterClass.AsteriskConfigsFiles.getDescriptor()
+                        .findFieldByName("pjsip_conf_file_string")
+                        .getNumber());
+        assertNull(
+                ProjectsOuterClass.AsteriskConfigsFiles.getDescriptor()
+                        .findFieldByName("sip_conf_file_string"));
+        // Field 1, wire type 2 (length-delimited): what 8.7.x serialised for sip_conf_file_string.
+        final byte[] fromAnOldClient = {0x0a, 0x03, 'a', '=', 'b'};
+        assertEquals(
+                "a=b",
+                ProjectsOuterClass.AsteriskConfigsFiles.parseFrom(fromAnOldClient)
+                        .getPjsipConfFileString());
+    }
+
+    /** One of the eleven calls.proto scalars that gained explicit presence in 9.0.0. */
+    @Test
+    void keepsExplicitPresenceOfAScalarThatGainedItInApi9() throws Exception {
+        final CallsOuterClass.InterruptionHandlingConfig explicitFalse =
+                CallsOuterClass.InterruptionHandlingConfig.newBuilder()
+                        .setTranscribeOnDisabledInterruptions(false)
+                        .build();
+
+        assertFalse(
+                CallsOuterClass.InterruptionHandlingConfig.getDefaultInstance()
+                        .hasTranscribeOnDisabledInterruptions());
+        assertTrue(
+                CallsOuterClass.InterruptionHandlingConfig.parseFrom(explicitFalse.toByteArray())
+                        .hasTranscribeOnDisabledInterruptions());
     }
 
     @Test
