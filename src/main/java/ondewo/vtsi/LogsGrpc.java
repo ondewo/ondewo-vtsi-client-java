@@ -5,6 +5,28 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  * <pre>
  * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+ * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+ * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+ * from the docker daemon, so the logs of a container that was already removed stay readable until
+ * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+ * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+ * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+ * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+ * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+ * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+ * captured before it.&lt;/p&gt;
+ * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+ * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+ * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+ * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+ * database cannot be reached.&lt;/p&gt;
+ * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+ * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+ * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+ * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+ * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+ * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+ * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
  * </pre>
  */
 @io.grpc.stub.annotations.GrpcGenerated
@@ -170,6 +192,37 @@ public final class LogsGrpc {
     return getDeleteCallLogsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest,
+      ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> getExportCallLogsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ExportCallLogs",
+      requestType = ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.class,
+      responseType = ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest,
+      ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> getExportCallLogsMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest, ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> getExportCallLogsMethod;
+    if ((getExportCallLogsMethod = LogsGrpc.getExportCallLogsMethod) == null) {
+      synchronized (LogsGrpc.class) {
+        if ((getExportCallLogsMethod = LogsGrpc.getExportCallLogsMethod) == null) {
+          LogsGrpc.getExportCallLogsMethod = getExportCallLogsMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest, ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ExportCallLogs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new LogsMethodDescriptorSupplier("ExportCallLogs"))
+              .build();
+        }
+      }
+    }
+    return getExportCallLogsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -232,6 +285,28 @@ public final class LogsGrpc {
   /**
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public interface AsyncService {
@@ -245,6 +320,23 @@ public final class LogsGrpc {
      * server-side maximum stream duration is reached.&lt;/p&gt;
      * &lt;p&gt;Entries are served from the VTSI database rather than from the docker daemon, so a
      * container that has already been removed still streams. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;Limits: at most &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt; (default 3600) seconds per
+     * stream, after which the server sends a final message with &lt;code&gt;end_reason_code =
+     * LOG_STREAM_END_REASON_MAX_DURATION&lt;/code&gt; and a &lt;code&gt;resume_token&lt;/code&gt; to reconnect with; at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_STREAMS&lt;/code&gt; (default 16) concurrent streams per server,
+     * beyond which a new stream is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. New entries are polled every
+     * &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_POLL_INTERVAL_S&lt;/code&gt; (default 0.5) seconds. The server sends NO
+     * keep-alive message: a quiet container sends nothing, so a client must not treat silence as a dead
+     * stream (use HTTP/2 keep-alive pings to detect a dead connection).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a filter
+     * carrying &lt;code&gt;start_time&lt;/code&gt; or &lt;code&gt;end_time&lt;/code&gt;, an &lt;code&gt;after_seq&lt;/code&gt; with a filter
+     * that does not resolve to exactly one log stream, or a malformed &lt;code&gt;resume_token&lt;/code&gt;;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. When the
+     * caller&amp;apos;s role is revoked or its credential expires during the stream, the server sends a final
+     * message (&lt;code&gt;LOG_STREAM_END_REASON_PERMISSION_REVOKED&lt;/code&gt; /
+     * &lt;code&gt;LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED&lt;/code&gt;, with a &lt;code&gt;resume_token&lt;/code&gt;) and ends
+     * the stream with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void streamCallLogs(ondewo.vtsi.LogsOuterClass.StreamCallLogsRequest request,
@@ -257,6 +349,16 @@ public final class LogsGrpc {
      * &lt;p&gt;Returns a bounded, filtered page of captured container log entries. Supports a time window,
      * severity filtering, a regular expression, a plain-text search and cursor paging in both
      * directions for infinite scrolling. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;No time window is required: without &lt;code&gt;start_time&lt;/code&gt; / &lt;code&gt;end_time&lt;/code&gt; the window is
+     * the newest &lt;code&gt;max_lines&lt;/code&gt; matching entries (or, with &lt;code&gt;oldest_first&lt;/code&gt;, the oldest
+     * after the cursor). With &lt;code&gt;include_counts&lt;/code&gt; the response also carries the number of matching
+     * entries per severity.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an invalid
+     * or over-long &lt;code&gt;regex&lt;/code&gt;, a &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;,
+     * &lt;code&gt;before_seq&lt;/code&gt; / &lt;code&gt;after_seq&lt;/code&gt; combined with &lt;code&gt;resume_token&lt;/code&gt; or with a
+     * filter that does not resolve to exactly one log stream, a malformed &lt;code&gt;resume_token&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listCallLogs(ondewo.vtsi.LogsOuterClass.ListCallLogsRequest request,
@@ -268,6 +370,11 @@ public final class LogsGrpc {
      * <pre>
      * &lt;p&gt;Returns the capture state of a single log stream, i.e. of one capture generation of one
      * container.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt; or
+     * &lt;code&gt;name&lt;/code&gt;, for a log stream that belongs to another project than
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt;, or for an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void getCallLogStream(ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest request,
@@ -280,6 +387,13 @@ public final class LogsGrpc {
      * &lt;p&gt;Lists the log streams VTSI has captured for a project. A single container yields a new log
      * stream every time it is recreated, because a recreated container is a new docker container
      * whose previous logs no longer exist.&lt;/p&gt;
+     * &lt;p&gt;Ordered by &lt;code&gt;capture_started_at&lt;/code&gt;, newest first (ties by an internal id, so the order is
+     * stable).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a malformed &lt;code&gt;page_token&lt;/code&gt;,
+     * &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; in &lt;code&gt;capture_states&lt;/code&gt; or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listCallLogStreams(ondewo.vtsi.LogsOuterClass.ListCallLogStreamsRequest request,
@@ -292,11 +406,62 @@ public final class LogsGrpc {
      * &lt;p&gt;Permanently deletes captured log entries matching a filter. This is the erasure path for
      * data-subject requests: retention answers &amp;quot;delete everything older than N days&amp;quot;, this
      * answers &amp;quot;delete everything for this call or this phone number&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Only the identity filters and the time window apply; a time window ALONE (no identity filter)
+     * is a valid filter and deletes every entry of the project inside it. The deletion is permanent and
+     * runs in batches; a log stream whose last entry was deleted is removed too, unless it is still
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;Race with live capture:&lt;/b&gt; the deletion removes what is stored when it runs. A container
+     * whose capture is still running keeps being captured, so entries it emits AFTER the deletion are
+     * stored again (there is no tombstone). To erase the logs of a call completely, delete them after
+     * the call ended and its capture is &lt;code&gt;LOG_CAPTURE_STATE_STOPPED&lt;/code&gt;, or repeat the deletion.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: repeating a deletion succeeds and reports &lt;code&gt;0&lt;/code&gt; deleted entries. With
+     * &lt;code&gt;validate_only&lt;/code&gt; nothing is deleted and the counts are what would be deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an empty
+     * filter (a filter whose only field is &lt;code&gt;call_types = [BOTH]&lt;/code&gt; counts as empty), a content
+     * filter (&lt;code&gt;text&lt;/code&gt;, &lt;code&gt;regex&lt;/code&gt;, &lt;code&gt;log_levels&lt;/code&gt;, &lt;code&gt;min_log_level&lt;/code&gt;,
+     * &lt;code&gt;include_unleveled_lines&lt;/code&gt;, &lt;code&gt;log_sources&lt;/code&gt;, &lt;code&gt;channels&lt;/code&gt;,
+     * &lt;code&gt;emitter_prefixes&lt;/code&gt;, &lt;code&gt;thread_names&lt;/code&gt;; presence alone counts) or a
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project. Every deletion is logged
+     * by the server with the project, the filter fields in scope and the deleted counts.&lt;/p&gt;
      * </pre>
      */
     default void deleteCallLogs(ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest request,
         io.grpc.stub.StreamObserver<ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteCallLogsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Exports the captured log entries matching a filter as a file: plain text, NDJSON or CSV,
+     * streamed in chunks. Entries are exported oldest first, with the same filter semantics and the same
+     * server-side secret redaction as &lt;code&gt;ListCallLogs&lt;/code&gt;; unlike &lt;code&gt;ListCallLogs&lt;/code&gt; the
+     * content filters are applied to EVERY entry of the window, never only inside a page. Concatenating
+     * the &lt;code&gt;chunk&lt;/code&gt;s of all messages in order yields the file.&lt;/p&gt;
+     * &lt;p&gt;A bounded time window is REQUIRED: &lt;code&gt;filter.start_time&lt;/code&gt; AND
+     * &lt;code&gt;filter.end_time&lt;/code&gt; must both be set, with &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;, because an export reads every entry of the window. (This is stricter than
+     * &lt;code&gt;ListCallLogs&lt;/code&gt;, which needs no window because it reads one bounded page.)&lt;/p&gt;
+     * &lt;p&gt;Limits: each &lt;code&gt;chunk&lt;/code&gt; is at most 1 MiB; an export holds at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; (default 1000000) entries and at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt; (default 1 GiB) of output. When a limit is reached the
+     * export ends early with &lt;code&gt;truncated = true&lt;/code&gt; on the last message; narrow the window (e.g.
+     * start a new export at the timestamp of the last exported entry). At most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_EXPORTS&lt;/code&gt; (default 2) exports run per server, beyond which
+     * a new one is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. The export is a snapshot of what is stored when each
+     * entry is read; entries captured during the export may or may not be included.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a missing,
+     * empty or inverted time window, an invalid &lt;code&gt;regex&lt;/code&gt; or an unknown
+     * &lt;code&gt;format&lt;/code&gt; value; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. A role revoked or a credential expired during the export
+     * ends it with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt; and no last message.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    default void exportCallLogs(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getExportCallLogsMethod(), responseObserver);
     }
   }
 
@@ -304,6 +469,28 @@ public final class LogsGrpc {
    * Base class for the server implementation of the service Logs.
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public static abstract class LogsImplBase
@@ -318,6 +505,28 @@ public final class LogsGrpc {
    * A stub to allow clients to do asynchronous rpc calls to service Logs.
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public static final class LogsStub
@@ -342,6 +551,23 @@ public final class LogsGrpc {
      * server-side maximum stream duration is reached.&lt;/p&gt;
      * &lt;p&gt;Entries are served from the VTSI database rather than from the docker daemon, so a
      * container that has already been removed still streams. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;Limits: at most &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt; (default 3600) seconds per
+     * stream, after which the server sends a final message with &lt;code&gt;end_reason_code =
+     * LOG_STREAM_END_REASON_MAX_DURATION&lt;/code&gt; and a &lt;code&gt;resume_token&lt;/code&gt; to reconnect with; at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_STREAMS&lt;/code&gt; (default 16) concurrent streams per server,
+     * beyond which a new stream is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. New entries are polled every
+     * &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_POLL_INTERVAL_S&lt;/code&gt; (default 0.5) seconds. The server sends NO
+     * keep-alive message: a quiet container sends nothing, so a client must not treat silence as a dead
+     * stream (use HTTP/2 keep-alive pings to detect a dead connection).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a filter
+     * carrying &lt;code&gt;start_time&lt;/code&gt; or &lt;code&gt;end_time&lt;/code&gt;, an &lt;code&gt;after_seq&lt;/code&gt; with a filter
+     * that does not resolve to exactly one log stream, or a malformed &lt;code&gt;resume_token&lt;/code&gt;;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. When the
+     * caller&amp;apos;s role is revoked or its credential expires during the stream, the server sends a final
+     * message (&lt;code&gt;LOG_STREAM_END_REASON_PERMISSION_REVOKED&lt;/code&gt; /
+     * &lt;code&gt;LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED&lt;/code&gt;, with a &lt;code&gt;resume_token&lt;/code&gt;) and ends
+     * the stream with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void streamCallLogs(ondewo.vtsi.LogsOuterClass.StreamCallLogsRequest request,
@@ -355,6 +581,16 @@ public final class LogsGrpc {
      * &lt;p&gt;Returns a bounded, filtered page of captured container log entries. Supports a time window,
      * severity filtering, a regular expression, a plain-text search and cursor paging in both
      * directions for infinite scrolling. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;No time window is required: without &lt;code&gt;start_time&lt;/code&gt; / &lt;code&gt;end_time&lt;/code&gt; the window is
+     * the newest &lt;code&gt;max_lines&lt;/code&gt; matching entries (or, with &lt;code&gt;oldest_first&lt;/code&gt;, the oldest
+     * after the cursor). With &lt;code&gt;include_counts&lt;/code&gt; the response also carries the number of matching
+     * entries per severity.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an invalid
+     * or over-long &lt;code&gt;regex&lt;/code&gt;, a &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;,
+     * &lt;code&gt;before_seq&lt;/code&gt; / &lt;code&gt;after_seq&lt;/code&gt; combined with &lt;code&gt;resume_token&lt;/code&gt; or with a
+     * filter that does not resolve to exactly one log stream, a malformed &lt;code&gt;resume_token&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listCallLogs(ondewo.vtsi.LogsOuterClass.ListCallLogsRequest request,
@@ -367,6 +603,11 @@ public final class LogsGrpc {
      * <pre>
      * &lt;p&gt;Returns the capture state of a single log stream, i.e. of one capture generation of one
      * container.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt; or
+     * &lt;code&gt;name&lt;/code&gt;, for a log stream that belongs to another project than
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt;, or for an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void getCallLogStream(ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest request,
@@ -380,6 +621,13 @@ public final class LogsGrpc {
      * &lt;p&gt;Lists the log streams VTSI has captured for a project. A single container yields a new log
      * stream every time it is recreated, because a recreated container is a new docker container
      * whose previous logs no longer exist.&lt;/p&gt;
+     * &lt;p&gt;Ordered by &lt;code&gt;capture_started_at&lt;/code&gt;, newest first (ties by an internal id, so the order is
+     * stable).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a malformed &lt;code&gt;page_token&lt;/code&gt;,
+     * &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; in &lt;code&gt;capture_states&lt;/code&gt; or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listCallLogStreams(ondewo.vtsi.LogsOuterClass.ListCallLogStreamsRequest request,
@@ -393,6 +641,25 @@ public final class LogsGrpc {
      * &lt;p&gt;Permanently deletes captured log entries matching a filter. This is the erasure path for
      * data-subject requests: retention answers &amp;quot;delete everything older than N days&amp;quot;, this
      * answers &amp;quot;delete everything for this call or this phone number&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Only the identity filters and the time window apply; a time window ALONE (no identity filter)
+     * is a valid filter and deletes every entry of the project inside it. The deletion is permanent and
+     * runs in batches; a log stream whose last entry was deleted is removed too, unless it is still
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;Race with live capture:&lt;/b&gt; the deletion removes what is stored when it runs. A container
+     * whose capture is still running keeps being captured, so entries it emits AFTER the deletion are
+     * stored again (there is no tombstone). To erase the logs of a call completely, delete them after
+     * the call ended and its capture is &lt;code&gt;LOG_CAPTURE_STATE_STOPPED&lt;/code&gt;, or repeat the deletion.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: repeating a deletion succeeds and reports &lt;code&gt;0&lt;/code&gt; deleted entries. With
+     * &lt;code&gt;validate_only&lt;/code&gt; nothing is deleted and the counts are what would be deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an empty
+     * filter (a filter whose only field is &lt;code&gt;call_types = [BOTH]&lt;/code&gt; counts as empty), a content
+     * filter (&lt;code&gt;text&lt;/code&gt;, &lt;code&gt;regex&lt;/code&gt;, &lt;code&gt;log_levels&lt;/code&gt;, &lt;code&gt;min_log_level&lt;/code&gt;,
+     * &lt;code&gt;include_unleveled_lines&lt;/code&gt;, &lt;code&gt;log_sources&lt;/code&gt;, &lt;code&gt;channels&lt;/code&gt;,
+     * &lt;code&gt;emitter_prefixes&lt;/code&gt;, &lt;code&gt;thread_names&lt;/code&gt;; presence alone counts) or a
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project. Every deletion is logged
+     * by the server with the project, the filter fields in scope and the deleted counts.&lt;/p&gt;
      * </pre>
      */
     public void deleteCallLogs(ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest request,
@@ -400,12 +667,67 @@ public final class LogsGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteCallLogsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Exports the captured log entries matching a filter as a file: plain text, NDJSON or CSV,
+     * streamed in chunks. Entries are exported oldest first, with the same filter semantics and the same
+     * server-side secret redaction as &lt;code&gt;ListCallLogs&lt;/code&gt;; unlike &lt;code&gt;ListCallLogs&lt;/code&gt; the
+     * content filters are applied to EVERY entry of the window, never only inside a page. Concatenating
+     * the &lt;code&gt;chunk&lt;/code&gt;s of all messages in order yields the file.&lt;/p&gt;
+     * &lt;p&gt;A bounded time window is REQUIRED: &lt;code&gt;filter.start_time&lt;/code&gt; AND
+     * &lt;code&gt;filter.end_time&lt;/code&gt; must both be set, with &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;, because an export reads every entry of the window. (This is stricter than
+     * &lt;code&gt;ListCallLogs&lt;/code&gt;, which needs no window because it reads one bounded page.)&lt;/p&gt;
+     * &lt;p&gt;Limits: each &lt;code&gt;chunk&lt;/code&gt; is at most 1 MiB; an export holds at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; (default 1000000) entries and at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt; (default 1 GiB) of output. When a limit is reached the
+     * export ends early with &lt;code&gt;truncated = true&lt;/code&gt; on the last message; narrow the window (e.g.
+     * start a new export at the timestamp of the last exported entry). At most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_EXPORTS&lt;/code&gt; (default 2) exports run per server, beyond which
+     * a new one is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. The export is a snapshot of what is stored when each
+     * entry is read; entries captured during the export may or may not be included.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a missing,
+     * empty or inverted time window, an invalid &lt;code&gt;regex&lt;/code&gt; or an unknown
+     * &lt;code&gt;format&lt;/code&gt; value; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. A role revoked or a credential expired during the export
+     * ends it with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt; and no last message.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public void exportCallLogs(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getExportCallLogsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service Logs.
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public static final class LogsBlockingV2Stub
@@ -430,6 +752,23 @@ public final class LogsGrpc {
      * server-side maximum stream duration is reached.&lt;/p&gt;
      * &lt;p&gt;Entries are served from the VTSI database rather than from the docker daemon, so a
      * container that has already been removed still streams. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;Limits: at most &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt; (default 3600) seconds per
+     * stream, after which the server sends a final message with &lt;code&gt;end_reason_code =
+     * LOG_STREAM_END_REASON_MAX_DURATION&lt;/code&gt; and a &lt;code&gt;resume_token&lt;/code&gt; to reconnect with; at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_STREAMS&lt;/code&gt; (default 16) concurrent streams per server,
+     * beyond which a new stream is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. New entries are polled every
+     * &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_POLL_INTERVAL_S&lt;/code&gt; (default 0.5) seconds. The server sends NO
+     * keep-alive message: a quiet container sends nothing, so a client must not treat silence as a dead
+     * stream (use HTTP/2 keep-alive pings to detect a dead connection).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a filter
+     * carrying &lt;code&gt;start_time&lt;/code&gt; or &lt;code&gt;end_time&lt;/code&gt;, an &lt;code&gt;after_seq&lt;/code&gt; with a filter
+     * that does not resolve to exactly one log stream, or a malformed &lt;code&gt;resume_token&lt;/code&gt;;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. When the
+     * caller&amp;apos;s role is revoked or its credential expires during the stream, the server sends a final
+     * message (&lt;code&gt;LOG_STREAM_END_REASON_PERMISSION_REVOKED&lt;/code&gt; /
+     * &lt;code&gt;LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED&lt;/code&gt;, with a &lt;code&gt;resume_token&lt;/code&gt;) and ends
+     * the stream with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
@@ -444,6 +783,16 @@ public final class LogsGrpc {
      * &lt;p&gt;Returns a bounded, filtered page of captured container log entries. Supports a time window,
      * severity filtering, a regular expression, a plain-text search and cursor paging in both
      * directions for infinite scrolling. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;No time window is required: without &lt;code&gt;start_time&lt;/code&gt; / &lt;code&gt;end_time&lt;/code&gt; the window is
+     * the newest &lt;code&gt;max_lines&lt;/code&gt; matching entries (or, with &lt;code&gt;oldest_first&lt;/code&gt;, the oldest
+     * after the cursor). With &lt;code&gt;include_counts&lt;/code&gt; the response also carries the number of matching
+     * entries per severity.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an invalid
+     * or over-long &lt;code&gt;regex&lt;/code&gt;, a &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;,
+     * &lt;code&gt;before_seq&lt;/code&gt; / &lt;code&gt;after_seq&lt;/code&gt; combined with &lt;code&gt;resume_token&lt;/code&gt; or with a
+     * filter that does not resolve to exactly one log stream, a malformed &lt;code&gt;resume_token&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.ListCallLogsResponse listCallLogs(ondewo.vtsi.LogsOuterClass.ListCallLogsRequest request) throws io.grpc.StatusException {
@@ -455,6 +804,11 @@ public final class LogsGrpc {
      * <pre>
      * &lt;p&gt;Returns the capture state of a single log stream, i.e. of one capture generation of one
      * container.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt; or
+     * &lt;code&gt;name&lt;/code&gt;, for a log stream that belongs to another project than
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt;, or for an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.CallLogStream getCallLogStream(ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest request) throws io.grpc.StatusException {
@@ -467,6 +821,13 @@ public final class LogsGrpc {
      * &lt;p&gt;Lists the log streams VTSI has captured for a project. A single container yields a new log
      * stream every time it is recreated, because a recreated container is a new docker container
      * whose previous logs no longer exist.&lt;/p&gt;
+     * &lt;p&gt;Ordered by &lt;code&gt;capture_started_at&lt;/code&gt;, newest first (ties by an internal id, so the order is
+     * stable).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a malformed &lt;code&gt;page_token&lt;/code&gt;,
+     * &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; in &lt;code&gt;capture_states&lt;/code&gt; or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.ListCallLogStreamsResponse listCallLogStreams(ondewo.vtsi.LogsOuterClass.ListCallLogStreamsRequest request) throws io.grpc.StatusException {
@@ -479,11 +840,64 @@ public final class LogsGrpc {
      * &lt;p&gt;Permanently deletes captured log entries matching a filter. This is the erasure path for
      * data-subject requests: retention answers &amp;quot;delete everything older than N days&amp;quot;, this
      * answers &amp;quot;delete everything for this call or this phone number&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Only the identity filters and the time window apply; a time window ALONE (no identity filter)
+     * is a valid filter and deletes every entry of the project inside it. The deletion is permanent and
+     * runs in batches; a log stream whose last entry was deleted is removed too, unless it is still
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;Race with live capture:&lt;/b&gt; the deletion removes what is stored when it runs. A container
+     * whose capture is still running keeps being captured, so entries it emits AFTER the deletion are
+     * stored again (there is no tombstone). To erase the logs of a call completely, delete them after
+     * the call ended and its capture is &lt;code&gt;LOG_CAPTURE_STATE_STOPPED&lt;/code&gt;, or repeat the deletion.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: repeating a deletion succeeds and reports &lt;code&gt;0&lt;/code&gt; deleted entries. With
+     * &lt;code&gt;validate_only&lt;/code&gt; nothing is deleted and the counts are what would be deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an empty
+     * filter (a filter whose only field is &lt;code&gt;call_types = [BOTH]&lt;/code&gt; counts as empty), a content
+     * filter (&lt;code&gt;text&lt;/code&gt;, &lt;code&gt;regex&lt;/code&gt;, &lt;code&gt;log_levels&lt;/code&gt;, &lt;code&gt;min_log_level&lt;/code&gt;,
+     * &lt;code&gt;include_unleveled_lines&lt;/code&gt;, &lt;code&gt;log_sources&lt;/code&gt;, &lt;code&gt;channels&lt;/code&gt;,
+     * &lt;code&gt;emitter_prefixes&lt;/code&gt;, &lt;code&gt;thread_names&lt;/code&gt;; presence alone counts) or a
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project. Every deletion is logged
+     * by the server with the project, the filter fields in scope and the deleted counts.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse deleteCallLogs(ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest request) throws io.grpc.StatusException {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getDeleteCallLogsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Exports the captured log entries matching a filter as a file: plain text, NDJSON or CSV,
+     * streamed in chunks. Entries are exported oldest first, with the same filter semantics and the same
+     * server-side secret redaction as &lt;code&gt;ListCallLogs&lt;/code&gt;; unlike &lt;code&gt;ListCallLogs&lt;/code&gt; the
+     * content filters are applied to EVERY entry of the window, never only inside a page. Concatenating
+     * the &lt;code&gt;chunk&lt;/code&gt;s of all messages in order yields the file.&lt;/p&gt;
+     * &lt;p&gt;A bounded time window is REQUIRED: &lt;code&gt;filter.start_time&lt;/code&gt; AND
+     * &lt;code&gt;filter.end_time&lt;/code&gt; must both be set, with &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;, because an export reads every entry of the window. (This is stricter than
+     * &lt;code&gt;ListCallLogs&lt;/code&gt;, which needs no window because it reads one bounded page.)&lt;/p&gt;
+     * &lt;p&gt;Limits: each &lt;code&gt;chunk&lt;/code&gt; is at most 1 MiB; an export holds at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; (default 1000000) entries and at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt; (default 1 GiB) of output. When a limit is reached the
+     * export ends early with &lt;code&gt;truncated = true&lt;/code&gt; on the last message; narrow the window (e.g.
+     * start a new export at the timestamp of the last exported entry). At most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_EXPORTS&lt;/code&gt; (default 2) exports run per server, beyond which
+     * a new one is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. The export is a snapshot of what is stored when each
+     * entry is read; entries captured during the export may or may not be included.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a missing,
+     * empty or inverted time window, an invalid &lt;code&gt;regex&lt;/code&gt; or an unknown
+     * &lt;code&gt;format&lt;/code&gt; value; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. A role revoked or a credential expired during the export
+     * ends it with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt; and no last message.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse>
+        exportCallLogs(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getExportCallLogsMethod(), getCallOptions(), request);
     }
   }
 
@@ -491,6 +905,28 @@ public final class LogsGrpc {
    * A stub to allow clients to do limited synchronous rpc calls to service Logs.
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public static final class LogsBlockingStub
@@ -515,6 +951,23 @@ public final class LogsGrpc {
      * server-side maximum stream duration is reached.&lt;/p&gt;
      * &lt;p&gt;Entries are served from the VTSI database rather than from the docker daemon, so a
      * container that has already been removed still streams. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;Limits: at most &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt; (default 3600) seconds per
+     * stream, after which the server sends a final message with &lt;code&gt;end_reason_code =
+     * LOG_STREAM_END_REASON_MAX_DURATION&lt;/code&gt; and a &lt;code&gt;resume_token&lt;/code&gt; to reconnect with; at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_STREAMS&lt;/code&gt; (default 16) concurrent streams per server,
+     * beyond which a new stream is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. New entries are polled every
+     * &lt;code&gt;ONDEWO_VTSI_LOG_STREAM_POLL_INTERVAL_S&lt;/code&gt; (default 0.5) seconds. The server sends NO
+     * keep-alive message: a quiet container sends nothing, so a client must not treat silence as a dead
+     * stream (use HTTP/2 keep-alive pings to detect a dead connection).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a filter
+     * carrying &lt;code&gt;start_time&lt;/code&gt; or &lt;code&gt;end_time&lt;/code&gt;, an &lt;code&gt;after_seq&lt;/code&gt; with a filter
+     * that does not resolve to exactly one log stream, or a malformed &lt;code&gt;resume_token&lt;/code&gt;;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. When the
+     * caller&amp;apos;s role is revoked or its credential expires during the stream, the server sends a final
+     * message (&lt;code&gt;LOG_STREAM_END_REASON_PERMISSION_REVOKED&lt;/code&gt; /
+     * &lt;code&gt;LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED&lt;/code&gt;, with a &lt;code&gt;resume_token&lt;/code&gt;) and ends
+     * the stream with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public java.util.Iterator<ondewo.vtsi.LogsOuterClass.StreamCallLogsResponse> streamCallLogs(
@@ -528,6 +981,16 @@ public final class LogsGrpc {
      * &lt;p&gt;Returns a bounded, filtered page of captured container log entries. Supports a time window,
      * severity filtering, a regular expression, a plain-text search and cursor paging in both
      * directions for infinite scrolling. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;No time window is required: without &lt;code&gt;start_time&lt;/code&gt; / &lt;code&gt;end_time&lt;/code&gt; the window is
+     * the newest &lt;code&gt;max_lines&lt;/code&gt; matching entries (or, with &lt;code&gt;oldest_first&lt;/code&gt;, the oldest
+     * after the cursor). With &lt;code&gt;include_counts&lt;/code&gt; the response also carries the number of matching
+     * entries per severity.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an invalid
+     * or over-long &lt;code&gt;regex&lt;/code&gt;, a &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;,
+     * &lt;code&gt;before_seq&lt;/code&gt; / &lt;code&gt;after_seq&lt;/code&gt; combined with &lt;code&gt;resume_token&lt;/code&gt; or with a
+     * filter that does not resolve to exactly one log stream, a malformed &lt;code&gt;resume_token&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.ListCallLogsResponse listCallLogs(ondewo.vtsi.LogsOuterClass.ListCallLogsRequest request) {
@@ -539,6 +1002,11 @@ public final class LogsGrpc {
      * <pre>
      * &lt;p&gt;Returns the capture state of a single log stream, i.e. of one capture generation of one
      * container.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt; or
+     * &lt;code&gt;name&lt;/code&gt;, for a log stream that belongs to another project than
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt;, or for an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.CallLogStream getCallLogStream(ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest request) {
@@ -551,6 +1019,13 @@ public final class LogsGrpc {
      * &lt;p&gt;Lists the log streams VTSI has captured for a project. A single container yields a new log
      * stream every time it is recreated, because a recreated container is a new docker container
      * whose previous logs no longer exist.&lt;/p&gt;
+     * &lt;p&gt;Ordered by &lt;code&gt;capture_started_at&lt;/code&gt;, newest first (ties by an internal id, so the order is
+     * stable).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a malformed &lt;code&gt;page_token&lt;/code&gt;,
+     * &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; in &lt;code&gt;capture_states&lt;/code&gt; or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.ListCallLogStreamsResponse listCallLogStreams(ondewo.vtsi.LogsOuterClass.ListCallLogStreamsRequest request) {
@@ -563,11 +1038,63 @@ public final class LogsGrpc {
      * &lt;p&gt;Permanently deletes captured log entries matching a filter. This is the erasure path for
      * data-subject requests: retention answers &amp;quot;delete everything older than N days&amp;quot;, this
      * answers &amp;quot;delete everything for this call or this phone number&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Only the identity filters and the time window apply; a time window ALONE (no identity filter)
+     * is a valid filter and deletes every entry of the project inside it. The deletion is permanent and
+     * runs in batches; a log stream whose last entry was deleted is removed too, unless it is still
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;Race with live capture:&lt;/b&gt; the deletion removes what is stored when it runs. A container
+     * whose capture is still running keeps being captured, so entries it emits AFTER the deletion are
+     * stored again (there is no tombstone). To erase the logs of a call completely, delete them after
+     * the call ended and its capture is &lt;code&gt;LOG_CAPTURE_STATE_STOPPED&lt;/code&gt;, or repeat the deletion.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: repeating a deletion succeeds and reports &lt;code&gt;0&lt;/code&gt; deleted entries. With
+     * &lt;code&gt;validate_only&lt;/code&gt; nothing is deleted and the counts are what would be deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an empty
+     * filter (a filter whose only field is &lt;code&gt;call_types = [BOTH]&lt;/code&gt; counts as empty), a content
+     * filter (&lt;code&gt;text&lt;/code&gt;, &lt;code&gt;regex&lt;/code&gt;, &lt;code&gt;log_levels&lt;/code&gt;, &lt;code&gt;min_log_level&lt;/code&gt;,
+     * &lt;code&gt;include_unleveled_lines&lt;/code&gt;, &lt;code&gt;log_sources&lt;/code&gt;, &lt;code&gt;channels&lt;/code&gt;,
+     * &lt;code&gt;emitter_prefixes&lt;/code&gt;, &lt;code&gt;thread_names&lt;/code&gt;; presence alone counts) or a
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project. Every deletion is logged
+     * by the server with the project, the filter fields in scope and the deleted counts.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse deleteCallLogs(ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteCallLogsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Exports the captured log entries matching a filter as a file: plain text, NDJSON or CSV,
+     * streamed in chunks. Entries are exported oldest first, with the same filter semantics and the same
+     * server-side secret redaction as &lt;code&gt;ListCallLogs&lt;/code&gt;; unlike &lt;code&gt;ListCallLogs&lt;/code&gt; the
+     * content filters are applied to EVERY entry of the window, never only inside a page. Concatenating
+     * the &lt;code&gt;chunk&lt;/code&gt;s of all messages in order yields the file.&lt;/p&gt;
+     * &lt;p&gt;A bounded time window is REQUIRED: &lt;code&gt;filter.start_time&lt;/code&gt; AND
+     * &lt;code&gt;filter.end_time&lt;/code&gt; must both be set, with &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;, because an export reads every entry of the window. (This is stricter than
+     * &lt;code&gt;ListCallLogs&lt;/code&gt;, which needs no window because it reads one bounded page.)&lt;/p&gt;
+     * &lt;p&gt;Limits: each &lt;code&gt;chunk&lt;/code&gt; is at most 1 MiB; an export holds at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; (default 1000000) entries and at most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt; (default 1 GiB) of output. When a limit is reached the
+     * export ends early with &lt;code&gt;truncated = true&lt;/code&gt; on the last message; narrow the window (e.g.
+     * start a new export at the timestamp of the last exported entry). At most
+     * &lt;code&gt;ONDEWO_VTSI_LOG_MAX_CONCURRENT_EXPORTS&lt;/code&gt; (default 2) exports run per server, beyond which
+     * a new one is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;. The export is a snapshot of what is stored when each
+     * entry is read; entries captured during the export may or may not be included.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a missing,
+     * empty or inverted time window, an invalid &lt;code&gt;regex&lt;/code&gt; or an unknown
+     * &lt;code&gt;format&lt;/code&gt; value; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; as above. A role revoked or a credential expired during the export
+     * ends it with &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; / &lt;code&gt;UNAUTHENTICATED&lt;/code&gt; and no last message.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public java.util.Iterator<ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse> exportCallLogs(
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getExportCallLogsMethod(), getCallOptions(), request);
     }
   }
 
@@ -575,6 +1102,28 @@ public final class LogsGrpc {
    * A stub to allow clients to do ListenableFuture-style rpc calls to service Logs.
    * <pre>
    * &lt;p&gt;ONDEWO VTSI API&lt;/p&gt;
+   * &lt;p&gt;Reads, follows, exports and erases the CONTAINER LOGS VTSI captures from the per-call
+   * ondewo-sip / ondewo-csi containers of a VTSI project. Entries are served from the VTSI database, not
+   * from the docker daemon, so the logs of a container that was already removed stay readable until
+   * retention or &lt;code&gt;DeleteCallLogs&lt;/code&gt; removes them.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Secrets are redacted server-side&lt;/b&gt; in every RPC that returns log text
+   * (&lt;code&gt;StreamCallLogs&lt;/code&gt;, &lt;code&gt;ListCallLogs&lt;/code&gt;, &lt;code&gt;ExportCallLogs&lt;/code&gt;): the
+   * project&amp;apos;s SIP passwords, the call-control secrets and, unless the operator disabled it
+   * (&lt;code&gt;ONDEWO_VTSI_LOG_MASK_IDENTIFIERS&lt;/code&gt;, default true), identifiers such as phone numbers. The
+   * redaction runs when the entry is read, so a redaction rule added later also applies to entries
+   * captured before it.&lt;/p&gt;
+   * &lt;p&gt;Errors are reported as gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name,
+   * filter, cursor, &lt;code&gt;page_token&lt;/code&gt; or &lt;code&gt;field_mask&lt;/code&gt; (each naming the field);
+   * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the
+   * server already serves its maximum of concurrent streams or exports; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when the
+   * database cannot be reached.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; and
+   * &lt;code&gt;PROJECT_USER&lt;/code&gt; are refused, because log text can carry conversation content), otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project. A long-running
+   * &lt;code&gt;StreamCallLogs&lt;/code&gt; or &lt;code&gt;ExportCallLogs&lt;/code&gt; re-checks the caller&amp;apos;s role
+   * periodically and ends when it was revoked or the credential expired.&lt;/p&gt;
    * </pre>
    */
   public static final class LogsFutureStub
@@ -595,6 +1144,16 @@ public final class LogsGrpc {
      * &lt;p&gt;Returns a bounded, filtered page of captured container log entries. Supports a time window,
      * severity filtering, a regular expression, a plain-text search and cursor paging in both
      * directions for infinite scrolling. Secrets are redacted server-side.&lt;/p&gt;
+     * &lt;p&gt;No time window is required: without &lt;code&gt;start_time&lt;/code&gt; / &lt;code&gt;end_time&lt;/code&gt; the window is
+     * the newest &lt;code&gt;max_lines&lt;/code&gt; matching entries (or, with &lt;code&gt;oldest_first&lt;/code&gt;, the oldest
+     * after the cursor). With &lt;code&gt;include_counts&lt;/code&gt; the response also carries the number of matching
+     * entries per severity.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an invalid
+     * or over-long &lt;code&gt;regex&lt;/code&gt;, a &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;,
+     * &lt;code&gt;before_seq&lt;/code&gt; / &lt;code&gt;after_seq&lt;/code&gt; combined with &lt;code&gt;resume_token&lt;/code&gt; or with a
+     * filter that does not resolve to exactly one log stream, a malformed &lt;code&gt;resume_token&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.LogsOuterClass.ListCallLogsResponse> listCallLogs(
@@ -607,6 +1166,11 @@ public final class LogsGrpc {
      * <pre>
      * &lt;p&gt;Returns the capture state of a single log stream, i.e. of one capture generation of one
      * container.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt; or
+     * &lt;code&gt;name&lt;/code&gt;, for a log stream that belongs to another project than
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt;, or for an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or log stream.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.LogsOuterClass.CallLogStream> getCallLogStream(
@@ -620,6 +1184,13 @@ public final class LogsGrpc {
      * &lt;p&gt;Lists the log streams VTSI has captured for a project. A single container yields a new log
      * stream every time it is recreated, because a recreated container is a new docker container
      * whose previous logs no longer exist.&lt;/p&gt;
+     * &lt;p&gt;Ordered by &lt;code&gt;capture_started_at&lt;/code&gt;, newest first (ties by an internal id, so the order is
+     * stable).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a malformed &lt;code&gt;page_token&lt;/code&gt;,
+     * &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; in &lt;code&gt;capture_states&lt;/code&gt; or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.LogsOuterClass.ListCallLogStreamsResponse> listCallLogStreams(
@@ -633,6 +1204,25 @@ public final class LogsGrpc {
      * &lt;p&gt;Permanently deletes captured log entries matching a filter. This is the erasure path for
      * data-subject requests: retention answers &amp;quot;delete everything older than N days&amp;quot;, this
      * answers &amp;quot;delete everything for this call or this phone number&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Only the identity filters and the time window apply; a time window ALONE (no identity filter)
+     * is a valid filter and deletes every entry of the project inside it. The deletion is permanent and
+     * runs in batches; a log stream whose last entry was deleted is removed too, unless it is still
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;Race with live capture:&lt;/b&gt; the deletion removes what is stored when it runs. A container
+     * whose capture is still running keeps being captured, so entries it emits AFTER the deletion are
+     * stored again (there is no tombstone). To erase the logs of a call completely, delete them after
+     * the call ended and its capture is &lt;code&gt;LOG_CAPTURE_STATE_STOPPED&lt;/code&gt;, or repeat the deletion.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: repeating a deletion succeeds and reports &lt;code&gt;0&lt;/code&gt; deleted entries. With
+     * &lt;code&gt;validate_only&lt;/code&gt; nothing is deleted and the counts are what would be deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;vtsi_project_name&lt;/code&gt;, an empty
+     * filter (a filter whose only field is &lt;code&gt;call_types = [BOTH]&lt;/code&gt; counts as empty), a content
+     * filter (&lt;code&gt;text&lt;/code&gt;, &lt;code&gt;regex&lt;/code&gt;, &lt;code&gt;log_levels&lt;/code&gt;, &lt;code&gt;min_log_level&lt;/code&gt;,
+     * &lt;code&gt;include_unleveled_lines&lt;/code&gt;, &lt;code&gt;log_sources&lt;/code&gt;, &lt;code&gt;channels&lt;/code&gt;,
+     * &lt;code&gt;emitter_prefixes&lt;/code&gt;, &lt;code&gt;thread_names&lt;/code&gt;; presence alone counts) or a
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt;; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project. Every deletion is logged
+     * by the server with the project, the filter fields in scope and the deleted counts.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse> deleteCallLogs(
@@ -647,6 +1237,7 @@ public final class LogsGrpc {
   private static final int METHODID_GET_CALL_LOG_STREAM = 2;
   private static final int METHODID_LIST_CALL_LOG_STREAMS = 3;
   private static final int METHODID_DELETE_CALL_LOGS = 4;
+  private static final int METHODID_EXPORT_CALL_LOGS = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -684,6 +1275,10 @@ public final class LogsGrpc {
         case METHODID_DELETE_CALL_LOGS:
           serviceImpl.deleteCallLogs((ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse>) responseObserver);
+          break;
+        case METHODID_EXPORT_CALL_LOGS:
+          serviceImpl.exportCallLogs((ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -738,6 +1333,13 @@ public final class LogsGrpc {
               ondewo.vtsi.LogsOuterClass.DeleteCallLogsRequest,
               ondewo.vtsi.LogsOuterClass.DeleteCallLogsResponse>(
                 service, METHODID_DELETE_CALL_LOGS)))
+        .addMethod(
+          getExportCallLogsMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest,
+              ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse>(
+                service, METHODID_EXPORT_CALL_LOGS)))
         .build();
   }
 
@@ -791,6 +1393,7 @@ public final class LogsGrpc {
               .addMethod(getGetCallLogStreamMethod())
               .addMethod(getListCallLogStreamsMethod())
               .addMethod(getDeleteCallLogsMethod())
+              .addMethod(getExportCallLogsMethod())
               .build();
         }
       }

@@ -14,8 +14,14 @@ permissions:
 jobs:
   lint:
     name: pre-commit (markdown + hygiene)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
+      # actions/checkout runs `git init`, which prints a multi-line "default branch name" hint on
+      # every job; naming the default up front is what silences it. master is this repository's
+      # default branch anyway.
+      - name: Name git's default branch
+        run: git config --global init.defaultBranch master
+
       - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v7
@@ -32,7 +38,7 @@ jobs:
 
   build:
     name: build + test (JDK ${{ matrix.java-version }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -40,6 +46,12 @@ jobs:
         # image itself ships - the jar has to build on both.
         java-version: ["11", "21"]
     steps:
+      # actions/checkout runs `git init`, which prints a multi-line "default branch name" hint on
+      # every job; naming the default up front is what silences it. master is this repository's
+      # default branch anyway.
+      - name: Name git's default branch
+        run: git config --global init.defaultBranch master
+
       # No `submodules:` - the stubs are committed, so neither ondewo-vtsi-api nor
       # ondewo-proto-compiler is needed to compile and test them.
       - uses: actions/checkout@v7

@@ -29,6 +29,30 @@ public final class EventsOuterClass {
   /**
    * <pre>
    * Every event VTSI reports. Values are grouped by resource in blocks of 100; numbers are stable.
+   * &lt;p&gt;&lt;b&gt;Attributes.&lt;/b&gt; &lt;code&gt;VtsiEventMessage.attributes&lt;/code&gt; carries the event-specific values listed at
+   * each value below; a key whose value is unknown is left out, and keys not listed are never sent. Formats:
+   * counts and numbers are base-10 integers without separators (&lt;code&gt;3&lt;/code&gt;); booleans are
+   * &lt;code&gt;true&lt;/code&gt; / &lt;code&gt;false&lt;/code&gt;; times are RFC 3339 in UTC with a numeric offset
+   * (&lt;code&gt;2026-10-11T12:00:00+00:00&lt;/code&gt;, fractional seconds possible); resource names are complete
+   * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;); &lt;code&gt;updated_fields&lt;/code&gt; is a
+   * comma-separated list of &lt;code&gt;update_mask&lt;/code&gt; paths without spaces (&lt;code&gt;display_name,url&lt;/code&gt;);
+   * a campaign &lt;code&gt;state&lt;/code&gt; / &lt;code&gt;previous_state&lt;/code&gt; is the &lt;code&gt;CampaignState&lt;/code&gt; name WITHOUT
+   * its &lt;code&gt;CAMPAIGN_STATE_&lt;/code&gt; prefix (&lt;code&gt;RUNNING&lt;/code&gt;). An event carries at most 20 attributes and
+   * a value at most 256 characters (longer values are cut); &lt;code&gt;description&lt;/code&gt; and
+   * &lt;code&gt;sip_status_description&lt;/code&gt; at most 1024 characters.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Call status attributes&lt;/b&gt;, on every event derived from a change of a call&amp;apos;s SIP status (marked
+   * "call status attributes" below): &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt; or
+   * &lt;code&gt;scheduled_caller_name&lt;/code&gt; (the resource that owns the call, the one that applies) and
+   * &lt;code&gt;phone_number&lt;/code&gt; (the callee or caller number in clear, where recorded; treat it as personal
+   * data). Such an event also sets &lt;code&gt;call_name&lt;/code&gt;, &lt;code&gt;sip_status_type&lt;/code&gt;,
+   * &lt;code&gt;previous_sip_status_type&lt;/code&gt; (unset for a new call record), &lt;code&gt;sip_status_description&lt;/code&gt;
+   * and &lt;code&gt;resource_sequence&lt;/code&gt; (the call&amp;apos;s status change number), and has a deterministic
+   * &lt;code&gt;event_id&lt;/code&gt;, so replicas observing the same change report one event.&lt;/p&gt;
+   * &lt;p&gt;&lt;b&gt;Campaign call attributes&lt;/b&gt;, on the &lt;code&gt;VTSI_EVENT_CAMPAIGN_CALL_*&lt;/code&gt; events:
+   * &lt;code&gt;attempt_number&lt;/code&gt; (attempts started so far), &lt;code&gt;phone_number&lt;/code&gt; (the callee in clear) and
+   * &lt;code&gt;caller_name&lt;/code&gt; (caller of the current or last attempt). They also set &lt;code&gt;call_name&lt;/code&gt;,
+   * &lt;code&gt;campaign_name&lt;/code&gt;, &lt;code&gt;sip_status_type&lt;/code&gt;, &lt;code&gt;sip_status_description&lt;/code&gt; and
+   * &lt;code&gt;resource_sequence&lt;/code&gt;; never &lt;code&gt;campaign_statistics&lt;/code&gt;.&lt;/p&gt;
    * </pre>
    *
    * Protobuf enum {@code ondewo.vtsi.VtsiEvent}
@@ -45,7 +69,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_UNSPECIFIED(0),
     /**
      * <pre>
-     * A call record was created: an outbound call was placed, or a listener received a call.
+     * A call record was created: an outbound call was placed, or a listener received a call. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_CREATED = 100;</code>
@@ -53,7 +78,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_CREATED(100),
     /**
      * <pre>
-     * The call is ringing: &lt;code&gt;INCOMING_CALL_INITIATED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_INITIATED&lt;/code&gt;.
+     * The call is ringing: &lt;code&gt;INCOMING_CALL_INITIATED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_INITIATED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_INITIATED = 101;</code>
@@ -61,7 +87,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_INITIATED(101),
     /**
      * <pre>
-     * The call was answered: &lt;code&gt;INCOMING_CALL_CONNECTED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_CONNECTED&lt;/code&gt;.
+     * The call was answered: &lt;code&gt;INCOMING_CALL_CONNECTED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_CONNECTED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_CONNECTED = 102;</code>
@@ -69,7 +96,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_CONNECTED(102),
     /**
      * <pre>
-     * The call ended normally: &lt;code&gt;INCOMING_CALL_FINISHED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FINISHED&lt;/code&gt;.
+     * The call ended normally: &lt;code&gt;INCOMING_CALL_FINISHED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FINISHED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_FINISHED = 103;</code>
@@ -77,7 +105,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_FINISHED(103),
     /**
      * <pre>
-     * The call failed: &lt;code&gt;INCOMING_CALL_FAILED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FAILED&lt;/code&gt;.
+     * The call failed: &lt;code&gt;INCOMING_CALL_FAILED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FAILED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_FAILED = 104;</code>
@@ -87,6 +116,15 @@ public final class EventsOuterClass {
      * <pre>
      * A transfer of the call started: &lt;code&gt;TRANSFER_CALL_INITIATED&lt;/code&gt;. Emitted when a BLIND transfer was
      * accepted, or when the target of a WARM transfer starts ringing.
+     * &lt;p&gt;Attributes: &lt;code&gt;transfer_id&lt;/code&gt; (the target, a phone number masked to its last 3 digits, e.g.
+     * &lt;code&gt;***678&lt;/code&gt;, or an extension), &lt;code&gt;target_type&lt;/code&gt; (&lt;code&gt;phone_number&lt;/code&gt;,
+     * &lt;code&gt;softphone&lt;/code&gt;, &lt;code&gt;listener&lt;/code&gt;, &lt;code&gt;listener_queue&lt;/code&gt;, &lt;code&gt;legacy&lt;/code&gt;,
+     * &lt;code&gt;unknown&lt;/code&gt;), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;blind&lt;/code&gt; / &lt;code&gt;warm&lt;/code&gt;; &lt;code&gt;WARM&lt;/code&gt;, upper
+     * case, when reported for the ringing WARM leg), &lt;code&gt;outcome&lt;/code&gt; (&lt;code&gt;accepted&lt;/code&gt;,
+     * &lt;code&gt;pending&lt;/code&gt;, ...), &lt;code&gt;sip_response_code&lt;/code&gt; (SIP code, &lt;code&gt;0&lt;/code&gt; when unknown),
+     * &lt;code&gt;error_reason&lt;/code&gt; (kebab-case token, may be empty), &lt;code&gt;participant_id&lt;/code&gt; (WARM leg),
+     * &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;call_monitor&lt;/code&gt; when observed by the call monitor). Sets
+     * &lt;code&gt;call_name&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFER_INITIATED = 105;</code>
@@ -96,6 +134,11 @@ public final class EventsOuterClass {
      * <pre>
      * &lt;code&gt;TransferCall&lt;/code&gt; transferred the call. Emitted at the call&amp;apos;s terminal edge: a
      * &lt;code&gt;*_CALL_FINISHED&lt;/code&gt; status whose description is &lt;code&gt;Call transferred&lt;/code&gt;.
+     * &lt;p&gt;Attributes: &lt;code&gt;transfer_id&lt;/code&gt; (masked as above), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;blind&lt;/code&gt; /
+     * &lt;code&gt;warm&lt;/code&gt;), &lt;code&gt;outcome&lt;/code&gt; (&lt;code&gt;accepted&lt;/code&gt;), &lt;code&gt;sip_response_code&lt;/code&gt;,
+     * &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;call_monitor&lt;/code&gt;), and the call status attributes
+     * (&lt;code&gt;caller_name&lt;/code&gt; / &lt;code&gt;listener_name&lt;/code&gt; / &lt;code&gt;scheduled_caller_name&lt;/code&gt;,
+     * &lt;code&gt;phone_number&lt;/code&gt;). Sets the call status fields.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFERRED = 106;</code>
@@ -105,6 +148,12 @@ public final class EventsOuterClass {
      * <pre>
      * A transfer failed and the call was KEPT with the bot: &lt;code&gt;TRANSFER_CALL_FAILED&lt;/code&gt;, a refused or unanswered
      * REFER, or a WARM target that was busy or did not answer.
+     * &lt;p&gt;Attributes: as &lt;code&gt;VTSI_EVENT_CALL_TRANSFER_INITIATED&lt;/code&gt;, with &lt;code&gt;outcome&lt;/code&gt; naming the
+     * failure (&lt;code&gt;target_invalid&lt;/code&gt;, &lt;code&gt;refer_rejected&lt;/code&gt;, &lt;code&gt;timeout&lt;/code&gt;,
+     * &lt;code&gt;call_ended&lt;/code&gt;, &lt;code&gt;call_scope_mismatch&lt;/code&gt;, &lt;code&gt;sip_unreachable&lt;/code&gt;,
+     * &lt;code&gt;refused&lt;/code&gt;, or the SIP reason in snake case), &lt;code&gt;error_reason&lt;/code&gt; and, for a WARM leg,
+     * &lt;code&gt;participant_id&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt; (as on
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;). &lt;code&gt;description&lt;/code&gt; says why.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFER_FAILED = 107;</code>
@@ -112,7 +161,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_TRANSFER_FAILED(107),
     /**
      * <pre>
-     * A hang-up started: &lt;code&gt;SOFT_HANGUP_INITIATED&lt;/code&gt; / &lt;code&gt;HARD_HANGUP_INITIATED&lt;/code&gt;.
+     * A hang-up started: &lt;code&gt;SOFT_HANGUP_INITIATED&lt;/code&gt; / &lt;code&gt;HARD_HANGUP_INITIATED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_HANGUP_INITIATED = 108;</code>
@@ -120,7 +170,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_HANGUP_INITIATED(108),
     /**
      * <pre>
-     * An answering machine was detected: &lt;code&gt;OUTGOING_CALL_ANSWERING_MACHINE_DETECTED&lt;/code&gt;.
+     * An answering machine was detected: &lt;code&gt;OUTGOING_CALL_ANSWERING_MACHINE_DETECTED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED = 109;</code>
@@ -129,7 +180,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The call was ended by &lt;code&gt;StopCall&lt;/code&gt;, &lt;code&gt;StopCalls&lt;/code&gt;, &lt;code&gt;StopAllCalls&lt;/code&gt;
-     * or a campaign hard stop.
+     * or a campaign hard stop. No attributes; &lt;code&gt;call_name&lt;/code&gt; is not set (the call is the
+     * &lt;code&gt;resource_name&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_STOPPED = 110;</code>
@@ -138,7 +190,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The SIP status of the call changed (emitted for EVERY change, in addition to the specific
-     * events above). &lt;code&gt;previous_sip_status_type&lt;/code&gt; holds the status before.
+     * events above). &lt;code&gt;previous_sip_status_type&lt;/code&gt; holds the status before. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED = 111;</code>
@@ -146,8 +199,16 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_SIP_STATUS_CHANGED(111),
     /**
      * <pre>
-     * A participant was invited into the call (&lt;code&gt;InviteToCall&lt;/code&gt;). &lt;code&gt;attributes&lt;/code&gt; carry
-     * &lt;code&gt;participant_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt; and &lt;code&gt;actor&lt;/code&gt; (who invited).
+     * A participant was invited into the call (&lt;code&gt;InviteToCall&lt;/code&gt;).
+     * &lt;p&gt;Attributes (the participant attributes, also on 113 to 115): &lt;code&gt;participant_id&lt;/code&gt;,
+     * &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;CONFERENCE&lt;/code&gt; / &lt;code&gt;MONITOR&lt;/code&gt;), &lt;code&gt;purpose&lt;/code&gt;
+     * (&lt;code&gt;invite&lt;/code&gt; / &lt;code&gt;warm_transfer&lt;/code&gt;), &lt;code&gt;state&lt;/code&gt; (&lt;code&gt;ParticipantState&lt;/code&gt; name,
+     * e.g. &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;), &lt;code&gt;softphone_account_name&lt;/code&gt; (when a softphone
+     * account was invited), &lt;code&gt;end_reason&lt;/code&gt; (on 114 and 115: &lt;code&gt;NOANSWER&lt;/code&gt;, &lt;code&gt;BUSY&lt;/code&gt;,
+     * &lt;code&gt;CHANUNAVAIL&lt;/code&gt;, &lt;code&gt;CALL_ENDED&lt;/code&gt;, &lt;code&gt;REMOVED&lt;/code&gt;, &lt;code&gt;HANGUP&lt;/code&gt;,
+     * &lt;code&gt;HANDED_OVER&lt;/code&gt;, &lt;code&gt;JOIN_FAILED&lt;/code&gt;, &lt;code&gt;TIMEOUT&lt;/code&gt;), &lt;code&gt;actor&lt;/code&gt; (who caused
+     * it: the authenticated user, or &lt;code&gt;system:call-control&lt;/code&gt;), &lt;code&gt;source&lt;/code&gt;. Sets
+     * &lt;code&gt;call_name&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_INVITED = 112;</code>
@@ -155,7 +216,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_PARTICIPANT_INVITED(112),
     /**
      * <pre>
-     * An invited participant answered and joined the call. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt;.
+     * An invited participant answered and joined the call. The participant attributes (see 112);
+     * &lt;code&gt;actor&lt;/code&gt; is who invited it.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_JOINED = 113;</code>
@@ -163,8 +225,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_PARTICIPANT_JOINED(113),
     /**
      * <pre>
-     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
-     * &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt;.
+     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...). The
+     * participant attributes (see 112), with &lt;code&gt;end_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_FAILED = 114;</code>
@@ -172,7 +234,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_PARTICIPANT_FAILED(114),
     /**
      * <pre>
-     * A joined participant left the call. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt; and
+     * A joined participant left the call. The participant attributes (see 112), with
      * &lt;code&gt;end_reason&lt;/code&gt;.
      * </pre>
      *
@@ -181,7 +243,10 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_PARTICIPANT_LEFT(115),
     /**
      * <pre>
-     * The bot of the call was muted. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person caused it.
+     * The bot of the call was muted. Attributes: &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;operator&lt;/code&gt; for
+     * &lt;code&gt;SetCallMediaControl&lt;/code&gt;, &lt;code&gt;call_monitor&lt;/code&gt; when the server observed it) and
+     * &lt;code&gt;actor&lt;/code&gt; (the authenticated user where a person caused it, &lt;code&gt;system&lt;/code&gt; for the call
+     * monitor). Sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_BOT_MUTED = 116;</code>
@@ -189,7 +254,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_BOT_MUTED(116),
     /**
      * <pre>
-     * The bot of the call was unmuted. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person caused it.
+     * The bot of the call was unmuted. Attributes as &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_BOT_UNMUTED = 117;</code>
@@ -197,8 +262,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_BOT_UNMUTED(117),
     /**
      * <pre>
-     * The bot of the call stopped listening to the caller. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a
-     * person caused it.
+     * The bot of the call stopped listening to the caller. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_LISTENING_PAUSED = 118;</code>
@@ -206,8 +271,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_LISTENING_PAUSED(118),
     /**
      * <pre>
-     * The bot of the call listens to the caller again. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person
-     * caused it.
+     * The bot of the call listens to the caller again. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_LISTENING_RESUMED = 119;</code>
@@ -216,7 +281,9 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A live call audio stream (&lt;code&gt;StreamCallAudio&lt;/code&gt; / &lt;code&gt;ListenCallAudio&lt;/code&gt;) connected.
-     * &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;stream_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt; and &lt;code&gt;actor&lt;/code&gt;.
+     * Attributes: &lt;code&gt;stream_id&lt;/code&gt; (uuid), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;LISTEN&lt;/code&gt; / &lt;code&gt;TALK&lt;/code&gt;),
+     * &lt;code&gt;rpc&lt;/code&gt; (&lt;code&gt;ListenCallAudio&lt;/code&gt; / &lt;code&gt;StreamCallAudio&lt;/code&gt;), &lt;code&gt;actor&lt;/code&gt; (the
+     * authenticated user, when known). Sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED = 120;</code>
@@ -224,8 +291,11 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED(120),
     /**
      * <pre>
-     * A live call audio stream disconnected. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;stream_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt;,
-     * &lt;code&gt;actor&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt;.
+     * A live call audio stream disconnected. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED&lt;/code&gt;, plus &lt;code&gt;end_reason&lt;/code&gt; (the
+     * &lt;code&gt;CallAudioEndReason&lt;/code&gt; name without prefix: &lt;code&gt;CLIENT_CLOSED&lt;/code&gt;, &lt;code&gt;CALL_ENDED&lt;/code&gt;,
+     * &lt;code&gt;CALL_TRANSFERRED&lt;/code&gt;, &lt;code&gt;MAX_DURATION&lt;/code&gt;, &lt;code&gt;STALLED&lt;/code&gt;, &lt;code&gt;INTERNAL&lt;/code&gt;,
+     * &lt;code&gt;UNSPECIFIED&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED = 121;</code>
@@ -233,7 +303,18 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED(121),
     /**
      * <pre>
-     * A caller started and placed its call.
+     * The stored record of the call was updated (&lt;code&gt;UpdateCall&lt;/code&gt;, &lt;code&gt;UpdateCalls&lt;/code&gt;); the call
+     * itself is unchanged. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the &lt;code&gt;update_mask&lt;/code&gt; paths, e.g.
+     * &lt;code&gt;labels&lt;/code&gt;). Never carries a label value. Sets &lt;code&gt;call_name&lt;/code&gt;. Not emitted for an entry
+     * of a batch that failed, nor when the update changed nothing.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CALL_UPDATED = 122;</code>
+     */
+    VTSI_EVENT_CALL_UPDATED(122),
+    /**
+     * <pre>
+     * A caller started and placed its call. No attributes; sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_STARTED = 200;</code>
@@ -241,7 +322,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_STARTED(200),
     /**
      * <pre>
-     * A caller could not be started; &lt;code&gt;description&lt;/code&gt; says why.
+     * A caller could not be started; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_START_FAILED = 201;</code>
@@ -249,7 +330,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_START_FAILED(201),
     /**
      * <pre>
-     * A caller was stopped (&lt;code&gt;StopCaller&lt;/code&gt;, &lt;code&gt;StopCallers&lt;/code&gt;).
+     * A caller was stopped (&lt;code&gt;StopCaller&lt;/code&gt;, &lt;code&gt;StopCallers&lt;/code&gt;). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_STOPPED = 202;</code>
@@ -257,7 +338,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_STOPPED(202),
     /**
      * <pre>
-     * A caller was deleted.
+     * A caller was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_DELETED = 203;</code>
@@ -265,7 +346,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_DELETED(203),
     /**
      * <pre>
-     * A caller&amp;apos;s container was restarted by the server.
+     * A caller&amp;apos;s container was restarted by the server. Attributes: &lt;code&gt;container_name&lt;/code&gt;,
+     * &lt;code&gt;reason&lt;/code&gt; (free text, at most 64 characters, e.g. &lt;code&gt;end-call-marker-expired&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_RESTARTED = 204;</code>
@@ -273,7 +355,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_RESTARTED(204),
     /**
      * <pre>
-     * A caller&amp;apos;s container was found not running or unhealthy.
+     * A caller&amp;apos;s container was found not running or unhealthy. Attribute &lt;code&gt;container_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; is &lt;code&gt;container not running&lt;/code&gt; or &lt;code&gt;container unhealthy&lt;/code&gt;; sets
+     * &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_UNHEALTHY = 205;</code>
@@ -282,7 +366,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A caller reported unhealthy is healthy again (its container answers its health check, or its
-     * restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes; sets &lt;code&gt;call_name&lt;/code&gt; where known.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_HEALTHY = 206;</code>
@@ -290,7 +375,17 @@ public final class EventsOuterClass {
     VTSI_EVENT_CALLER_HEALTHY(206),
     /**
      * <pre>
-     * A listener started and is waiting for calls.
+     * The stored configuration of a caller was updated (&lt;code&gt;UpdateCaller&lt;/code&gt;, &lt;code&gt;UpdateCallers&lt;/code&gt;);
+     * its running container is unchanged. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the &lt;code&gt;update_mask&lt;/code&gt;
+     * paths). Never carries a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CALLER_UPDATED = 207;</code>
+     */
+    VTSI_EVENT_CALLER_UPDATED(207),
+    /**
+     * <pre>
+     * A listener started and is waiting for calls. No attributes; sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_STARTED = 300;</code>
@@ -298,7 +393,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_STARTED(300),
     /**
      * <pre>
-     * A listener could not be started; &lt;code&gt;description&lt;/code&gt; says why.
+     * A listener could not be started; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_START_FAILED = 301;</code>
@@ -306,7 +401,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_START_FAILED(301),
     /**
      * <pre>
-     * A listener was stopped (&lt;code&gt;StopListener&lt;/code&gt;, &lt;code&gt;StopListeners&lt;/code&gt;).
+     * A listener was stopped (&lt;code&gt;StopListener&lt;/code&gt;, &lt;code&gt;StopListeners&lt;/code&gt;). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_STOPPED = 302;</code>
@@ -314,7 +409,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_STOPPED(302),
     /**
      * <pre>
-     * A listener was deleted.
+     * A listener was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_DELETED = 303;</code>
@@ -322,7 +417,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_DELETED(303),
     /**
      * <pre>
-     * A listener&amp;apos;s container was restarted by the server.
+     * A listener&amp;apos;s container was restarted by the server. Attribute &lt;code&gt;container_name&lt;/code&gt;; sets
+     * &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_RESTARTED = 304;</code>
@@ -330,7 +426,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_RESTARTED(304),
     /**
      * <pre>
-     * A listener&amp;apos;s container was found not running or unhealthy.
+     * A listener&amp;apos;s container was found not running or unhealthy. Attribute &lt;code&gt;container_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; as for &lt;code&gt;VTSI_EVENT_CALLER_UNHEALTHY&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_UNHEALTHY = 305;</code>
@@ -339,7 +436,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A listener reported unhealthy is healthy again (its container answers its health check, or
-     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_HEALTHY = 306;</code>
@@ -347,7 +445,18 @@ public final class EventsOuterClass {
     VTSI_EVENT_LISTENER_HEALTHY(306),
     /**
      * <pre>
-     * A scheduled caller was created.
+     * The stored configuration of a listener was updated (&lt;code&gt;UpdateListener&lt;/code&gt;,
+     * &lt;code&gt;UpdateListeners&lt;/code&gt;); its running container is unchanged. Attribute
+     * &lt;code&gt;updated_fields&lt;/code&gt;. Never carries a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_LISTENER_UPDATED = 307;</code>
+     */
+    VTSI_EVENT_LISTENER_UPDATED(307),
+    /**
+     * <pre>
+     * A scheduled caller was created. Attribute &lt;code&gt;scheduled_time&lt;/code&gt; (RFC 3339). Sets
+     * &lt;code&gt;campaign_name&lt;/code&gt; for a scheduled call of a campaign.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_CREATED = 400;</code>
@@ -355,7 +464,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_SCHEDULED_CALLER_CREATED(400),
     /**
      * <pre>
-     * A scheduled caller fired: its call was started (&lt;code&gt;call_name&lt;/code&gt; set).
+     * A scheduled caller fired: its call was started (&lt;code&gt;call_name&lt;/code&gt; set). Attributes: outside a
+     * campaign &lt;code&gt;attempt&lt;/code&gt; (the attempt number); in a campaign &lt;code&gt;attempt_number&lt;/code&gt; and
+     * &lt;code&gt;campaign_call_name&lt;/code&gt; (and &lt;code&gt;campaign_name&lt;/code&gt; is set).
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_FIRED = 401;</code>
@@ -363,7 +474,11 @@ public final class EventsOuterClass {
     VTSI_EVENT_SCHEDULED_CALLER_FIRED(401),
     /**
      * <pre>
-     * A scheduled caller failed for good; &lt;code&gt;description&lt;/code&gt; says why.
+     * A scheduled caller failed for good; &lt;code&gt;description&lt;/code&gt; says why. Attributes: outside a campaign
+     * &lt;code&gt;attempt&lt;/code&gt; and &lt;code&gt;reason&lt;/code&gt; (a classification token, e.g.
+     * &lt;code&gt;transient_grpc:unavailable&lt;/code&gt;, &lt;code&gt;configuration_error&lt;/code&gt;, optionally suffixed
+     * &lt;code&gt;:attempt_budget_exhausted&lt;/code&gt;); in a campaign &lt;code&gt;attempt_number&lt;/code&gt; and
+     * &lt;code&gt;campaign_call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_FAILED = 402;</code>
@@ -371,7 +486,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_SCHEDULED_CALLER_FAILED(402),
     /**
      * <pre>
-     * A scheduled caller was cancelled.
+     * A scheduled caller was cancelled. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_CANCELLED = 403;</code>
@@ -379,7 +494,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_SCHEDULED_CALLER_CANCELLED(403),
     /**
      * <pre>
-     * A scheduled caller failed and will be retried.
+     * A scheduled caller failed and will be retried. Attributes: outside a campaign &lt;code&gt;attempt&lt;/code&gt;,
+     * &lt;code&gt;reason&lt;/code&gt; and &lt;code&gt;retry_not_before&lt;/code&gt; (RFC 3339); in a campaign
+     * &lt;code&gt;attempt_number&lt;/code&gt; and &lt;code&gt;campaign_call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED = 404;</code>
@@ -387,7 +504,22 @@ public final class EventsOuterClass {
     VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED(404),
     /**
      * <pre>
-     * A campaign was created.
+     * A scheduled caller was updated: its stored configuration (an update RPC of scheduled callers, where
+     * the server offers one) or, for a scheduled call of a campaign requeued by
+     * &lt;code&gt;RetryCampaignCalls&lt;/code&gt;, its status and scheduled time. Attribute &lt;code&gt;updated_fields&lt;/code&gt;
+     * (e.g. &lt;code&gt;status,scheduled_time&lt;/code&gt;) and, when it changed, &lt;code&gt;scheduled_time&lt;/code&gt; (RFC 3339);
+     * in a campaign also &lt;code&gt;campaign_call_name&lt;/code&gt; (and &lt;code&gt;campaign_name&lt;/code&gt; is set). Never carries
+     * a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_SCHEDULED_CALLER_UPDATED = 405;</code>
+     */
+    VTSI_EVENT_SCHEDULED_CALLER_UPDATED(405),
+    /**
+     * <pre>
+     * A campaign was created (&lt;code&gt;CreateCampaign&lt;/code&gt;, a &lt;code&gt;CampaignAssignment.new_campaign&lt;/code&gt;,
+     * &lt;code&gt;CloneCampaign&lt;/code&gt;). No attributes, except for a clone: &lt;code&gt;cloned_from&lt;/code&gt; (the source
+     * campaign&amp;apos;s resource name) and &lt;code&gt;copied_call_count&lt;/code&gt;. An idempotent replay emits nothing.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CREATED = 500;</code>
@@ -395,7 +527,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CREATED(500),
     /**
      * <pre>
-     * A campaign&amp;apos;s settings were updated.
+     * A campaign&amp;apos;s settings were updated. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the
+     * &lt;code&gt;update_mask&lt;/code&gt; paths). Never carries a call-default value.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_UPDATED = 501;</code>
@@ -403,7 +536,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_UPDATED(501),
     /**
      * <pre>
-     * A campaign was deleted.
+     * A campaign was deleted. Attributes: &lt;code&gt;deleted_campaign_call_count&lt;/code&gt;,
+     * &lt;code&gt;cancelled_scheduled_caller_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_DELETED = 502;</code>
@@ -411,7 +545,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_DELETED(502),
     /**
      * <pre>
-     * A campaign was started.
+     * A campaign was started. Attributes: &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;; none when the
+     * campaign was created running by a &lt;code&gt;CampaignAssignment&lt;/code&gt;. &lt;code&gt;description&lt;/code&gt; is
+     * &lt;code&gt;calls were added&lt;/code&gt; when adding calls started it.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STARTED = 503;</code>
@@ -419,7 +555,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_STARTED(503),
     /**
      * <pre>
-     * &lt;code&gt;StopCampaign&lt;/code&gt; was requested; running calls continue.
+     * &lt;code&gt;StopCampaign&lt;/code&gt; was requested; running calls continue. Attributes: &lt;code&gt;previous_state&lt;/code&gt;,
+     * &lt;code&gt;state&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STOP_REQUESTED = 504;</code>
@@ -428,7 +565,9 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A campaign is stopped: it reached &lt;code&gt;STOPPED&lt;/code&gt; (after a stop request or an automatic
-     * stop) once no call of it was running.
+     * stop) once no call of it was running. Attributes: &lt;code&gt;state&lt;/code&gt; and &lt;code&gt;display_name&lt;/code&gt;
+     * when the engine observed it; none (with &lt;code&gt;description&lt;/code&gt; &lt;code&gt;no call of the campaign was in
+     * flight&lt;/code&gt;) when the stop request stopped it at once.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STOPPED = 505;</code>
@@ -436,7 +575,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_STOPPED(505),
     /**
      * <pre>
-     * &lt;code&gt;HardStopCampaign&lt;/code&gt; was requested.
+     * &lt;code&gt;HardStopCampaign&lt;/code&gt; (or a forced &lt;code&gt;DeleteCampaign&lt;/code&gt;) was requested. Attributes:
+     * &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED = 506;</code>
@@ -444,7 +584,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED(506),
     /**
      * <pre>
-     * A campaign is hard stopped.
+     * A campaign is hard stopped. Attributes as &lt;code&gt;VTSI_EVENT_CAMPAIGN_STOPPED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_HARD_STOPPED = 507;</code>
@@ -452,7 +592,10 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_HARD_STOPPED(507),
     /**
      * <pre>
-     * A campaign was resumed.
+     * A campaign was resumed (&lt;code&gt;ResumeCampaign&lt;/code&gt;, or a &lt;code&gt;COMPLETED&lt;/code&gt; campaign that got calls
+     * back from a &lt;code&gt;CampaignAssignment&lt;/code&gt; or &lt;code&gt;RetryCampaignCalls&lt;/code&gt;). Attributes:
+     * &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;; &lt;code&gt;description&lt;/code&gt; says what resumed it when it
+     * was not &lt;code&gt;ResumeCampaign&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_RESUMED = 508;</code>
@@ -460,7 +603,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_RESUMED(508),
     /**
      * <pre>
-     * Every call of a campaign is finished.
+     * Every call of a campaign is finished. Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; is the &lt;code&gt;state_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_COMPLETED = 509;</code>
@@ -468,8 +612,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_COMPLETED(509),
     /**
      * <pre>
-     * The statistics of a running campaign changed (throttled, at most every few seconds per
-     * campaign). &lt;code&gt;campaign_statistics&lt;/code&gt; is set.
+     * The statistics of a running campaign changed (throttled, at most once per
+     * &lt;code&gt;ONDEWO_VTSI_CAMPAIGN_PROGRESS_EVENT_MIN_INTERVAL_S&lt;/code&gt;, 5 s by default, per campaign).
+     * &lt;code&gt;campaign_statistics&lt;/code&gt; is set. Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_PROGRESS = 510;</code>
@@ -486,7 +631,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_CHANGED(511),
     /**
      * <pre>
-     * Calls were added to a campaign; attribute &lt;code&gt;added_call_count&lt;/code&gt;.
+     * Calls were added to a campaign (an &lt;code&gt;Add*ToCampaign&lt;/code&gt; request, or &lt;code&gt;CloneCampaign&lt;/code&gt;
+     * with &lt;code&gt;include_calls&lt;/code&gt;); attribute &lt;code&gt;added_call_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALLS_ADDED = 512;</code>
@@ -494,7 +640,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CALLS_ADDED(512),
     /**
      * <pre>
-     * An attempt of a campaign call was started (&lt;code&gt;call_name&lt;/code&gt; set).
+     * An attempt of a campaign call was started (&lt;code&gt;call_name&lt;/code&gt; set). Campaign call attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED = 513;</code>
@@ -502,7 +648,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED(513),
     /**
      * <pre>
-     * A campaign call completed.
+     * A campaign call completed. Campaign call attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_COMPLETED = 514;</code>
@@ -510,7 +656,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CALL_COMPLETED(514),
     /**
      * <pre>
-     * A campaign call failed after its last attempt.
+     * A campaign call failed after its last attempt. Campaign call attributes; &lt;code&gt;description&lt;/code&gt; is
+     * the error.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_FAILED = 515;</code>
@@ -518,7 +665,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CALL_FAILED(515),
     /**
      * <pre>
-     * An attempt of a campaign call failed and the call will be retried.
+     * An attempt of a campaign call failed and the call will be retried. Campaign call attributes;
+     * &lt;code&gt;description&lt;/code&gt; is the error.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED = 516;</code>
@@ -526,7 +674,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED(516),
     /**
      * <pre>
-     * A campaign call was cancelled.
+     * A campaign call was cancelled (hard stop, cancelled scheduled caller, or
+     * &lt;code&gt;CancelCampaignCalls&lt;/code&gt;). Campaign call attributes; &lt;code&gt;description&lt;/code&gt; says what cancelled
+     * it.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_CANCELLED = 517;</code>
@@ -537,6 +687,7 @@ public final class EventsOuterClass {
      * The SERVER stopped a campaign (it is now &lt;code&gt;STOPPING&lt;/code&gt;) after repeated failures that
      * cannot succeed by repetition, e.g. a rejected credential; &lt;code&gt;description&lt;/code&gt; holds the
      * &lt;code&gt;state_reason&lt;/code&gt;. &lt;code&gt;VTSI_EVENT_CAMPAIGN_STOPPED&lt;/code&gt; follows once no call runs.
+     * Attributes: &lt;code&gt;state&lt;/code&gt; (&lt;code&gt;STOPPING&lt;/code&gt;), &lt;code&gt;display_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_AUTO_STOPPED = 518;</code>
@@ -544,7 +695,40 @@ public final class EventsOuterClass {
     VTSI_EVENT_CAMPAIGN_AUTO_STOPPED(518),
     /**
      * <pre>
-     * A VTSI project was updated.
+     * A FAILED or CANCELLED campaign call was put back into the queue by &lt;code&gt;RetryCampaignCalls&lt;/code&gt;.
+     * Campaign call attributes, plus &lt;code&gt;attempt_limit&lt;/code&gt; (the call&amp;apos;s new attempt limit) and, for a
+     * call now &lt;code&gt;RETRY_PENDING&lt;/code&gt;, &lt;code&gt;next_attempt_time&lt;/code&gt; (RFC 3339).
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALL_REQUEUED = 519;</code>
+     */
+    VTSI_EVENT_CAMPAIGN_CALL_REQUEUED(519),
+    /**
+     * <pre>
+     * A RUNNING campaign with a &lt;code&gt;calling_window&lt;/code&gt; entered a slot and may start calls again (also when
+     * it is started or resumed inside a slot after having been outside one, and when an update of the window
+     * opens it). Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;window_end&lt;/code&gt; (RFC 3339,
+     * when the current run of slots ends). Best effort, at most one per edge, reported by the replica whose
+     * engine ticked the campaign.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED = 520;</code>
+     */
+    VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED(520),
+    /**
+     * <pre>
+     * A RUNNING campaign with a &lt;code&gt;calling_window&lt;/code&gt; left its last slot and starts no call until the next
+     * one (also when it is started, or its window updated, outside every slot). Running calls continue.
+     * Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;next_window_start&lt;/code&gt; (RFC 3339).
+     * Best effort, at most one per edge.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED = 521;</code>
+     */
+    VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED(521),
+    /**
+     * <pre>
+     * A VTSI project was updated. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UPDATED = 601;</code>
@@ -554,7 +738,7 @@ public final class EventsOuterClass {
      * <pre>
      * A VTSI project was deleted. Delivered to the webhooks subscribed to it at the moment of the
      * deletion (their configuration is captured before it is deleted with the project) and to the
-     * project&amp;apos;s open streams, which then end. It is the last event of the project.
+     * project&amp;apos;s open streams, which then end. It is the last event of the project. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DELETED = 602;</code>
@@ -562,7 +746,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_VTSI_PROJECT_DELETED(602),
     /**
      * <pre>
-     * A VTSI project was deployed.
+     * A VTSI project was deployed. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOYED = 603;</code>
@@ -570,7 +754,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_VTSI_PROJECT_DEPLOYED(603),
     /**
      * <pre>
-     * Deploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Deploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED = 604;</code>
@@ -578,7 +762,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED(604),
     /**
      * <pre>
-     * A VTSI project was undeployed.
+     * A VTSI project was undeployed. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED = 605;</code>
@@ -587,7 +771,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The &lt;code&gt;VtsiProjectStatus&lt;/code&gt; of a project changed; attributes
-     * &lt;code&gt;previous_status&lt;/code&gt; and &lt;code&gt;status&lt;/code&gt;.
+     * &lt;code&gt;previous_status&lt;/code&gt; and &lt;code&gt;status&lt;/code&gt;, each a &lt;code&gt;VtsiProjectStatus&lt;/code&gt; name
+     * (&lt;code&gt;DEPLOYED&lt;/code&gt;, &lt;code&gt;UPDATING&lt;/code&gt;, ...).
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED = 606;</code>
@@ -595,7 +780,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED(606),
     /**
      * <pre>
-     * Undeploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Undeploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED = 607;</code>
@@ -603,7 +788,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED(607),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container was deployed.
+     * The project&amp;apos;s Asterisk container was deployed. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_DEPLOYED = 700;</code>
@@ -611,7 +796,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_DEPLOYED(700),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container was removed.
+     * The project&amp;apos;s Asterisk container was removed. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_REMOVED = 701;</code>
@@ -619,7 +804,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_REMOVED(701),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk was restarted.
+     * The project&amp;apos;s Asterisk was restarted. Attribute &lt;code&gt;restart_reason&lt;/code&gt; (&lt;code&gt;plan&lt;/code&gt; or
+     * &lt;code&gt;escalation&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_RESTARTED = 702;</code>
@@ -627,7 +813,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_RESTARTED(702),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk configuration was reloaded in place.
+     * The project&amp;apos;s Asterisk configuration was reloaded in place. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_CONFIG_RELOADED = 703;</code>
@@ -635,7 +821,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_CONFIG_RELOADED(703),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container is not running or unhealthy.
+     * The project&amp;apos;s Asterisk container is not running or unhealthy. Attribute
+     * &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_UNHEALTHY = 704;</code>
@@ -643,7 +830,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_UNHEALTHY(704),
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container is healthy again.
+     * The project&amp;apos;s Asterisk container is healthy again. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_HEALTHY = 705;</code>
@@ -651,7 +838,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_HEALTHY(705),
     /**
      * <pre>
-     * The SIP trunk registered with the carrier.
+     * The SIP trunk registered with the carrier. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_TRUNK_REGISTERED = 706;</code>
@@ -659,8 +846,9 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_TRUNK_REGISTERED(706),
     /**
      * <pre>
-     * The SIP trunk is no longer registered (rejected, unregistered or failed); attribute
-     * &lt;code&gt;registration_status&lt;/code&gt;.
+     * The SIP trunk is no longer registered (rejected, unregistered or failed); attributes
+     * &lt;code&gt;container_name&lt;/code&gt; and &lt;code&gt;registration_status&lt;/code&gt; (Asterisk&amp;apos;s own token, e.g.
+     * &lt;code&gt;Rejected&lt;/code&gt;, &lt;code&gt;Unregistered&lt;/code&gt;, &lt;code&gt;Unknown&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED = 707;</code>
@@ -668,7 +856,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED(707),
     /**
      * <pre>
-     * Deploying the project&amp;apos;s Asterisk container failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Deploying the project&amp;apos;s Asterisk container failed; &lt;code&gt;description&lt;/code&gt; says why. Attribute
+     * &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_DEPLOY_FAILED = 708;</code>
@@ -676,7 +865,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_DEPLOY_FAILED(708),
     /**
      * <pre>
-     * Restarting the project&amp;apos;s Asterisk failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Restarting the project&amp;apos;s Asterisk failed; &lt;code&gt;description&lt;/code&gt; says why. Attribute
+     * &lt;code&gt;restart_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_RESTART_FAILED = 709;</code>
@@ -685,7 +875,7 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * Reloading the project&amp;apos;s Asterisk configuration in place failed; &lt;code&gt;description&lt;/code&gt;
-     * says why.
+     * says why. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED = 710;</code>
@@ -693,7 +883,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED(710),
     /**
      * <pre>
-     * A softphone account was created.
+     * A softphone account was created. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED = 800;</code>
@@ -701,7 +891,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED(800),
     /**
      * <pre>
-     * A softphone account was updated.
+     * A softphone account was updated. Attribute &lt;code&gt;updated_fields&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED = 801;</code>
@@ -709,7 +899,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED(801),
     /**
      * <pre>
-     * A softphone account was deleted.
+     * A softphone account was deleted. Attribute &lt;code&gt;revoked_certificate_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED = 802;</code>
@@ -717,7 +907,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED(802),
     /**
      * <pre>
-     * The credentials of a softphone account were rotated.
+     * The credentials of a softphone account were rotated. Attribute &lt;code&gt;certificate_rotated&lt;/code&gt;
+     * (boolean).
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED = 803;</code>
@@ -725,7 +916,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED(803),
     /**
      * <pre>
-     * A softphone certificate was revoked.
+     * A softphone certificate was revoked (resource_name: the certificate). Attribute
+     * &lt;code&gt;account_locked&lt;/code&gt; (boolean).
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED = 804;</code>
@@ -733,7 +925,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED(804),
     /**
      * <pre>
-     * Sent by &lt;code&gt;TestWebhook&lt;/code&gt; only.
+     * Sent by &lt;code&gt;TestWebhook&lt;/code&gt; only (when it names no &lt;code&gt;sample_event&lt;/code&gt;). No attributes;
+     * &lt;code&gt;description&lt;/code&gt; is &lt;code&gt;webhook test&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_TEST = 900;</code>
@@ -741,7 +934,8 @@ public final class EventsOuterClass {
     VTSI_EVENT_WEBHOOK_TEST(900),
     /**
      * <pre>
-     * A webhook was created (resource_name: the webhook). Never carries a header value.
+     * A webhook was created (resource_name: the webhook). Never carries a header value or the signing
+     * secret. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_CREATED = 901;</code>
@@ -750,7 +944,7 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A webhook was updated; attribute &lt;code&gt;updated_fields&lt;/code&gt; (the mask paths). Never carries
-     * a header value.
+     * a header value or the signing secret.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_UPDATED = 902;</code>
@@ -758,7 +952,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_WEBHOOK_UPDATED(902),
     /**
      * <pre>
-     * A webhook was deleted.
+     * A webhook was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_DELETED = 903;</code>
@@ -766,7 +960,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_WEBHOOK_DELETED(903),
     /**
      * <pre>
-     * An event subscription was created (resource_name: the subscription).
+     * An event subscription was created (resource_name: the subscription). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED = 904;</code>
@@ -782,7 +976,7 @@ public final class EventsOuterClass {
     VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED(905),
     /**
      * <pre>
-     * An event subscription was deleted.
+     * An event subscription was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED = 906;</code>
@@ -810,7 +1004,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_UNSPECIFIED_VALUE = 0;
     /**
      * <pre>
-     * A call record was created: an outbound call was placed, or a listener received a call.
+     * A call record was created: an outbound call was placed, or a listener received a call. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_CREATED = 100;</code>
@@ -818,7 +1013,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_CREATED_VALUE = 100;
     /**
      * <pre>
-     * The call is ringing: &lt;code&gt;INCOMING_CALL_INITIATED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_INITIATED&lt;/code&gt;.
+     * The call is ringing: &lt;code&gt;INCOMING_CALL_INITIATED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_INITIATED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_INITIATED = 101;</code>
@@ -826,7 +1022,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_INITIATED_VALUE = 101;
     /**
      * <pre>
-     * The call was answered: &lt;code&gt;INCOMING_CALL_CONNECTED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_CONNECTED&lt;/code&gt;.
+     * The call was answered: &lt;code&gt;INCOMING_CALL_CONNECTED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_CONNECTED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_CONNECTED = 102;</code>
@@ -834,7 +1031,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_CONNECTED_VALUE = 102;
     /**
      * <pre>
-     * The call ended normally: &lt;code&gt;INCOMING_CALL_FINISHED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FINISHED&lt;/code&gt;.
+     * The call ended normally: &lt;code&gt;INCOMING_CALL_FINISHED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FINISHED&lt;/code&gt;. Call
+     * status attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_FINISHED = 103;</code>
@@ -842,7 +1040,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_FINISHED_VALUE = 103;
     /**
      * <pre>
-     * The call failed: &lt;code&gt;INCOMING_CALL_FAILED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FAILED&lt;/code&gt;.
+     * The call failed: &lt;code&gt;INCOMING_CALL_FAILED&lt;/code&gt; / &lt;code&gt;OUTGOING_CALL_FAILED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_FAILED = 104;</code>
@@ -852,6 +1051,15 @@ public final class EventsOuterClass {
      * <pre>
      * A transfer of the call started: &lt;code&gt;TRANSFER_CALL_INITIATED&lt;/code&gt;. Emitted when a BLIND transfer was
      * accepted, or when the target of a WARM transfer starts ringing.
+     * &lt;p&gt;Attributes: &lt;code&gt;transfer_id&lt;/code&gt; (the target, a phone number masked to its last 3 digits, e.g.
+     * &lt;code&gt;***678&lt;/code&gt;, or an extension), &lt;code&gt;target_type&lt;/code&gt; (&lt;code&gt;phone_number&lt;/code&gt;,
+     * &lt;code&gt;softphone&lt;/code&gt;, &lt;code&gt;listener&lt;/code&gt;, &lt;code&gt;listener_queue&lt;/code&gt;, &lt;code&gt;legacy&lt;/code&gt;,
+     * &lt;code&gt;unknown&lt;/code&gt;), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;blind&lt;/code&gt; / &lt;code&gt;warm&lt;/code&gt;; &lt;code&gt;WARM&lt;/code&gt;, upper
+     * case, when reported for the ringing WARM leg), &lt;code&gt;outcome&lt;/code&gt; (&lt;code&gt;accepted&lt;/code&gt;,
+     * &lt;code&gt;pending&lt;/code&gt;, ...), &lt;code&gt;sip_response_code&lt;/code&gt; (SIP code, &lt;code&gt;0&lt;/code&gt; when unknown),
+     * &lt;code&gt;error_reason&lt;/code&gt; (kebab-case token, may be empty), &lt;code&gt;participant_id&lt;/code&gt; (WARM leg),
+     * &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;call_monitor&lt;/code&gt; when observed by the call monitor). Sets
+     * &lt;code&gt;call_name&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFER_INITIATED = 105;</code>
@@ -861,6 +1069,11 @@ public final class EventsOuterClass {
      * <pre>
      * &lt;code&gt;TransferCall&lt;/code&gt; transferred the call. Emitted at the call&amp;apos;s terminal edge: a
      * &lt;code&gt;*_CALL_FINISHED&lt;/code&gt; status whose description is &lt;code&gt;Call transferred&lt;/code&gt;.
+     * &lt;p&gt;Attributes: &lt;code&gt;transfer_id&lt;/code&gt; (masked as above), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;blind&lt;/code&gt; /
+     * &lt;code&gt;warm&lt;/code&gt;), &lt;code&gt;outcome&lt;/code&gt; (&lt;code&gt;accepted&lt;/code&gt;), &lt;code&gt;sip_response_code&lt;/code&gt;,
+     * &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;call_monitor&lt;/code&gt;), and the call status attributes
+     * (&lt;code&gt;caller_name&lt;/code&gt; / &lt;code&gt;listener_name&lt;/code&gt; / &lt;code&gt;scheduled_caller_name&lt;/code&gt;,
+     * &lt;code&gt;phone_number&lt;/code&gt;). Sets the call status fields.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFERRED = 106;</code>
@@ -870,6 +1083,12 @@ public final class EventsOuterClass {
      * <pre>
      * A transfer failed and the call was KEPT with the bot: &lt;code&gt;TRANSFER_CALL_FAILED&lt;/code&gt;, a refused or unanswered
      * REFER, or a WARM target that was busy or did not answer.
+     * &lt;p&gt;Attributes: as &lt;code&gt;VTSI_EVENT_CALL_TRANSFER_INITIATED&lt;/code&gt;, with &lt;code&gt;outcome&lt;/code&gt; naming the
+     * failure (&lt;code&gt;target_invalid&lt;/code&gt;, &lt;code&gt;refer_rejected&lt;/code&gt;, &lt;code&gt;timeout&lt;/code&gt;,
+     * &lt;code&gt;call_ended&lt;/code&gt;, &lt;code&gt;call_scope_mismatch&lt;/code&gt;, &lt;code&gt;sip_unreachable&lt;/code&gt;,
+     * &lt;code&gt;refused&lt;/code&gt;, or the SIP reason in snake case), &lt;code&gt;error_reason&lt;/code&gt; and, for a WARM leg,
+     * &lt;code&gt;participant_id&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt; (as on
+     * &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;). &lt;code&gt;description&lt;/code&gt; says why.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_TRANSFER_FAILED = 107;</code>
@@ -877,7 +1096,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_TRANSFER_FAILED_VALUE = 107;
     /**
      * <pre>
-     * A hang-up started: &lt;code&gt;SOFT_HANGUP_INITIATED&lt;/code&gt; / &lt;code&gt;HARD_HANGUP_INITIATED&lt;/code&gt;.
+     * A hang-up started: &lt;code&gt;SOFT_HANGUP_INITIATED&lt;/code&gt; / &lt;code&gt;HARD_HANGUP_INITIATED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_HANGUP_INITIATED = 108;</code>
@@ -885,7 +1105,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_HANGUP_INITIATED_VALUE = 108;
     /**
      * <pre>
-     * An answering machine was detected: &lt;code&gt;OUTGOING_CALL_ANSWERING_MACHINE_DETECTED&lt;/code&gt;.
+     * An answering machine was detected: &lt;code&gt;OUTGOING_CALL_ANSWERING_MACHINE_DETECTED&lt;/code&gt;. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED = 109;</code>
@@ -894,7 +1115,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The call was ended by &lt;code&gt;StopCall&lt;/code&gt;, &lt;code&gt;StopCalls&lt;/code&gt;, &lt;code&gt;StopAllCalls&lt;/code&gt;
-     * or a campaign hard stop.
+     * or a campaign hard stop. No attributes; &lt;code&gt;call_name&lt;/code&gt; is not set (the call is the
+     * &lt;code&gt;resource_name&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_STOPPED = 110;</code>
@@ -903,7 +1125,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The SIP status of the call changed (emitted for EVERY change, in addition to the specific
-     * events above). &lt;code&gt;previous_sip_status_type&lt;/code&gt; holds the status before.
+     * events above). &lt;code&gt;previous_sip_status_type&lt;/code&gt; holds the status before. Call status
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED = 111;</code>
@@ -911,8 +1134,16 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_SIP_STATUS_CHANGED_VALUE = 111;
     /**
      * <pre>
-     * A participant was invited into the call (&lt;code&gt;InviteToCall&lt;/code&gt;). &lt;code&gt;attributes&lt;/code&gt; carry
-     * &lt;code&gt;participant_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt; and &lt;code&gt;actor&lt;/code&gt; (who invited).
+     * A participant was invited into the call (&lt;code&gt;InviteToCall&lt;/code&gt;).
+     * &lt;p&gt;Attributes (the participant attributes, also on 113 to 115): &lt;code&gt;participant_id&lt;/code&gt;,
+     * &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;CONFERENCE&lt;/code&gt; / &lt;code&gt;MONITOR&lt;/code&gt;), &lt;code&gt;purpose&lt;/code&gt;
+     * (&lt;code&gt;invite&lt;/code&gt; / &lt;code&gt;warm_transfer&lt;/code&gt;), &lt;code&gt;state&lt;/code&gt; (&lt;code&gt;ParticipantState&lt;/code&gt; name,
+     * e.g. &lt;code&gt;PARTICIPANT_STATE_RINGING&lt;/code&gt;), &lt;code&gt;softphone_account_name&lt;/code&gt; (when a softphone
+     * account was invited), &lt;code&gt;end_reason&lt;/code&gt; (on 114 and 115: &lt;code&gt;NOANSWER&lt;/code&gt;, &lt;code&gt;BUSY&lt;/code&gt;,
+     * &lt;code&gt;CHANUNAVAIL&lt;/code&gt;, &lt;code&gt;CALL_ENDED&lt;/code&gt;, &lt;code&gt;REMOVED&lt;/code&gt;, &lt;code&gt;HANGUP&lt;/code&gt;,
+     * &lt;code&gt;HANDED_OVER&lt;/code&gt;, &lt;code&gt;JOIN_FAILED&lt;/code&gt;, &lt;code&gt;TIMEOUT&lt;/code&gt;), &lt;code&gt;actor&lt;/code&gt; (who caused
+     * it: the authenticated user, or &lt;code&gt;system:call-control&lt;/code&gt;), &lt;code&gt;source&lt;/code&gt;. Sets
+     * &lt;code&gt;call_name&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_INVITED = 112;</code>
@@ -920,7 +1151,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_PARTICIPANT_INVITED_VALUE = 112;
     /**
      * <pre>
-     * An invited participant answered and joined the call. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt;.
+     * An invited participant answered and joined the call. The participant attributes (see 112);
+     * &lt;code&gt;actor&lt;/code&gt; is who invited it.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_JOINED = 113;</code>
@@ -928,8 +1160,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_PARTICIPANT_JOINED_VALUE = 113;
     /**
      * <pre>
-     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
-     * &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt;.
+     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...). The
+     * participant attributes (see 112), with &lt;code&gt;end_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_PARTICIPANT_FAILED = 114;</code>
@@ -937,7 +1169,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_PARTICIPANT_FAILED_VALUE = 114;
     /**
      * <pre>
-     * A joined participant left the call. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;participant_id&lt;/code&gt; and
+     * A joined participant left the call. The participant attributes (see 112), with
      * &lt;code&gt;end_reason&lt;/code&gt;.
      * </pre>
      *
@@ -946,7 +1178,10 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_PARTICIPANT_LEFT_VALUE = 115;
     /**
      * <pre>
-     * The bot of the call was muted. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person caused it.
+     * The bot of the call was muted. Attributes: &lt;code&gt;source&lt;/code&gt; (&lt;code&gt;operator&lt;/code&gt; for
+     * &lt;code&gt;SetCallMediaControl&lt;/code&gt;, &lt;code&gt;call_monitor&lt;/code&gt; when the server observed it) and
+     * &lt;code&gt;actor&lt;/code&gt; (the authenticated user where a person caused it, &lt;code&gt;system&lt;/code&gt; for the call
+     * monitor). Sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_BOT_MUTED = 116;</code>
@@ -954,7 +1189,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_BOT_MUTED_VALUE = 116;
     /**
      * <pre>
-     * The bot of the call was unmuted. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person caused it.
+     * The bot of the call was unmuted. Attributes as &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_BOT_UNMUTED = 117;</code>
@@ -962,8 +1197,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_BOT_UNMUTED_VALUE = 117;
     /**
      * <pre>
-     * The bot of the call stopped listening to the caller. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a
-     * person caused it.
+     * The bot of the call stopped listening to the caller. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_LISTENING_PAUSED = 118;</code>
@@ -971,8 +1206,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_LISTENING_PAUSED_VALUE = 118;
     /**
      * <pre>
-     * The bot of the call listens to the caller again. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;actor&lt;/code&gt; where a person
-     * caused it.
+     * The bot of the call listens to the caller again. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_LISTENING_RESUMED = 119;</code>
@@ -981,7 +1216,9 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A live call audio stream (&lt;code&gt;StreamCallAudio&lt;/code&gt; / &lt;code&gt;ListenCallAudio&lt;/code&gt;) connected.
-     * &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;stream_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt; and &lt;code&gt;actor&lt;/code&gt;.
+     * Attributes: &lt;code&gt;stream_id&lt;/code&gt; (uuid), &lt;code&gt;mode&lt;/code&gt; (&lt;code&gt;LISTEN&lt;/code&gt; / &lt;code&gt;TALK&lt;/code&gt;),
+     * &lt;code&gt;rpc&lt;/code&gt; (&lt;code&gt;ListenCallAudio&lt;/code&gt; / &lt;code&gt;StreamCallAudio&lt;/code&gt;), &lt;code&gt;actor&lt;/code&gt; (the
+     * authenticated user, when known). Sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED = 120;</code>
@@ -989,8 +1226,11 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED_VALUE = 120;
     /**
      * <pre>
-     * A live call audio stream disconnected. &lt;code&gt;attributes&lt;/code&gt; carry &lt;code&gt;stream_id&lt;/code&gt;, &lt;code&gt;mode&lt;/code&gt;,
-     * &lt;code&gt;actor&lt;/code&gt; and &lt;code&gt;end_reason&lt;/code&gt;.
+     * A live call audio stream disconnected. Attributes as
+     * &lt;code&gt;VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED&lt;/code&gt;, plus &lt;code&gt;end_reason&lt;/code&gt; (the
+     * &lt;code&gt;CallAudioEndReason&lt;/code&gt; name without prefix: &lt;code&gt;CLIENT_CLOSED&lt;/code&gt;, &lt;code&gt;CALL_ENDED&lt;/code&gt;,
+     * &lt;code&gt;CALL_TRANSFERRED&lt;/code&gt;, &lt;code&gt;MAX_DURATION&lt;/code&gt;, &lt;code&gt;STALLED&lt;/code&gt;, &lt;code&gt;INTERNAL&lt;/code&gt;,
+     * &lt;code&gt;UNSPECIFIED&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED = 121;</code>
@@ -998,7 +1238,18 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED_VALUE = 121;
     /**
      * <pre>
-     * A caller started and placed its call.
+     * The stored record of the call was updated (&lt;code&gt;UpdateCall&lt;/code&gt;, &lt;code&gt;UpdateCalls&lt;/code&gt;); the call
+     * itself is unchanged. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the &lt;code&gt;update_mask&lt;/code&gt; paths, e.g.
+     * &lt;code&gt;labels&lt;/code&gt;). Never carries a label value. Sets &lt;code&gt;call_name&lt;/code&gt;. Not emitted for an entry
+     * of a batch that failed, nor when the update changed nothing.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CALL_UPDATED = 122;</code>
+     */
+    public static final int VTSI_EVENT_CALL_UPDATED_VALUE = 122;
+    /**
+     * <pre>
+     * A caller started and placed its call. No attributes; sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_STARTED = 200;</code>
@@ -1006,7 +1257,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_STARTED_VALUE = 200;
     /**
      * <pre>
-     * A caller could not be started; &lt;code&gt;description&lt;/code&gt; says why.
+     * A caller could not be started; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_START_FAILED = 201;</code>
@@ -1014,7 +1265,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_START_FAILED_VALUE = 201;
     /**
      * <pre>
-     * A caller was stopped (&lt;code&gt;StopCaller&lt;/code&gt;, &lt;code&gt;StopCallers&lt;/code&gt;).
+     * A caller was stopped (&lt;code&gt;StopCaller&lt;/code&gt;, &lt;code&gt;StopCallers&lt;/code&gt;). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_STOPPED = 202;</code>
@@ -1022,7 +1273,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_STOPPED_VALUE = 202;
     /**
      * <pre>
-     * A caller was deleted.
+     * A caller was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_DELETED = 203;</code>
@@ -1030,7 +1281,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_DELETED_VALUE = 203;
     /**
      * <pre>
-     * A caller&amp;apos;s container was restarted by the server.
+     * A caller&amp;apos;s container was restarted by the server. Attributes: &lt;code&gt;container_name&lt;/code&gt;,
+     * &lt;code&gt;reason&lt;/code&gt; (free text, at most 64 characters, e.g. &lt;code&gt;end-call-marker-expired&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_RESTARTED = 204;</code>
@@ -1038,7 +1290,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_RESTARTED_VALUE = 204;
     /**
      * <pre>
-     * A caller&amp;apos;s container was found not running or unhealthy.
+     * A caller&amp;apos;s container was found not running or unhealthy. Attribute &lt;code&gt;container_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; is &lt;code&gt;container not running&lt;/code&gt; or &lt;code&gt;container unhealthy&lt;/code&gt;; sets
+     * &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_UNHEALTHY = 205;</code>
@@ -1047,7 +1301,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A caller reported unhealthy is healthy again (its container answers its health check, or its
-     * restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes; sets &lt;code&gt;call_name&lt;/code&gt; where known.
      * </pre>
      *
      * <code>VTSI_EVENT_CALLER_HEALTHY = 206;</code>
@@ -1055,7 +1310,17 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CALLER_HEALTHY_VALUE = 206;
     /**
      * <pre>
-     * A listener started and is waiting for calls.
+     * The stored configuration of a caller was updated (&lt;code&gt;UpdateCaller&lt;/code&gt;, &lt;code&gt;UpdateCallers&lt;/code&gt;);
+     * its running container is unchanged. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the &lt;code&gt;update_mask&lt;/code&gt;
+     * paths). Never carries a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CALLER_UPDATED = 207;</code>
+     */
+    public static final int VTSI_EVENT_CALLER_UPDATED_VALUE = 207;
+    /**
+     * <pre>
+     * A listener started and is waiting for calls. No attributes; sets &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_STARTED = 300;</code>
@@ -1063,7 +1328,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_STARTED_VALUE = 300;
     /**
      * <pre>
-     * A listener could not be started; &lt;code&gt;description&lt;/code&gt; says why.
+     * A listener could not be started; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_START_FAILED = 301;</code>
@@ -1071,7 +1336,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_START_FAILED_VALUE = 301;
     /**
      * <pre>
-     * A listener was stopped (&lt;code&gt;StopListener&lt;/code&gt;, &lt;code&gt;StopListeners&lt;/code&gt;).
+     * A listener was stopped (&lt;code&gt;StopListener&lt;/code&gt;, &lt;code&gt;StopListeners&lt;/code&gt;). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_STOPPED = 302;</code>
@@ -1079,7 +1344,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_STOPPED_VALUE = 302;
     /**
      * <pre>
-     * A listener was deleted.
+     * A listener was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_DELETED = 303;</code>
@@ -1087,7 +1352,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_DELETED_VALUE = 303;
     /**
      * <pre>
-     * A listener&amp;apos;s container was restarted by the server.
+     * A listener&amp;apos;s container was restarted by the server. Attribute &lt;code&gt;container_name&lt;/code&gt;; sets
+     * &lt;code&gt;call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_RESTARTED = 304;</code>
@@ -1095,7 +1361,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_RESTARTED_VALUE = 304;
     /**
      * <pre>
-     * A listener&amp;apos;s container was found not running or unhealthy.
+     * A listener&amp;apos;s container was found not running or unhealthy. Attribute &lt;code&gt;container_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; as for &lt;code&gt;VTSI_EVENT_CALLER_UNHEALTHY&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_UNHEALTHY = 305;</code>
@@ -1104,7 +1371,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A listener reported unhealthy is healthy again (its container answers its health check, or
-     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_LISTENER_HEALTHY = 306;</code>
@@ -1112,7 +1380,18 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_LISTENER_HEALTHY_VALUE = 306;
     /**
      * <pre>
-     * A scheduled caller was created.
+     * The stored configuration of a listener was updated (&lt;code&gt;UpdateListener&lt;/code&gt;,
+     * &lt;code&gt;UpdateListeners&lt;/code&gt;); its running container is unchanged. Attribute
+     * &lt;code&gt;updated_fields&lt;/code&gt;. Never carries a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_LISTENER_UPDATED = 307;</code>
+     */
+    public static final int VTSI_EVENT_LISTENER_UPDATED_VALUE = 307;
+    /**
+     * <pre>
+     * A scheduled caller was created. Attribute &lt;code&gt;scheduled_time&lt;/code&gt; (RFC 3339). Sets
+     * &lt;code&gt;campaign_name&lt;/code&gt; for a scheduled call of a campaign.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_CREATED = 400;</code>
@@ -1120,7 +1399,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SCHEDULED_CALLER_CREATED_VALUE = 400;
     /**
      * <pre>
-     * A scheduled caller fired: its call was started (&lt;code&gt;call_name&lt;/code&gt; set).
+     * A scheduled caller fired: its call was started (&lt;code&gt;call_name&lt;/code&gt; set). Attributes: outside a
+     * campaign &lt;code&gt;attempt&lt;/code&gt; (the attempt number); in a campaign &lt;code&gt;attempt_number&lt;/code&gt; and
+     * &lt;code&gt;campaign_call_name&lt;/code&gt; (and &lt;code&gt;campaign_name&lt;/code&gt; is set).
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_FIRED = 401;</code>
@@ -1128,7 +1409,11 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SCHEDULED_CALLER_FIRED_VALUE = 401;
     /**
      * <pre>
-     * A scheduled caller failed for good; &lt;code&gt;description&lt;/code&gt; says why.
+     * A scheduled caller failed for good; &lt;code&gt;description&lt;/code&gt; says why. Attributes: outside a campaign
+     * &lt;code&gt;attempt&lt;/code&gt; and &lt;code&gt;reason&lt;/code&gt; (a classification token, e.g.
+     * &lt;code&gt;transient_grpc:unavailable&lt;/code&gt;, &lt;code&gt;configuration_error&lt;/code&gt;, optionally suffixed
+     * &lt;code&gt;:attempt_budget_exhausted&lt;/code&gt;); in a campaign &lt;code&gt;attempt_number&lt;/code&gt; and
+     * &lt;code&gt;campaign_call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_FAILED = 402;</code>
@@ -1136,7 +1421,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SCHEDULED_CALLER_FAILED_VALUE = 402;
     /**
      * <pre>
-     * A scheduled caller was cancelled.
+     * A scheduled caller was cancelled. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_CANCELLED = 403;</code>
@@ -1144,7 +1429,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SCHEDULED_CALLER_CANCELLED_VALUE = 403;
     /**
      * <pre>
-     * A scheduled caller failed and will be retried.
+     * A scheduled caller failed and will be retried. Attributes: outside a campaign &lt;code&gt;attempt&lt;/code&gt;,
+     * &lt;code&gt;reason&lt;/code&gt; and &lt;code&gt;retry_not_before&lt;/code&gt; (RFC 3339); in a campaign
+     * &lt;code&gt;attempt_number&lt;/code&gt; and &lt;code&gt;campaign_call_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED = 404;</code>
@@ -1152,7 +1439,22 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED_VALUE = 404;
     /**
      * <pre>
-     * A campaign was created.
+     * A scheduled caller was updated: its stored configuration (an update RPC of scheduled callers, where
+     * the server offers one) or, for a scheduled call of a campaign requeued by
+     * &lt;code&gt;RetryCampaignCalls&lt;/code&gt;, its status and scheduled time. Attribute &lt;code&gt;updated_fields&lt;/code&gt;
+     * (e.g. &lt;code&gt;status,scheduled_time&lt;/code&gt;) and, when it changed, &lt;code&gt;scheduled_time&lt;/code&gt; (RFC 3339);
+     * in a campaign also &lt;code&gt;campaign_call_name&lt;/code&gt; (and &lt;code&gt;campaign_name&lt;/code&gt; is set). Never carries
+     * a configuration value.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_SCHEDULED_CALLER_UPDATED = 405;</code>
+     */
+    public static final int VTSI_EVENT_SCHEDULED_CALLER_UPDATED_VALUE = 405;
+    /**
+     * <pre>
+     * A campaign was created (&lt;code&gt;CreateCampaign&lt;/code&gt;, a &lt;code&gt;CampaignAssignment.new_campaign&lt;/code&gt;,
+     * &lt;code&gt;CloneCampaign&lt;/code&gt;). No attributes, except for a clone: &lt;code&gt;cloned_from&lt;/code&gt; (the source
+     * campaign&amp;apos;s resource name) and &lt;code&gt;copied_call_count&lt;/code&gt;. An idempotent replay emits nothing.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CREATED = 500;</code>
@@ -1160,7 +1462,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CREATED_VALUE = 500;
     /**
      * <pre>
-     * A campaign&amp;apos;s settings were updated.
+     * A campaign&amp;apos;s settings were updated. Attribute &lt;code&gt;updated_fields&lt;/code&gt; (the
+     * &lt;code&gt;update_mask&lt;/code&gt; paths). Never carries a call-default value.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_UPDATED = 501;</code>
@@ -1168,7 +1471,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_UPDATED_VALUE = 501;
     /**
      * <pre>
-     * A campaign was deleted.
+     * A campaign was deleted. Attributes: &lt;code&gt;deleted_campaign_call_count&lt;/code&gt;,
+     * &lt;code&gt;cancelled_scheduled_caller_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_DELETED = 502;</code>
@@ -1176,7 +1480,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_DELETED_VALUE = 502;
     /**
      * <pre>
-     * A campaign was started.
+     * A campaign was started. Attributes: &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;; none when the
+     * campaign was created running by a &lt;code&gt;CampaignAssignment&lt;/code&gt;. &lt;code&gt;description&lt;/code&gt; is
+     * &lt;code&gt;calls were added&lt;/code&gt; when adding calls started it.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STARTED = 503;</code>
@@ -1184,7 +1490,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_STARTED_VALUE = 503;
     /**
      * <pre>
-     * &lt;code&gt;StopCampaign&lt;/code&gt; was requested; running calls continue.
+     * &lt;code&gt;StopCampaign&lt;/code&gt; was requested; running calls continue. Attributes: &lt;code&gt;previous_state&lt;/code&gt;,
+     * &lt;code&gt;state&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STOP_REQUESTED = 504;</code>
@@ -1193,7 +1500,9 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A campaign is stopped: it reached &lt;code&gt;STOPPED&lt;/code&gt; (after a stop request or an automatic
-     * stop) once no call of it was running.
+     * stop) once no call of it was running. Attributes: &lt;code&gt;state&lt;/code&gt; and &lt;code&gt;display_name&lt;/code&gt;
+     * when the engine observed it; none (with &lt;code&gt;description&lt;/code&gt; &lt;code&gt;no call of the campaign was in
+     * flight&lt;/code&gt;) when the stop request stopped it at once.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_STOPPED = 505;</code>
@@ -1201,7 +1510,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_STOPPED_VALUE = 505;
     /**
      * <pre>
-     * &lt;code&gt;HardStopCampaign&lt;/code&gt; was requested.
+     * &lt;code&gt;HardStopCampaign&lt;/code&gt; (or a forced &lt;code&gt;DeleteCampaign&lt;/code&gt;) was requested. Attributes:
+     * &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED = 506;</code>
@@ -1209,7 +1519,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED_VALUE = 506;
     /**
      * <pre>
-     * A campaign is hard stopped.
+     * A campaign is hard stopped. Attributes as &lt;code&gt;VTSI_EVENT_CAMPAIGN_STOPPED&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_HARD_STOPPED = 507;</code>
@@ -1217,7 +1527,10 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_HARD_STOPPED_VALUE = 507;
     /**
      * <pre>
-     * A campaign was resumed.
+     * A campaign was resumed (&lt;code&gt;ResumeCampaign&lt;/code&gt;, or a &lt;code&gt;COMPLETED&lt;/code&gt; campaign that got calls
+     * back from a &lt;code&gt;CampaignAssignment&lt;/code&gt; or &lt;code&gt;RetryCampaignCalls&lt;/code&gt;). Attributes:
+     * &lt;code&gt;previous_state&lt;/code&gt;, &lt;code&gt;state&lt;/code&gt;; &lt;code&gt;description&lt;/code&gt; says what resumed it when it
+     * was not &lt;code&gt;ResumeCampaign&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_RESUMED = 508;</code>
@@ -1225,7 +1538,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_RESUMED_VALUE = 508;
     /**
      * <pre>
-     * Every call of a campaign is finished.
+     * Every call of a campaign is finished. Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;;
+     * &lt;code&gt;description&lt;/code&gt; is the &lt;code&gt;state_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_COMPLETED = 509;</code>
@@ -1233,8 +1547,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_COMPLETED_VALUE = 509;
     /**
      * <pre>
-     * The statistics of a running campaign changed (throttled, at most every few seconds per
-     * campaign). &lt;code&gt;campaign_statistics&lt;/code&gt; is set.
+     * The statistics of a running campaign changed (throttled, at most once per
+     * &lt;code&gt;ONDEWO_VTSI_CAMPAIGN_PROGRESS_EVENT_MIN_INTERVAL_S&lt;/code&gt;, 5 s by default, per campaign).
+     * &lt;code&gt;campaign_statistics&lt;/code&gt; is set. Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_PROGRESS = 510;</code>
@@ -1251,7 +1566,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_CHANGED_VALUE = 511;
     /**
      * <pre>
-     * Calls were added to a campaign; attribute &lt;code&gt;added_call_count&lt;/code&gt;.
+     * Calls were added to a campaign (an &lt;code&gt;Add*ToCampaign&lt;/code&gt; request, or &lt;code&gt;CloneCampaign&lt;/code&gt;
+     * with &lt;code&gt;include_calls&lt;/code&gt;); attribute &lt;code&gt;added_call_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALLS_ADDED = 512;</code>
@@ -1259,7 +1575,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CALLS_ADDED_VALUE = 512;
     /**
      * <pre>
-     * An attempt of a campaign call was started (&lt;code&gt;call_name&lt;/code&gt; set).
+     * An attempt of a campaign call was started (&lt;code&gt;call_name&lt;/code&gt; set). Campaign call attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED = 513;</code>
@@ -1267,7 +1583,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED_VALUE = 513;
     /**
      * <pre>
-     * A campaign call completed.
+     * A campaign call completed. Campaign call attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_COMPLETED = 514;</code>
@@ -1275,7 +1591,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CALL_COMPLETED_VALUE = 514;
     /**
      * <pre>
-     * A campaign call failed after its last attempt.
+     * A campaign call failed after its last attempt. Campaign call attributes; &lt;code&gt;description&lt;/code&gt; is
+     * the error.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_FAILED = 515;</code>
@@ -1283,7 +1600,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CALL_FAILED_VALUE = 515;
     /**
      * <pre>
-     * An attempt of a campaign call failed and the call will be retried.
+     * An attempt of a campaign call failed and the call will be retried. Campaign call attributes;
+     * &lt;code&gt;description&lt;/code&gt; is the error.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED = 516;</code>
@@ -1291,7 +1609,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED_VALUE = 516;
     /**
      * <pre>
-     * A campaign call was cancelled.
+     * A campaign call was cancelled (hard stop, cancelled scheduled caller, or
+     * &lt;code&gt;CancelCampaignCalls&lt;/code&gt;). Campaign call attributes; &lt;code&gt;description&lt;/code&gt; says what cancelled
+     * it.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_CALL_CANCELLED = 517;</code>
@@ -1302,6 +1622,7 @@ public final class EventsOuterClass {
      * The SERVER stopped a campaign (it is now &lt;code&gt;STOPPING&lt;/code&gt;) after repeated failures that
      * cannot succeed by repetition, e.g. a rejected credential; &lt;code&gt;description&lt;/code&gt; holds the
      * &lt;code&gt;state_reason&lt;/code&gt;. &lt;code&gt;VTSI_EVENT_CAMPAIGN_STOPPED&lt;/code&gt; follows once no call runs.
+     * Attributes: &lt;code&gt;state&lt;/code&gt; (&lt;code&gt;STOPPING&lt;/code&gt;), &lt;code&gt;display_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_CAMPAIGN_AUTO_STOPPED = 518;</code>
@@ -1309,7 +1630,40 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_CAMPAIGN_AUTO_STOPPED_VALUE = 518;
     /**
      * <pre>
-     * A VTSI project was updated.
+     * A FAILED or CANCELLED campaign call was put back into the queue by &lt;code&gt;RetryCampaignCalls&lt;/code&gt;.
+     * Campaign call attributes, plus &lt;code&gt;attempt_limit&lt;/code&gt; (the call&amp;apos;s new attempt limit) and, for a
+     * call now &lt;code&gt;RETRY_PENDING&lt;/code&gt;, &lt;code&gt;next_attempt_time&lt;/code&gt; (RFC 3339).
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALL_REQUEUED = 519;</code>
+     */
+    public static final int VTSI_EVENT_CAMPAIGN_CALL_REQUEUED_VALUE = 519;
+    /**
+     * <pre>
+     * A RUNNING campaign with a &lt;code&gt;calling_window&lt;/code&gt; entered a slot and may start calls again (also when
+     * it is started or resumed inside a slot after having been outside one, and when an update of the window
+     * opens it). Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;window_end&lt;/code&gt; (RFC 3339,
+     * when the current run of slots ends). Best effort, at most one per edge, reported by the replica whose
+     * engine ticked the campaign.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED = 520;</code>
+     */
+    public static final int VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED_VALUE = 520;
+    /**
+     * <pre>
+     * A RUNNING campaign with a &lt;code&gt;calling_window&lt;/code&gt; left its last slot and starts no call until the next
+     * one (also when it is started, or its window updated, outside every slot). Running calls continue.
+     * Attributes: &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;next_window_start&lt;/code&gt; (RFC 3339).
+     * Best effort, at most one per edge.
+     * </pre>
+     *
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED = 521;</code>
+     */
+    public static final int VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED_VALUE = 521;
+    /**
+     * <pre>
+     * A VTSI project was updated. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UPDATED = 601;</code>
@@ -1319,7 +1673,7 @@ public final class EventsOuterClass {
      * <pre>
      * A VTSI project was deleted. Delivered to the webhooks subscribed to it at the moment of the
      * deletion (their configuration is captured before it is deleted with the project) and to the
-     * project&amp;apos;s open streams, which then end. It is the last event of the project.
+     * project&amp;apos;s open streams, which then end. It is the last event of the project. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DELETED = 602;</code>
@@ -1327,7 +1681,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_VTSI_PROJECT_DELETED_VALUE = 602;
     /**
      * <pre>
-     * A VTSI project was deployed.
+     * A VTSI project was deployed. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOYED = 603;</code>
@@ -1335,7 +1689,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_VTSI_PROJECT_DEPLOYED_VALUE = 603;
     /**
      * <pre>
-     * Deploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Deploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED = 604;</code>
@@ -1343,7 +1697,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED_VALUE = 604;
     /**
      * <pre>
-     * A VTSI project was undeployed.
+     * A VTSI project was undeployed. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED = 605;</code>
@@ -1352,7 +1706,8 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * The &lt;code&gt;VtsiProjectStatus&lt;/code&gt; of a project changed; attributes
-     * &lt;code&gt;previous_status&lt;/code&gt; and &lt;code&gt;status&lt;/code&gt;.
+     * &lt;code&gt;previous_status&lt;/code&gt; and &lt;code&gt;status&lt;/code&gt;, each a &lt;code&gt;VtsiProjectStatus&lt;/code&gt; name
+     * (&lt;code&gt;DEPLOYED&lt;/code&gt;, &lt;code&gt;UPDATING&lt;/code&gt;, ...).
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED = 606;</code>
@@ -1360,7 +1715,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED_VALUE = 606;
     /**
      * <pre>
-     * Undeploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Undeploying a VTSI project failed; &lt;code&gt;description&lt;/code&gt; says why. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED = 607;</code>
@@ -1368,7 +1723,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED_VALUE = 607;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container was deployed.
+     * The project&amp;apos;s Asterisk container was deployed. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_DEPLOYED = 700;</code>
@@ -1376,7 +1731,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_DEPLOYED_VALUE = 700;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container was removed.
+     * The project&amp;apos;s Asterisk container was removed. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_REMOVED = 701;</code>
@@ -1384,7 +1739,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_REMOVED_VALUE = 701;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk was restarted.
+     * The project&amp;apos;s Asterisk was restarted. Attribute &lt;code&gt;restart_reason&lt;/code&gt; (&lt;code&gt;plan&lt;/code&gt; or
+     * &lt;code&gt;escalation&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_RESTARTED = 702;</code>
@@ -1392,7 +1748,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_RESTARTED_VALUE = 702;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk configuration was reloaded in place.
+     * The project&amp;apos;s Asterisk configuration was reloaded in place. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_CONFIG_RELOADED = 703;</code>
@@ -1400,7 +1756,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_CONFIG_RELOADED_VALUE = 703;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container is not running or unhealthy.
+     * The project&amp;apos;s Asterisk container is not running or unhealthy. Attribute
+     * &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_UNHEALTHY = 704;</code>
@@ -1408,7 +1765,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_UNHEALTHY_VALUE = 704;
     /**
      * <pre>
-     * The project&amp;apos;s Asterisk container is healthy again.
+     * The project&amp;apos;s Asterisk container is healthy again. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_HEALTHY = 705;</code>
@@ -1416,7 +1773,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_HEALTHY_VALUE = 705;
     /**
      * <pre>
-     * The SIP trunk registered with the carrier.
+     * The SIP trunk registered with the carrier. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_TRUNK_REGISTERED = 706;</code>
@@ -1424,8 +1781,9 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_TRUNK_REGISTERED_VALUE = 706;
     /**
      * <pre>
-     * The SIP trunk is no longer registered (rejected, unregistered or failed); attribute
-     * &lt;code&gt;registration_status&lt;/code&gt;.
+     * The SIP trunk is no longer registered (rejected, unregistered or failed); attributes
+     * &lt;code&gt;container_name&lt;/code&gt; and &lt;code&gt;registration_status&lt;/code&gt; (Asterisk&amp;apos;s own token, e.g.
+     * &lt;code&gt;Rejected&lt;/code&gt;, &lt;code&gt;Unregistered&lt;/code&gt;, &lt;code&gt;Unknown&lt;/code&gt;).
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED = 707;</code>
@@ -1433,7 +1791,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED_VALUE = 707;
     /**
      * <pre>
-     * Deploying the project&amp;apos;s Asterisk container failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Deploying the project&amp;apos;s Asterisk container failed; &lt;code&gt;description&lt;/code&gt; says why. Attribute
+     * &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_DEPLOY_FAILED = 708;</code>
@@ -1441,7 +1800,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_DEPLOY_FAILED_VALUE = 708;
     /**
      * <pre>
-     * Restarting the project&amp;apos;s Asterisk failed; &lt;code&gt;description&lt;/code&gt; says why.
+     * Restarting the project&amp;apos;s Asterisk failed; &lt;code&gt;description&lt;/code&gt; says why. Attribute
+     * &lt;code&gt;restart_reason&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_RESTART_FAILED = 709;</code>
@@ -1450,7 +1810,7 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * Reloading the project&amp;apos;s Asterisk configuration in place failed; &lt;code&gt;description&lt;/code&gt;
-     * says why.
+     * says why. Attribute &lt;code&gt;container_name&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED = 710;</code>
@@ -1458,7 +1818,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED_VALUE = 710;
     /**
      * <pre>
-     * A softphone account was created.
+     * A softphone account was created. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED = 800;</code>
@@ -1466,7 +1826,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED_VALUE = 800;
     /**
      * <pre>
-     * A softphone account was updated.
+     * A softphone account was updated. Attribute &lt;code&gt;updated_fields&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED = 801;</code>
@@ -1474,7 +1834,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED_VALUE = 801;
     /**
      * <pre>
-     * A softphone account was deleted.
+     * A softphone account was deleted. Attribute &lt;code&gt;revoked_certificate_count&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED = 802;</code>
@@ -1482,7 +1842,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED_VALUE = 802;
     /**
      * <pre>
-     * The credentials of a softphone account were rotated.
+     * The credentials of a softphone account were rotated. Attribute &lt;code&gt;certificate_rotated&lt;/code&gt;
+     * (boolean).
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED = 803;</code>
@@ -1490,7 +1851,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED_VALUE = 803;
     /**
      * <pre>
-     * A softphone certificate was revoked.
+     * A softphone certificate was revoked (resource_name: the certificate). Attribute
+     * &lt;code&gt;account_locked&lt;/code&gt; (boolean).
      * </pre>
      *
      * <code>VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED = 804;</code>
@@ -1498,7 +1860,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED_VALUE = 804;
     /**
      * <pre>
-     * Sent by &lt;code&gt;TestWebhook&lt;/code&gt; only.
+     * Sent by &lt;code&gt;TestWebhook&lt;/code&gt; only (when it names no &lt;code&gt;sample_event&lt;/code&gt;). No attributes;
+     * &lt;code&gt;description&lt;/code&gt; is &lt;code&gt;webhook test&lt;/code&gt;.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_TEST = 900;</code>
@@ -1506,7 +1869,8 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_WEBHOOK_TEST_VALUE = 900;
     /**
      * <pre>
-     * A webhook was created (resource_name: the webhook). Never carries a header value.
+     * A webhook was created (resource_name: the webhook). Never carries a header value or the signing
+     * secret. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_CREATED = 901;</code>
@@ -1515,7 +1879,7 @@ public final class EventsOuterClass {
     /**
      * <pre>
      * A webhook was updated; attribute &lt;code&gt;updated_fields&lt;/code&gt; (the mask paths). Never carries
-     * a header value.
+     * a header value or the signing secret.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_UPDATED = 902;</code>
@@ -1523,7 +1887,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_WEBHOOK_UPDATED_VALUE = 902;
     /**
      * <pre>
-     * A webhook was deleted.
+     * A webhook was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_WEBHOOK_DELETED = 903;</code>
@@ -1531,7 +1895,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_WEBHOOK_DELETED_VALUE = 903;
     /**
      * <pre>
-     * An event subscription was created (resource_name: the subscription).
+     * An event subscription was created (resource_name: the subscription). No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED = 904;</code>
@@ -1547,7 +1911,7 @@ public final class EventsOuterClass {
     public static final int VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED_VALUE = 905;
     /**
      * <pre>
-     * An event subscription was deleted.
+     * An event subscription was deleted. No attributes.
      * </pre>
      *
      * <code>VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED = 906;</code>
@@ -1602,6 +1966,7 @@ public final class EventsOuterClass {
         case 119: return VTSI_EVENT_CALL_LISTENING_RESUMED;
         case 120: return VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED;
         case 121: return VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED;
+        case 122: return VTSI_EVENT_CALL_UPDATED;
         case 200: return VTSI_EVENT_CALLER_STARTED;
         case 201: return VTSI_EVENT_CALLER_START_FAILED;
         case 202: return VTSI_EVENT_CALLER_STOPPED;
@@ -1609,6 +1974,7 @@ public final class EventsOuterClass {
         case 204: return VTSI_EVENT_CALLER_RESTARTED;
         case 205: return VTSI_EVENT_CALLER_UNHEALTHY;
         case 206: return VTSI_EVENT_CALLER_HEALTHY;
+        case 207: return VTSI_EVENT_CALLER_UPDATED;
         case 300: return VTSI_EVENT_LISTENER_STARTED;
         case 301: return VTSI_EVENT_LISTENER_START_FAILED;
         case 302: return VTSI_EVENT_LISTENER_STOPPED;
@@ -1616,11 +1982,13 @@ public final class EventsOuterClass {
         case 304: return VTSI_EVENT_LISTENER_RESTARTED;
         case 305: return VTSI_EVENT_LISTENER_UNHEALTHY;
         case 306: return VTSI_EVENT_LISTENER_HEALTHY;
+        case 307: return VTSI_EVENT_LISTENER_UPDATED;
         case 400: return VTSI_EVENT_SCHEDULED_CALLER_CREATED;
         case 401: return VTSI_EVENT_SCHEDULED_CALLER_FIRED;
         case 402: return VTSI_EVENT_SCHEDULED_CALLER_FAILED;
         case 403: return VTSI_EVENT_SCHEDULED_CALLER_CANCELLED;
         case 404: return VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED;
+        case 405: return VTSI_EVENT_SCHEDULED_CALLER_UPDATED;
         case 500: return VTSI_EVENT_CAMPAIGN_CREATED;
         case 501: return VTSI_EVENT_CAMPAIGN_UPDATED;
         case 502: return VTSI_EVENT_CAMPAIGN_DELETED;
@@ -1640,6 +2008,9 @@ public final class EventsOuterClass {
         case 516: return VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED;
         case 517: return VTSI_EVENT_CAMPAIGN_CALL_CANCELLED;
         case 518: return VTSI_EVENT_CAMPAIGN_AUTO_STOPPED;
+        case 519: return VTSI_EVENT_CAMPAIGN_CALL_REQUEUED;
+        case 520: return VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED;
+        case 521: return VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED;
         case 601: return VTSI_EVENT_VTSI_PROJECT_UPDATED;
         case 602: return VTSI_EVENT_VTSI_PROJECT_DELETED;
         case 603: return VTSI_EVENT_VTSI_PROJECT_DEPLOYED;
@@ -1729,6 +2100,10 @@ public final class EventsOuterClass {
   /**
    * <pre>
    * HTTP method of a webhook request.
+   * &lt;p&gt;Note: the zero value &lt;code&gt;WEBHOOK_HTTP_METHOD_UNSPECIFIED&lt;/code&gt; is not "no method" but means
+   * &lt;code&gt;POST&lt;/code&gt;, the default. It keeps its released name for wire and source compatibility; a webhook
+   * written with it is stored and sent as POST, and &lt;code&gt;Webhook.http_method&lt;/code&gt; then reads back
+   * &lt;code&gt;WEBHOOK_HTTP_METHOD_POST&lt;/code&gt;.&lt;/p&gt;
    * </pre>
    *
    * Protobuf enum {@code ondewo.vtsi.WebhookHttpMethod}
@@ -2138,7 +2513,9 @@ public final class EventsOuterClass {
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2148,7 +2525,9 @@ public final class EventsOuterClass {
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2165,7 +2544,9 @@ public final class EventsOuterClass {
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2176,7 +2557,9 @@ public final class EventsOuterClass {
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2190,7 +2573,9 @@ java.lang.String defaultValue);
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2809,7 +3194,9 @@ java.lang.String defaultValue);
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2832,7 +3219,9 @@ java.lang.String defaultValue);
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2845,7 +3234,9 @@ java.lang.String defaultValue);
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -2865,7 +3256,9 @@ java.lang.String defaultValue) {
      * <pre>
      * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
      * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-     * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+     * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+     * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      * </pre>
      *
      * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4714,7 +5107,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4737,7 +5132,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4750,7 +5147,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4770,7 +5169,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4796,7 +5197,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4821,7 +5224,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -4840,7 +5245,9 @@ java.lang.String defaultValue) {
        * <pre>
        * Further event-specific values, e.g. &lt;code&gt;caller_name&lt;/code&gt;, &lt;code&gt;listener_name&lt;/code&gt;,
        * &lt;code&gt;phone_number&lt;/code&gt;, &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;attempt_number&lt;/code&gt;,
-       * &lt;code&gt;previous_status&lt;/code&gt;. Keys are documented per event in the VTSI documentation.
+       * &lt;code&gt;previous_status&lt;/code&gt;. The keys and value formats of each event are documented at its
+       * &lt;a href="index.html#ondewo.vtsi.VtsiEvent"&gt;VtsiEvent&lt;/a&gt; value; at most 20 entries, each value at most
+       * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
        * </pre>
        *
        * <code>map&lt;string, string&gt; attributes = 12;</code>
@@ -5146,6 +5553,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -5155,6 +5563,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -5165,7 +5574,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -5174,7 +5584,8 @@ java.lang.String defaultValue) {
     java.lang.String getDisplayName();
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -5186,7 +5597,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5196,7 +5607,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5206,7 +5617,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5217,7 +5628,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5228,7 +5639,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5239,7 +5650,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Deliver every event, including events added in later versions. Updatable.
+     * Deliver every event, including events added in later versions, except
+     * &lt;code&gt;excluded_events&lt;/code&gt;. Updatable.
      * </pre>
      *
      * <code>bool all_events = 5;</code>
@@ -5522,6 +5934,80 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getCampaignNamesBytes(int index);
+
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return A list containing the excludedEvents.
+     */
+    java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList();
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return The count of excludedEvents.
+     */
+    int getExcludedEventsCount();
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @param index The index of the element to return.
+     * @return The excludedEvents at the given index.
+     */
+    ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index);
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return A list containing the enum numeric values on the wire for excludedEvents.
+     */
+    java.util.List<java.lang.Integer>
+    getExcludedEventsValueList();
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of excludedEvents at the given index.
+     */
+    int getExcludedEventsValue(int index);
   }
   /**
    * <pre>
@@ -5561,6 +6047,7 @@ java.lang.String defaultValue) {
       modifiedBy_ = "";
       campaignNames_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
+      excludedEvents_ = emptyIntList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -5632,6 +6119,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -5653,6 +6141,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -5678,7 +6167,8 @@ java.lang.String defaultValue) {
     private volatile java.lang.Object displayName_ = "";
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -5699,7 +6189,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -5736,7 +6227,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5750,7 +6241,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5763,7 +6254,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5777,7 +6268,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5791,7 +6282,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -5808,7 +6299,8 @@ java.lang.String defaultValue) {
     private boolean allEvents_ = false;
     /**
      * <pre>
-     * Deliver every event, including events added in later versions. Updatable.
+     * Deliver every event, including events added in later versions, except
+     * &lt;code&gt;excluded_events&lt;/code&gt;. Updatable.
      * </pre>
      *
      * <code>bool all_events = 5;</code>
@@ -6212,6 +6704,110 @@ java.lang.String defaultValue) {
       return campaignNames_.getByteString(index);
     }
 
+    public static final int EXCLUDED_EVENTS_FIELD_NUMBER = 14;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList excludedEvents_ =
+        emptyIntList();
+    private static final     com.google.protobuf.Internal.IntListAdapter.IntConverter<
+        ondewo.vtsi.EventsOuterClass.VtsiEvent> excludedEvents_converter_ =
+            new com.google.protobuf.Internal.IntListAdapter.IntConverter<
+                ondewo.vtsi.EventsOuterClass.VtsiEvent>() {
+              public ondewo.vtsi.EventsOuterClass.VtsiEvent convert(int from) {
+                ondewo.vtsi.EventsOuterClass.VtsiEvent result = ondewo.vtsi.EventsOuterClass.VtsiEvent.forNumber(from);
+                return result == null ? ondewo.vtsi.EventsOuterClass.VtsiEvent.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return A list containing the excludedEvents.
+     */
+    @java.lang.Override
+    public java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList() {
+      return new com.google.protobuf.Internal.IntListAdapter<
+          ondewo.vtsi.EventsOuterClass.VtsiEvent>(excludedEvents_, excludedEvents_converter_);
+    }
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return The count of excludedEvents.
+     */
+    @java.lang.Override
+    public int getExcludedEventsCount() {
+      return excludedEvents_.size();
+    }
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @param index The index of the element to return.
+     * @return The excludedEvents at the given index.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index) {
+      return excludedEvents_converter_.convert(excludedEvents_.getInt(index));
+    }
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return A list containing the enum numeric values on the wire for excludedEvents.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getExcludedEventsValueList() {
+      return excludedEvents_;
+    }
+    /**
+     * <pre>
+     * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+     * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+     * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+     * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+     * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+     * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of excludedEvents at the given index.
+     */
+    @java.lang.Override
+    public int getExcludedEventsValue(int index) {
+      return excludedEvents_.getInt(index);
+    }
+    private int excludedEventsMemoizedSerializedSize;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6269,6 +6865,13 @@ java.lang.String defaultValue) {
       }
       for (int i = 0; i < campaignNames_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 13, campaignNames_.getRaw(i));
+      }
+      if (getExcludedEventsList().size() > 0) {
+        output.writeUInt32NoTag(114);
+        output.writeUInt32NoTag(excludedEventsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < excludedEvents_.size(); i++) {
+        output.writeEnumNoTag(excludedEvents_.getInt(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -6346,6 +6949,18 @@ java.lang.String defaultValue) {
         size += dataSize;
         size += 1 * getCampaignNamesList().size();
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < excludedEvents_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(excludedEvents_.getInt(i));
+        }
+        size += dataSize;
+        if (!getExcludedEventsList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }excludedEventsMemoizedSerializedSize = dataSize;
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6392,6 +7007,7 @@ java.lang.String defaultValue) {
       }
       if (!getCampaignNamesList()
           .equals(other.getCampaignNamesList())) return false;
+      if (!excludedEvents_.equals(other.excludedEvents_)) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -6442,6 +7058,10 @@ java.lang.String defaultValue) {
       if (getCampaignNamesCount() > 0) {
         hash = (37 * hash) + CAMPAIGN_NAMES_FIELD_NUMBER;
         hash = (53 * hash) + getCampaignNamesList().hashCode();
+      }
+      if (getExcludedEventsCount() > 0) {
+        hash = (37 * hash) + EXCLUDED_EVENTS_FIELD_NUMBER;
+        hash = (53 * hash) + excludedEvents_.hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -6609,6 +7229,7 @@ java.lang.String defaultValue) {
         }
         campaignNames_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        excludedEvents_ = emptyIntList();
         return this;
       }
 
@@ -6691,6 +7312,10 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00001000) != 0)) {
           campaignNames_.makeImmutable();
           result.campaignNames_ = campaignNames_;
+        }
+        if (((from_bitField0_ & 0x00002000) != 0)) {
+          excludedEvents_.makeImmutable();
+          result.excludedEvents_ = excludedEvents_;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -6782,6 +7407,17 @@ java.lang.String defaultValue) {
           } else {
             ensureCampaignNamesIsMutable();
             campaignNames_.addAll(other.campaignNames_);
+          }
+          onChanged();
+        }
+        if (!other.excludedEvents_.isEmpty()) {
+          if (excludedEvents_.isEmpty()) {
+            excludedEvents_ = other.excludedEvents_;
+            excludedEvents_.makeImmutable();
+            bitField0_ |= 0x00002000;
+          } else {
+            ensureExcludedEventsIsMutable();
+            excludedEvents_.addAll(other.excludedEvents_);
           }
           onChanged();
         }
@@ -6894,6 +7530,22 @@ java.lang.String defaultValue) {
                 campaignNames_.add(s);
                 break;
               } // case 106
+              case 112: {
+                int tmpRaw = input.readEnum();
+                ensureExcludedEventsIsMutable();
+                excludedEvents_.addInt(tmpRaw);
+                break;
+              } // case 112
+              case 114: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureExcludedEventsIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  excludedEvents_.addInt(input.readEnum());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 114
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -7012,6 +7664,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -7032,6 +7685,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -7053,6 +7707,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -7070,6 +7725,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -7084,6 +7740,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -7103,7 +7760,8 @@ java.lang.String defaultValue) {
       private java.lang.Object displayName_ = "";
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -7123,7 +7781,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -7144,7 +7803,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -7161,7 +7821,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -7175,7 +7836,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -7202,7 +7864,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7215,7 +7877,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7227,7 +7889,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7240,7 +7902,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7259,7 +7921,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7276,7 +7938,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7295,7 +7957,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7310,7 +7972,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7324,7 +7986,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7337,7 +7999,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7355,7 +8017,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7371,7 +8033,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * The events to deliver. Required unless &lt;code&gt;all_events&lt;/code&gt; is set; must be empty when it
-       * is. Updatable.
+       * is. At most one entry per value (duplicates are ignored). Updatable.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
@@ -7391,7 +8053,8 @@ java.lang.String defaultValue) {
       private boolean allEvents_ ;
       /**
        * <pre>
-       * Deliver every event, including events added in later versions. Updatable.
+       * Deliver every event, including events added in later versions, except
+       * &lt;code&gt;excluded_events&lt;/code&gt;. Updatable.
        * </pre>
        *
        * <code>bool all_events = 5;</code>
@@ -7403,7 +8066,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Deliver every event, including events added in later versions. Updatable.
+       * Deliver every event, including events added in later versions, except
+       * &lt;code&gt;excluded_events&lt;/code&gt;. Updatable.
        * </pre>
        *
        * <code>bool all_events = 5;</code>
@@ -7419,7 +8083,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Deliver every event, including events added in later versions. Updatable.
+       * Deliver every event, including events added in later versions, except
+       * &lt;code&gt;excluded_events&lt;/code&gt;. Updatable.
        * </pre>
        *
        * <code>bool all_events = 5;</code>
@@ -8522,6 +9187,250 @@ java.lang.String defaultValue) {
         ensureCampaignNamesIsMutable();
         campaignNames_.add(value);
         bitField0_ |= 0x00001000;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList excludedEvents_ = emptyIntList();
+      private void ensureExcludedEventsIsMutable() {
+        if (!excludedEvents_.isModifiable()) {
+          excludedEvents_ = makeMutableCopy(excludedEvents_);
+        }
+        bitField0_ |= 0x00002000;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @return A list containing the excludedEvents.
+       */
+      public java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList() {
+        return new com.google.protobuf.Internal.IntListAdapter<
+            ondewo.vtsi.EventsOuterClass.VtsiEvent>(excludedEvents_, excludedEvents_converter_);
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @return The count of excludedEvents.
+       */
+      public int getExcludedEventsCount() {
+        return excludedEvents_.size();
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param index The index of the element to return.
+       * @return The excludedEvents at the given index.
+       */
+      public ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index) {
+        return excludedEvents_converter_.convert(excludedEvents_.getInt(index));
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param index The index to set the value at.
+       * @param value The excludedEvents to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExcludedEvents(
+          int index, ondewo.vtsi.EventsOuterClass.VtsiEvent value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.setInt(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param value The excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addExcludedEvents(ondewo.vtsi.EventsOuterClass.VtsiEvent value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.addInt(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param values The excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllExcludedEvents(
+          java.lang.Iterable<? extends ondewo.vtsi.EventsOuterClass.VtsiEvent> values) {
+        ensureExcludedEventsIsMutable();
+        for (ondewo.vtsi.EventsOuterClass.VtsiEvent value : values) {
+          excludedEvents_.addInt(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExcludedEvents() {
+        excludedEvents_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00002000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @return A list containing the enum numeric values on the wire for excludedEvents.
+       */
+      public java.util.List<java.lang.Integer>
+      getExcludedEventsValueList() {
+        excludedEvents_.makeImmutable();
+        return excludedEvents_;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of excludedEvents at the given index.
+       */
+      public int getExcludedEventsValue(int index) {
+        return excludedEvents_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param index The index to set the value at.
+       * @param value The enum numeric value on the wire for excludedEvents to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExcludedEventsValue(
+          int index, int value) {
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param value The enum numeric value on the wire for excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addExcludedEventsValue(int value) {
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to deliver, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;,
+       * e.g. &lt;code&gt;all_events&lt;/code&gt; with &lt;code&gt;VTSI_EVENT_CALL_SIP_STATUS_CHANGED&lt;/code&gt; and
+       * &lt;code&gt;VTSI_EVENT_CAMPAIGN_PROGRESS&lt;/code&gt; excluded. Empty means nothing is excluded.
+       * &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt;, a reserved value, or a value that is also in &lt;code&gt;events&lt;/code&gt;
+       * is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. At most 100 entries. Updatable (path
+       * &lt;code&gt;excluded_events&lt;/code&gt;, replaced whole).
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+       * @param values The enum numeric values on the wire for excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllExcludedEventsValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensureExcludedEventsIsMutable();
+        for (int value : values) {
+          excludedEvents_.addInt(value);
+        }
         onChanged();
         return this;
       }
@@ -10075,6 +10984,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -10084,6 +10994,7 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Output only. VTSI project of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -10094,7 +11005,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -10103,7 +11015,8 @@ java.lang.String defaultValue) {
     java.lang.String getDisplayName();
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -10395,6 +11308,74 @@ java.lang.String defaultValue);
      * <code>.google.protobuf.Timestamp modified_at = 13;</code>
      */
     com.google.protobuf.TimestampOrBuilder getModifiedAtOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+     * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+     * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+     * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+     * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+     * know.&lt;/p&gt;
+     * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+     * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+     * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+     * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string signing_secret = 14;</code>
+     * @return The signingSecret.
+     */
+    java.lang.String getSigningSecret();
+    /**
+     * <pre>
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+     * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+     * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+     * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+     * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+     * know.&lt;/p&gt;
+     * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+     * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+     * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+     * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string signing_secret = 14;</code>
+     * @return The bytes for signingSecret.
+     */
+    com.google.protobuf.ByteString
+        getSigningSecretBytes();
   }
   /**
    * <pre>
@@ -10429,6 +11410,7 @@ java.lang.String defaultValue);
       httpMethod_ = 0;
       createdBy_ = "";
       modifiedBy_ = "";
+      signingSecret_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -10512,6 +11494,7 @@ java.lang.String defaultValue);
     /**
      * <pre>
      * Output only. VTSI project of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -10533,6 +11516,7 @@ java.lang.String defaultValue);
     /**
      * <pre>
      * Output only. VTSI project of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string vtsi_project_name = 2;</code>
@@ -10558,7 +11542,8 @@ java.lang.String defaultValue);
     private volatile java.lang.Object displayName_ = "";
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -10579,7 +11564,8 @@ java.lang.String defaultValue);
     }
     /**
      * <pre>
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      * </pre>
      *
      * <code>string display_name = 3;</code>
@@ -11056,6 +12042,101 @@ java.lang.String defaultValue) {
       return modifiedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : modifiedAt_;
     }
 
+    public static final int SIGNING_SECRET_FIELD_NUMBER = 14;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signingSecret_ = "";
+    /**
+     * <pre>
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+     * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+     * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+     * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+     * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+     * know.&lt;/p&gt;
+     * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+     * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+     * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+     * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string signing_secret = 14;</code>
+     * @return The signingSecret.
+     */
+    @java.lang.Override
+    public java.lang.String getSigningSecret() {
+      java.lang.Object ref = signingSecret_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signingSecret_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+     * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+     * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+     * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+     * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+     * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+     * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+     * know.&lt;/p&gt;
+     * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+     * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+     * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+     * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string signing_secret = 14;</code>
+     * @return The bytes for signingSecret.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSigningSecretBytes() {
+      java.lang.Object ref = signingSecret_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signingSecret_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11111,6 +12192,9 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000008) != 0)) {
         output.writeMessage(13, getModifiedAt());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(signingSecret_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 14, signingSecret_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -11173,6 +12257,9 @@ java.lang.String defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(13, getModifiedAt());
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(signingSecret_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(14, signingSecret_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11225,6 +12312,8 @@ java.lang.String defaultValue) {
         if (!getModifiedAt()
             .equals(other.getModifiedAt())) return false;
       }
+      if (!getSigningSecret()
+          .equals(other.getSigningSecret())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -11273,6 +12362,8 @@ java.lang.String defaultValue) {
         hash = (37 * hash) + MODIFIED_AT_FIELD_NUMBER;
         hash = (53 * hash) + getModifiedAt().hashCode();
       }
+      hash = (37 * hash) + SIGNING_SECRET_FIELD_NUMBER;
+      hash = (53 * hash) + getSigningSecret().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11468,6 +12559,7 @@ java.lang.String defaultValue) {
           modifiedAtBuilder_.dispose();
           modifiedAtBuilder_ = null;
         }
+        signingSecret_ = "";
         return this;
       }
 
@@ -11554,6 +12646,9 @@ java.lang.String defaultValue) {
               : modifiedAtBuilder_.build();
           to_bitField0_ |= 0x00000008;
         }
+        if (((from_bitField0_ & 0x00002000) != 0)) {
+          result.signingSecret_ = signingSecret_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -11619,6 +12714,11 @@ java.lang.String defaultValue) {
         }
         if (other.hasModifiedAt()) {
           mergeModifiedAt(other.getModifiedAt());
+        }
+        if (!other.getSigningSecret().isEmpty()) {
+          signingSecret_ = other.signingSecret_;
+          bitField0_ |= 0x00002000;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -11723,6 +12823,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00001000;
                 break;
               } // case 106
+              case 114: {
+                signingSecret_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00002000;
+                break;
+              } // case 114
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11841,6 +12946,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -11861,6 +12967,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -11882,6 +12989,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -11899,6 +13007,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -11913,6 +13022,7 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Output only. VTSI project of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string vtsi_project_name = 2;</code>
@@ -11932,7 +13042,8 @@ java.lang.String defaultValue) {
       private java.lang.Object displayName_ = "";
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -11952,7 +13063,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -11973,7 +13085,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -11990,7 +13103,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -12004,7 +13118,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Human-readable name, at most 128 characters. Updatable.
+       * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+       * empty display name stays empty (no default is generated). Updatable.
        * </pre>
        *
        * <code>string display_name = 3;</code>
@@ -13245,6 +14360,218 @@ java.lang.String defaultValue) {
         return modifiedAtBuilder_;
       }
 
+      private java.lang.Object signingSecret_ = "";
+      /**
+       * <pre>
+       * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+       * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+       * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+       * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+       * 32 random characters); anything else, and the mask value itself on create, is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+       * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+       * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+       * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+       * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+       * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+       * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+       * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+       * know.&lt;/p&gt;
+       * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+       * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+       * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+       * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+       * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+       * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+       * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string signing_secret = 14;</code>
+       * @return The signingSecret.
+       */
+      public java.lang.String getSigningSecret() {
+        java.lang.Object ref = signingSecret_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signingSecret_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+       * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+       * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+       * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+       * 32 random characters); anything else, and the mask value itself on create, is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+       * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+       * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+       * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+       * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+       * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+       * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+       * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+       * know.&lt;/p&gt;
+       * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+       * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+       * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+       * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+       * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+       * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+       * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string signing_secret = 14;</code>
+       * @return The bytes for signingSecret.
+       */
+      public com.google.protobuf.ByteString
+          getSigningSecretBytes() {
+        java.lang.Object ref = signingSecret_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signingSecret_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+       * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+       * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+       * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+       * 32 random characters); anything else, and the mask value itself on create, is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+       * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+       * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+       * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+       * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+       * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+       * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+       * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+       * know.&lt;/p&gt;
+       * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+       * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+       * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+       * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+       * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+       * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+       * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string signing_secret = 14;</code>
+       * @param value The signingSecret to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigningSecret(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signingSecret_ = value;
+        bitField0_ |= 0x00002000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+       * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+       * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+       * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+       * 32 random characters); anything else, and the mask value itself on create, is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+       * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+       * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+       * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+       * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+       * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+       * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+       * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+       * know.&lt;/p&gt;
+       * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+       * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+       * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+       * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+       * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+       * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+       * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string signing_secret = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigningSecret() {
+        signingSecret_ = getDefaultInstance().getSigningSecret();
+        bitField0_ = (bitField0_ & ~0x00002000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+       * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+       * &lt;code&gt;********&lt;/code&gt; when a secret is stored and an empty string when none is; it is never logged and
+       * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+       * 32 random characters); anything else, and the mask value itself on create, is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Empty (the default) means requests are not signed.
+       * &lt;p&gt;Signature: each request carries the header&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;X-Ondewo-Vtsi-Signature: t=&amp;lt;unix seconds&amp;gt;,v1=&amp;lt;signature&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;where &lt;code&gt;t&lt;/code&gt; is the time the request was sent (base-10 seconds since the Unix epoch, a new
+       * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&amp;apos;s
+       * bytes, of the ASCII string &lt;code&gt;&amp;lt;t&amp;gt;.&lt;/code&gt; followed by the exact bytes of the request body:&lt;/p&gt;
+       * &lt;pre&gt;&lt;code&gt;v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))&lt;/code&gt;&lt;/pre&gt;
+       * &lt;p&gt;To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+       * time with each &lt;code&gt;v1&lt;/code&gt; value of the header (there can be two, see rotation), and reject the
+       * request when none matches or when &lt;code&gt;t&lt;/code&gt; is more than 5 minutes away from the receiver&amp;apos;s
+       * clock (replay protection; de-duplicate by &lt;code&gt;event_id&lt;/code&gt; as well). Further signature schemes may
+       * be added later as additional comma-separated &lt;code&gt;v&amp;lt;n&amp;gt;=&lt;/code&gt; entries: ignore entries you do not
+       * know.&lt;/p&gt;
+       * &lt;p&gt;Rotation: &lt;code&gt;UpdateWebhook&lt;/code&gt; with &lt;code&gt;update_mask&lt;/code&gt; path &lt;code&gt;signing_secret&lt;/code&gt;
+       * and the new value. For &lt;code&gt;ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S&lt;/code&gt; (24 h by default) after
+       * a rotation every request carries two signatures, &lt;code&gt;t=...,v1=&amp;lt;new&amp;gt;,v1=&amp;lt;previous&amp;gt;&lt;/code&gt;,
+       * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+       * one. Writing an empty string removes signing at once (no grace); writing &lt;code&gt;********&lt;/code&gt; keeps the
+       * stored secret, so a Get-modify-Update round trip does not change it. &lt;code&gt;TestWebhook&lt;/code&gt; signs like
+       * a real delivery and is the way to check a receiver&amp;apos;s verification before relying on it.&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string signing_secret = 14;</code>
+       * @param value The bytes for signingSecret to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigningSecretBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signingSecret_ = value;
+        bitField0_ |= 0x00002000;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.Webhook)
     }
 
@@ -13302,7 +14629,10 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13311,7 +14641,10 @@ java.lang.String defaultValue) {
     java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getEventsList();
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13320,7 +14653,10 @@ java.lang.String defaultValue) {
     int getEventsCount();
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13330,7 +14666,10 @@ java.lang.String defaultValue) {
     ondewo.vtsi.EventsOuterClass.VtsiEvent getEvents(int index);
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13340,7 +14679,10 @@ java.lang.String defaultValue) {
     getEventsValueList();
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13442,10 +14784,78 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getCampaignNamesBytes(int index);
+
+    /**
+     * <pre>
+     * Every event, explicitly; equivalent to an empty &lt;code&gt;events&lt;/code&gt; and present for symmetry with
+     * &lt;code&gt;VtsiEventSubscription.all_events&lt;/code&gt;. Set together with a non-empty &lt;code&gt;events&lt;/code&gt; is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool all_events = 4;</code>
+     * @return The allEvents.
+     */
+    boolean getAllEvents();
+
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return A list containing the excludedEvents.
+     */
+    java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList();
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return The count of excludedEvents.
+     */
+    int getExcludedEventsCount();
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @param index The index of the element to return.
+     * @return The excludedEvents at the given index.
+     */
+    ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index);
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return A list containing the enum numeric values on the wire for excludedEvents.
+     */
+    java.util.List<java.lang.Integer>
+    getExcludedEventsValueList();
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of excludedEvents at the given index.
+     */
+    int getExcludedEventsValue(int index);
   }
   /**
    * <pre>
-   * Selects events for &lt;code&gt;SubscribeVtsiEvents&lt;/code&gt; without a stored subscription.
+   * Selects events for &lt;code&gt;SubscribeVtsiEvents&lt;/code&gt; without a stored subscription, and narrows a
+   * &lt;code&gt;RedeliverWebhookEvents&lt;/code&gt; window. Every set field narrows the selection (AND); the entries of one
+   * list are alternatives (OR).
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.VtsiEventFilter}
@@ -13474,6 +14884,7 @@ java.lang.String defaultValue) {
           com.google.protobuf.LazyStringArrayList.emptyList();
       campaignNames_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
+      excludedEvents_ = emptyIntList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -13504,7 +14915,10 @@ java.lang.String defaultValue) {
             };
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13517,7 +14931,10 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13529,7 +14946,10 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13542,7 +14962,10 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13555,7 +14978,10 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+     * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -13686,6 +15112,107 @@ java.lang.String defaultValue) {
       return campaignNames_.getByteString(index);
     }
 
+    public static final int ALL_EVENTS_FIELD_NUMBER = 4;
+    private boolean allEvents_ = false;
+    /**
+     * <pre>
+     * Every event, explicitly; equivalent to an empty &lt;code&gt;events&lt;/code&gt; and present for symmetry with
+     * &lt;code&gt;VtsiEventSubscription.all_events&lt;/code&gt;. Set together with a non-empty &lt;code&gt;events&lt;/code&gt; is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool all_events = 4;</code>
+     * @return The allEvents.
+     */
+    @java.lang.Override
+    public boolean getAllEvents() {
+      return allEvents_;
+    }
+
+    public static final int EXCLUDED_EVENTS_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList excludedEvents_ =
+        emptyIntList();
+    private static final     com.google.protobuf.Internal.IntListAdapter.IntConverter<
+        ondewo.vtsi.EventsOuterClass.VtsiEvent> excludedEvents_converter_ =
+            new com.google.protobuf.Internal.IntListAdapter.IntConverter<
+                ondewo.vtsi.EventsOuterClass.VtsiEvent>() {
+              public ondewo.vtsi.EventsOuterClass.VtsiEvent convert(int from) {
+                ondewo.vtsi.EventsOuterClass.VtsiEvent result = ondewo.vtsi.EventsOuterClass.VtsiEvent.forNumber(from);
+                return result == null ? ondewo.vtsi.EventsOuterClass.VtsiEvent.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return A list containing the excludedEvents.
+     */
+    @java.lang.Override
+    public java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList() {
+      return new com.google.protobuf.Internal.IntListAdapter<
+          ondewo.vtsi.EventsOuterClass.VtsiEvent>(excludedEvents_, excludedEvents_converter_);
+    }
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return The count of excludedEvents.
+     */
+    @java.lang.Override
+    public int getExcludedEventsCount() {
+      return excludedEvents_.size();
+    }
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @param index The index of the element to return.
+     * @return The excludedEvents at the given index.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index) {
+      return excludedEvents_converter_.convert(excludedEvents_.getInt(index));
+    }
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return A list containing the enum numeric values on the wire for excludedEvents.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getExcludedEventsValueList() {
+      return excludedEvents_;
+    }
+    /**
+     * <pre>
+     * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+     * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of excludedEvents at the given index.
+     */
+    @java.lang.Override
+    public int getExcludedEventsValue(int index) {
+      return excludedEvents_.getInt(index);
+    }
+    private int excludedEventsMemoizedSerializedSize;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -13713,6 +15240,16 @@ java.lang.String defaultValue) {
       }
       for (int i = 0; i < campaignNames_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 3, campaignNames_.getRaw(i));
+      }
+      if (allEvents_ != false) {
+        output.writeBool(4, allEvents_);
+      }
+      if (getExcludedEventsList().size() > 0) {
+        output.writeUInt32NoTag(42);
+        output.writeUInt32NoTag(excludedEventsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < excludedEvents_.size(); i++) {
+        output.writeEnumNoTag(excludedEvents_.getInt(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -13751,6 +15288,22 @@ java.lang.String defaultValue) {
         size += dataSize;
         size += 1 * getCampaignNamesList().size();
       }
+      if (allEvents_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, allEvents_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < excludedEvents_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(excludedEvents_.getInt(i));
+        }
+        size += dataSize;
+        if (!getExcludedEventsList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }excludedEventsMemoizedSerializedSize = dataSize;
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -13771,6 +15324,9 @@ java.lang.String defaultValue) {
           .equals(other.getResourceNamePrefixesList())) return false;
       if (!getCampaignNamesList()
           .equals(other.getCampaignNamesList())) return false;
+      if (getAllEvents()
+          != other.getAllEvents()) return false;
+      if (!excludedEvents_.equals(other.excludedEvents_)) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -13793,6 +15349,13 @@ java.lang.String defaultValue) {
       if (getCampaignNamesCount() > 0) {
         hash = (37 * hash) + CAMPAIGN_NAMES_FIELD_NUMBER;
         hash = (53 * hash) + getCampaignNamesList().hashCode();
+      }
+      hash = (37 * hash) + ALL_EVENTS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAllEvents());
+      if (getExcludedEventsCount() > 0) {
+        hash = (37 * hash) + EXCLUDED_EVENTS_FIELD_NUMBER;
+        hash = (53 * hash) + excludedEvents_.hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -13893,7 +15456,9 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Selects events for &lt;code&gt;SubscribeVtsiEvents&lt;/code&gt; without a stored subscription.
+     * Selects events for &lt;code&gt;SubscribeVtsiEvents&lt;/code&gt; without a stored subscription, and narrows a
+     * &lt;code&gt;RedeliverWebhookEvents&lt;/code&gt; window. Every set field narrows the selection (AND); the entries of one
+     * list are alternatives (OR).
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.VtsiEventFilter}
@@ -13934,6 +15499,8 @@ java.lang.String defaultValue) {
             com.google.protobuf.LazyStringArrayList.emptyList();
         campaignNames_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        allEvents_ = false;
+        excludedEvents_ = emptyIntList();
         return this;
       }
 
@@ -13979,6 +15546,13 @@ java.lang.String defaultValue) {
           campaignNames_.makeImmutable();
           result.campaignNames_ = campaignNames_;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.allEvents_ = allEvents_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          excludedEvents_.makeImmutable();
+          result.excludedEvents_ = excludedEvents_;
+        }
       }
 
       @java.lang.Override
@@ -14021,6 +15595,20 @@ java.lang.String defaultValue) {
           } else {
             ensureCampaignNamesIsMutable();
             campaignNames_.addAll(other.campaignNames_);
+          }
+          onChanged();
+        }
+        if (other.getAllEvents() != false) {
+          setAllEvents(other.getAllEvents());
+        }
+        if (!other.excludedEvents_.isEmpty()) {
+          if (excludedEvents_.isEmpty()) {
+            excludedEvents_ = other.excludedEvents_;
+            excludedEvents_.makeImmutable();
+            bitField0_ |= 0x00000010;
+          } else {
+            ensureExcludedEventsIsMutable();
+            excludedEvents_.addAll(other.excludedEvents_);
           }
           onChanged();
         }
@@ -14078,6 +15666,27 @@ java.lang.String defaultValue) {
                 campaignNames_.add(s);
                 break;
               } // case 26
+              case 32: {
+                allEvents_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 40: {
+                int tmpRaw = input.readEnum();
+                ensureExcludedEventsIsMutable();
+                excludedEvents_.addInt(tmpRaw);
+                break;
+              } // case 40
+              case 42: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureExcludedEventsIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  excludedEvents_.addInt(input.readEnum());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -14104,7 +15713,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14116,7 +15728,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14127,7 +15742,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14139,7 +15757,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14157,7 +15778,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14173,7 +15797,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14191,7 +15818,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14205,7 +15835,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14218,7 +15851,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14230,7 +15866,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14247,7 +15886,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14262,7 +15904,10 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Only these events. Empty means every event.
+       * Only these events. Empty means every event (unlike &lt;code&gt;VtsiEventSubscription.events&lt;/code&gt;, where
+       * empty is refused unless &lt;code&gt;all_events&lt;/code&gt; is set: a filter is a one-off request, so "no
+       * constraint" is its natural empty value). &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; or a reserved value is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
@@ -14600,6 +16245,252 @@ java.lang.String defaultValue) {
         return this;
       }
 
+      private boolean allEvents_ ;
+      /**
+       * <pre>
+       * Every event, explicitly; equivalent to an empty &lt;code&gt;events&lt;/code&gt; and present for symmetry with
+       * &lt;code&gt;VtsiEventSubscription.all_events&lt;/code&gt;. Set together with a non-empty &lt;code&gt;events&lt;/code&gt; is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool all_events = 4;</code>
+       * @return The allEvents.
+       */
+      @java.lang.Override
+      public boolean getAllEvents() {
+        return allEvents_;
+      }
+      /**
+       * <pre>
+       * Every event, explicitly; equivalent to an empty &lt;code&gt;events&lt;/code&gt; and present for symmetry with
+       * &lt;code&gt;VtsiEventSubscription.all_events&lt;/code&gt;. Set together with a non-empty &lt;code&gt;events&lt;/code&gt; is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool all_events = 4;</code>
+       * @param value The allEvents to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAllEvents(boolean value) {
+
+        allEvents_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Every event, explicitly; equivalent to an empty &lt;code&gt;events&lt;/code&gt; and present for symmetry with
+       * &lt;code&gt;VtsiEventSubscription.all_events&lt;/code&gt;. Set together with a non-empty &lt;code&gt;events&lt;/code&gt; is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool all_events = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAllEvents() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        allEvents_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList excludedEvents_ = emptyIntList();
+      private void ensureExcludedEventsIsMutable() {
+        if (!excludedEvents_.isModifiable()) {
+          excludedEvents_ = makeMutableCopy(excludedEvents_);
+        }
+        bitField0_ |= 0x00000010;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @return A list containing the excludedEvents.
+       */
+      public java.util.List<ondewo.vtsi.EventsOuterClass.VtsiEvent> getExcludedEventsList() {
+        return new com.google.protobuf.Internal.IntListAdapter<
+            ondewo.vtsi.EventsOuterClass.VtsiEvent>(excludedEvents_, excludedEvents_converter_);
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @return The count of excludedEvents.
+       */
+      public int getExcludedEventsCount() {
+        return excludedEvents_.size();
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param index The index of the element to return.
+       * @return The excludedEvents at the given index.
+       */
+      public ondewo.vtsi.EventsOuterClass.VtsiEvent getExcludedEvents(int index) {
+        return excludedEvents_converter_.convert(excludedEvents_.getInt(index));
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The excludedEvents to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExcludedEvents(
+          int index, ondewo.vtsi.EventsOuterClass.VtsiEvent value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.setInt(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param value The excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addExcludedEvents(ondewo.vtsi.EventsOuterClass.VtsiEvent value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.addInt(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param values The excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllExcludedEvents(
+          java.lang.Iterable<? extends ondewo.vtsi.EventsOuterClass.VtsiEvent> values) {
+        ensureExcludedEventsIsMutable();
+        for (ondewo.vtsi.EventsOuterClass.VtsiEvent value : values) {
+          excludedEvents_.addInt(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExcludedEvents() {
+        excludedEvents_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @return A list containing the enum numeric values on the wire for excludedEvents.
+       */
+      public java.util.List<java.lang.Integer>
+      getExcludedEventsValueList() {
+        excludedEvents_.makeImmutable();
+        return excludedEvents_;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of excludedEvents at the given index.
+       */
+      public int getExcludedEventsValue(int index) {
+        return excludedEvents_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The enum numeric value on the wire for excludedEvents to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExcludedEventsValue(
+          int index, int value) {
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param value The enum numeric value on the wire for excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addExcludedEventsValue(int value) {
+        ensureExcludedEventsIsMutable();
+        excludedEvents_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events NOT to select, subtracted from the selection of &lt;code&gt;events&lt;/code&gt; / &lt;code&gt;all_events&lt;/code&gt;.
+       * Same semantics and limits as &lt;code&gt;VtsiEventSubscription.excluded_events&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+       * @param values The enum numeric values on the wire for excludedEvents to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllExcludedEventsValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensureExcludedEventsIsMutable();
+        for (int value : values) {
+          excludedEvents_.addInt(value);
+        }
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.VtsiEventFilter)
     }
 
@@ -14658,6 +16549,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -14667,6 +16560,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -14677,7 +16572,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -14686,7 +16582,8 @@ java.lang.String defaultValue) {
     boolean hasEventSubscription();
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -14695,12 +16592,52 @@ java.lang.String defaultValue) {
     ondewo.vtsi.EventsOuterClass.VtsiEventSubscription getEventSubscription();
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
      */
     ondewo.vtsi.EventsOuterClass.VtsiEventSubscriptionOrBuilder getEventSubscriptionOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -14751,6 +16688,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -14772,6 +16711,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -14796,7 +16737,8 @@ java.lang.String defaultValue) {
     private ondewo.vtsi.EventsOuterClass.VtsiEventSubscription eventSubscription_;
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -14808,7 +16750,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -14820,7 +16763,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The subscription to create.
+     * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -14828,6 +16772,56 @@ java.lang.String defaultValue) {
     @java.lang.Override
     public ondewo.vtsi.EventsOuterClass.VtsiEventSubscriptionOrBuilder getEventSubscriptionOrBuilder() {
       return eventSubscription_ == null ? ondewo.vtsi.EventsOuterClass.VtsiEventSubscription.getDefaultInstance() : eventSubscription_;
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14850,6 +16844,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(2, getEventSubscription());
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -14865,6 +16862,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getEventSubscription());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -14888,6 +16889,11 @@ java.lang.String defaultValue) {
         if (!getEventSubscription()
             .equals(other.getEventSubscription())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -14904,6 +16910,10 @@ java.lang.String defaultValue) {
       if (hasEventSubscription()) {
         hash = (37 * hash) + EVENT_SUBSCRIPTION_FIELD_NUMBER;
         hash = (53 * hash) + getEventSubscription().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -15040,6 +17050,7 @@ java.lang.String defaultValue) {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetEventSubscriptionFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -15051,6 +17062,11 @@ java.lang.String defaultValue) {
         if (eventSubscriptionBuilder_ != null) {
           eventSubscriptionBuilder_.dispose();
           eventSubscriptionBuilder_ = null;
+        }
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
         }
         return this;
       }
@@ -15095,6 +17111,12 @@ java.lang.String defaultValue) {
               : eventSubscriptionBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -15117,6 +17139,9 @@ java.lang.String defaultValue) {
         }
         if (other.hasEventSubscription()) {
           mergeEventSubscription(other.getEventSubscription());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -15156,6 +17181,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -15177,6 +17209,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -15197,6 +17231,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -15218,6 +17254,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -15235,6 +17273,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -15249,6 +17289,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -15270,7 +17312,8 @@ java.lang.String defaultValue) {
           ondewo.vtsi.EventsOuterClass.VtsiEventSubscription, ondewo.vtsi.EventsOuterClass.VtsiEventSubscription.Builder, ondewo.vtsi.EventsOuterClass.VtsiEventSubscriptionOrBuilder> eventSubscriptionBuilder_;
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15281,7 +17324,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15296,7 +17340,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15316,7 +17361,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15334,7 +17380,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15359,7 +17406,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15376,7 +17424,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15388,7 +17437,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15403,7 +17453,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription to create.
+       * The subscription to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
@@ -15420,6 +17471,199 @@ java.lang.String defaultValue) {
           eventSubscription_ = null;
         }
         return eventSubscriptionBuilder_;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.CreateVtsiEventSubscriptionRequest)
@@ -15480,6 +17724,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -15489,6 +17735,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -15496,6 +17744,45 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -15539,12 +17826,15 @@ java.lang.String defaultValue) {
               ondewo.vtsi.EventsOuterClass.GetVtsiEventSubscriptionRequest.class, ondewo.vtsi.EventsOuterClass.GetVtsiEventSubscriptionRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -15566,6 +17856,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -15586,6 +17878,56 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 2;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15603,6 +17945,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -15614,6 +17959,10 @@ java.lang.String defaultValue) {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -15632,6 +17981,11 @@ java.lang.String defaultValue) {
 
       if (!getName()
           .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -15645,6 +17999,10 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15768,19 +18126,30 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.GetVtsiEventSubscriptionRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
         name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -15817,6 +18186,14 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -15835,6 +18212,9 @@ java.lang.String defaultValue) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -15867,6 +18247,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -15888,6 +18275,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -15908,6 +18297,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -15929,6 +18320,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -15946,6 +18339,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -15960,6 +18355,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -15974,6 +18371,199 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix), e.g. &lt;code&gt;events&lt;/code&gt;, &lt;code&gt;webhook_names&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.GetVtsiEventSubscriptionRequest)
@@ -16033,7 +18623,9 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16042,7 +18634,9 @@ java.lang.String defaultValue) {
     boolean hasEventSubscription();
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16051,7 +18645,9 @@ java.lang.String defaultValue) {
     ondewo.vtsi.EventsOuterClass.VtsiEventSubscription getEventSubscription();
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16064,7 +18660,7 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16077,7 +18673,7 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16090,12 +18686,51 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -16143,7 +18778,9 @@ java.lang.String defaultValue) {
     private ondewo.vtsi.EventsOuterClass.VtsiEventSubscription eventSubscription_;
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16155,7 +18792,9 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16167,7 +18806,9 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+     * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16185,7 +18826,7 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16201,7 +18842,7 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16217,7 +18858,7 @@ java.lang.String defaultValue) {
      * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
      * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
      * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-     * &lt;code&gt;false&lt;/code&gt; and empty lists.
+     * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16225,6 +18866,56 @@ java.lang.String defaultValue) {
     @java.lang.Override
     public com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder() {
       return updateMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : updateMask_;
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -16247,6 +18938,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(2, getUpdateMask());
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -16263,6 +18957,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getUpdateMask());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -16289,6 +18987,11 @@ java.lang.String defaultValue) {
         if (!getUpdateMask()
             .equals(other.getUpdateMask())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -16307,6 +19010,10 @@ java.lang.String defaultValue) {
       if (hasUpdateMask()) {
         hash = (37 * hash) + UPDATE_MASK_FIELD_NUMBER;
         hash = (53 * hash) + getUpdateMask().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -16444,6 +19151,7 @@ java.lang.String defaultValue) {
                 .alwaysUseFieldBuilders) {
           internalGetEventSubscriptionFieldBuilder();
           internalGetUpdateMaskFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -16459,6 +19167,11 @@ java.lang.String defaultValue) {
         if (updateMaskBuilder_ != null) {
           updateMaskBuilder_.dispose();
           updateMaskBuilder_ = null;
+        }
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
         }
         return this;
       }
@@ -16506,6 +19219,12 @@ java.lang.String defaultValue) {
               : updateMaskBuilder_.build();
           to_bitField0_ |= 0x00000002;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -16526,6 +19245,9 @@ java.lang.String defaultValue) {
         }
         if (other.hasUpdateMask()) {
           mergeUpdateMask(other.getUpdateMask());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -16567,6 +19289,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -16589,7 +19318,9 @@ java.lang.String defaultValue) {
           ondewo.vtsi.EventsOuterClass.VtsiEventSubscription, ondewo.vtsi.EventsOuterClass.VtsiEventSubscription.Builder, ondewo.vtsi.EventsOuterClass.VtsiEventSubscriptionOrBuilder> eventSubscriptionBuilder_;
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16600,7 +19331,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16615,7 +19348,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16635,7 +19370,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16653,7 +19390,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16678,7 +19417,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16695,7 +19436,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16707,7 +19450,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16722,7 +19467,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;.
+       * The subscription, identified by &lt;code&gt;event_subscription.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 1;</code>
@@ -16750,7 +19497,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16765,7 +19512,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16784,7 +19531,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16808,7 +19555,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16830,7 +19577,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16859,7 +19606,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16880,7 +19627,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16896,7 +19643,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16915,7 +19662,7 @@ java.lang.String defaultValue) {
        * &lt;code&gt;all_events&lt;/code&gt;, &lt;code&gt;resource_name_prefixes&lt;/code&gt;, &lt;code&gt;campaign_names&lt;/code&gt;,
        * &lt;code&gt;webhook_names&lt;/code&gt;, &lt;code&gt;disabled&lt;/code&gt;. An empty mask or another path is rejected
        * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A path in the mask writes the sent value, including
-       * &lt;code&gt;false&lt;/code&gt; and empty lists.
+       * &lt;code&gt;false&lt;/code&gt; and empty lists. &lt;code&gt;excluded_events&lt;/code&gt; is updatable too.
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -16932,6 +19679,199 @@ java.lang.String defaultValue) {
           updateMask_ = null;
         }
         return updateMaskBuilder_;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.UpdateVtsiEventSubscriptionRequest)
@@ -16992,6 +19932,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -17001,6 +19943,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -17008,6 +19952,42 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -17051,12 +20031,15 @@ java.lang.String defaultValue) {
               ondewo.vtsi.EventsOuterClass.DeleteVtsiEventSubscriptionRequest.class, ondewo.vtsi.EventsOuterClass.DeleteVtsiEventSubscriptionRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -17078,6 +20061,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the subscription.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -17098,6 +20083,53 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 2;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+     * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -17115,6 +20147,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -17126,6 +20161,10 @@ java.lang.String defaultValue) {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -17144,6 +20183,11 @@ java.lang.String defaultValue) {
 
       if (!getName()
           .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -17157,6 +20201,10 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -17280,19 +20328,30 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.DeleteVtsiEventSubscriptionRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
         name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -17329,6 +20388,14 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -17347,6 +20414,9 @@ java.lang.String defaultValue) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -17379,6 +20449,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -17400,6 +20477,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -17420,6 +20499,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -17441,6 +20522,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -17458,6 +20541,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -17472,6 +20557,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the subscription.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -17486,6 +20573,190 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteVtsiEventSubscriptionResponse&lt;/code&gt; field paths to populate
+       * (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;). &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty
+       * returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before
+       * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.DeleteVtsiEventSubscriptionRequest)
@@ -18100,6 +21371,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -18109,6 +21382,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -18155,6 +21430,54 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getPageTokenBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -18206,6 +21529,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -18227,6 +21552,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -18321,6 +21648,65 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 4;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned
+     * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+     * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+     * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+     * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+     * it can only narrow the response and never populates a field that was left empty. Not part of the
+     * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -18344,6 +21730,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 3, pageToken_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(4, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -18362,6 +21751,10 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(3, pageToken_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -18387,6 +21780,11 @@ java.lang.String defaultValue) {
         if (!getPageToken()
             .equals(other.getPageToken())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -18405,6 +21803,10 @@ java.lang.String defaultValue) {
       if (hasPageToken()) {
         hash = (37 * hash) + PAGE_TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getPageToken().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -18529,13 +21931,19 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.ListVtsiEventSubscriptionsRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -18544,6 +21952,11 @@ java.lang.String defaultValue) {
         vtsiProjectName_ = "";
         pageSize_ = 0;
         pageToken_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -18588,6 +22001,12 @@ java.lang.String defaultValue) {
           result.pageToken_ = pageToken_;
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -18615,6 +22034,9 @@ java.lang.String defaultValue) {
           pageToken_ = other.pageToken_;
           bitField0_ |= 0x00000004;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -18657,6 +22079,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -18678,6 +22107,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -18698,6 +22129,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -18719,6 +22152,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -18736,6 +22171,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -18750,6 +22187,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -18911,6 +22350,226 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned
+       * &lt;code&gt;VtsiEventSubscription&lt;/code&gt;, relative to the &lt;code&gt;VtsiEventSubscription&lt;/code&gt; message (no
+       * &lt;code&gt;event_subscriptions.&lt;/code&gt; prefix), e.g. &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;events&lt;/code&gt;.
+       * Nested paths through singular message fields are allowed; a path below a repeated or map field is
+       * not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the server&amp;apos;s redaction, so
+       * it can only narrow the response and never populates a field that was left empty. Not part of the
+       * paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ListVtsiEventSubscriptionsRequest)
@@ -20015,6 +23674,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -20024,6 +23685,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -20034,7 +23697,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20043,7 +23707,8 @@ java.lang.String defaultValue) {
     boolean hasWebhook();
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20052,12 +23717,52 @@ java.lang.String defaultValue) {
     ondewo.vtsi.EventsOuterClass.Webhook getWebhook();
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
      */
     ondewo.vtsi.EventsOuterClass.WebhookOrBuilder getWebhookOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -20108,6 +23813,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -20129,6 +23836,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -20153,7 +23862,8 @@ java.lang.String defaultValue) {
     private ondewo.vtsi.EventsOuterClass.Webhook webhook_;
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20165,7 +23875,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20177,7 +23888,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The webhook to create.
+     * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+     * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20185,6 +23897,56 @@ java.lang.String defaultValue) {
     @java.lang.Override
     public ondewo.vtsi.EventsOuterClass.WebhookOrBuilder getWebhookOrBuilder() {
       return webhook_ == null ? ondewo.vtsi.EventsOuterClass.Webhook.getDefaultInstance() : webhook_;
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -20207,6 +23969,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(2, getWebhook());
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -20222,6 +23987,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getWebhook());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -20245,6 +24014,11 @@ java.lang.String defaultValue) {
         if (!getWebhook()
             .equals(other.getWebhook())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -20261,6 +24035,10 @@ java.lang.String defaultValue) {
       if (hasWebhook()) {
         hash = (37 * hash) + WEBHOOK_FIELD_NUMBER;
         hash = (53 * hash) + getWebhook().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -20397,6 +24175,7 @@ java.lang.String defaultValue) {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetWebhookFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -20408,6 +24187,11 @@ java.lang.String defaultValue) {
         if (webhookBuilder_ != null) {
           webhookBuilder_.dispose();
           webhookBuilder_ = null;
+        }
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
         }
         return this;
       }
@@ -20452,6 +24236,12 @@ java.lang.String defaultValue) {
               : webhookBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -20474,6 +24264,9 @@ java.lang.String defaultValue) {
         }
         if (other.hasWebhook()) {
           mergeWebhook(other.getWebhook());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -20513,6 +24306,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -20534,6 +24334,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -20554,6 +24356,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -20575,6 +24379,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -20592,6 +24398,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -20606,6 +24414,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -20627,7 +24437,8 @@ java.lang.String defaultValue) {
           ondewo.vtsi.EventsOuterClass.Webhook, ondewo.vtsi.EventsOuterClass.Webhook.Builder, ondewo.vtsi.EventsOuterClass.WebhookOrBuilder> webhookBuilder_;
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20638,7 +24449,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20653,7 +24465,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20673,7 +24486,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20691,7 +24505,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20716,7 +24531,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20733,7 +24549,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20745,7 +24562,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20760,7 +24578,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook to create.
+       * The webhook to create. Output-only fields (&lt;code&gt;name&lt;/code&gt;, &lt;code&gt;vtsi_project_name&lt;/code&gt;,
+       * &lt;code&gt;delivery_statistics&lt;/code&gt;, &lt;code&gt;created_*&lt;/code&gt;, &lt;code&gt;modified_*&lt;/code&gt;) must be unset.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 2;</code>
@@ -20777,6 +24596,199 @@ java.lang.String defaultValue) {
           webhook_ = null;
         }
         return webhookBuilder_;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.CreateWebhookRequest)
@@ -20837,6 +24849,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20846,6 +24860,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20853,6 +24869,45 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -20896,12 +24951,15 @@ java.lang.String defaultValue) {
               ondewo.vtsi.EventsOuterClass.GetWebhookRequest.class, ondewo.vtsi.EventsOuterClass.GetWebhookRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20923,6 +24981,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20943,6 +25003,56 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 2;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -20960,6 +25070,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -20971,6 +25084,10 @@ java.lang.String defaultValue) {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -20989,6 +25106,11 @@ java.lang.String defaultValue) {
 
       if (!getName()
           .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -21002,6 +25124,10 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -21125,19 +25251,30 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.GetWebhookRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
         name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -21174,6 +25311,14 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -21192,6 +25337,9 @@ java.lang.String defaultValue) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -21224,6 +25372,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -21245,6 +25400,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -21265,6 +25422,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -21286,6 +25445,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -21303,6 +25464,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -21317,6 +25480,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -21331,6 +25496,199 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix), e.g. &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.GetWebhookRequest)
@@ -21390,7 +25748,9 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21399,7 +25759,9 @@ java.lang.String defaultValue) {
     boolean hasWebhook();
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21408,7 +25770,9 @@ java.lang.String defaultValue) {
     ondewo.vtsi.EventsOuterClass.Webhook getWebhook();
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21424,7 +25788,8 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -21440,7 +25805,8 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -21456,12 +25822,52 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -21509,7 +25915,9 @@ java.lang.String defaultValue) {
     private ondewo.vtsi.EventsOuterClass.Webhook webhook_;
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21521,7 +25929,9 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21533,7 +25943,9 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+     * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+     * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
      * </pre>
      *
      * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21554,7 +25966,8 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -21573,7 +25986,8 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -21592,7 +26006,8 @@ java.lang.String defaultValue) {
      * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
      * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
      * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-     * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+     * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+     * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
      * </pre>
      *
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -21600,6 +26015,56 @@ java.lang.String defaultValue) {
     @java.lang.Override
     public com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder() {
       return updateMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : updateMask_;
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+     * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -21622,6 +26087,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(2, getUpdateMask());
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21638,6 +26106,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getUpdateMask());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -21664,6 +26136,11 @@ java.lang.String defaultValue) {
         if (!getUpdateMask()
             .equals(other.getUpdateMask())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -21682,6 +26159,10 @@ java.lang.String defaultValue) {
       if (hasUpdateMask()) {
         hash = (37 * hash) + UPDATE_MASK_FIELD_NUMBER;
         hash = (53 * hash) + getUpdateMask().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -21819,6 +26300,7 @@ java.lang.String defaultValue) {
                 .alwaysUseFieldBuilders) {
           internalGetWebhookFieldBuilder();
           internalGetUpdateMaskFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -21834,6 +26316,11 @@ java.lang.String defaultValue) {
         if (updateMaskBuilder_ != null) {
           updateMaskBuilder_.dispose();
           updateMaskBuilder_ = null;
+        }
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
         }
         return this;
       }
@@ -21881,6 +26368,12 @@ java.lang.String defaultValue) {
               : updateMaskBuilder_.build();
           to_bitField0_ |= 0x00000002;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -21901,6 +26394,9 @@ java.lang.String defaultValue) {
         }
         if (other.hasUpdateMask()) {
           mergeUpdateMask(other.getUpdateMask());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -21942,6 +26438,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -21964,7 +26467,9 @@ java.lang.String defaultValue) {
           ondewo.vtsi.EventsOuterClass.Webhook, ondewo.vtsi.EventsOuterClass.Webhook.Builder, ondewo.vtsi.EventsOuterClass.WebhookOrBuilder> webhookBuilder_;
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21975,7 +26480,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -21990,7 +26497,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22010,7 +26519,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22028,7 +26539,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22053,7 +26566,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22070,7 +26585,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22082,7 +26599,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22097,7 +26616,9 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;.
+       * The webhook, identified by &lt;code&gt;webhook.name&lt;/code&gt;
+       * (&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;; malformed is
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;), carrying the new values of the fields named in &lt;code&gt;update_mask&lt;/code&gt;.
        * </pre>
        *
        * <code>.ondewo.vtsi.Webhook webhook = 1;</code>
@@ -22128,7 +26649,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22146,7 +26668,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22168,7 +26691,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22195,7 +26719,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22220,7 +26745,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22252,7 +26778,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22276,7 +26803,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22295,7 +26823,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22317,7 +26846,8 @@ java.lang.String defaultValue) {
        * &lt;code&gt;false&lt;/code&gt;; an unset &lt;code&gt;timeout&lt;/code&gt; writes the server default. When
        * &lt;code&gt;url&lt;/code&gt; moves to another origin and the webhook has stored headers,
        * &lt;code&gt;custom_headers&lt;/code&gt; must be in the mask with real values (see
-       * &lt;code&gt;UpdateWebhook&lt;/code&gt;).
+       * &lt;code&gt;UpdateWebhook&lt;/code&gt;). &lt;code&gt;signing_secret&lt;/code&gt; is updatable too: a new value rotates it, an
+       * empty one removes it, &lt;code&gt;********&lt;/code&gt; keeps it (see &lt;code&gt;Webhook.signing_secret&lt;/code&gt;).
        * </pre>
        *
        * <code>.google.protobuf.FieldMask update_mask = 2;</code>
@@ -22334,6 +26864,199 @@ java.lang.String defaultValue) {
           updateMask_ = null;
         }
         return updateMaskBuilder_;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;Webhook&lt;/code&gt; field paths to populate, relative to the returned
+       * &lt;code&gt;Webhook&lt;/code&gt; (no prefix). Nested paths through singular message fields are allowed; a path
+       * below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every
+       * field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is
+       * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.UpdateWebhookRequest)
@@ -22394,6 +27117,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -22403,6 +27128,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -22410,6 +27137,45 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -22453,12 +27219,15 @@ java.lang.String defaultValue) {
               ondewo.vtsi.EventsOuterClass.DeleteWebhookRequest.class, ondewo.vtsi.EventsOuterClass.DeleteWebhookRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -22480,6 +27249,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -22500,6 +27271,56 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 2;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+     * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+     * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+     * the webhook is deleted regardless.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -22517,6 +27338,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -22528,6 +27352,10 @@ java.lang.String defaultValue) {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -22546,6 +27374,11 @@ java.lang.String defaultValue) {
 
       if (!getName()
           .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -22559,6 +27392,10 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -22682,19 +27519,30 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.DeleteWebhookRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
         name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -22731,6 +27579,14 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -22749,6 +27605,9 @@ java.lang.String defaultValue) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -22781,6 +27640,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -22802,6 +27668,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -22822,6 +27690,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -22843,6 +27713,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -22860,6 +27732,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -22874,6 +27748,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -22888,6 +27764,199 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;DeleteWebhookResponse&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;detached_subscription_count&lt;/code&gt; (as &lt;code&gt;DeleteCampaignRequest.field_mask&lt;/code&gt;).
+       * &lt;code&gt;name&lt;/code&gt; is always populated. Unset or empty returns every field. An unknown path is rejected
+       * with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, before anything is deleted. It shapes only the response:
+       * the webhook is deleted regardless.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.DeleteWebhookRequest)
@@ -23594,6 +28663,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -23603,6 +28674,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -23649,6 +28722,57 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getPageTokenBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -23700,6 +28824,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -23721,6 +28847,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -23815,6 +28943,68 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 4;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+     * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+     * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -23838,6 +29028,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 3, pageToken_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(4, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -23856,6 +29049,10 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(3, pageToken_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -23881,6 +29078,11 @@ java.lang.String defaultValue) {
         if (!getPageToken()
             .equals(other.getPageToken())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -23899,6 +29101,10 @@ java.lang.String defaultValue) {
       if (hasPageToken()) {
         hash = (37 * hash) + PAGE_TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getPageToken().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -24023,13 +29229,19 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.ListWebhooksRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -24038,6 +29250,11 @@ java.lang.String defaultValue) {
         vtsiProjectName_ = "";
         pageSize_ = 0;
         pageToken_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -24082,6 +29299,12 @@ java.lang.String defaultValue) {
           result.pageToken_ = pageToken_;
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -24109,6 +29332,9 @@ java.lang.String defaultValue) {
           pageToken_ = other.pageToken_;
           bitField0_ |= 0x00000004;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -24151,6 +29377,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -24172,6 +29405,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -24192,6 +29427,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -24213,6 +29450,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -24230,6 +29469,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -24244,6 +29485,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -24405,6 +29648,235 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;Webhook&lt;/code&gt;,
+       * relative to the &lt;code&gt;Webhook&lt;/code&gt; message (no &lt;code&gt;webhooks.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;delivery_statistics&lt;/code&gt;. Nested paths through
+       * singular message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt;
+       * is always populated. Unset or empty returns every field. An unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the masking of the custom header values (a
+       * returned value stays &lt;code&gt;********&lt;/code&gt;), so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ListWebhooksRequest)
@@ -25509,6 +30981,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -25518,6 +30992,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -25525,6 +31001,51 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+     * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+     * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+     * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+     * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+     * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+     * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+     * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+     * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @return The enum numeric value on the wire for sampleEvent.
+     */
+    int getSampleEventValue();
+    /**
+     * <pre>
+     * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+     * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+     * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+     * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+     * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+     * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+     * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+     * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+     * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @return The sampleEvent.
+     */
+    ondewo.vtsi.EventsOuterClass.VtsiEvent getSampleEvent();
   }
   /**
    * <pre>
@@ -25553,6 +31074,7 @@ java.lang.String defaultValue) {
     }
     private TestWebhookRequest() {
       name_ = "";
+      sampleEvent_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -25574,6 +31096,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -25595,6 +31119,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Resource name of the webhook.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -25615,6 +31141,58 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int SAMPLE_EVENT_FIELD_NUMBER = 2;
+    private int sampleEvent_ = 0;
+    /**
+     * <pre>
+     * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+     * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+     * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+     * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+     * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+     * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+     * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+     * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+     * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @return The enum numeric value on the wire for sampleEvent.
+     */
+    @java.lang.Override public int getSampleEventValue() {
+      return sampleEvent_;
+    }
+    /**
+     * <pre>
+     * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+     * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+     * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+     * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+     * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+     * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+     * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+     * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+     * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @return The sampleEvent.
+     */
+    @java.lang.Override public ondewo.vtsi.EventsOuterClass.VtsiEvent getSampleEvent() {
+      ondewo.vtsi.EventsOuterClass.VtsiEvent result = ondewo.vtsi.EventsOuterClass.VtsiEvent.forNumber(sampleEvent_);
+      return result == null ? ondewo.vtsi.EventsOuterClass.VtsiEvent.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -25632,6 +31210,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
       }
+      if (sampleEvent_ != ondewo.vtsi.EventsOuterClass.VtsiEvent.VTSI_EVENT_UNSPECIFIED.getNumber()) {
+        output.writeEnum(2, sampleEvent_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -25643,6 +31224,10 @@ java.lang.String defaultValue) {
       size = 0;
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (sampleEvent_ != ondewo.vtsi.EventsOuterClass.VtsiEvent.VTSI_EVENT_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, sampleEvent_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -25661,6 +31246,7 @@ java.lang.String defaultValue) {
 
       if (!getName()
           .equals(other.getName())) return false;
+      if (sampleEvent_ != other.sampleEvent_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -25674,6 +31260,8 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + SAMPLE_EVENT_FIELD_NUMBER;
+      hash = (53 * hash) + sampleEvent_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -25810,6 +31398,7 @@ java.lang.String defaultValue) {
         super.clear();
         bitField0_ = 0;
         name_ = "";
+        sampleEvent_ = 0;
         return this;
       }
 
@@ -25846,6 +31435,9 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.sampleEvent_ = sampleEvent_;
+        }
       }
 
       @java.lang.Override
@@ -25864,6 +31456,9 @@ java.lang.String defaultValue) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.sampleEvent_ != 0) {
+          setSampleEventValue(other.getSampleEventValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -25896,6 +31491,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 16: {
+                sampleEvent_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -25917,6 +31517,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -25937,6 +31539,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -25958,6 +31562,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -25975,6 +31581,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -25989,6 +31597,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Resource name of the webhook.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -26001,6 +31611,142 @@ java.lang.String defaultValue) {
         checkByteStringIsUtf8(value);
         name_ = value;
         bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private int sampleEvent_ = 0;
+      /**
+       * <pre>
+       * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+       * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+       * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+       * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+       * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+       * documented format: resource names use the all-zero uuid
+       * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+       * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+       * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+       * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+       * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+       * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+       * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+       * @return The enum numeric value on the wire for sampleEvent.
+       */
+      @java.lang.Override public int getSampleEventValue() {
+        return sampleEvent_;
+      }
+      /**
+       * <pre>
+       * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+       * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+       * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+       * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+       * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+       * documented format: resource names use the all-zero uuid
+       * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+       * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+       * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+       * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+       * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+       * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+       * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+       * @param value The enum numeric value on the wire for sampleEvent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSampleEventValue(int value) {
+        sampleEvent_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+       * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+       * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+       * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+       * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+       * documented format: resource names use the all-zero uuid
+       * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+       * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+       * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+       * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+       * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+       * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+       * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+       * @return The sampleEvent.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.VtsiEvent getSampleEvent() {
+        ondewo.vtsi.EventsOuterClass.VtsiEvent result = ondewo.vtsi.EventsOuterClass.VtsiEvent.forNumber(sampleEvent_);
+        return result == null ? ondewo.vtsi.EventsOuterClass.VtsiEvent.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+       * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+       * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+       * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+       * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+       * documented format: resource names use the all-zero uuid
+       * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+       * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+       * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+       * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+       * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+       * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+       * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+       * @param value The sampleEvent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSampleEvent(ondewo.vtsi.EventsOuterClass.VtsiEvent value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000002;
+        sampleEvent_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Send an event shaped like this real event instead of &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt;, so
+       * a receiver can be tested against the payload it will get: &lt;code&gt;event&lt;/code&gt; is this value, the header
+       * &lt;code&gt;X-Ondewo-Vtsi-Event&lt;/code&gt; its name, &lt;code&gt;event_id&lt;/code&gt; a fresh uuid,
+       * &lt;code&gt;vtsi_project_name&lt;/code&gt; the webhook&amp;apos;s project, &lt;code&gt;event_time&lt;/code&gt; now, and every field and
+       * attribute key the event carries (see its &lt;code&gt;VtsiEvent&lt;/code&gt; value) is filled with a placeholder of the
+       * documented format: resource names use the all-zero uuid
+       * &lt;code&gt;00000000-0000-0000-0000-000000000000&lt;/code&gt; (e.g.
+       * &lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000&lt;/code&gt;),
+       * a phone number is &lt;code&gt;+10000000000&lt;/code&gt;, counts are &lt;code&gt;0&lt;/code&gt;, times are now. It always carries
+       * the attribute &lt;code&gt;test&lt;/code&gt; = &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; &lt;code&gt;webhook test&lt;/code&gt;
+       * and the header &lt;code&gt;X-Ondewo-Vtsi-Test: true&lt;/code&gt;, so a receiver can tell it from a real event and
+       * must not act on it. No resource is read or changed. &lt;code&gt;VTSI_EVENT_UNSPECIFIED&lt;/code&gt; (the default)
+       * sends &lt;code&gt;VTSI_EVENT_WEBHOOK_TEST&lt;/code&gt; as before; a reserved value or one the server does not know is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSampleEvent() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        sampleEvent_ = 0;
         onChanged();
         return this;
       }
@@ -27254,6 +33000,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -27263,6 +33011,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -27273,8 +33023,13 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27284,8 +33039,13 @@ java.lang.String defaultValue) {
     boolean hasEventSubscriptionName();
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27295,8 +33055,13 @@ java.lang.String defaultValue) {
     java.lang.String getEventSubscriptionName();
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27336,7 +33101,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27346,7 +33112,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27356,7 +33123,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27364,6 +33132,57 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getResumeTokenBytes();
+
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @return Whether the startTime field is set.
+     */
+    boolean hasStartTime();
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @return The startTime.
+     */
+    com.google.protobuf.Timestamp getStartTime();
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder();
 
     ondewo.vtsi.EventsOuterClass.SubscribeVtsiEventsRequest.SelectorCase getSelectorCase();
   }
@@ -27459,6 +33278,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -27480,6 +33301,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
      * </pre>
      *
      * <code>string vtsi_project_name = 1;</code>
@@ -27503,8 +33326,13 @@ java.lang.String defaultValue) {
     public static final int EVENT_SUBSCRIPTION_NAME_FIELD_NUMBER = 2;
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27516,8 +33344,13 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27543,8 +33376,13 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+     * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+     * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+     * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -27619,7 +33457,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27632,7 +33471,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27654,7 +33494,8 @@ java.lang.String defaultValue) {
     /**
      * <pre>
      * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+     * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
      * </pre>
      *
      * <code>optional string resume_token = 4;</code>
@@ -27673,6 +33514,68 @@ java.lang.String defaultValue) {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int START_TIME_FIELD_NUMBER = 5;
+    private com.google.protobuf.Timestamp startTime_;
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @return Whether the startTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasStartTime() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @return The startTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getStartTime() {
+      return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+    }
+    /**
+     * <pre>
+     * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+     * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 5;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
+      return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -27701,6 +33604,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 4, resumeToken_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(5, getStartTime());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -27723,6 +33629,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(4, resumeToken_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getStartTime());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -27744,6 +33654,11 @@ java.lang.String defaultValue) {
       if (hasResumeToken()) {
         if (!getResumeToken()
             .equals(other.getResumeToken())) return false;
+      }
+      if (hasStartTime() != other.hasStartTime()) return false;
+      if (hasStartTime()) {
+        if (!getStartTime()
+            .equals(other.getStartTime())) return false;
       }
       if (!getSelectorCase().equals(other.getSelectorCase())) return false;
       switch (selectorCase_) {
@@ -27774,6 +33689,10 @@ java.lang.String defaultValue) {
       if (hasResumeToken()) {
         hash = (37 * hash) + RESUME_TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getResumeToken().hashCode();
+      }
+      if (hasStartTime()) {
+        hash = (37 * hash) + START_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getStartTime().hashCode();
       }
       switch (selectorCase_) {
         case 2:
@@ -27910,13 +33829,19 @@ java.lang.String defaultValue) {
 
       // Construct using ondewo.vtsi.EventsOuterClass.SubscribeVtsiEventsRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetStartTimeFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -27927,6 +33852,11 @@ java.lang.String defaultValue) {
           filterBuilder_.clear();
         }
         resumeToken_ = "";
+        startTime_ = null;
+        if (startTimeBuilder_ != null) {
+          startTimeBuilder_.dispose();
+          startTimeBuilder_ = null;
+        }
         selectorCase_ = 0;
         selector_ = null;
         return this;
@@ -27971,6 +33901,12 @@ java.lang.String defaultValue) {
           result.resumeToken_ = resumeToken_;
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.startTime_ = startTimeBuilder_ == null
+              ? startTime_
+              : startTimeBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -28004,6 +33940,9 @@ java.lang.String defaultValue) {
           resumeToken_ = other.resumeToken_;
           bitField0_ |= 0x00000008;
           onChanged();
+        }
+        if (other.hasStartTime()) {
+          mergeStartTime(other.getStartTime());
         }
         switch (other.getSelectorCase()) {
           case EVENT_SUBSCRIPTION_NAME: {
@@ -28069,6 +34008,13 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
+              case 42: {
+                input.readMessage(
+                    internalGetStartTimeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -28105,6 +34051,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -28125,6 +34073,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -28146,6 +34096,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -28163,6 +34115,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -28177,6 +34131,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * VTSI project. The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * Empty or malformed is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project with
+       * &lt;code&gt;NOT_FOUND&lt;/code&gt;.
        * </pre>
        *
        * <code>string vtsi_project_name = 1;</code>
@@ -28195,8 +34151,13 @@ java.lang.String defaultValue) {
 
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28209,8 +34170,13 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28237,8 +34203,13 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28266,8 +34237,13 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28285,8 +34261,13 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28303,8 +34284,13 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-       * here). The format is:
+       * Select events exactly as this subscription does: its &lt;code&gt;events&lt;/code&gt; or
+       * &lt;code&gt;all_events&lt;/code&gt;, minus its &lt;code&gt;excluded_events&lt;/code&gt;, narrowed by its
+       * &lt;code&gt;resource_name_prefixes&lt;/code&gt; and &lt;code&gt;campaign_names&lt;/code&gt; (its &lt;code&gt;webhook_names&lt;/code&gt;
+       * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+       * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+       * be a subscription of &lt;code&gt;vtsi_project_name&lt;/code&gt; (&lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; otherwise) and
+       * enabled (&lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; otherwise). The format is:
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/event_subscriptions/&amp;lt;subscription_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -28504,7 +34490,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28516,7 +34503,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28537,7 +34525,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28559,7 +34548,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28577,7 +34567,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28592,7 +34583,8 @@ java.lang.String defaultValue) {
       /**
        * <pre>
        * Optional. The &lt;code&gt;resume_token&lt;/code&gt; of a previous response: continue after it.
-       * Unset starts with events that happen from now on.
+       * Unset starts with events that happen from now on (or at &lt;code&gt;start_time&lt;/code&gt;). Mutually exclusive
+       * with &lt;code&gt;start_time&lt;/code&gt; (both set is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;).
        * </pre>
        *
        * <code>optional string resume_token = 4;</code>
@@ -28607,6 +34599,235 @@ java.lang.String defaultValue) {
         bitField0_ |= 0x00000008;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.Timestamp startTime_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startTimeBuilder_;
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       * @return Whether the startTime field is set.
+       */
+      public boolean hasStartTime() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       * @return The startTime.
+       */
+      public com.google.protobuf.Timestamp getStartTime() {
+        if (startTimeBuilder_ == null) {
+          return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+        } else {
+          return startTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public Builder setStartTime(com.google.protobuf.Timestamp value) {
+        if (startTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          startTime_ = value;
+        } else {
+          startTimeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public Builder setStartTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (startTimeBuilder_ == null) {
+          startTime_ = builderForValue.build();
+        } else {
+          startTimeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public Builder mergeStartTime(com.google.protobuf.Timestamp value) {
+        if (startTimeBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            startTime_ != null &&
+            startTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getStartTimeBuilder().mergeFrom(value);
+          } else {
+            startTime_ = value;
+          }
+        } else {
+          startTimeBuilder_.mergeFrom(value);
+        }
+        if (startTime_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public Builder clearStartTime() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        startTime_ = null;
+        if (startTimeBuilder_ != null) {
+          startTimeBuilder_.dispose();
+          startTimeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getStartTimeBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return internalGetStartTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
+        if (startTimeBuilder_ != null) {
+          return startTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return startTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Replay from the server&amp;apos;s event journal: the stream first delivers the journaled events of
+       * the project that occurred at or after this time and match the selector, oldest first (journal order),
+       * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+       * &lt;code&gt;resume_token&lt;/code&gt;: use &lt;code&gt;start_time&lt;/code&gt; for a first connection or after losing the token,
+       * the token for every reconnect. Older than the journal retention
+       * (&lt;code&gt;ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S&lt;/code&gt;, 24 h by default) is &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;; later
+       * than the server&amp;apos;s clock is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. The journal holds only events of periods in
+       * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+       * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetStartTimeFieldBuilder() {
+        if (startTimeBuilder_ == null) {
+          startTimeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getStartTime(),
+                  getParentForChildren(),
+                  isClean());
+          startTime_ = null;
+        }
+        return startTimeBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.SubscribeVtsiEventsRequest)
@@ -28746,7 +34967,8 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
      * </pre>
      *
      * <code>string end_reason = 4;</code>
@@ -28755,7 +34977,8 @@ java.lang.String defaultValue) {
     java.lang.String getEndReason();
     /**
      * <pre>
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
      * </pre>
      *
      * <code>string end_reason = 4;</code>
@@ -28763,6 +34986,35 @@ java.lang.String defaultValue) {
      */
     com.google.protobuf.ByteString
         getEndReasonBytes();
+
+    /**
+     * <pre>
+     * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+     * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+     * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+     * that predates this field).
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @return The enum numeric value on the wire for endReasonType.
+     */
+    int getEndReasonTypeValue();
+    /**
+     * <pre>
+     * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+     * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+     * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+     * that predates this field).
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @return The endReasonType.
+     */
+    ondewo.vtsi.CampaignsOuterClass.StreamEndReason getEndReasonType();
   }
   /**
    * <pre>
@@ -28793,6 +35045,7 @@ java.lang.String defaultValue) {
       events_ = java.util.Collections.emptyList();
       resumeToken_ = "";
       endReason_ = "";
+      endReasonType_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -28942,7 +35195,8 @@ java.lang.String defaultValue) {
     private volatile java.lang.Object endReason_ = "";
     /**
      * <pre>
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
      * </pre>
      *
      * <code>string end_reason = 4;</code>
@@ -28963,7 +35217,8 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
      * </pre>
      *
      * <code>string end_reason = 4;</code>
@@ -28982,6 +35237,42 @@ java.lang.String defaultValue) {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int END_REASON_TYPE_FIELD_NUMBER = 5;
+    private int endReasonType_ = 0;
+    /**
+     * <pre>
+     * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+     * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+     * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+     * that predates this field).
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @return The enum numeric value on the wire for endReasonType.
+     */
+    @java.lang.Override public int getEndReasonTypeValue() {
+      return endReasonType_;
+    }
+    /**
+     * <pre>
+     * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+     * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+     * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+     * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+     * that predates this field).
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @return The endReasonType.
+     */
+    @java.lang.Override public ondewo.vtsi.CampaignsOuterClass.StreamEndReason getEndReasonType() {
+      ondewo.vtsi.CampaignsOuterClass.StreamEndReason result = ondewo.vtsi.CampaignsOuterClass.StreamEndReason.forNumber(endReasonType_);
+      return result == null ? ondewo.vtsi.CampaignsOuterClass.StreamEndReason.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -29010,6 +35301,9 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(endReason_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 4, endReason_);
       }
+      if (endReasonType_ != ondewo.vtsi.CampaignsOuterClass.StreamEndReason.STREAM_END_REASON_UNSPECIFIED.getNumber()) {
+        output.writeEnum(5, endReasonType_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -29032,6 +35326,10 @@ java.lang.String defaultValue) {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(endReason_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(4, endReason_);
+      }
+      if (endReasonType_ != ondewo.vtsi.CampaignsOuterClass.StreamEndReason.STREAM_END_REASON_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, endReasonType_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -29056,6 +35354,7 @@ java.lang.String defaultValue) {
           != other.getDroppedEventCount()) return false;
       if (!getEndReason()
           .equals(other.getEndReason())) return false;
+      if (endReasonType_ != other.endReasonType_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -29078,6 +35377,8 @@ java.lang.String defaultValue) {
           getDroppedEventCount());
       hash = (37 * hash) + END_REASON_FIELD_NUMBER;
       hash = (53 * hash) + getEndReason().hashCode();
+      hash = (37 * hash) + END_REASON_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + endReasonType_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -29223,6 +35524,7 @@ java.lang.String defaultValue) {
         resumeToken_ = "";
         droppedEventCount_ = 0L;
         endReason_ = "";
+        endReasonType_ = 0;
         return this;
       }
 
@@ -29278,6 +35580,9 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.endReason_ = endReason_;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.endReasonType_ = endReasonType_;
+        }
       }
 
       @java.lang.Override
@@ -29330,6 +35635,9 @@ java.lang.String defaultValue) {
           endReason_ = other.endReason_;
           bitField0_ |= 0x00000008;
           onChanged();
+        }
+        if (other.endReasonType_ != 0) {
+          setEndReasonTypeValue(other.getEndReasonTypeValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -29385,6 +35693,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
+              case 40: {
+                endReasonType_ = input.readEnum();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -29868,7 +36181,8 @@ java.lang.String defaultValue) {
       private java.lang.Object endReason_ = "";
       /**
        * <pre>
-       * Set on the last message when the server ended the stream. Empty otherwise.
+       * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+       * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
        * </pre>
        *
        * <code>string end_reason = 4;</code>
@@ -29888,7 +36202,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Set on the last message when the server ended the stream. Empty otherwise.
+       * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+       * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
        * </pre>
        *
        * <code>string end_reason = 4;</code>
@@ -29909,7 +36224,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Set on the last message when the server ended the stream. Empty otherwise.
+       * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+       * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
        * </pre>
        *
        * <code>string end_reason = 4;</code>
@@ -29926,7 +36242,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Set on the last message when the server ended the stream. Empty otherwise.
+       * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+       * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
        * </pre>
        *
        * <code>string end_reason = 4;</code>
@@ -29940,7 +36257,8 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * Set on the last message when the server ended the stream. Empty otherwise.
+       * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+       * &lt;code&gt;end_reason_type&lt;/code&gt; instead.
        * </pre>
        *
        * <code>string end_reason = 4;</code>
@@ -29953,6 +36271,102 @@ java.lang.String defaultValue) {
         checkByteStringIsUtf8(value);
         endReason_ = value;
         bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private int endReasonType_ = 0;
+      /**
+       * <pre>
+       * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+       * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+       * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+       * that predates this field).
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+       * @return The enum numeric value on the wire for endReasonType.
+       */
+      @java.lang.Override public int getEndReasonTypeValue() {
+        return endReasonType_;
+      }
+      /**
+       * <pre>
+       * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+       * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+       * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+       * that predates this field).
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+       * @param value The enum numeric value on the wire for endReasonType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEndReasonTypeValue(int value) {
+        endReasonType_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+       * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+       * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+       * that predates this field).
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+       * @return The endReasonType.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.CampaignsOuterClass.StreamEndReason getEndReasonType() {
+        ondewo.vtsi.CampaignsOuterClass.StreamEndReason result = ondewo.vtsi.CampaignsOuterClass.StreamEndReason.forNumber(endReasonType_);
+        return result == null ? ondewo.vtsi.CampaignsOuterClass.StreamEndReason.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+       * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+       * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+       * that predates this field).
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+       * @param value The endReasonType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEndReasonType(ondewo.vtsi.CampaignsOuterClass.StreamEndReason value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000010;
+        endReasonType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Set on the last message when the server ended the stream, next to &lt;code&gt;end_reason&lt;/code&gt;: one of
+       * &lt;code&gt;STREAM_END_REASON_MAX_DURATION&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_CLIENT_TOO_SLOW&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SUBSCRIPTION_DISABLED&lt;/code&gt;,
+       * &lt;code&gt;STREAM_END_REASON_PROJECT_DELETED&lt;/code&gt;, &lt;code&gt;STREAM_END_REASON_SERVER_SHUTDOWN&lt;/code&gt;.
+       * &lt;code&gt;STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message (and on the last message of a server
+       * that predates this field).
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEndReasonType() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        endReasonType_ = 0;
         onChanged();
         return this;
       }
@@ -30003,6 +36417,2773 @@ java.lang.String defaultValue) {
 
     @java.lang.Override
     public ondewo.vtsi.EventsOuterClass.SubscribeVtsiEventsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RedeliverWebhookEventsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.RedeliverWebhookEventsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Required. Resource name of the webhook to send the events to; it must be enabled.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string webhook_name = 1;</code>
+     * @return The webhookName.
+     */
+    java.lang.String getWebhookName();
+    /**
+     * <pre>
+     * Required. Resource name of the webhook to send the events to; it must be enabled.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string webhook_name = 1;</code>
+     * @return The bytes for webhookName.
+     */
+    com.google.protobuf.ByteString
+        getWebhookNameBytes();
+
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @return A list containing the eventIds.
+     */
+    java.util.List<java.lang.String>
+        getEventIdsList();
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @return The count of eventIds.
+     */
+    int getEventIdsCount();
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The eventIds at the given index.
+     */
+    java.lang.String getEventIds(int index);
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the eventIds at the given index.
+     */
+    com.google.protobuf.ByteString
+        getEventIdsBytes(int index);
+
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     * @return Whether the startTime field is set.
+     */
+    boolean hasStartTime();
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     * @return The startTime.
+     */
+    com.google.protobuf.Timestamp getStartTime();
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder();
+
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     * @return Whether the endTime field is set.
+     */
+    boolean hasEndTime();
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     * @return The endTime.
+     */
+    com.google.protobuf.Timestamp getEndTime();
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     * @return Whether the filter field is set.
+     */
+    boolean hasFilter();
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     * @return The filter.
+     */
+    ondewo.vtsi.EventsOuterClass.VtsiEventFilter getFilter();
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     */
+    ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder getFilterOrBuilder();
+  }
+  /**
+   * <pre>
+   * The request message for &lt;code&gt;Events.RedeliverWebhookEvents&lt;/code&gt;.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.RedeliverWebhookEventsRequest}
+   */
+  public static final class RedeliverWebhookEventsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.RedeliverWebhookEventsRequest)
+      RedeliverWebhookEventsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        RedeliverWebhookEventsRequest.class.getName());
+    }
+    // Use RedeliverWebhookEventsRequest.newBuilder() to construct.
+    private RedeliverWebhookEventsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RedeliverWebhookEventsRequest() {
+      webhookName_ = "";
+      eventIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.class, ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int WEBHOOK_NAME_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object webhookName_ = "";
+    /**
+     * <pre>
+     * Required. Resource name of the webhook to send the events to; it must be enabled.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string webhook_name = 1;</code>
+     * @return The webhookName.
+     */
+    @java.lang.Override
+    public java.lang.String getWebhookName() {
+      java.lang.Object ref = webhookName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        webhookName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Required. Resource name of the webhook to send the events to; it must be enabled.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string webhook_name = 1;</code>
+     * @return The bytes for webhookName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getWebhookNameBytes() {
+      java.lang.Object ref = webhookName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        webhookName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EVENT_IDS_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList eventIds_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @return A list containing the eventIds.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getEventIdsList() {
+      return eventIds_;
+    }
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @return The count of eventIds.
+     */
+    public int getEventIdsCount() {
+      return eventIds_.size();
+    }
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @param index The index of the element to return.
+     * @return The eventIds at the given index.
+     */
+    public java.lang.String getEventIds(int index) {
+      return eventIds_.get(index);
+    }
+    /**
+     * <pre>
+     * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+     * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+     * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+     * project, whether expired, never journaled, unknown or of another project, is counted in
+     * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+     * &lt;code&gt;start_time&lt;/code&gt; must be set.
+     * </pre>
+     *
+     * <code>repeated string event_ids = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the eventIds at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getEventIdsBytes(int index) {
+      return eventIds_.getByteString(index);
+    }
+
+    public static final int START_TIME_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp startTime_;
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     * @return Whether the startTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasStartTime() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     * @return The startTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getStartTime() {
+      return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+    }
+    /**
+     * <pre>
+     * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+     * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+     * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+     * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp start_time = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
+      return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+    }
+
+    public static final int END_TIME_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp endTime_;
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     * @return Whether the endTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasEndTime() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     * @return The endTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getEndTime() {
+      return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
+    }
+    /**
+     * <pre>
+     * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+     * with it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp end_time = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
+      return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
+    }
+
+    public static final int FILTER_FIELD_NUMBER = 5;
+    private ondewo.vtsi.EventsOuterClass.VtsiEventFilter filter_;
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     * @return Whether the filter field is set.
+     */
+    @java.lang.Override
+    public boolean hasFilter() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     * @return The filter.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.VtsiEventFilter getFilter() {
+      return filter_ == null ? ondewo.vtsi.EventsOuterClass.VtsiEventFilter.getDefaultInstance() : filter_;
+    }
+    /**
+     * <pre>
+     * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+     * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+     */
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder getFilterOrBuilder() {
+      return filter_ == null ? ondewo.vtsi.EventsOuterClass.VtsiEventFilter.getDefaultInstance() : filter_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(webhookName_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, webhookName_);
+      }
+      for (int i = 0; i < eventIds_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, eventIds_.getRaw(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getStartTime());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(4, getEndTime());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(5, getFilter());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(webhookName_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, webhookName_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < eventIds_.size(); i++) {
+          dataSize += computeStringSizeNoTag(eventIds_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getEventIdsList().size();
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getStartTime());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getEndTime());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getFilter());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest other = (ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest) obj;
+
+      if (!getWebhookName()
+          .equals(other.getWebhookName())) return false;
+      if (!getEventIdsList()
+          .equals(other.getEventIdsList())) return false;
+      if (hasStartTime() != other.hasStartTime()) return false;
+      if (hasStartTime()) {
+        if (!getStartTime()
+            .equals(other.getStartTime())) return false;
+      }
+      if (hasEndTime() != other.hasEndTime()) return false;
+      if (hasEndTime()) {
+        if (!getEndTime()
+            .equals(other.getEndTime())) return false;
+      }
+      if (hasFilter() != other.hasFilter()) return false;
+      if (hasFilter()) {
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + WEBHOOK_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getWebhookName().hashCode();
+      if (getEventIdsCount() > 0) {
+        hash = (37 * hash) + EVENT_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getEventIdsList().hashCode();
+      }
+      if (hasStartTime()) {
+        hash = (37 * hash) + START_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getStartTime().hashCode();
+      }
+      if (hasEndTime()) {
+        hash = (37 * hash) + END_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getEndTime().hashCode();
+      }
+      if (hasFilter()) {
+        hash = (37 * hash) + FILTER_FIELD_NUMBER;
+        hash = (53 * hash) + getFilter().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The request message for &lt;code&gt;Events.RedeliverWebhookEvents&lt;/code&gt;.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.RedeliverWebhookEventsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.RedeliverWebhookEventsRequest)
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.class, ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetStartTimeFieldBuilder();
+          internalGetEndTimeFieldBuilder();
+          internalGetFilterFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        webhookName_ = "";
+        eventIds_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        startTime_ = null;
+        if (startTimeBuilder_ != null) {
+          startTimeBuilder_.dispose();
+          startTimeBuilder_ = null;
+        }
+        endTime_ = null;
+        if (endTimeBuilder_ != null) {
+          endTimeBuilder_.dispose();
+          endTimeBuilder_ = null;
+        }
+        filter_ = null;
+        if (filterBuilder_ != null) {
+          filterBuilder_.dispose();
+          filterBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest getDefaultInstanceForType() {
+        return ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest build() {
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest buildPartial() {
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest result = new ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.webhookName_ = webhookName_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          eventIds_.makeImmutable();
+          result.eventIds_ = eventIds_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.startTime_ = startTimeBuilder_ == null
+              ? startTime_
+              : startTimeBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.endTime_ = endTimeBuilder_ == null
+              ? endTime_
+              : endTimeBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.filter_ = filterBuilder_ == null
+              ? filter_
+              : filterBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest) {
+          return mergeFrom((ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest other) {
+        if (other == ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest.getDefaultInstance()) return this;
+        if (!other.getWebhookName().isEmpty()) {
+          webhookName_ = other.webhookName_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.eventIds_.isEmpty()) {
+          if (eventIds_.isEmpty()) {
+            eventIds_ = other.eventIds_;
+            bitField0_ |= 0x00000002;
+          } else {
+            ensureEventIdsIsMutable();
+            eventIds_.addAll(other.eventIds_);
+          }
+          onChanged();
+        }
+        if (other.hasStartTime()) {
+          mergeStartTime(other.getStartTime());
+        }
+        if (other.hasEndTime()) {
+          mergeEndTime(other.getEndTime());
+        }
+        if (other.hasFilter()) {
+          mergeFilter(other.getFilter());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                webhookName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureEventIdsIsMutable();
+                eventIds_.add(s);
+                break;
+              } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetStartTimeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                input.readMessage(
+                    internalGetEndTimeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                input.readMessage(
+                    internalGetFilterFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object webhookName_ = "";
+      /**
+       * <pre>
+       * Required. Resource name of the webhook to send the events to; it must be enabled.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string webhook_name = 1;</code>
+       * @return The webhookName.
+       */
+      public java.lang.String getWebhookName() {
+        java.lang.Object ref = webhookName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          webhookName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Required. Resource name of the webhook to send the events to; it must be enabled.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string webhook_name = 1;</code>
+       * @return The bytes for webhookName.
+       */
+      public com.google.protobuf.ByteString
+          getWebhookNameBytes() {
+        java.lang.Object ref = webhookName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          webhookName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Required. Resource name of the webhook to send the events to; it must be enabled.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string webhook_name = 1;</code>
+       * @param value The webhookName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWebhookName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        webhookName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Required. Resource name of the webhook to send the events to; it must be enabled.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string webhook_name = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWebhookName() {
+        webhookName_ = getDefaultInstance().getWebhookName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Required. Resource name of the webhook to send the events to; it must be enabled.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/webhooks/&amp;lt;webhook_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string webhook_name = 1;</code>
+       * @param value The bytes for webhookName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWebhookNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        webhookName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList eventIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureEventIdsIsMutable() {
+        if (!eventIds_.isModifiable()) {
+          eventIds_ = new com.google.protobuf.LazyStringArrayList(eventIds_);
+        }
+        bitField0_ |= 0x00000002;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @return A list containing the eventIds.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getEventIdsList() {
+        eventIds_.makeImmutable();
+        return eventIds_;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @return The count of eventIds.
+       */
+      public int getEventIdsCount() {
+        return eventIds_.size();
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param index The index of the element to return.
+       * @return The eventIds at the given index.
+       */
+      public java.lang.String getEventIds(int index) {
+        return eventIds_.get(index);
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the eventIds at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getEventIdsBytes(int index) {
+        return eventIds_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The eventIds to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventIds(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureEventIdsIsMutable();
+        eventIds_.set(index, value);
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param value The eventIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addEventIds(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureEventIdsIsMutable();
+        eventIds_.add(value);
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param values The eventIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllEventIds(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureEventIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, eventIds_);
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEventIds() {
+        eventIds_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The events to send again, by &lt;code&gt;event_id&lt;/code&gt; (uuid), at most 1000, duplicates ignored. Sent in
+       * journal order (oldest first), whatever the webhook&amp;apos;s subscriptions select (naming an event is the
+       * selection) but only events of the webhook&amp;apos;s project: an id that the journal does not hold for this
+       * project, whether expired, never journaled, unknown or of another project, is counted in
+       * &lt;code&gt;not_in_journal_count&lt;/code&gt; and sent nowhere. Exactly one of &lt;code&gt;event_ids&lt;/code&gt; and
+       * &lt;code&gt;start_time&lt;/code&gt; must be set.
+       * </pre>
+       *
+       * <code>repeated string event_ids = 2;</code>
+       * @param value The bytes of the eventIds to add.
+       * @return This builder for chaining.
+       */
+      public Builder addEventIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureEventIdsIsMutable();
+        eventIds_.add(value);
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp startTime_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startTimeBuilder_;
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       * @return Whether the startTime field is set.
+       */
+      public boolean hasStartTime() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       * @return The startTime.
+       */
+      public com.google.protobuf.Timestamp getStartTime() {
+        if (startTimeBuilder_ == null) {
+          return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+        } else {
+          return startTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public Builder setStartTime(com.google.protobuf.Timestamp value) {
+        if (startTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          startTime_ = value;
+        } else {
+          startTimeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public Builder setStartTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (startTimeBuilder_ == null) {
+          startTime_ = builderForValue.build();
+        } else {
+          startTimeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public Builder mergeStartTime(com.google.protobuf.Timestamp value) {
+        if (startTimeBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            startTime_ != null &&
+            startTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getStartTimeBuilder().mergeFrom(value);
+          } else {
+            startTime_ = value;
+          }
+        } else {
+          startTimeBuilder_.mergeFrom(value);
+        }
+        if (startTime_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public Builder clearStartTime() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        startTime_ = null;
+        if (startTimeBuilder_ != null) {
+          startTimeBuilder_.dispose();
+          startTimeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getStartTimeBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetStartTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
+        if (startTimeBuilder_ != null) {
+          return startTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return startTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
+        }
+      }
+      /**
+       * <pre>
+       * Start of a time window, inclusive, on the event&amp;apos;s &lt;code&gt;event_time&lt;/code&gt;: send the journaled events of
+       * the project in the window that the webhook&amp;apos;s ENABLED event subscriptions select now (as for a live
+       * event), narrowed by &lt;code&gt;filter&lt;/code&gt;, oldest first. Older than the journal retention is
+       * &lt;code&gt;OUT_OF_RANGE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_time = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetStartTimeFieldBuilder() {
+        if (startTimeBuilder_ == null) {
+          startTimeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getStartTime(),
+                  getParentForChildren(),
+                  isClean());
+          startTime_ = null;
+        }
+        return startTimeBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp endTime_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> endTimeBuilder_;
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       * @return Whether the endTime field is set.
+       */
+      public boolean hasEndTime() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       * @return The endTime.
+       */
+      public com.google.protobuf.Timestamp getEndTime() {
+        if (endTimeBuilder_ == null) {
+          return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
+        } else {
+          return endTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public Builder setEndTime(com.google.protobuf.Timestamp value) {
+        if (endTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          endTime_ = value;
+        } else {
+          endTimeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public Builder setEndTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (endTimeBuilder_ == null) {
+          endTime_ = builderForValue.build();
+        } else {
+          endTimeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public Builder mergeEndTime(com.google.protobuf.Timestamp value) {
+        if (endTimeBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            endTime_ != null &&
+            endTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getEndTimeBuilder().mergeFrom(value);
+          } else {
+            endTime_ = value;
+          }
+        } else {
+          endTimeBuilder_.mergeFrom(value);
+        }
+        if (endTime_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public Builder clearEndTime() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        endTime_ = null;
+        if (endTimeBuilder_ != null) {
+          endTimeBuilder_.dispose();
+          endTimeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getEndTimeBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetEndTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
+        if (endTimeBuilder_ != null) {
+          return endTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return endTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
+        }
+      }
+      /**
+       * <pre>
+       * End of the window, exclusive. Unset means now. Must be after &lt;code&gt;start_time&lt;/code&gt; and is only valid
+       * with it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_time = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetEndTimeFieldBuilder() {
+        if (endTimeBuilder_ == null) {
+          endTimeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getEndTime(),
+                  getParentForChildren(),
+                  isClean());
+          endTime_ = null;
+        }
+        return endTimeBuilder_;
+      }
+
+      private ondewo.vtsi.EventsOuterClass.VtsiEventFilter filter_;
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.EventsOuterClass.VtsiEventFilter, ondewo.vtsi.EventsOuterClass.VtsiEventFilter.Builder, ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder> filterBuilder_;
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       * @return Whether the filter field is set.
+       */
+      public boolean hasFilter() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       * @return The filter.
+       */
+      public ondewo.vtsi.EventsOuterClass.VtsiEventFilter getFilter() {
+        if (filterBuilder_ == null) {
+          return filter_ == null ? ondewo.vtsi.EventsOuterClass.VtsiEventFilter.getDefaultInstance() : filter_;
+        } else {
+          return filterBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public Builder setFilter(ondewo.vtsi.EventsOuterClass.VtsiEventFilter value) {
+        if (filterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          filter_ = value;
+        } else {
+          filterBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public Builder setFilter(
+          ondewo.vtsi.EventsOuterClass.VtsiEventFilter.Builder builderForValue) {
+        if (filterBuilder_ == null) {
+          filter_ = builderForValue.build();
+        } else {
+          filterBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public Builder mergeFilter(ondewo.vtsi.EventsOuterClass.VtsiEventFilter value) {
+        if (filterBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            filter_ != null &&
+            filter_ != ondewo.vtsi.EventsOuterClass.VtsiEventFilter.getDefaultInstance()) {
+            getFilterBuilder().mergeFrom(value);
+          } else {
+            filter_ = value;
+          }
+        } else {
+          filterBuilder_.mergeFrom(value);
+        }
+        if (filter_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public Builder clearFilter() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        filter_ = null;
+        if (filterBuilder_ != null) {
+          filterBuilder_.dispose();
+          filterBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public ondewo.vtsi.EventsOuterClass.VtsiEventFilter.Builder getFilterBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return internalGetFilterFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      public ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder getFilterOrBuilder() {
+        if (filterBuilder_ != null) {
+          return filterBuilder_.getMessageOrBuilder();
+        } else {
+          return filter_ == null ?
+              ondewo.vtsi.EventsOuterClass.VtsiEventFilter.getDefaultInstance() : filter_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Narrows the selection further (AND), with the semantics of the inline filter of
+       * &lt;code&gt;SubscribeVtsiEventsRequest&lt;/code&gt;; applied to &lt;code&gt;event_ids&lt;/code&gt; too.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiEventFilter filter = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.EventsOuterClass.VtsiEventFilter, ondewo.vtsi.EventsOuterClass.VtsiEventFilter.Builder, ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder> 
+          internalGetFilterFieldBuilder() {
+        if (filterBuilder_ == null) {
+          filterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              ondewo.vtsi.EventsOuterClass.VtsiEventFilter, ondewo.vtsi.EventsOuterClass.VtsiEventFilter.Builder, ondewo.vtsi.EventsOuterClass.VtsiEventFilterOrBuilder>(
+                  getFilter(),
+                  getParentForChildren(),
+                  isClean());
+          filter_ = null;
+        }
+        return filterBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.RedeliverWebhookEventsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.RedeliverWebhookEventsRequest)
+    private static final ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest();
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RedeliverWebhookEventsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RedeliverWebhookEventsRequest>() {
+      @java.lang.Override
+      public RedeliverWebhookEventsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RedeliverWebhookEventsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RedeliverWebhookEventsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RedeliverWebhookEventsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.RedeliverWebhookEventsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Events queued for the webhook by this request.
+     * </pre>
+     *
+     * <code>int32 enqueued_count = 1;</code>
+     * @return The enqueuedCount.
+     */
+    int getEnqueuedCount();
+
+    /**
+     * <pre>
+     * Named &lt;code&gt;event_ids&lt;/code&gt; the journal does not hold for the webhook&amp;apos;s project (expired, never
+     * journaled, unknown, or of another project). &lt;code&gt;0&lt;/code&gt; for a window.
+     * </pre>
+     *
+     * <code>int32 not_in_journal_count = 2;</code>
+     * @return The notInJournalCount.
+     */
+    int getNotInJournalCount();
+
+    /**
+     * <pre>
+     * Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+     * server&amp;apos;s webhook queue (&lt;code&gt;ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK&lt;/code&gt;, 1000 by
+     * default) was full. Send them with another request (for a window: from &lt;code&gt;next_start_time&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>int32 not_enqueued_count = 3;</code>
+     * @return The notEnqueuedCount.
+     */
+    int getNotEnqueuedCount();
+
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     * @return Whether the nextStartTime field is set.
+     */
+    boolean hasNextStartTime();
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     * @return The nextStartTime.
+     */
+    com.google.protobuf.Timestamp getNextStartTime();
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getNextStartTimeOrBuilder();
+  }
+  /**
+   * <pre>
+   * The response message for &lt;code&gt;Events.RedeliverWebhookEvents&lt;/code&gt;.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.RedeliverWebhookEventsResponse}
+   */
+  public static final class RedeliverWebhookEventsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.RedeliverWebhookEventsResponse)
+      RedeliverWebhookEventsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        RedeliverWebhookEventsResponse.class.getName());
+    }
+    // Use RedeliverWebhookEventsResponse.newBuilder() to construct.
+    private RedeliverWebhookEventsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private RedeliverWebhookEventsResponse() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.class, ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ENQUEUED_COUNT_FIELD_NUMBER = 1;
+    private int enqueuedCount_ = 0;
+    /**
+     * <pre>
+     * Events queued for the webhook by this request.
+     * </pre>
+     *
+     * <code>int32 enqueued_count = 1;</code>
+     * @return The enqueuedCount.
+     */
+    @java.lang.Override
+    public int getEnqueuedCount() {
+      return enqueuedCount_;
+    }
+
+    public static final int NOT_IN_JOURNAL_COUNT_FIELD_NUMBER = 2;
+    private int notInJournalCount_ = 0;
+    /**
+     * <pre>
+     * Named &lt;code&gt;event_ids&lt;/code&gt; the journal does not hold for the webhook&amp;apos;s project (expired, never
+     * journaled, unknown, or of another project). &lt;code&gt;0&lt;/code&gt; for a window.
+     * </pre>
+     *
+     * <code>int32 not_in_journal_count = 2;</code>
+     * @return The notInJournalCount.
+     */
+    @java.lang.Override
+    public int getNotInJournalCount() {
+      return notInJournalCount_;
+    }
+
+    public static final int NOT_ENQUEUED_COUNT_FIELD_NUMBER = 3;
+    private int notEnqueuedCount_ = 0;
+    /**
+     * <pre>
+     * Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+     * server&amp;apos;s webhook queue (&lt;code&gt;ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK&lt;/code&gt;, 1000 by
+     * default) was full. Send them with another request (for a window: from &lt;code&gt;next_start_time&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>int32 not_enqueued_count = 3;</code>
+     * @return The notEnqueuedCount.
+     */
+    @java.lang.Override
+    public int getNotEnqueuedCount() {
+      return notEnqueuedCount_;
+    }
+
+    public static final int NEXT_START_TIME_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp nextStartTime_;
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     * @return Whether the nextStartTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasNextStartTime() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     * @return The nextStartTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getNextStartTime() {
+      return nextStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : nextStartTime_;
+    }
+    /**
+     * <pre>
+     * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+     * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+     * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+     * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getNextStartTimeOrBuilder() {
+      return nextStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : nextStartTime_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (enqueuedCount_ != 0) {
+        output.writeInt32(1, enqueuedCount_);
+      }
+      if (notInJournalCount_ != 0) {
+        output.writeInt32(2, notInJournalCount_);
+      }
+      if (notEnqueuedCount_ != 0) {
+        output.writeInt32(3, notEnqueuedCount_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(4, getNextStartTime());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (enqueuedCount_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, enqueuedCount_);
+      }
+      if (notInJournalCount_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, notInJournalCount_);
+      }
+      if (notEnqueuedCount_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, notEnqueuedCount_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getNextStartTime());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse other = (ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse) obj;
+
+      if (getEnqueuedCount()
+          != other.getEnqueuedCount()) return false;
+      if (getNotInJournalCount()
+          != other.getNotInJournalCount()) return false;
+      if (getNotEnqueuedCount()
+          != other.getNotEnqueuedCount()) return false;
+      if (hasNextStartTime() != other.hasNextStartTime()) return false;
+      if (hasNextStartTime()) {
+        if (!getNextStartTime()
+            .equals(other.getNextStartTime())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ENQUEUED_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getEnqueuedCount();
+      hash = (37 * hash) + NOT_IN_JOURNAL_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getNotInJournalCount();
+      hash = (37 * hash) + NOT_ENQUEUED_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getNotEnqueuedCount();
+      if (hasNextStartTime()) {
+        hash = (37 * hash) + NEXT_START_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getNextStartTime().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The response message for &lt;code&gt;Events.RedeliverWebhookEvents&lt;/code&gt;.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.RedeliverWebhookEventsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.RedeliverWebhookEventsResponse)
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.class, ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetNextStartTimeFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        enqueuedCount_ = 0;
+        notInJournalCount_ = 0;
+        notEnqueuedCount_ = 0;
+        nextStartTime_ = null;
+        if (nextStartTimeBuilder_ != null) {
+          nextStartTimeBuilder_.dispose();
+          nextStartTimeBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.EventsOuterClass.internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse getDefaultInstanceForType() {
+        return ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse build() {
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse buildPartial() {
+        ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse result = new ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.enqueuedCount_ = enqueuedCount_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.notInJournalCount_ = notInJournalCount_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.notEnqueuedCount_ = notEnqueuedCount_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.nextStartTime_ = nextStartTimeBuilder_ == null
+              ? nextStartTime_
+              : nextStartTimeBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse) {
+          return mergeFrom((ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse other) {
+        if (other == ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse.getDefaultInstance()) return this;
+        if (other.getEnqueuedCount() != 0) {
+          setEnqueuedCount(other.getEnqueuedCount());
+        }
+        if (other.getNotInJournalCount() != 0) {
+          setNotInJournalCount(other.getNotInJournalCount());
+        }
+        if (other.getNotEnqueuedCount() != 0) {
+          setNotEnqueuedCount(other.getNotEnqueuedCount());
+        }
+        if (other.hasNextStartTime()) {
+          mergeNextStartTime(other.getNextStartTime());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                enqueuedCount_ = input.readInt32();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                notInJournalCount_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                notEnqueuedCount_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 34: {
+                input.readMessage(
+                    internalGetNextStartTimeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private int enqueuedCount_ ;
+      /**
+       * <pre>
+       * Events queued for the webhook by this request.
+       * </pre>
+       *
+       * <code>int32 enqueued_count = 1;</code>
+       * @return The enqueuedCount.
+       */
+      @java.lang.Override
+      public int getEnqueuedCount() {
+        return enqueuedCount_;
+      }
+      /**
+       * <pre>
+       * Events queued for the webhook by this request.
+       * </pre>
+       *
+       * <code>int32 enqueued_count = 1;</code>
+       * @param value The enqueuedCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEnqueuedCount(int value) {
+
+        enqueuedCount_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Events queued for the webhook by this request.
+       * </pre>
+       *
+       * <code>int32 enqueued_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEnqueuedCount() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        enqueuedCount_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int notInJournalCount_ ;
+      /**
+       * <pre>
+       * Named &lt;code&gt;event_ids&lt;/code&gt; the journal does not hold for the webhook&amp;apos;s project (expired, never
+       * journaled, unknown, or of another project). &lt;code&gt;0&lt;/code&gt; for a window.
+       * </pre>
+       *
+       * <code>int32 not_in_journal_count = 2;</code>
+       * @return The notInJournalCount.
+       */
+      @java.lang.Override
+      public int getNotInJournalCount() {
+        return notInJournalCount_;
+      }
+      /**
+       * <pre>
+       * Named &lt;code&gt;event_ids&lt;/code&gt; the journal does not hold for the webhook&amp;apos;s project (expired, never
+       * journaled, unknown, or of another project). &lt;code&gt;0&lt;/code&gt; for a window.
+       * </pre>
+       *
+       * <code>int32 not_in_journal_count = 2;</code>
+       * @param value The notInJournalCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotInJournalCount(int value) {
+
+        notInJournalCount_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Named &lt;code&gt;event_ids&lt;/code&gt; the journal does not hold for the webhook&amp;apos;s project (expired, never
+       * journaled, unknown, or of another project). &lt;code&gt;0&lt;/code&gt; for a window.
+       * </pre>
+       *
+       * <code>int32 not_in_journal_count = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNotInJournalCount() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        notInJournalCount_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int notEnqueuedCount_ ;
+      /**
+       * <pre>
+       * Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+       * server&amp;apos;s webhook queue (&lt;code&gt;ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK&lt;/code&gt;, 1000 by
+       * default) was full. Send them with another request (for a window: from &lt;code&gt;next_start_time&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>int32 not_enqueued_count = 3;</code>
+       * @return The notEnqueuedCount.
+       */
+      @java.lang.Override
+      public int getNotEnqueuedCount() {
+        return notEnqueuedCount_;
+      }
+      /**
+       * <pre>
+       * Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+       * server&amp;apos;s webhook queue (&lt;code&gt;ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK&lt;/code&gt;, 1000 by
+       * default) was full. Send them with another request (for a window: from &lt;code&gt;next_start_time&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>int32 not_enqueued_count = 3;</code>
+       * @param value The notEnqueuedCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNotEnqueuedCount(int value) {
+
+        notEnqueuedCount_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Selected events that were NOT queued: beyond the per-request bound of 1000, or because the
+       * server&amp;apos;s webhook queue (&lt;code&gt;ONDEWO_VTSI_WEBHOOK_MAX_QUEUED_EVENTS_PER_WEBHOOK&lt;/code&gt;, 1000 by
+       * default) was full. Send them with another request (for a window: from &lt;code&gt;next_start_time&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>int32 not_enqueued_count = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNotEnqueuedCount() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        notEnqueuedCount_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp nextStartTime_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> nextStartTimeBuilder_;
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       * @return Whether the nextStartTime field is set.
+       */
+      public boolean hasNextStartTime() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       * @return The nextStartTime.
+       */
+      public com.google.protobuf.Timestamp getNextStartTime() {
+        if (nextStartTimeBuilder_ == null) {
+          return nextStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : nextStartTime_;
+        } else {
+          return nextStartTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public Builder setNextStartTime(com.google.protobuf.Timestamp value) {
+        if (nextStartTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nextStartTime_ = value;
+        } else {
+          nextStartTimeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public Builder setNextStartTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (nextStartTimeBuilder_ == null) {
+          nextStartTime_ = builderForValue.build();
+        } else {
+          nextStartTimeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public Builder mergeNextStartTime(com.google.protobuf.Timestamp value) {
+        if (nextStartTimeBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            nextStartTime_ != null &&
+            nextStartTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getNextStartTimeBuilder().mergeFrom(value);
+          } else {
+            nextStartTime_ = value;
+          }
+        } else {
+          nextStartTimeBuilder_.mergeFrom(value);
+        }
+        if (nextStartTime_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public Builder clearNextStartTime() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        nextStartTime_ = null;
+        if (nextStartTimeBuilder_ != null) {
+          nextStartTimeBuilder_.dispose();
+          nextStartTimeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getNextStartTimeBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetNextStartTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getNextStartTimeOrBuilder() {
+        if (nextStartTimeBuilder_ != null) {
+          return nextStartTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return nextStartTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : nextStartTime_;
+        }
+      }
+      /**
+       * <pre>
+       * For a window with &lt;code&gt;not_enqueued_count&lt;/code&gt; above 0: the &lt;code&gt;event_time&lt;/code&gt; of the first event
+       * that was not queued; pass it as the next request&amp;apos;s &lt;code&gt;start_time&lt;/code&gt; (with the same
+       * &lt;code&gt;end_time&lt;/code&gt;). Events with the same &lt;code&gt;event_time&lt;/code&gt; as the last queued one may then be
+       * sent twice; receivers de-duplicate by &lt;code&gt;event_id&lt;/code&gt;. Unset otherwise.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp next_start_time = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetNextStartTimeFieldBuilder() {
+        if (nextStartTimeBuilder_ == null) {
+          nextStartTimeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getNextStartTime(),
+                  getParentForChildren(),
+                  isClean());
+          nextStartTime_ = null;
+        }
+        return nextStartTimeBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.RedeliverWebhookEventsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.RedeliverWebhookEventsResponse)
+    private static final ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse();
+    }
+
+    public static ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RedeliverWebhookEventsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RedeliverWebhookEventsResponse>() {
+      @java.lang.Override
+      public RedeliverWebhookEventsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<RedeliverWebhookEventsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RedeliverWebhookEventsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.EventsOuterClass.RedeliverWebhookEventsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -30133,6 +39314,16 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ondewo_vtsi_SubscribeVtsiEventsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -30163,7 +39354,7 @@ java.lang.String defaultValue) {
       "istics\022\031\n\021resource_sequence\030\016 \001(\003\0321\n\017Att" +
       "ributesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t" +
       ":\0028\001B\022\n\020_sip_status_typeB\033\n\031_previous_si" +
-      "p_status_type\"\375\002\n\025VtsiEventSubscription\022" +
+      "p_status_type\"\256\003\n\025VtsiEventSubscription\022" +
       "\014\n\004name\030\001 \001(\t\022\031\n\021vtsi_project_name\030\002 \001(\t" +
       "\022\024\n\014display_name\030\003 \001(\t\022&\n\006events\030\004 \003(\0162\026" +
       ".ondewo.vtsi.VtsiEvent\022\022\n\nall_events\030\005 \001" +
@@ -30172,196 +39363,234 @@ java.lang.String defaultValue) {
       "reated_by\030\t \001(\t\022.\n\ncreated_at\030\n \001(\0132\032.go" +
       "ogle.protobuf.Timestamp\022\023\n\013modified_by\030\013" +
       " \001(\t\022/\n\013modified_at\030\014 \001(\0132\032.google.proto" +
-      "buf.Timestamp\022\026\n\016campaign_names\030\r \003(\t\"\203\002" +
-      "\n\031WebhookDeliveryStatistics\022\027\n\017delivered" +
-      "_count\030\001 \001(\003\022\024\n\014failed_count\030\002 \001(\003\022\025\n\rdr" +
-      "opped_count\030\003 \001(\003\0226\n\022last_delivery_time\030" +
-      "\004 \001(\0132\032.google.protobuf.Timestamp\0225\n\021las" +
-      "t_success_time\030\005 \001(\0132\032.google.protobuf.T" +
-      "imestamp\022\035\n\025last_http_status_code\030\006 \001(\005\022" +
-      "\022\n\nlast_error\030\007 \001(\t\"\216\004\n\007Webhook\022\014\n\004name\030" +
-      "\001 \001(\t\022\031\n\021vtsi_project_name\030\002 \001(\t\022\024\n\014disp" +
-      "lay_name\030\003 \001(\t\022\013\n\003url\030\004 \001(\t\0223\n\013http_meth" +
-      "od\030\005 \001(\0162\036.ondewo.vtsi.WebhookHttpMethod" +
-      "\022?\n\016custom_headers\030\006 \003(\0132\'.ondewo.vtsi.W" +
-      "ebhook.CustomHeadersEntry\022\020\n\010disabled\030\007 " +
-      "\001(\010\022*\n\007timeout\030\010 \001(\0132\031.google.protobuf.D" +
-      "uration\022C\n\023delivery_statistics\030\t \001(\0132&.o" +
-      "ndewo.vtsi.WebhookDeliveryStatistics\022\022\n\n" +
-      "created_by\030\n \001(\t\022.\n\ncreated_at\030\013 \001(\0132\032.g" +
-      "oogle.protobuf.Timestamp\022\023\n\013modified_by\030" +
-      "\014 \001(\t\022/\n\013modified_at\030\r \001(\0132\032.google.prot" +
-      "obuf.Timestamp\0324\n\022CustomHeadersEntry\022\013\n\003" +
-      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"q\n\017VtsiEven" +
-      "tFilter\022&\n\006events\030\001 \003(\0162\026.ondewo.vtsi.Vt" +
-      "siEvent\022\036\n\026resource_name_prefixes\030\002 \003(\t\022" +
-      "\026\n\016campaign_names\030\003 \003(\t\"\177\n\"CreateVtsiEve" +
-      "ntSubscriptionRequest\022\031\n\021vtsi_project_na" +
-      "me\030\001 \001(\t\022>\n\022event_subscription\030\002 \001(\0132\".o" +
-      "ndewo.vtsi.VtsiEventSubscription\"/\n\037GetV" +
-      "tsiEventSubscriptionRequest\022\014\n\004name\030\001 \001(" +
-      "\t\"\225\001\n\"UpdateVtsiEventSubscriptionRequest" +
+      "buf.Timestamp\022\026\n\016campaign_names\030\r \003(\t\022/\n" +
+      "\017excluded_events\030\016 \003(\0162\026.ondewo.vtsi.Vts" +
+      "iEvent\"\203\002\n\031WebhookDeliveryStatistics\022\027\n\017" +
+      "delivered_count\030\001 \001(\003\022\024\n\014failed_count\030\002 " +
+      "\001(\003\022\025\n\rdropped_count\030\003 \001(\003\0226\n\022last_deliv" +
+      "ery_time\030\004 \001(\0132\032.google.protobuf.Timesta" +
+      "mp\0225\n\021last_success_time\030\005 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022\035\n\025last_http_status_co" +
+      "de\030\006 \001(\005\022\022\n\nlast_error\030\007 \001(\t\"\246\004\n\007Webhook" +
+      "\022\014\n\004name\030\001 \001(\t\022\031\n\021vtsi_project_name\030\002 \001(" +
+      "\t\022\024\n\014display_name\030\003 \001(\t\022\013\n\003url\030\004 \001(\t\0223\n\013" +
+      "http_method\030\005 \001(\0162\036.ondewo.vtsi.WebhookH" +
+      "ttpMethod\022?\n\016custom_headers\030\006 \003(\0132\'.onde" +
+      "wo.vtsi.Webhook.CustomHeadersEntry\022\020\n\010di" +
+      "sabled\030\007 \001(\010\022*\n\007timeout\030\010 \001(\0132\031.google.p" +
+      "rotobuf.Duration\022C\n\023delivery_statistics\030" +
+      "\t \001(\0132&.ondewo.vtsi.WebhookDeliveryStati" +
+      "stics\022\022\n\ncreated_by\030\n \001(\t\022.\n\ncreated_at\030" +
+      "\013 \001(\0132\032.google.protobuf.Timestamp\022\023\n\013mod" +
+      "ified_by\030\014 \001(\t\022/\n\013modified_at\030\r \001(\0132\032.go" +
+      "ogle.protobuf.Timestamp\022\026\n\016signing_secre" +
+      "t\030\016 \001(\t\0324\n\022CustomHeadersEntry\022\013\n\003key\030\001 \001" +
+      "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\266\001\n\017VtsiEventFilte" +
+      "r\022&\n\006events\030\001 \003(\0162\026.ondewo.vtsi.VtsiEven" +
+      "t\022\036\n\026resource_name_prefixes\030\002 \003(\t\022\026\n\016cam" +
+      "paign_names\030\003 \003(\t\022\022\n\nall_events\030\004 \001(\010\022/\n" +
+      "\017excluded_events\030\005 \003(\0162\026.ondewo.vtsi.Vts" +
+      "iEvent\"\257\001\n\"CreateVtsiEventSubscriptionRe" +
+      "quest\022\031\n\021vtsi_project_name\030\001 \001(\t\022>\n\022even" +
+      "t_subscription\030\002 \001(\0132\".ondewo.vtsi.VtsiE" +
+      "ventSubscription\022.\n\nfield_mask\030\003 \001(\0132\032.g" +
+      "oogle.protobuf.FieldMask\"_\n\037GetVtsiEvent" +
+      "SubscriptionRequest\022\014\n\004name\030\001 \001(\t\022.\n\nfie" +
+      "ld_mask\030\002 \001(\0132\032.google.protobuf.FieldMas" +
+      "k\"\305\001\n\"UpdateVtsiEventSubscriptionRequest" +
       "\022>\n\022event_subscription\030\001 \001(\0132\".ondewo.vt" +
       "si.VtsiEventSubscription\022/\n\013update_mask\030" +
-      "\002 \001(\0132\032.google.protobuf.FieldMask\"2\n\"Del" +
-      "eteVtsiEventSubscriptionRequest\022\014\n\004name\030" +
-      "\001 \001(\t\"3\n#DeleteVtsiEventSubscriptionResp" +
-      "onse\022\014\n\004name\030\001 \001(\t\"y\n!ListVtsiEventSubsc" +
-      "riptionsRequest\022\031\n\021vtsi_project_name\030\001 \001" +
-      "(\t\022\021\n\tpage_size\030\002 \001(\005\022\027\n\npage_token\030\003 \001(" +
-      "\tH\000\210\001\001B\r\n\013_page_token\"~\n\"ListVtsiEventSu" +
-      "bscriptionsResponse\022?\n\023event_subscriptio" +
-      "ns\030\001 \003(\0132\".ondewo.vtsi.VtsiEventSubscrip" +
-      "tion\022\027\n\017next_page_token\030\002 \001(\t\"X\n\024CreateW" +
-      "ebhookRequest\022\031\n\021vtsi_project_name\030\001 \001(\t" +
-      "\022%\n\007webhook\030\002 \001(\0132\024.ondewo.vtsi.Webhook\"" +
-      "!\n\021GetWebhookRequest\022\014\n\004name\030\001 \001(\t\"n\n\024Up" +
-      "dateWebhookRequest\022%\n\007webhook\030\001 \001(\0132\024.on" +
-      "dewo.vtsi.Webhook\022/\n\013update_mask\030\002 \001(\0132\032" +
-      ".google.protobuf.FieldMask\"$\n\024DeleteWebh" +
-      "ookRequest\022\014\n\004name\030\001 \001(\t\"J\n\025DeleteWebhoo" +
-      "kResponse\022\014\n\004name\030\001 \001(\t\022#\n\033detached_subs" +
-      "cription_count\030\002 \001(\005\"k\n\023ListWebhooksRequ" +
-      "est\022\031\n\021vtsi_project_name\030\001 \001(\t\022\021\n\tpage_s" +
-      "ize\030\002 \001(\005\022\027\n\npage_token\030\003 \001(\tH\000\210\001\001B\r\n\013_p" +
-      "age_token\"W\n\024ListWebhooksResponse\022&\n\010web" +
-      "hooks\030\001 \003(\0132\024.ondewo.vtsi.Webhook\022\027\n\017nex" +
-      "t_page_token\030\002 \001(\t\"\"\n\022TestWebhookRequest" +
-      "\022\014\n\004name\030\001 \001(\t\"\225\001\n\023TestWebhookResponse\022\017" +
-      "\n\007success\030\001 \001(\010\022\030\n\020http_status_code\030\002 \001(" +
-      "\005\022*\n\007latency\030\003 \001(\0132\031.google.protobuf.Dur" +
-      "ation\022\025\n\rerror_message\030\004 \001(\t\022\020\n\010event_id" +
-      "\030\005 \001(\t\"\302\001\n\032SubscribeVtsiEventsRequest\022\031\n" +
-      "\021vtsi_project_name\030\001 \001(\t\022!\n\027event_subscr" +
-      "iption_name\030\002 \001(\tH\000\022.\n\006filter\030\003 \001(\0132\034.on" +
-      "dewo.vtsi.VtsiEventFilterH\000\022\031\n\014resume_to" +
-      "ken\030\004 \001(\tH\001\210\001\001B\n\n\010selectorB\017\n\r_resume_to" +
-      "ken\"\223\001\n\033SubscribeVtsiEventsResponse\022-\n\006e" +
-      "vents\030\001 \003(\0132\035.ondewo.vtsi.VtsiEventMessa" +
-      "ge\022\024\n\014resume_token\030\002 \001(\t\022\033\n\023dropped_even" +
-      "t_count\030\003 \001(\003\022\022\n\nend_reason\030\004 \001(\t*\312\033\n\tVt" +
-      "siEvent\022\032\n\026VTSI_EVENT_UNSPECIFIED\020\000\022\033\n\027V" +
-      "TSI_EVENT_CALL_CREATED\020d\022\035\n\031VTSI_EVENT_C" +
-      "ALL_INITIATED\020e\022\035\n\031VTSI_EVENT_CALL_CONNE" +
-      "CTED\020f\022\034\n\030VTSI_EVENT_CALL_FINISHED\020g\022\032\n\026" +
-      "VTSI_EVENT_CALL_FAILED\020h\022&\n\"VTSI_EVENT_C" +
-      "ALL_TRANSFER_INITIATED\020i\022\037\n\033VTSI_EVENT_C" +
-      "ALL_TRANSFERRED\020j\022#\n\037VTSI_EVENT_CALL_TRA" +
-      "NSFER_FAILED\020k\022$\n VTSI_EVENT_CALL_HANGUP" +
-      "_INITIATED\020l\022.\n*VTSI_EVENT_CALL_ANSWERIN" +
-      "G_MACHINE_DETECTED\020m\022\033\n\027VTSI_EVENT_CALL_" +
-      "STOPPED\020n\022&\n\"VTSI_EVENT_CALL_SIP_STATUS_" +
-      "CHANGED\020o\022\'\n#VTSI_EVENT_CALL_PARTICIPANT" +
-      "_INVITED\020p\022&\n\"VTSI_EVENT_CALL_PARTICIPAN" +
-      "T_JOINED\020q\022&\n\"VTSI_EVENT_CALL_PARTICIPAN" +
-      "T_FAILED\020r\022$\n VTSI_EVENT_CALL_PARTICIPAN" +
-      "T_LEFT\020s\022\035\n\031VTSI_EVENT_CALL_BOT_MUTED\020t\022" +
-      "\037\n\033VTSI_EVENT_CALL_BOT_UNMUTED\020u\022$\n VTSI" +
-      "_EVENT_CALL_LISTENING_PAUSED\020v\022%\n!VTSI_E" +
-      "VENT_CALL_LISTENING_RESUMED\020w\022*\n&VTSI_EV" +
-      "ENT_CALL_AUDIO_STREAM_CONNECTED\020x\022-\n)VTS" +
-      "I_EVENT_CALL_AUDIO_STREAM_DISCONNECTED\020y" +
-      "\022\036\n\031VTSI_EVENT_CALLER_STARTED\020\310\001\022#\n\036VTSI" +
-      "_EVENT_CALLER_START_FAILED\020\311\001\022\036\n\031VTSI_EV" +
-      "ENT_CALLER_STOPPED\020\312\001\022\036\n\031VTSI_EVENT_CALL" +
-      "ER_DELETED\020\313\001\022 \n\033VTSI_EVENT_CALLER_RESTA" +
-      "RTED\020\314\001\022 \n\033VTSI_EVENT_CALLER_UNHEALTHY\020\315" +
-      "\001\022\036\n\031VTSI_EVENT_CALLER_HEALTHY\020\316\001\022 \n\033VTS" +
-      "I_EVENT_LISTENER_STARTED\020\254\002\022%\n VTSI_EVEN" +
-      "T_LISTENER_START_FAILED\020\255\002\022 \n\033VTSI_EVENT" +
-      "_LISTENER_STOPPED\020\256\002\022 \n\033VTSI_EVENT_LISTE" +
-      "NER_DELETED\020\257\002\022\"\n\035VTSI_EVENT_LISTENER_RE" +
-      "STARTED\020\260\002\022\"\n\035VTSI_EVENT_LISTENER_UNHEAL" +
-      "THY\020\261\002\022 \n\033VTSI_EVENT_LISTENER_HEALTHY\020\262\002" +
-      "\022(\n#VTSI_EVENT_SCHEDULED_CALLER_CREATED\020" +
-      "\220\003\022&\n!VTSI_EVENT_SCHEDULED_CALLER_FIRED\020" +
-      "\221\003\022\'\n\"VTSI_EVENT_SCHEDULED_CALLER_FAILED" +
-      "\020\222\003\022*\n%VTSI_EVENT_SCHEDULED_CALLER_CANCE" +
-      "LLED\020\223\003\0220\n+VTSI_EVENT_SCHEDULED_CALLER_R" +
-      "ETRY_SCHEDULED\020\224\003\022 \n\033VTSI_EVENT_CAMPAIGN" +
-      "_CREATED\020\364\003\022 \n\033VTSI_EVENT_CAMPAIGN_UPDAT" +
-      "ED\020\365\003\022 \n\033VTSI_EVENT_CAMPAIGN_DELETED\020\366\003\022" +
-      " \n\033VTSI_EVENT_CAMPAIGN_STARTED\020\367\003\022\'\n\"VTS" +
-      "I_EVENT_CAMPAIGN_STOP_REQUESTED\020\370\003\022 \n\033VT" +
-      "SI_EVENT_CAMPAIGN_STOPPED\020\371\003\022,\n\'VTSI_EVE" +
-      "NT_CAMPAIGN_HARD_STOP_REQUESTED\020\372\003\022%\n VT" +
-      "SI_EVENT_CAMPAIGN_HARD_STOPPED\020\373\003\022 \n\033VTS" +
-      "I_EVENT_CAMPAIGN_RESUMED\020\374\003\022\"\n\035VTSI_EVEN" +
-      "T_CAMPAIGN_COMPLETED\020\375\003\022!\n\034VTSI_EVENT_CA" +
-      "MPAIGN_PROGRESS\020\376\003\0223\n.VTSI_EVENT_CAMPAIG" +
-      "N_MAX_PARALLEL_CALLS_CHANGED\020\377\003\022$\n\037VTSI_" +
-      "EVENT_CAMPAIGN_CALLS_ADDED\020\200\004\022(\n#VTSI_EV" +
-      "ENT_CAMPAIGN_CALL_DISPATCHED\020\201\004\022\'\n\"VTSI_" +
-      "EVENT_CAMPAIGN_CALL_COMPLETED\020\202\004\022$\n\037VTSI" +
-      "_EVENT_CAMPAIGN_CALL_FAILED\020\203\004\022-\n(VTSI_E" +
-      "VENT_CAMPAIGN_CALL_RETRY_SCHEDULED\020\204\004\022\'\n" +
-      "\"VTSI_EVENT_CAMPAIGN_CALL_CANCELLED\020\205\004\022%" +
-      "\n VTSI_EVENT_CAMPAIGN_AUTO_STOPPED\020\206\004\022$\n" +
-      "\037VTSI_EVENT_VTSI_PROJECT_UPDATED\020\331\004\022$\n\037V" +
-      "TSI_EVENT_VTSI_PROJECT_DELETED\020\332\004\022%\n VTS" +
-      "I_EVENT_VTSI_PROJECT_DEPLOYED\020\333\004\022*\n%VTSI" +
-      "_EVENT_VTSI_PROJECT_DEPLOY_FAILED\020\334\004\022\'\n\"" +
-      "VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED\020\335\004\022+\n" +
-      "&VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED\020" +
-      "\336\004\022,\n\'VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_F" +
-      "AILED\020\337\004\022!\n\034VTSI_EVENT_ASTERISK_DEPLOYED" +
-      "\020\274\005\022 \n\033VTSI_EVENT_ASTERISK_REMOVED\020\275\005\022\"\n" +
-      "\035VTSI_EVENT_ASTERISK_RESTARTED\020\276\005\022(\n#VTS" +
-      "I_EVENT_ASTERISK_CONFIG_RELOADED\020\277\005\022\"\n\035V" +
-      "TSI_EVENT_ASTERISK_UNHEALTHY\020\300\005\022 \n\033VTSI_" +
-      "EVENT_ASTERISK_HEALTHY\020\301\005\022)\n$VTSI_EVENT_" +
-      "ASTERISK_TRUNK_REGISTERED\020\302\005\022+\n&VTSI_EVE" +
-      "NT_ASTERISK_TRUNK_UNREGISTERED\020\303\005\022&\n!VTS" +
-      "I_EVENT_ASTERISK_DEPLOY_FAILED\020\304\005\022\'\n\"VTS" +
-      "I_EVENT_ASTERISK_RESTART_FAILED\020\305\005\022-\n(VT" +
-      "SI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED\020\306" +
-      "\005\022)\n$VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATE" +
-      "D\020\240\006\022)\n$VTSI_EVENT_SOFTPHONE_ACCOUNT_UPD" +
-      "ATED\020\241\006\022)\n$VTSI_EVENT_SOFTPHONE_ACCOUNT_" +
-      "DELETED\020\242\006\022-\n(VTSI_EVENT_SOFTPHONE_CREDE" +
-      "NTIALS_ROTATED\020\243\006\022-\n(VTSI_EVENT_SOFTPHON" +
-      "E_CERTIFICATE_REVOKED\020\244\006\022\034\n\027VTSI_EVENT_W" +
-      "EBHOOK_TEST\020\204\007\022\037\n\032VTSI_EVENT_WEBHOOK_CRE" +
-      "ATED\020\205\007\022\037\n\032VTSI_EVENT_WEBHOOK_UPDATED\020\206\007" +
-      "\022\037\n\032VTSI_EVENT_WEBHOOK_DELETED\020\207\007\022*\n%VTS" +
-      "I_EVENT_EVENT_SUBSCRIPTION_CREATED\020\210\007\022*\n" +
-      "%VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED\020\211" +
-      "\007\022*\n%VTSI_EVENT_EVENT_SUBSCRIPTION_DELET" +
-      "ED\020\212\007\"\006\010\330\004\020\330\004*\037VTSI_EVENT_VTSI_PROJECT_C" +
-      "REATED*s\n\021WebhookHttpMethod\022#\n\037WEBHOOK_H" +
-      "TTP_METHOD_UNSPECIFIED\020\000\022\034\n\030WEBHOOK_HTTP" +
-      "_METHOD_POST\020\001\022\033\n\027WEBHOOK_HTTP_METHOD_PU" +
-      "T\020\0022\243\t\n\006Events\022r\n\033CreateVtsiEventSubscri" +
-      "ption\022/.ondewo.vtsi.CreateVtsiEventSubsc" +
-      "riptionRequest\032\".ondewo.vtsi.VtsiEventSu" +
-      "bscription\022l\n\030GetVtsiEventSubscription\022," +
-      ".ondewo.vtsi.GetVtsiEventSubscriptionReq" +
-      "uest\032\".ondewo.vtsi.VtsiEventSubscription" +
-      "\022r\n\033UpdateVtsiEventSubscription\022/.ondewo" +
-      ".vtsi.UpdateVtsiEventSubscriptionRequest" +
-      "\032\".ondewo.vtsi.VtsiEventSubscription\022\200\001\n" +
-      "\033DeleteVtsiEventSubscription\022/.ondewo.vt" +
-      "si.DeleteVtsiEventSubscriptionRequest\0320." +
-      "ondewo.vtsi.DeleteVtsiEventSubscriptionR" +
-      "esponse\022}\n\032ListVtsiEventSubscriptions\022.." +
-      "ondewo.vtsi.ListVtsiEventSubscriptionsRe" +
-      "quest\032/.ondewo.vtsi.ListVtsiEventSubscri" +
-      "ptionsResponse\022H\n\rCreateWebhook\022!.ondewo" +
-      ".vtsi.CreateWebhookRequest\032\024.ondewo.vtsi" +
-      ".Webhook\022B\n\nGetWebhook\022\036.ondewo.vtsi.Get" +
-      "WebhookRequest\032\024.ondewo.vtsi.Webhook\022H\n\r" +
-      "UpdateWebhook\022!.ondewo.vtsi.UpdateWebhoo" +
-      "kRequest\032\024.ondewo.vtsi.Webhook\022V\n\rDelete" +
-      "Webhook\022!.ondewo.vtsi.DeleteWebhookReque" +
-      "st\032\".ondewo.vtsi.DeleteWebhookResponse\022S" +
-      "\n\014ListWebhooks\022 .ondewo.vtsi.ListWebhook" +
-      "sRequest\032!.ondewo.vtsi.ListWebhooksRespo" +
-      "nse\022P\n\013TestWebhook\022\037.ondewo.vtsi.TestWeb" +
-      "hookRequest\032 .ondewo.vtsi.TestWebhookRes" +
-      "ponse\022j\n\023SubscribeVtsiEvents\022\'.ondewo.vt" +
-      "si.SubscribeVtsiEventsRequest\032(.ondewo.v" +
-      "tsi.SubscribeVtsiEventsResponse0\001b\006proto" +
-      "3"
+      "\002 \001(\0132\032.google.protobuf.FieldMask\022.\n\nfie" +
+      "ld_mask\030\003 \001(\0132\032.google.protobuf.FieldMas" +
+      "k\"b\n\"DeleteVtsiEventSubscriptionRequest\022" +
+      "\014\n\004name\030\001 \001(\t\022.\n\nfield_mask\030\002 \001(\0132\032.goog" +
+      "le.protobuf.FieldMask\"3\n#DeleteVtsiEvent" +
+      "SubscriptionResponse\022\014\n\004name\030\001 \001(\t\"\251\001\n!L" +
+      "istVtsiEventSubscriptionsRequest\022\031\n\021vtsi" +
+      "_project_name\030\001 \001(\t\022\021\n\tpage_size\030\002 \001(\005\022\027" +
+      "\n\npage_token\030\003 \001(\tH\000\210\001\001\022.\n\nfield_mask\030\004 " +
+      "\001(\0132\032.google.protobuf.FieldMaskB\r\n\013_page" +
+      "_token\"~\n\"ListVtsiEventSubscriptionsResp" +
+      "onse\022?\n\023event_subscriptions\030\001 \003(\0132\".onde" +
+      "wo.vtsi.VtsiEventSubscription\022\027\n\017next_pa" +
+      "ge_token\030\002 \001(\t\"\210\001\n\024CreateWebhookRequest\022" +
+      "\031\n\021vtsi_project_name\030\001 \001(\t\022%\n\007webhook\030\002 " +
+      "\001(\0132\024.ondewo.vtsi.Webhook\022.\n\nfield_mask\030" +
+      "\003 \001(\0132\032.google.protobuf.FieldMask\"Q\n\021Get" +
+      "WebhookRequest\022\014\n\004name\030\001 \001(\t\022.\n\nfield_ma" +
+      "sk\030\002 \001(\0132\032.google.protobuf.FieldMask\"\236\001\n" +
+      "\024UpdateWebhookRequest\022%\n\007webhook\030\001 \001(\0132\024" +
+      ".ondewo.vtsi.Webhook\022/\n\013update_mask\030\002 \001(" +
+      "\0132\032.google.protobuf.FieldMask\022.\n\nfield_m" +
+      "ask\030\003 \001(\0132\032.google.protobuf.FieldMask\"T\n" +
+      "\024DeleteWebhookRequest\022\014\n\004name\030\001 \001(\t\022.\n\nf" +
+      "ield_mask\030\002 \001(\0132\032.google.protobuf.FieldM" +
+      "ask\"J\n\025DeleteWebhookResponse\022\014\n\004name\030\001 \001" +
+      "(\t\022#\n\033detached_subscription_count\030\002 \001(\005\"" +
+      "\233\001\n\023ListWebhooksRequest\022\031\n\021vtsi_project_" +
+      "name\030\001 \001(\t\022\021\n\tpage_size\030\002 \001(\005\022\027\n\npage_to" +
+      "ken\030\003 \001(\tH\000\210\001\001\022.\n\nfield_mask\030\004 \001(\0132\032.goo" +
+      "gle.protobuf.FieldMaskB\r\n\013_page_token\"W\n" +
+      "\024ListWebhooksResponse\022&\n\010webhooks\030\001 \003(\0132" +
+      "\024.ondewo.vtsi.Webhook\022\027\n\017next_page_token" +
+      "\030\002 \001(\t\"P\n\022TestWebhookRequest\022\014\n\004name\030\001 \001" +
+      "(\t\022,\n\014sample_event\030\002 \001(\0162\026.ondewo.vtsi.V" +
+      "tsiEvent\"\225\001\n\023TestWebhookResponse\022\017\n\007succ" +
+      "ess\030\001 \001(\010\022\030\n\020http_status_code\030\002 \001(\005\022*\n\007l" +
+      "atency\030\003 \001(\0132\031.google.protobuf.Duration\022" +
+      "\025\n\rerror_message\030\004 \001(\t\022\020\n\010event_id\030\005 \001(\t" +
+      "\"\362\001\n\032SubscribeVtsiEventsRequest\022\031\n\021vtsi_" +
+      "project_name\030\001 \001(\t\022!\n\027event_subscription" +
+      "_name\030\002 \001(\tH\000\022.\n\006filter\030\003 \001(\0132\034.ondewo.v" +
+      "tsi.VtsiEventFilterH\000\022\031\n\014resume_token\030\004 " +
+      "\001(\tH\001\210\001\001\022.\n\nstart_time\030\005 \001(\0132\032.google.pr" +
+      "otobuf.TimestampB\n\n\010selectorB\017\n\r_resume_" +
+      "token\"\312\001\n\033SubscribeVtsiEventsResponse\022-\n" +
+      "\006events\030\001 \003(\0132\035.ondewo.vtsi.VtsiEventMes" +
+      "sage\022\024\n\014resume_token\030\002 \001(\t\022\033\n\023dropped_ev" +
+      "ent_count\030\003 \001(\003\022\022\n\nend_reason\030\004 \001(\t\0225\n\017e" +
+      "nd_reason_type\030\005 \001(\0162\034.ondewo.vtsi.Strea" +
+      "mEndReason\"\324\001\n\035RedeliverWebhookEventsReq" +
+      "uest\022\024\n\014webhook_name\030\001 \001(\t\022\021\n\tevent_ids\030" +
+      "\002 \003(\t\022.\n\nstart_time\030\003 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022,\n\010end_time\030\004 \001(\0132\032.google" +
+      ".protobuf.Timestamp\022,\n\006filter\030\005 \001(\0132\034.on" +
+      "dewo.vtsi.VtsiEventFilter\"\247\001\n\036RedeliverW" +
+      "ebhookEventsResponse\022\026\n\016enqueued_count\030\001" +
+      " \001(\005\022\034\n\024not_in_journal_count\030\002 \001(\005\022\032\n\022no" +
+      "t_enqueued_count\030\003 \001(\005\0223\n\017next_start_tim" +
+      "e\030\004 \001(\0132\032.google.protobuf.Timestamp*\333\035\n\t" +
+      "VtsiEvent\022\032\n\026VTSI_EVENT_UNSPECIFIED\020\000\022\033\n" +
+      "\027VTSI_EVENT_CALL_CREATED\020d\022\035\n\031VTSI_EVENT" +
+      "_CALL_INITIATED\020e\022\035\n\031VTSI_EVENT_CALL_CON" +
+      "NECTED\020f\022\034\n\030VTSI_EVENT_CALL_FINISHED\020g\022\032" +
+      "\n\026VTSI_EVENT_CALL_FAILED\020h\022&\n\"VTSI_EVENT" +
+      "_CALL_TRANSFER_INITIATED\020i\022\037\n\033VTSI_EVENT" +
+      "_CALL_TRANSFERRED\020j\022#\n\037VTSI_EVENT_CALL_T" +
+      "RANSFER_FAILED\020k\022$\n VTSI_EVENT_CALL_HANG" +
+      "UP_INITIATED\020l\022.\n*VTSI_EVENT_CALL_ANSWER" +
+      "ING_MACHINE_DETECTED\020m\022\033\n\027VTSI_EVENT_CAL" +
+      "L_STOPPED\020n\022&\n\"VTSI_EVENT_CALL_SIP_STATU" +
+      "S_CHANGED\020o\022\'\n#VTSI_EVENT_CALL_PARTICIPA" +
+      "NT_INVITED\020p\022&\n\"VTSI_EVENT_CALL_PARTICIP" +
+      "ANT_JOINED\020q\022&\n\"VTSI_EVENT_CALL_PARTICIP" +
+      "ANT_FAILED\020r\022$\n VTSI_EVENT_CALL_PARTICIP" +
+      "ANT_LEFT\020s\022\035\n\031VTSI_EVENT_CALL_BOT_MUTED\020" +
+      "t\022\037\n\033VTSI_EVENT_CALL_BOT_UNMUTED\020u\022$\n VT" +
+      "SI_EVENT_CALL_LISTENING_PAUSED\020v\022%\n!VTSI" +
+      "_EVENT_CALL_LISTENING_RESUMED\020w\022*\n&VTSI_" +
+      "EVENT_CALL_AUDIO_STREAM_CONNECTED\020x\022-\n)V" +
+      "TSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED" +
+      "\020y\022\033\n\027VTSI_EVENT_CALL_UPDATED\020z\022\036\n\031VTSI_" +
+      "EVENT_CALLER_STARTED\020\310\001\022#\n\036VTSI_EVENT_CA" +
+      "LLER_START_FAILED\020\311\001\022\036\n\031VTSI_EVENT_CALLE" +
+      "R_STOPPED\020\312\001\022\036\n\031VTSI_EVENT_CALLER_DELETE" +
+      "D\020\313\001\022 \n\033VTSI_EVENT_CALLER_RESTARTED\020\314\001\022 " +
+      "\n\033VTSI_EVENT_CALLER_UNHEALTHY\020\315\001\022\036\n\031VTSI" +
+      "_EVENT_CALLER_HEALTHY\020\316\001\022\036\n\031VTSI_EVENT_C" +
+      "ALLER_UPDATED\020\317\001\022 \n\033VTSI_EVENT_LISTENER_" +
+      "STARTED\020\254\002\022%\n VTSI_EVENT_LISTENER_START_" +
+      "FAILED\020\255\002\022 \n\033VTSI_EVENT_LISTENER_STOPPED" +
+      "\020\256\002\022 \n\033VTSI_EVENT_LISTENER_DELETED\020\257\002\022\"\n" +
+      "\035VTSI_EVENT_LISTENER_RESTARTED\020\260\002\022\"\n\035VTS" +
+      "I_EVENT_LISTENER_UNHEALTHY\020\261\002\022 \n\033VTSI_EV" +
+      "ENT_LISTENER_HEALTHY\020\262\002\022 \n\033VTSI_EVENT_LI" +
+      "STENER_UPDATED\020\263\002\022(\n#VTSI_EVENT_SCHEDULE" +
+      "D_CALLER_CREATED\020\220\003\022&\n!VTSI_EVENT_SCHEDU" +
+      "LED_CALLER_FIRED\020\221\003\022\'\n\"VTSI_EVENT_SCHEDU" +
+      "LED_CALLER_FAILED\020\222\003\022*\n%VTSI_EVENT_SCHED" +
+      "ULED_CALLER_CANCELLED\020\223\003\0220\n+VTSI_EVENT_S" +
+      "CHEDULED_CALLER_RETRY_SCHEDULED\020\224\003\022(\n#VT" +
+      "SI_EVENT_SCHEDULED_CALLER_UPDATED\020\225\003\022 \n\033" +
+      "VTSI_EVENT_CAMPAIGN_CREATED\020\364\003\022 \n\033VTSI_E" +
+      "VENT_CAMPAIGN_UPDATED\020\365\003\022 \n\033VTSI_EVENT_C" +
+      "AMPAIGN_DELETED\020\366\003\022 \n\033VTSI_EVENT_CAMPAIG" +
+      "N_STARTED\020\367\003\022\'\n\"VTSI_EVENT_CAMPAIGN_STOP" +
+      "_REQUESTED\020\370\003\022 \n\033VTSI_EVENT_CAMPAIGN_STO" +
+      "PPED\020\371\003\022,\n\'VTSI_EVENT_CAMPAIGN_HARD_STOP" +
+      "_REQUESTED\020\372\003\022%\n VTSI_EVENT_CAMPAIGN_HAR" +
+      "D_STOPPED\020\373\003\022 \n\033VTSI_EVENT_CAMPAIGN_RESU" +
+      "MED\020\374\003\022\"\n\035VTSI_EVENT_CAMPAIGN_COMPLETED\020" +
+      "\375\003\022!\n\034VTSI_EVENT_CAMPAIGN_PROGRESS\020\376\003\0223\n" +
+      ".VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_" +
+      "CHANGED\020\377\003\022$\n\037VTSI_EVENT_CAMPAIGN_CALLS_" +
+      "ADDED\020\200\004\022(\n#VTSI_EVENT_CAMPAIGN_CALL_DIS" +
+      "PATCHED\020\201\004\022\'\n\"VTSI_EVENT_CAMPAIGN_CALL_C" +
+      "OMPLETED\020\202\004\022$\n\037VTSI_EVENT_CAMPAIGN_CALL_" +
+      "FAILED\020\203\004\022-\n(VTSI_EVENT_CAMPAIGN_CALL_RE" +
+      "TRY_SCHEDULED\020\204\004\022\'\n\"VTSI_EVENT_CAMPAIGN_" +
+      "CALL_CANCELLED\020\205\004\022%\n VTSI_EVENT_CAMPAIGN" +
+      "_AUTO_STOPPED\020\206\004\022&\n!VTSI_EVENT_CAMPAIGN_" +
+      "CALL_REQUEUED\020\207\004\022.\n)VTSI_EVENT_CAMPAIGN_" +
+      "CALLING_WINDOW_OPENED\020\210\004\022.\n)VTSI_EVENT_C" +
+      "AMPAIGN_CALLING_WINDOW_CLOSED\020\211\004\022$\n\037VTSI" +
+      "_EVENT_VTSI_PROJECT_UPDATED\020\331\004\022$\n\037VTSI_E" +
+      "VENT_VTSI_PROJECT_DELETED\020\332\004\022%\n VTSI_EVE" +
+      "NT_VTSI_PROJECT_DEPLOYED\020\333\004\022*\n%VTSI_EVEN" +
+      "T_VTSI_PROJECT_DEPLOY_FAILED\020\334\004\022\'\n\"VTSI_" +
+      "EVENT_VTSI_PROJECT_UNDEPLOYED\020\335\004\022+\n&VTSI" +
+      "_EVENT_VTSI_PROJECT_STATUS_CHANGED\020\336\004\022,\n" +
+      "\'VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED" +
+      "\020\337\004\022!\n\034VTSI_EVENT_ASTERISK_DEPLOYED\020\274\005\022 " +
+      "\n\033VTSI_EVENT_ASTERISK_REMOVED\020\275\005\022\"\n\035VTSI" +
+      "_EVENT_ASTERISK_RESTARTED\020\276\005\022(\n#VTSI_EVE" +
+      "NT_ASTERISK_CONFIG_RELOADED\020\277\005\022\"\n\035VTSI_E" +
+      "VENT_ASTERISK_UNHEALTHY\020\300\005\022 \n\033VTSI_EVENT" +
+      "_ASTERISK_HEALTHY\020\301\005\022)\n$VTSI_EVENT_ASTER" +
+      "ISK_TRUNK_REGISTERED\020\302\005\022+\n&VTSI_EVENT_AS" +
+      "TERISK_TRUNK_UNREGISTERED\020\303\005\022&\n!VTSI_EVE" +
+      "NT_ASTERISK_DEPLOY_FAILED\020\304\005\022\'\n\"VTSI_EVE" +
+      "NT_ASTERISK_RESTART_FAILED\020\305\005\022-\n(VTSI_EV" +
+      "ENT_ASTERISK_CONFIG_RELOAD_FAILED\020\306\005\022)\n$" +
+      "VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED\020\240\006\022" +
+      ")\n$VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED\020" +
+      "\241\006\022)\n$VTSI_EVENT_SOFTPHONE_ACCOUNT_DELET" +
+      "ED\020\242\006\022-\n(VTSI_EVENT_SOFTPHONE_CREDENTIAL" +
+      "S_ROTATED\020\243\006\022-\n(VTSI_EVENT_SOFTPHONE_CER" +
+      "TIFICATE_REVOKED\020\244\006\022\034\n\027VTSI_EVENT_WEBHOO" +
+      "K_TEST\020\204\007\022\037\n\032VTSI_EVENT_WEBHOOK_CREATED\020" +
+      "\205\007\022\037\n\032VTSI_EVENT_WEBHOOK_UPDATED\020\206\007\022\037\n\032V" +
+      "TSI_EVENT_WEBHOOK_DELETED\020\207\007\022*\n%VTSI_EVE" +
+      "NT_EVENT_SUBSCRIPTION_CREATED\020\210\007\022*\n%VTSI" +
+      "_EVENT_EVENT_SUBSCRIPTION_UPDATED\020\211\007\022*\n%" +
+      "VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED\020\212\007" +
+      "\"\006\010\330\004\020\330\004*\037VTSI_EVENT_VTSI_PROJECT_CREATE" +
+      "D*s\n\021WebhookHttpMethod\022#\n\037WEBHOOK_HTTP_M" +
+      "ETHOD_UNSPECIFIED\020\000\022\034\n\030WEBHOOK_HTTP_METH" +
+      "OD_POST\020\001\022\033\n\027WEBHOOK_HTTP_METHOD_PUT\020\0022\226" +
+      "\n\n\006Events\022r\n\033CreateVtsiEventSubscription" +
+      "\022/.ondewo.vtsi.CreateVtsiEventSubscripti" +
+      "onRequest\032\".ondewo.vtsi.VtsiEventSubscri" +
+      "ption\022l\n\030GetVtsiEventSubscription\022,.onde" +
+      "wo.vtsi.GetVtsiEventSubscriptionRequest\032" +
+      "\".ondewo.vtsi.VtsiEventSubscription\022r\n\033U" +
+      "pdateVtsiEventSubscription\022/.ondewo.vtsi" +
+      ".UpdateVtsiEventSubscriptionRequest\032\".on" +
+      "dewo.vtsi.VtsiEventSubscription\022\200\001\n\033Dele" +
+      "teVtsiEventSubscription\022/.ondewo.vtsi.De" +
+      "leteVtsiEventSubscriptionRequest\0320.ondew" +
+      "o.vtsi.DeleteVtsiEventSubscriptionRespon" +
+      "se\022}\n\032ListVtsiEventSubscriptions\022..ondew" +
+      "o.vtsi.ListVtsiEventSubscriptionsRequest" +
+      "\032/.ondewo.vtsi.ListVtsiEventSubscription" +
+      "sResponse\022H\n\rCreateWebhook\022!.ondewo.vtsi" +
+      ".CreateWebhookRequest\032\024.ondewo.vtsi.Webh" +
+      "ook\022B\n\nGetWebhook\022\036.ondewo.vtsi.GetWebho" +
+      "okRequest\032\024.ondewo.vtsi.Webhook\022H\n\rUpdat" +
+      "eWebhook\022!.ondewo.vtsi.UpdateWebhookRequ" +
+      "est\032\024.ondewo.vtsi.Webhook\022V\n\rDeleteWebho" +
+      "ok\022!.ondewo.vtsi.DeleteWebhookRequest\032\"." +
+      "ondewo.vtsi.DeleteWebhookResponse\022S\n\014Lis" +
+      "tWebhooks\022 .ondewo.vtsi.ListWebhooksRequ" +
+      "est\032!.ondewo.vtsi.ListWebhooksResponse\022P" +
+      "\n\013TestWebhook\022\037.ondewo.vtsi.TestWebhookR" +
+      "equest\032 .ondewo.vtsi.TestWebhookResponse" +
+      "\022q\n\026RedeliverWebhookEvents\022*.ondewo.vtsi" +
+      ".RedeliverWebhookEventsRequest\032+.ondewo." +
+      "vtsi.RedeliverWebhookEventsResponse\022j\n\023S" +
+      "ubscribeVtsiEvents\022\'.ondewo.vtsi.Subscri" +
+      "beVtsiEventsRequest\032(.ondewo.vtsi.Subscr" +
+      "ibeVtsiEventsResponse0\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -30389,7 +39618,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_VtsiEventSubscription_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_VtsiEventSubscription_descriptor,
-        new java.lang.String[] { "Name", "VtsiProjectName", "DisplayName", "Events", "AllEvents", "ResourceNamePrefixes", "WebhookNames", "Disabled", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "CampaignNames", });
+        new java.lang.String[] { "Name", "VtsiProjectName", "DisplayName", "Events", "AllEvents", "ResourceNamePrefixes", "WebhookNames", "Disabled", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "CampaignNames", "ExcludedEvents", });
     internal_static_ondewo_vtsi_WebhookDeliveryStatistics_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_ondewo_vtsi_WebhookDeliveryStatistics_fieldAccessorTable = new
@@ -30401,7 +39630,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_Webhook_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_Webhook_descriptor,
-        new java.lang.String[] { "Name", "VtsiProjectName", "DisplayName", "Url", "HttpMethod", "CustomHeaders", "Disabled", "Timeout", "DeliveryStatistics", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", });
+        new java.lang.String[] { "Name", "VtsiProjectName", "DisplayName", "Url", "HttpMethod", "CustomHeaders", "Disabled", "Timeout", "DeliveryStatistics", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "SigningSecret", });
     internal_static_ondewo_vtsi_Webhook_CustomHeadersEntry_descriptor =
       internal_static_ondewo_vtsi_Webhook_descriptor.getNestedTypes().get(0);
     internal_static_ondewo_vtsi_Webhook_CustomHeadersEntry_fieldAccessorTable = new
@@ -30413,31 +39642,31 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_VtsiEventFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_VtsiEventFilter_descriptor,
-        new java.lang.String[] { "Events", "ResourceNamePrefixes", "CampaignNames", });
+        new java.lang.String[] { "Events", "ResourceNamePrefixes", "CampaignNames", "AllEvents", "ExcludedEvents", });
     internal_static_ondewo_vtsi_CreateVtsiEventSubscriptionRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_ondewo_vtsi_CreateVtsiEventSubscriptionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CreateVtsiEventSubscriptionRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "EventSubscription", });
+        new java.lang.String[] { "VtsiProjectName", "EventSubscription", "FieldMask", });
     internal_static_ondewo_vtsi_GetVtsiEventSubscriptionRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_ondewo_vtsi_GetVtsiEventSubscriptionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_GetVtsiEventSubscriptionRequest_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "FieldMask", });
     internal_static_ondewo_vtsi_UpdateVtsiEventSubscriptionRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_ondewo_vtsi_UpdateVtsiEventSubscriptionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_UpdateVtsiEventSubscriptionRequest_descriptor,
-        new java.lang.String[] { "EventSubscription", "UpdateMask", });
+        new java.lang.String[] { "EventSubscription", "UpdateMask", "FieldMask", });
     internal_static_ondewo_vtsi_DeleteVtsiEventSubscriptionRequest_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_ondewo_vtsi_DeleteVtsiEventSubscriptionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_DeleteVtsiEventSubscriptionRequest_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "FieldMask", });
     internal_static_ondewo_vtsi_DeleteVtsiEventSubscriptionResponse_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_ondewo_vtsi_DeleteVtsiEventSubscriptionResponse_fieldAccessorTable = new
@@ -30449,7 +39678,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_ListVtsiEventSubscriptionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListVtsiEventSubscriptionsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "PageSize", "PageToken", });
+        new java.lang.String[] { "VtsiProjectName", "PageSize", "PageToken", "FieldMask", });
     internal_static_ondewo_vtsi_ListVtsiEventSubscriptionsResponse_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_ondewo_vtsi_ListVtsiEventSubscriptionsResponse_fieldAccessorTable = new
@@ -30461,25 +39690,25 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_CreateWebhookRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CreateWebhookRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "Webhook", });
+        new java.lang.String[] { "VtsiProjectName", "Webhook", "FieldMask", });
     internal_static_ondewo_vtsi_GetWebhookRequest_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_ondewo_vtsi_GetWebhookRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_GetWebhookRequest_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "FieldMask", });
     internal_static_ondewo_vtsi_UpdateWebhookRequest_descriptor =
       getDescriptor().getMessageTypes().get(14);
     internal_static_ondewo_vtsi_UpdateWebhookRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_UpdateWebhookRequest_descriptor,
-        new java.lang.String[] { "Webhook", "UpdateMask", });
+        new java.lang.String[] { "Webhook", "UpdateMask", "FieldMask", });
     internal_static_ondewo_vtsi_DeleteWebhookRequest_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_ondewo_vtsi_DeleteWebhookRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_DeleteWebhookRequest_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "FieldMask", });
     internal_static_ondewo_vtsi_DeleteWebhookResponse_descriptor =
       getDescriptor().getMessageTypes().get(16);
     internal_static_ondewo_vtsi_DeleteWebhookResponse_fieldAccessorTable = new
@@ -30491,7 +39720,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_ListWebhooksRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListWebhooksRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "PageSize", "PageToken", });
+        new java.lang.String[] { "VtsiProjectName", "PageSize", "PageToken", "FieldMask", });
     internal_static_ondewo_vtsi_ListWebhooksResponse_descriptor =
       getDescriptor().getMessageTypes().get(18);
     internal_static_ondewo_vtsi_ListWebhooksResponse_fieldAccessorTable = new
@@ -30503,7 +39732,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_TestWebhookRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_TestWebhookRequest_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "SampleEvent", });
     internal_static_ondewo_vtsi_TestWebhookResponse_descriptor =
       getDescriptor().getMessageTypes().get(20);
     internal_static_ondewo_vtsi_TestWebhookResponse_fieldAccessorTable = new
@@ -30515,13 +39744,25 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_SubscribeVtsiEventsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_SubscribeVtsiEventsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "EventSubscriptionName", "Filter", "ResumeToken", "Selector", });
+        new java.lang.String[] { "VtsiProjectName", "EventSubscriptionName", "Filter", "ResumeToken", "StartTime", "Selector", });
     internal_static_ondewo_vtsi_SubscribeVtsiEventsResponse_descriptor =
       getDescriptor().getMessageTypes().get(22);
     internal_static_ondewo_vtsi_SubscribeVtsiEventsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_SubscribeVtsiEventsResponse_descriptor,
-        new java.lang.String[] { "Events", "ResumeToken", "DroppedEventCount", "EndReason", });
+        new java.lang.String[] { "Events", "ResumeToken", "DroppedEventCount", "EndReason", "EndReasonType", });
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_RedeliverWebhookEventsRequest_descriptor,
+        new java.lang.String[] { "WebhookName", "EventIds", "StartTime", "EndTime", "Filter", });
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(24);
+    internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_RedeliverWebhookEventsResponse_descriptor,
+        new java.lang.String[] { "EnqueuedCount", "NotInJournalCount", "NotEnqueuedCount", "NextStartTime", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.FieldMaskProto.getDescriptor();

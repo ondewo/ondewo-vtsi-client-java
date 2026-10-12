@@ -821,6 +821,420 @@ public final class LogsOuterClass {
     // @@protoc_insertion_point(enum_scope:ondewo.vtsi.CallLogFilterField)
   }
 
+  /**
+   * <pre>
+   * Why the SERVER ended a &lt;code&gt;StreamCallLogs&lt;/code&gt; stream. Carried by the final
+   * &lt;a href="index.html#ondewo.vtsi.StreamCallLogsResponse"&gt;StreamCallLogsResponse&lt;/a&gt; beside the
+   * human-readable &lt;code&gt;end_reason&lt;/code&gt;. A stream ended by the client has no final message.
+   * </pre>
+   *
+   * Protobuf enum {@code ondewo.vtsi.LogStreamEndReason}
+   */
+  public enum LogStreamEndReason
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Not ended by the server: every message except the final one, and the final message of a 9.0.0
+     * server (read &lt;code&gt;end_reason&lt;/code&gt; there).
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_UNSPECIFIED = 0;</code>
+     */
+    LOG_STREAM_END_REASON_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * The capture of every followed log stream has terminated (&lt;code&gt;STOPPED&lt;/code&gt; or
+     * &lt;code&gt;FAILED&lt;/code&gt;) and every stored entry was sent. Nothing more will arrive for this filter.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED = 1;</code>
+     */
+    LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED(1),
+    /**
+     * <pre>
+     * The server-side maximum stream duration (&lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt;) was
+     * reached. Reconnect with the &lt;code&gt;resume_token&lt;/code&gt; of the final message to continue seamlessly.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_MAX_DURATION = 2;</code>
+     */
+    LOG_STREAM_END_REASON_MAX_DURATION(2),
+    /**
+     * <pre>
+     * The VTSI server is shutting down. Reconnect, to another replica if there is one, with the
+     * &lt;code&gt;resume_token&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_SERVER_SHUTDOWN = 3;</code>
+     */
+    LOG_STREAM_END_REASON_SERVER_SHUTDOWN(3),
+    /**
+     * <pre>
+     * The caller lost the role the stream requires. The stream then ends with
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_PERMISSION_REVOKED = 4;</code>
+     */
+    LOG_STREAM_END_REASON_PERMISSION_REVOKED(4),
+    /**
+     * <pre>
+     * The caller&amp;apos;s credential expired. The stream then ends with &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;;
+     * reconnect with a fresh credential and the &lt;code&gt;resume_token&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED = 5;</code>
+     */
+    LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED(5),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        LogStreamEndReason.class.getName());
+    }
+    /**
+     * <pre>
+     * Not ended by the server: every message except the final one, and the final message of a 9.0.0
+     * server (read &lt;code&gt;end_reason&lt;/code&gt; there).
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_UNSPECIFIED = 0;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * The capture of every followed log stream has terminated (&lt;code&gt;STOPPED&lt;/code&gt; or
+     * &lt;code&gt;FAILED&lt;/code&gt;) and every stored entry was sent. Nothing more will arrive for this filter.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED = 1;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED_VALUE = 1;
+    /**
+     * <pre>
+     * The server-side maximum stream duration (&lt;code&gt;ONDEWO_VTSI_LOG_STREAM_MAX_DURATION_S&lt;/code&gt;) was
+     * reached. Reconnect with the &lt;code&gt;resume_token&lt;/code&gt; of the final message to continue seamlessly.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_MAX_DURATION = 2;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_MAX_DURATION_VALUE = 2;
+    /**
+     * <pre>
+     * The VTSI server is shutting down. Reconnect, to another replica if there is one, with the
+     * &lt;code&gt;resume_token&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_SERVER_SHUTDOWN = 3;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_SERVER_SHUTDOWN_VALUE = 3;
+    /**
+     * <pre>
+     * The caller lost the role the stream requires. The stream then ends with
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_PERMISSION_REVOKED = 4;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_PERMISSION_REVOKED_VALUE = 4;
+    /**
+     * <pre>
+     * The caller&amp;apos;s credential expired. The stream then ends with &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;;
+     * reconnect with a fresh credential and the &lt;code&gt;resume_token&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED = 5;</code>
+     */
+    public static final int LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED_VALUE = 5;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static LogStreamEndReason valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static LogStreamEndReason forNumber(int value) {
+      switch (value) {
+        case 0: return LOG_STREAM_END_REASON_UNSPECIFIED;
+        case 1: return LOG_STREAM_END_REASON_ALL_CAPTURES_TERMINATED;
+        case 2: return LOG_STREAM_END_REASON_MAX_DURATION;
+        case 3: return LOG_STREAM_END_REASON_SERVER_SHUTDOWN;
+        case 4: return LOG_STREAM_END_REASON_PERMISSION_REVOKED;
+        case 5: return LOG_STREAM_END_REASON_CREDENTIALS_EXPIRED;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<LogStreamEndReason>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        LogStreamEndReason> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<LogStreamEndReason>() {
+            public LogStreamEndReason findValueByNumber(int number) {
+              return LogStreamEndReason.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return ondewo.vtsi.LogsOuterClass.getDescriptor().getEnumTypes().get(4);
+    }
+
+    private static final LogStreamEndReason[] VALUES = values();
+
+    public static LogStreamEndReason valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private LogStreamEndReason(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ondewo.vtsi.LogStreamEndReason)
+  }
+
+  /**
+   * <pre>
+   * File format of an &lt;a href="index.html#ondewo.vtsi.Logs.ExportCallLogs"&gt;ExportCallLogs&lt;/a&gt; export. Every
+   * format is UTF-8 with &lt;code&gt;&#92;n&lt;/code&gt; line endings and one entry per record; a multi-line entry stays one
+   * record.
+   * </pre>
+   *
+   * Protobuf enum {@code ondewo.vtsi.LogExportFormat}
+   */
+  public enum LogExportFormat
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Unspecified: identical to &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_UNSPECIFIED = 0;</code>
+     */
+    LOG_EXPORT_FORMAT_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * Plain text in the manner of &lt;code&gt;docker logs --timestamps&lt;/code&gt;: one line per entry,
+     * &lt;code&gt;&amp;lt;RFC 3339 UTC timestamp&amp;gt; &amp;lt;message&amp;gt;&lt;/code&gt;; continuation lines of a multi-line entry
+     * are indented by one tab. With &lt;code&gt;include_metadata&lt;/code&gt; the timestamp is followed by the
+     * severity, the container name and the call resource name (&lt;code&gt;-&lt;/code&gt; when none), separated by
+     * single spaces.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_TEXT = 1;</code>
+     */
+    LOG_EXPORT_FORMAT_TEXT(1),
+    /**
+     * <pre>
+     * Newline-delimited JSON: one JSON object per line, the proto3 JSON form of a
+     * &lt;a href="index.html#ondewo.vtsi.CallLogEntry"&gt;CallLogEntry&lt;/a&gt; (lowerCamelCase keys). Without
+     * &lt;code&gt;include_metadata&lt;/code&gt; only &lt;code&gt;seq&lt;/code&gt;, &lt;code&gt;logStream&lt;/code&gt;, &lt;code&gt;timestamp&lt;/code&gt;,
+     * &lt;code&gt;level&lt;/code&gt; and &lt;code&gt;message&lt;/code&gt; are written; with it every field.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_NDJSON = 2;</code>
+     */
+    LOG_EXPORT_FORMAT_NDJSON(2),
+    /**
+     * <pre>
+     * Comma-separated values (RFC 4180, every field quoted, embedded quotes doubled, embedded line breaks
+     * kept inside the quotes), with a header row. Columns without &lt;code&gt;include_metadata&lt;/code&gt;:
+     * &lt;code&gt;timestamp,level,message&lt;/code&gt;; with it: &lt;code&gt;seq,timestamp,timestamp_is_exact,level,
+     * log_source,channel,container_name,container_id,emitter,thread_name,log_stream,call,
+     * nlu_session_name,physical_line_count,message&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_CSV = 3;</code>
+     */
+    LOG_EXPORT_FORMAT_CSV(3),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        LogExportFormat.class.getName());
+    }
+    /**
+     * <pre>
+     * Unspecified: identical to &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_UNSPECIFIED = 0;</code>
+     */
+    public static final int LOG_EXPORT_FORMAT_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * Plain text in the manner of &lt;code&gt;docker logs --timestamps&lt;/code&gt;: one line per entry,
+     * &lt;code&gt;&amp;lt;RFC 3339 UTC timestamp&amp;gt; &amp;lt;message&amp;gt;&lt;/code&gt;; continuation lines of a multi-line entry
+     * are indented by one tab. With &lt;code&gt;include_metadata&lt;/code&gt; the timestamp is followed by the
+     * severity, the container name and the call resource name (&lt;code&gt;-&lt;/code&gt; when none), separated by
+     * single spaces.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_TEXT = 1;</code>
+     */
+    public static final int LOG_EXPORT_FORMAT_TEXT_VALUE = 1;
+    /**
+     * <pre>
+     * Newline-delimited JSON: one JSON object per line, the proto3 JSON form of a
+     * &lt;a href="index.html#ondewo.vtsi.CallLogEntry"&gt;CallLogEntry&lt;/a&gt; (lowerCamelCase keys). Without
+     * &lt;code&gt;include_metadata&lt;/code&gt; only &lt;code&gt;seq&lt;/code&gt;, &lt;code&gt;logStream&lt;/code&gt;, &lt;code&gt;timestamp&lt;/code&gt;,
+     * &lt;code&gt;level&lt;/code&gt; and &lt;code&gt;message&lt;/code&gt; are written; with it every field.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_NDJSON = 2;</code>
+     */
+    public static final int LOG_EXPORT_FORMAT_NDJSON_VALUE = 2;
+    /**
+     * <pre>
+     * Comma-separated values (RFC 4180, every field quoted, embedded quotes doubled, embedded line breaks
+     * kept inside the quotes), with a header row. Columns without &lt;code&gt;include_metadata&lt;/code&gt;:
+     * &lt;code&gt;timestamp,level,message&lt;/code&gt;; with it: &lt;code&gt;seq,timestamp,timestamp_is_exact,level,
+     * log_source,channel,container_name,container_id,emitter,thread_name,log_stream,call,
+     * nlu_session_name,physical_line_count,message&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>LOG_EXPORT_FORMAT_CSV = 3;</code>
+     */
+    public static final int LOG_EXPORT_FORMAT_CSV_VALUE = 3;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static LogExportFormat valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static LogExportFormat forNumber(int value) {
+      switch (value) {
+        case 0: return LOG_EXPORT_FORMAT_UNSPECIFIED;
+        case 1: return LOG_EXPORT_FORMAT_TEXT;
+        case 2: return LOG_EXPORT_FORMAT_NDJSON;
+        case 3: return LOG_EXPORT_FORMAT_CSV;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<LogExportFormat>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        LogExportFormat> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<LogExportFormat>() {
+            public LogExportFormat findValueByNumber(int number) {
+              return LogExportFormat.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return ondewo.vtsi.LogsOuterClass.getDescriptor().getEnumTypes().get(5);
+    }
+
+    private static final LogExportFormat[] VALUES = values();
+
+    public static LogExportFormat valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private LogExportFormat(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ondewo.vtsi.LogExportFormat)
+  }
+
   public interface CallLogEntryOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ondewo.vtsi.CallLogEntry)
       com.google.protobuf.MessageOrBuilder {
@@ -1074,7 +1488,10 @@ public final class LogsOuterClass {
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * and for a caller&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string call = 13;</code>
@@ -1086,7 +1503,10 @@ public final class LogsOuterClass {
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * and for a caller&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string call = 13;</code>
@@ -1639,7 +2059,10 @@ public final class LogsOuterClass {
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * and for a caller&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string call = 13;</code>
@@ -1663,7 +2086,10 @@ public final class LogsOuterClass {
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * and for a caller&amp;apos;s call
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string call = 13;</code>
@@ -3471,7 +3897,10 @@ public final class LogsOuterClass {
        * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
        * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
        * time between calls belong to no call.
-       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * and for a caller&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string call = 13;</code>
@@ -3494,7 +3923,10 @@ public final class LogsOuterClass {
        * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
        * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
        * time between calls belong to no call.
-       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * and for a caller&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string call = 13;</code>
@@ -3518,7 +3950,10 @@ public final class LogsOuterClass {
        * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
        * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
        * time between calls belong to no call.
-       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * and for a caller&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string call = 13;</code>
@@ -3538,7 +3973,10 @@ public final class LogsOuterClass {
        * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
        * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
        * time between calls belong to no call.
-       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * and for a caller&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string call = 13;</code>
@@ -3555,7 +3993,10 @@ public final class LogsOuterClass {
        * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
        * call, which is normal and useful: a persistent listener&amp;apos;s container start-up and its idle
        * time between calls belong to no call.
-       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * The format is the &lt;code&gt;Call.name&lt;/code&gt; of the call, for a listener&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * and for a caller&amp;apos;s call
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;/calls/&amp;lt;call_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string call = 13;</code>
@@ -4929,125 +5370,165 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @return A list containing the sipPorts.
      */
-    java.util.List<java.lang.String>
+    @java.lang.Deprecated java.util.List<java.lang.String>
         getSipPortsList();
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @return The count of sipPorts.
      */
-    int getSipPortsCount();
+    @java.lang.Deprecated int getSipPortsCount();
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @param index The index of the element to return.
      * @return The sipPorts at the given index.
      */
-    java.lang.String getSipPorts(int index);
+    @java.lang.Deprecated java.lang.String getSipPorts(int index);
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @param index The index of the value to return.
      * @return The bytes of the sipPorts at the given index.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getSipPortsBytes(int index);
 
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @return A list containing the csiPorts.
      */
-    java.util.List<java.lang.String>
+    @java.lang.Deprecated java.util.List<java.lang.String>
         getCsiPortsList();
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @return The count of csiPorts.
      */
-    int getCsiPortsCount();
+    @java.lang.Deprecated int getCsiPortsCount();
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @param index The index of the element to return.
      * @return The csiPorts at the given index.
      */
-    java.lang.String getCsiPorts(int index);
+    @java.lang.Deprecated java.lang.String getCsiPorts(int index);
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @param index The index of the value to return.
      * @return The bytes of the csiPorts at the given index.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getCsiPortsBytes(int index);
 
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @return A list containing the asteriskPorts.
      */
-    java.util.List<java.lang.String>
+    @java.lang.Deprecated java.util.List<java.lang.String>
         getAsteriskPortsList();
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @return The count of asteriskPorts.
      */
-    int getAsteriskPortsCount();
+    @java.lang.Deprecated int getAsteriskPortsCount();
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @param index The index of the element to return.
      * @return The asteriskPorts at the given index.
      */
-    java.lang.String getAsteriskPorts(int index);
+    @java.lang.Deprecated java.lang.String getAsteriskPorts(int index);
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @param index The index of the value to return.
      * @return The bytes of the asteriskPorts at the given index.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getAsteriskPortsBytes(int index);
 
     /**
@@ -5699,7 +6180,7 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -5708,7 +6189,7 @@ public final class LogsOuterClass {
     boolean hasStartTime();
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -5717,7 +6198,7 @@ public final class LogsOuterClass {
     com.google.protobuf.Timestamp getStartTime();
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -5726,7 +6207,9 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -5735,7 +6218,9 @@ public final class LogsOuterClass {
     boolean hasEndTime();
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -5744,12 +6229,113 @@ public final class LogsOuterClass {
     com.google.protobuf.Timestamp getEndTime();
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
      */
     com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder();
+
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @return A list containing the sipPortNumbers.
+     */
+    java.util.List<java.lang.Integer> getSipPortNumbersList();
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @return The count of sipPortNumbers.
+     */
+    int getSipPortNumbersCount();
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @param index The index of the element to return.
+     * @return The sipPortNumbers at the given index.
+     */
+    int getSipPortNumbers(int index);
+
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @return A list containing the csiPortNumbers.
+     */
+    java.util.List<java.lang.Integer> getCsiPortNumbersList();
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @return The count of csiPortNumbers.
+     */
+    int getCsiPortNumbersCount();
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @param index The index of the element to return.
+     * @return The csiPortNumbers at the given index.
+     */
+    int getCsiPortNumbers(int index);
+
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @return A list containing the asteriskPortNumbers.
+     */
+    java.util.List<java.lang.Integer> getAsteriskPortNumbersList();
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @return The count of asteriskPortNumbers.
+     */
+    int getAsteriskPortNumbersCount();
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @param index The index of the element to return.
+     * @return The asteriskPortNumbers at the given index.
+     */
+    int getAsteriskPortNumbers(int index);
   }
   /**
    * <pre>
@@ -5830,6 +6416,9 @@ public final class LogsOuterClass {
           com.google.protobuf.LazyStringArrayList.emptyList();
       threadNames_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
+      sipPortNumbers_ = emptyIntList();
+      csiPortNumbers_ = emptyIntList();
+      asteriskPortNumbers_ = emptyIntList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -6390,49 +6979,65 @@ public final class LogsOuterClass {
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @return A list containing the sipPorts.
      */
-    public com.google.protobuf.ProtocolStringList
+    @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getSipPortsList() {
       return sipPorts_;
     }
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @return The count of sipPorts.
      */
-    public int getSipPortsCount() {
+    @java.lang.Deprecated public int getSipPortsCount() {
       return sipPorts_.size();
     }
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @param index The index of the element to return.
      * @return The sipPorts at the given index.
      */
-    public java.lang.String getSipPorts(int index) {
+    @java.lang.Deprecated public java.lang.String getSipPorts(int index) {
       return sipPorts_.get(index);
     }
     /**
      * <pre>
-     * SIP ports of the per-call container.
+     * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
      * </pre>
      *
-     * <code>repeated string sip_ports = 11;</code>
+     * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=450
      * @param index The index of the value to return.
      * @return The bytes of the sipPorts at the given index.
      */
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getSipPortsBytes(int index) {
       return sipPorts_.getByteString(index);
     }
@@ -6443,49 +7048,61 @@ public final class LogsOuterClass {
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @return A list containing the csiPorts.
      */
-    public com.google.protobuf.ProtocolStringList
+    @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getCsiPortsList() {
       return csiPorts_;
     }
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @return The count of csiPorts.
      */
-    public int getCsiPortsCount() {
+    @java.lang.Deprecated public int getCsiPortsCount() {
       return csiPorts_.size();
     }
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @param index The index of the element to return.
      * @return The csiPorts at the given index.
      */
-    public java.lang.String getCsiPorts(int index) {
+    @java.lang.Deprecated public java.lang.String getCsiPorts(int index) {
       return csiPorts_.get(index);
     }
     /**
      * <pre>
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string csi_ports = 12;</code>
+     * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=454
      * @param index The index of the value to return.
      * @return The bytes of the csiPorts at the given index.
      */
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getCsiPortsBytes(int index) {
       return csiPorts_.getByteString(index);
     }
@@ -6496,49 +7113,61 @@ public final class LogsOuterClass {
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @return A list containing the asteriskPorts.
      */
-    public com.google.protobuf.ProtocolStringList
+    @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getAsteriskPortsList() {
       return asteriskPorts_;
     }
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @return The count of asteriskPorts.
      */
-    public int getAsteriskPortsCount() {
+    @java.lang.Deprecated public int getAsteriskPortsCount() {
       return asteriskPorts_.size();
     }
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @param index The index of the element to return.
      * @return The asteriskPorts at the given index.
      */
-    public java.lang.String getAsteriskPorts(int index) {
+    @java.lang.Deprecated public java.lang.String getAsteriskPorts(int index) {
       return asteriskPorts_.get(index);
     }
     /**
      * <pre>
-     * Asterisk ports of the project.
+     * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+     * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
      * </pre>
      *
-     * <code>repeated string asterisk_ports = 13;</code>
+     * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+     *     See ondewo/vtsi/logs.proto;l=458
      * @param index The index of the value to return.
      * @return The bytes of the asteriskPorts at the given index.
      */
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getAsteriskPortsBytes(int index) {
       return asteriskPorts_.getByteString(index);
     }
@@ -7490,7 +8119,7 @@ public final class LogsOuterClass {
     private com.google.protobuf.Timestamp startTime_;
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -7502,7 +8131,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -7514,7 +8143,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -7528,7 +8157,9 @@ public final class LogsOuterClass {
     private com.google.protobuf.Timestamp endTime_;
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -7540,7 +8171,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -7552,7 +8185,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+     * (equal instants select the entries of exactly that instant).
      * </pre>
      *
      * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -7561,6 +8196,144 @@ public final class LogsOuterClass {
     public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
       return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
     }
+
+    public static final int SIP_PORT_NUMBERS_FIELD_NUMBER = 32;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList sipPortNumbers_ =
+        emptyIntList();
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @return A list containing the sipPortNumbers.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getSipPortNumbersList() {
+      return sipPortNumbers_;
+    }
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @return The count of sipPortNumbers.
+     */
+    public int getSipPortNumbersCount() {
+      return sipPortNumbers_.size();
+    }
+    /**
+     * <pre>
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated int32 sip_port_numbers = 32;</code>
+     * @param index The index of the element to return.
+     * @return The sipPortNumbers at the given index.
+     */
+    public int getSipPortNumbers(int index) {
+      return sipPortNumbers_.getInt(index);
+    }
+    private int sipPortNumbersMemoizedSerializedSize = -1;
+
+    public static final int CSI_PORT_NUMBERS_FIELD_NUMBER = 33;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList csiPortNumbers_ =
+        emptyIntList();
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @return A list containing the csiPortNumbers.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getCsiPortNumbersList() {
+      return csiPortNumbers_;
+    }
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @return The count of csiPortNumbers.
+     */
+    public int getCsiPortNumbersCount() {
+      return csiPortNumbers_.size();
+    }
+    /**
+     * <pre>
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 csi_port_numbers = 33;</code>
+     * @param index The index of the element to return.
+     * @return The csiPortNumbers at the given index.
+     */
+    public int getCsiPortNumbers(int index) {
+      return csiPortNumbers_.getInt(index);
+    }
+    private int csiPortNumbersMemoizedSerializedSize = -1;
+
+    public static final int ASTERISK_PORT_NUMBERS_FIELD_NUMBER = 34;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList asteriskPortNumbers_ =
+        emptyIntList();
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @return A list containing the asteriskPortNumbers.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getAsteriskPortNumbersList() {
+      return asteriskPortNumbers_;
+    }
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @return The count of asteriskPortNumbers.
+     */
+    public int getAsteriskPortNumbersCount() {
+      return asteriskPortNumbers_.size();
+    }
+    /**
+     * <pre>
+     * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+     * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+     * </pre>
+     *
+     * <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @param index The index of the element to return.
+     * @return The asteriskPortNumbers at the given index.
+     */
+    public int getAsteriskPortNumbers(int index) {
+      return asteriskPortNumbers_.getInt(index);
+    }
+    private int asteriskPortNumbersMemoizedSerializedSize = -1;
 
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
@@ -7685,6 +8458,27 @@ public final class LogsOuterClass {
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         output.writeMessage(31, getEndTime());
+      }
+      if (getSipPortNumbersList().size() > 0) {
+        output.writeUInt32NoTag(258);
+        output.writeUInt32NoTag(sipPortNumbersMemoizedSerializedSize);
+      }
+      for (int i = 0; i < sipPortNumbers_.size(); i++) {
+        output.writeInt32NoTag(sipPortNumbers_.getInt(i));
+      }
+      if (getCsiPortNumbersList().size() > 0) {
+        output.writeUInt32NoTag(266);
+        output.writeUInt32NoTag(csiPortNumbersMemoizedSerializedSize);
+      }
+      for (int i = 0; i < csiPortNumbers_.size(); i++) {
+        output.writeInt32NoTag(csiPortNumbers_.getInt(i));
+      }
+      if (getAsteriskPortNumbersList().size() > 0) {
+        output.writeUInt32NoTag(274);
+        output.writeUInt32NoTag(asteriskPortNumbersMemoizedSerializedSize);
+      }
+      for (int i = 0; i < asteriskPortNumbers_.size(); i++) {
+        output.writeInt32NoTag(asteriskPortNumbers_.getInt(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -7929,6 +8723,48 @@ public final class LogsOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(31, getEndTime());
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < sipPortNumbers_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(sipPortNumbers_.getInt(i));
+        }
+        size += dataSize;
+        if (!getSipPortNumbersList().isEmpty()) {
+          size += 2;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        sipPortNumbersMemoizedSerializedSize = dataSize;
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < csiPortNumbers_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(csiPortNumbers_.getInt(i));
+        }
+        size += dataSize;
+        if (!getCsiPortNumbersList().isEmpty()) {
+          size += 2;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        csiPortNumbersMemoizedSerializedSize = dataSize;
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < asteriskPortNumbers_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(asteriskPortNumbers_.getInt(i));
+        }
+        size += dataSize;
+        if (!getAsteriskPortNumbersList().isEmpty()) {
+          size += 2;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        asteriskPortNumbersMemoizedSerializedSize = dataSize;
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -8016,6 +8852,12 @@ public final class LogsOuterClass {
         if (!getEndTime()
             .equals(other.getEndTime())) return false;
       }
+      if (!getSipPortNumbersList()
+          .equals(other.getSipPortNumbersList())) return false;
+      if (!getCsiPortNumbersList()
+          .equals(other.getCsiPortNumbersList())) return false;
+      if (!getAsteriskPortNumbersList()
+          .equals(other.getAsteriskPortNumbersList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -8149,6 +8991,18 @@ public final class LogsOuterClass {
       if (hasEndTime()) {
         hash = (37 * hash) + END_TIME_FIELD_NUMBER;
         hash = (53 * hash) + getEndTime().hashCode();
+      }
+      if (getSipPortNumbersCount() > 0) {
+        hash = (37 * hash) + SIP_PORT_NUMBERS_FIELD_NUMBER;
+        hash = (53 * hash) + getSipPortNumbersList().hashCode();
+      }
+      if (getCsiPortNumbersCount() > 0) {
+        hash = (37 * hash) + CSI_PORT_NUMBERS_FIELD_NUMBER;
+        hash = (53 * hash) + getCsiPortNumbersList().hashCode();
+      }
+      if (getAsteriskPortNumbersCount() > 0) {
+        hash = (37 * hash) + ASTERISK_PORT_NUMBERS_FIELD_NUMBER;
+        hash = (53 * hash) + getAsteriskPortNumbersList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -8298,6 +9152,7 @@ public final class LogsOuterClass {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        bitField1_ = 0;
         callNames_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
         callerNames_ =
@@ -8363,6 +9218,9 @@ public final class LogsOuterClass {
           endTimeBuilder_.dispose();
           endTimeBuilder_ = null;
         }
+        sipPortNumbers_ = emptyIntList();
+        csiPortNumbers_ = emptyIntList();
+        asteriskPortNumbers_ = emptyIntList();
         return this;
       }
 
@@ -8391,6 +9249,7 @@ public final class LogsOuterClass {
         ondewo.vtsi.LogsOuterClass.CallLogFilter result = new ondewo.vtsi.LogsOuterClass.CallLogFilter(this);
         buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
+        if (bitField1_ != 0) { buildPartial1(result); }
         onBuilt();
         return result;
       }
@@ -8533,7 +9392,23 @@ public final class LogsOuterClass {
               : endTimeBuilder_.build();
           to_bitField0_ |= 0x00000010;
         }
+        if (((from_bitField0_ & 0x80000000) != 0)) {
+          sipPortNumbers_.makeImmutable();
+          result.sipPortNumbers_ = sipPortNumbers_;
+        }
         result.bitField0_ |= to_bitField0_;
+      }
+
+      private void buildPartial1(ondewo.vtsi.LogsOuterClass.CallLogFilter result) {
+        int from_bitField1_ = bitField1_;
+        if (((from_bitField1_ & 0x00000001) != 0)) {
+          csiPortNumbers_.makeImmutable();
+          result.csiPortNumbers_ = csiPortNumbers_;
+        }
+        if (((from_bitField1_ & 0x00000002) != 0)) {
+          asteriskPortNumbers_.makeImmutable();
+          result.asteriskPortNumbers_ = asteriskPortNumbers_;
+        }
       }
 
       @java.lang.Override
@@ -8840,6 +9715,39 @@ public final class LogsOuterClass {
         if (other.hasEndTime()) {
           mergeEndTime(other.getEndTime());
         }
+        if (!other.sipPortNumbers_.isEmpty()) {
+          if (sipPortNumbers_.isEmpty()) {
+            sipPortNumbers_ = other.sipPortNumbers_;
+            sipPortNumbers_.makeImmutable();
+            bitField0_ |= 0x80000000;
+          } else {
+            ensureSipPortNumbersIsMutable();
+            sipPortNumbers_.addAll(other.sipPortNumbers_);
+          }
+          onChanged();
+        }
+        if (!other.csiPortNumbers_.isEmpty()) {
+          if (csiPortNumbers_.isEmpty()) {
+            csiPortNumbers_ = other.csiPortNumbers_;
+            csiPortNumbers_.makeImmutable();
+            bitField1_ |= 0x00000001;
+          } else {
+            ensureCsiPortNumbersIsMutable();
+            csiPortNumbers_.addAll(other.csiPortNumbers_);
+          }
+          onChanged();
+        }
+        if (!other.asteriskPortNumbers_.isEmpty()) {
+          if (asteriskPortNumbers_.isEmpty()) {
+            asteriskPortNumbers_ = other.asteriskPortNumbers_;
+            asteriskPortNumbers_.makeImmutable();
+            bitField1_ |= 0x00000002;
+          } else {
+            ensureAsteriskPortNumbersIsMutable();
+            asteriskPortNumbers_.addAll(other.asteriskPortNumbers_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -9097,6 +10005,54 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x40000000;
                 break;
               } // case 250
+              case 256: {
+                int v = input.readInt32();
+                ensureSipPortNumbersIsMutable();
+                sipPortNumbers_.addInt(v);
+                break;
+              } // case 256
+              case 258: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureSipPortNumbersIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  sipPortNumbers_.addInt(input.readInt32());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 258
+              case 264: {
+                int v = input.readInt32();
+                ensureCsiPortNumbersIsMutable();
+                csiPortNumbers_.addInt(v);
+                break;
+              } // case 264
+              case 266: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureCsiPortNumbersIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  csiPortNumbers_.addInt(input.readInt32());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 266
+              case 272: {
+                int v = input.readInt32();
+                ensureAsteriskPortNumbersIsMutable();
+                asteriskPortNumbers_.addInt(v);
+                break;
+              } // case 272
+              case 274: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureAsteriskPortNumbersIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  asteriskPortNumbers_.addInt(input.readInt32());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 274
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -9113,6 +10069,7 @@ public final class LogsOuterClass {
         return this;
       }
       private int bitField0_;
+      private int bitField1_;
 
       private com.google.protobuf.LazyStringArrayList callNames_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
@@ -10612,64 +11569,84 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @return A list containing the sipPorts.
        */
-      public com.google.protobuf.ProtocolStringList
+      @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getSipPortsList() {
         sipPorts_.makeImmutable();
         return sipPorts_;
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @return The count of sipPorts.
        */
-      public int getSipPortsCount() {
+      @java.lang.Deprecated public int getSipPortsCount() {
         return sipPorts_.size();
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param index The index of the element to return.
        * @return The sipPorts at the given index.
        */
-      public java.lang.String getSipPorts(int index) {
+      @java.lang.Deprecated public java.lang.String getSipPorts(int index) {
         return sipPorts_.get(index);
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param index The index of the value to return.
        * @return The bytes of the sipPorts at the given index.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getSipPortsBytes(int index) {
         return sipPorts_.getByteString(index);
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param index The index to set the value at.
        * @param value The sipPorts to set.
        * @return This builder for chaining.
        */
-      public Builder setSipPorts(
+      @java.lang.Deprecated public Builder setSipPorts(
           int index, java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureSipPortsIsMutable();
@@ -10680,14 +11657,18 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param value The sipPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addSipPorts(
+      @java.lang.Deprecated public Builder addSipPorts(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureSipPortsIsMutable();
@@ -10698,14 +11679,18 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param values The sipPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addAllSipPorts(
+      @java.lang.Deprecated public Builder addAllSipPorts(
           java.lang.Iterable<java.lang.String> values) {
         ensureSipPortsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10716,13 +11701,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @return This builder for chaining.
        */
-      public Builder clearSipPorts() {
+      @java.lang.Deprecated public Builder clearSipPorts() {
         sipPorts_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
         bitField0_ = (bitField0_ & ~0x00000400);;
@@ -10731,14 +11720,18 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * SIP ports of the per-call container.
+       * Deprecated: use &lt;code&gt;sip_port_numbers&lt;/code&gt;. SIP ports of the per-call container, as decimal
+       * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+       * parses the filter matches nothing. Combined with &lt;code&gt;sip_port_numbers&lt;/code&gt; by OR.
        * </pre>
        *
-       * <code>repeated string sip_ports = 11;</code>
+       * <code>repeated string sip_ports = 11 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.sip_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=450
        * @param value The bytes of the sipPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addSipPortsBytes(
+      @java.lang.Deprecated public Builder addSipPortsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -10759,64 +11752,79 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @return A list containing the csiPorts.
        */
-      public com.google.protobuf.ProtocolStringList
+      @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getCsiPortsList() {
         csiPorts_.makeImmutable();
         return csiPorts_;
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @return The count of csiPorts.
        */
-      public int getCsiPortsCount() {
+      @java.lang.Deprecated public int getCsiPortsCount() {
         return csiPorts_.size();
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param index The index of the element to return.
        * @return The csiPorts at the given index.
        */
-      public java.lang.String getCsiPorts(int index) {
+      @java.lang.Deprecated public java.lang.String getCsiPorts(int index) {
         return csiPorts_.get(index);
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param index The index of the value to return.
        * @return The bytes of the csiPorts at the given index.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getCsiPortsBytes(int index) {
         return csiPorts_.getByteString(index);
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param index The index to set the value at.
        * @param value The csiPorts to set.
        * @return This builder for chaining.
        */
-      public Builder setCsiPorts(
+      @java.lang.Deprecated public Builder setCsiPorts(
           int index, java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureCsiPortsIsMutable();
@@ -10827,14 +11835,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param value The csiPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addCsiPorts(
+      @java.lang.Deprecated public Builder addCsiPorts(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureCsiPortsIsMutable();
@@ -10845,14 +11856,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param values The csiPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addAllCsiPorts(
+      @java.lang.Deprecated public Builder addAllCsiPorts(
           java.lang.Iterable<java.lang.String> values) {
         ensureCsiPortsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -10863,13 +11877,16 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @return This builder for chaining.
        */
-      public Builder clearCsiPorts() {
+      @java.lang.Deprecated public Builder clearCsiPorts() {
         csiPorts_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
         bitField0_ = (bitField0_ & ~0x00000800);;
@@ -10878,14 +11895,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * ONDEWO CSI ports of the per-call container.
+       * Deprecated: use &lt;code&gt;csi_port_numbers&lt;/code&gt;. ONDEWO CSI ports of the per-call container, as
+       * decimal strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string csi_ports = 12;</code>
+       * <code>repeated string csi_ports = 12 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.csi_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=454
        * @param value The bytes of the csiPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addCsiPortsBytes(
+      @java.lang.Deprecated public Builder addCsiPortsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -10906,64 +11926,79 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @return A list containing the asteriskPorts.
        */
-      public com.google.protobuf.ProtocolStringList
+      @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getAsteriskPortsList() {
         asteriskPorts_.makeImmutable();
         return asteriskPorts_;
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @return The count of asteriskPorts.
        */
-      public int getAsteriskPortsCount() {
+      @java.lang.Deprecated public int getAsteriskPortsCount() {
         return asteriskPorts_.size();
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param index The index of the element to return.
        * @return The asteriskPorts at the given index.
        */
-      public java.lang.String getAsteriskPorts(int index) {
+      @java.lang.Deprecated public java.lang.String getAsteriskPorts(int index) {
         return asteriskPorts_.get(index);
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param index The index of the value to return.
        * @return The bytes of the asteriskPorts at the given index.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getAsteriskPortsBytes(int index) {
         return asteriskPorts_.getByteString(index);
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param index The index to set the value at.
        * @param value The asteriskPorts to set.
        * @return This builder for chaining.
        */
-      public Builder setAsteriskPorts(
+      @java.lang.Deprecated public Builder setAsteriskPorts(
           int index, java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureAsteriskPortsIsMutable();
@@ -10974,14 +12009,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param value The asteriskPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addAsteriskPorts(
+      @java.lang.Deprecated public Builder addAsteriskPorts(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureAsteriskPortsIsMutable();
@@ -10992,14 +12030,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param values The asteriskPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addAllAsteriskPorts(
+      @java.lang.Deprecated public Builder addAllAsteriskPorts(
           java.lang.Iterable<java.lang.String> values) {
         ensureAsteriskPortsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -11010,13 +12051,16 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @return This builder for chaining.
        */
-      public Builder clearAsteriskPorts() {
+      @java.lang.Deprecated public Builder clearAsteriskPorts() {
         asteriskPorts_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
         bitField0_ = (bitField0_ & ~0x00001000);;
@@ -11025,14 +12069,17 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Asterisk ports of the project.
+       * Deprecated: use &lt;code&gt;asterisk_port_numbers&lt;/code&gt;. Asterisk ports of the project, as decimal
+       * strings, parsed like &lt;code&gt;sip_ports&lt;/code&gt;.
        * </pre>
        *
-       * <code>repeated string asterisk_ports = 13;</code>
+       * <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CallLogFilter.asterisk_ports is deprecated.
+       *     See ondewo/vtsi/logs.proto;l=458
        * @param value The bytes of the asteriskPorts to add.
        * @return This builder for chaining.
        */
-      public Builder addAsteriskPortsBytes(
+      @java.lang.Deprecated public Builder addAsteriskPortsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -13511,7 +14558,7 @@ public final class LogsOuterClass {
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startTimeBuilder_;
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13522,7 +14569,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13537,7 +14584,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13557,7 +14604,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13575,7 +14622,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13600,7 +14647,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13617,7 +14664,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13629,7 +14676,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13644,7 +14691,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or after this instant.
+       * Only return entries at or after this instant. A zero timestamp counts as unset.
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp start_time = 30;</code>
@@ -13668,7 +14715,9 @@ public final class LogsOuterClass {
           com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> endTimeBuilder_;
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13679,7 +14728,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13694,7 +14745,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13714,7 +14767,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13732,7 +14787,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13757,7 +14814,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13774,7 +14833,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13786,7 +14847,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13801,7 +14864,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Only return entries at or before this instant.
+       * Only return entries at or before this instant. A zero timestamp counts as unset. A
+       * &lt;code&gt;start_time&lt;/code&gt; after &lt;code&gt;end_time&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
+       * (equal instants select the entries of exactly that instant).
        * </pre>
        *
        * <code>optional .google.protobuf.Timestamp end_time = 31;</code>
@@ -13818,6 +14883,370 @@ public final class LogsOuterClass {
           endTime_ = null;
         }
         return endTimeBuilder_;
+      }
+
+      private com.google.protobuf.Internal.IntList sipPortNumbers_ = emptyIntList();
+      private void ensureSipPortNumbersIsMutable() {
+        if (!sipPortNumbers_.isModifiable()) {
+          sipPortNumbers_ = makeMutableCopy(sipPortNumbers_);
+        }
+        bitField0_ |= 0x80000000;
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @return A list containing the sipPortNumbers.
+       */
+      public java.util.List<java.lang.Integer>
+          getSipPortNumbersList() {
+        sipPortNumbers_.makeImmutable();
+        return sipPortNumbers_;
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @return The count of sipPortNumbers.
+       */
+      public int getSipPortNumbersCount() {
+        return sipPortNumbers_.size();
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @param index The index of the element to return.
+       * @return The sipPortNumbers at the given index.
+       */
+      public int getSipPortNumbers(int index) {
+        return sipPortNumbers_.getInt(index);
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @param index The index to set the value at.
+       * @param value The sipPortNumbers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSipPortNumbers(
+          int index, int value) {
+
+        ensureSipPortNumbersIsMutable();
+        sipPortNumbers_.setInt(index, value);
+        bitField0_ |= 0x80000000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @param value The sipPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSipPortNumbers(int value) {
+
+        ensureSipPortNumbersIsMutable();
+        sipPortNumbers_.addInt(value);
+        bitField0_ |= 0x80000000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @param values The sipPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSipPortNumbers(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSipPortNumbersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, sipPortNumbers_);
+        bitField0_ |= 0x80000000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+       * &lt;code&gt;sip_ports&lt;/code&gt;, with which it is combined by OR. A value outside 1..65535 is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated int32 sip_port_numbers = 32;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSipPortNumbers() {
+        sipPortNumbers_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x80000000);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList csiPortNumbers_ = emptyIntList();
+      private void ensureCsiPortNumbersIsMutable() {
+        if (!csiPortNumbers_.isModifiable()) {
+          csiPortNumbers_ = makeMutableCopy(csiPortNumbers_);
+        }
+        bitField1_ |= 0x00000001;
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @return A list containing the csiPortNumbers.
+       */
+      public java.util.List<java.lang.Integer>
+          getCsiPortNumbersList() {
+        csiPortNumbers_.makeImmutable();
+        return csiPortNumbers_;
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @return The count of csiPortNumbers.
+       */
+      public int getCsiPortNumbersCount() {
+        return csiPortNumbers_.size();
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @param index The index of the element to return.
+       * @return The csiPortNumbers at the given index.
+       */
+      public int getCsiPortNumbers(int index) {
+        return csiPortNumbers_.getInt(index);
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @param index The index to set the value at.
+       * @param value The csiPortNumbers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCsiPortNumbers(
+          int index, int value) {
+
+        ensureCsiPortNumbersIsMutable();
+        csiPortNumbers_.setInt(index, value);
+        bitField1_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @param value The csiPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCsiPortNumbers(int value) {
+
+        ensureCsiPortNumbersIsMutable();
+        csiPortNumbers_.addInt(value);
+        bitField1_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @param values The csiPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllCsiPortNumbers(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureCsiPortNumbersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, csiPortNumbers_);
+        bitField1_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+       * &lt;code&gt;sip_port_numbers&lt;/code&gt;; combined with the deprecated &lt;code&gt;csi_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 csi_port_numbers = 33;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCsiPortNumbers() {
+        csiPortNumbers_ = emptyIntList();
+        bitField1_ = (bitField1_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList asteriskPortNumbers_ = emptyIntList();
+      private void ensureAsteriskPortNumbersIsMutable() {
+        if (!asteriskPortNumbers_.isModifiable()) {
+          asteriskPortNumbers_ = makeMutableCopy(asteriskPortNumbers_);
+        }
+        bitField1_ |= 0x00000002;
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @return A list containing the asteriskPortNumbers.
+       */
+      public java.util.List<java.lang.Integer>
+          getAsteriskPortNumbersList() {
+        asteriskPortNumbers_.makeImmutable();
+        return asteriskPortNumbers_;
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @return The count of asteriskPortNumbers.
+       */
+      public int getAsteriskPortNumbersCount() {
+        return asteriskPortNumbers_.size();
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @param index The index of the element to return.
+       * @return The asteriskPortNumbers at the given index.
+       */
+      public int getAsteriskPortNumbers(int index) {
+        return asteriskPortNumbers_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @param index The index to set the value at.
+       * @param value The asteriskPortNumbers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAsteriskPortNumbers(
+          int index, int value) {
+
+        ensureAsteriskPortNumbersIsMutable();
+        asteriskPortNumbers_.setInt(index, value);
+        bitField1_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @param value The asteriskPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAsteriskPortNumbers(int value) {
+
+        ensureAsteriskPortNumbersIsMutable();
+        asteriskPortNumbers_.addInt(value);
+        bitField1_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @param values The asteriskPortNumbers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllAsteriskPortNumbers(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureAsteriskPortNumbersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, asteriskPortNumbers_);
+        bitField1_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Asterisk ports of the project (1..65535). Identity filter, like &lt;code&gt;sip_port_numbers&lt;/code&gt;;
+       * combined with the deprecated &lt;code&gt;asterisk_ports&lt;/code&gt; by OR.
+       * </pre>
+       *
+       * <code>repeated int32 asterisk_port_numbers = 34;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAsteriskPortNumbers() {
+        asteriskPortNumbers_ = emptyIntList();
+        bitField1_ = (bitField1_ & ~0x00000002);
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.CallLogFilter)
@@ -13958,7 +15387,7 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
      * </pre>
      *
      * <code>string project_id = 5;</code>
@@ -13967,7 +15396,7 @@ public final class LogsOuterClass {
     java.lang.String getProjectId();
     /**
      * <pre>
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
      * </pre>
      *
      * <code>string project_id = 5;</code>
@@ -13978,7 +15407,11 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+     * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
      * </pre>
      *
      * <code>string voip_call_name = 6;</code>
@@ -13987,7 +15420,11 @@ public final class LogsOuterClass {
     java.lang.String getVoipCallName();
     /**
      * <pre>
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+     * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
      * </pre>
      *
      * <code>string voip_call_name = 6;</code>
@@ -14236,6 +15673,30 @@ public final class LogsOuterClass {
      * @return The droppedLineCount.
      */
     long getDroppedLineCount();
+
+    /**
+     * <pre>
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * &lt;code&gt;project_id&lt;/code&gt;.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 22;</code>
+     * @return The vtsiProjectName.
+     */
+    java.lang.String getVtsiProjectName();
+    /**
+     * <pre>
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * &lt;code&gt;project_id&lt;/code&gt;.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 22;</code>
+     * @return The bytes for vtsiProjectName.
+     */
+    com.google.protobuf.ByteString
+        getVtsiProjectNameBytes();
   }
   /**
    * <pre>
@@ -14276,6 +15737,7 @@ public final class LogsOuterClass {
       image_ = "";
       captureState_ = 0;
       captureError_ = "";
+      vtsiProjectName_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -14466,7 +15928,7 @@ public final class LogsOuterClass {
     private volatile java.lang.Object projectId_ = "";
     /**
      * <pre>
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
      * </pre>
      *
      * <code>string project_id = 5;</code>
@@ -14487,7 +15949,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
      * </pre>
      *
      * <code>string project_id = 5;</code>
@@ -14513,7 +15975,11 @@ public final class LogsOuterClass {
     private volatile java.lang.Object voipCallName_ = "";
     /**
      * <pre>
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+     * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
      * </pre>
      *
      * <code>string voip_call_name = 6;</code>
@@ -14534,7 +16000,11 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+     * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+     * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
      * </pre>
      *
      * <code>string voip_call_name = 6;</code>
@@ -14953,6 +16423,57 @@ public final class LogsOuterClass {
       return droppedLineCount_;
     }
 
+    public static final int VTSI_PROJECT_NAME_FIELD_NUMBER = 22;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object vtsiProjectName_ = "";
+    /**
+     * <pre>
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * &lt;code&gt;project_id&lt;/code&gt;.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 22;</code>
+     * @return The vtsiProjectName.
+     */
+    @java.lang.Override
+    public java.lang.String getVtsiProjectName() {
+      java.lang.Object ref = vtsiProjectName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        vtsiProjectName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * &lt;code&gt;project_id&lt;/code&gt;.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 22;</code>
+     * @return The bytes for vtsiProjectName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVtsiProjectNameBytes() {
+      java.lang.Object ref = vtsiProjectName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        vtsiProjectName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15029,6 +16550,9 @@ public final class LogsOuterClass {
       }
       if (droppedLineCount_ != 0L) {
         output.writeInt64(21, droppedLineCount_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(vtsiProjectName_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 22, vtsiProjectName_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -15115,6 +16639,9 @@ public final class LogsOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(21, droppedLineCount_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(vtsiProjectName_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(22, vtsiProjectName_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -15175,6 +16702,8 @@ public final class LogsOuterClass {
           != other.getLineCount()) return false;
       if (getDroppedLineCount()
           != other.getDroppedLineCount()) return false;
+      if (!getVtsiProjectName()
+          .equals(other.getVtsiProjectName())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -15237,6 +16766,8 @@ public final class LogsOuterClass {
       hash = (37 * hash) + DROPPED_LINE_COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getDroppedLineCount());
+      hash = (37 * hash) + VTSI_PROJECT_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getVtsiProjectName().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15410,6 +16941,7 @@ public final class LogsOuterClass {
         maxAvailableSeq_ = 0L;
         lineCount_ = 0L;
         droppedLineCount_ = 0L;
+        vtsiProjectName_ = "";
         return this;
       }
 
@@ -15513,6 +17045,9 @@ public final class LogsOuterClass {
         if (((from_bitField0_ & 0x00100000) != 0)) {
           result.droppedLineCount_ = droppedLineCount_;
         }
+        if (((from_bitField0_ & 0x00200000) != 0)) {
+          result.vtsiProjectName_ = vtsiProjectName_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -15606,6 +17141,11 @@ public final class LogsOuterClass {
         }
         if (other.getDroppedLineCount() != 0L) {
           setDroppedLineCount(other.getDroppedLineCount());
+        }
+        if (!other.getVtsiProjectName().isEmpty()) {
+          vtsiProjectName_ = other.vtsiProjectName_;
+          bitField0_ |= 0x00200000;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -15742,6 +17282,11 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00100000;
                 break;
               } // case 168
+              case 178: {
+                vtsiProjectName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00200000;
+                break;
+              } // case 178
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -16114,7 +17659,7 @@ public final class LogsOuterClass {
       private java.lang.Object projectId_ = "";
       /**
        * <pre>
-       * Uuid of the VTSI project owning the container.
+       * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
        * </pre>
        *
        * <code>string project_id = 5;</code>
@@ -16134,7 +17679,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Uuid of the VTSI project owning the container.
+       * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
        * </pre>
        *
        * <code>string project_id = 5;</code>
@@ -16155,7 +17700,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Uuid of the VTSI project owning the container.
+       * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
        * </pre>
        *
        * <code>string project_id = 5;</code>
@@ -16172,7 +17717,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Uuid of the VTSI project owning the container.
+       * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
        * </pre>
        *
        * <code>string project_id = 5;</code>
@@ -16186,7 +17731,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Uuid of the VTSI project owning the container.
+       * Uuid of the VTSI project owning the container. See also &lt;code&gt;vtsi_project_name&lt;/code&gt;.
        * </pre>
        *
        * <code>string project_id = 5;</code>
@@ -16206,7 +17751,11 @@ public final class LogsOuterClass {
       private java.lang.Object voipCallName_ = "";
       /**
        * <pre>
-       * Resource name of the caller or listener the container serves.
+       * Resource name of the caller, listener or scheduled caller the container serves:
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+       * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
        * </pre>
        *
        * <code>string voip_call_name = 6;</code>
@@ -16226,7 +17775,11 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Resource name of the caller or listener the container serves.
+       * Resource name of the caller, listener or scheduled caller the container serves:
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+       * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
        * </pre>
        *
        * <code>string voip_call_name = 6;</code>
@@ -16247,7 +17800,11 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Resource name of the caller or listener the container serves.
+       * Resource name of the caller, listener or scheduled caller the container serves:
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+       * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
        * </pre>
        *
        * <code>string voip_call_name = 6;</code>
@@ -16264,7 +17821,11 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Resource name of the caller or listener the container serves.
+       * Resource name of the caller, listener or scheduled caller the container serves:
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+       * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
        * </pre>
        *
        * <code>string voip_call_name = 6;</code>
@@ -16278,7 +17839,11 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Resource name of the caller or listener the container serves.
+       * Resource name of the caller, listener or scheduled caller the container serves:
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/callers/&amp;lt;caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;,
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/listeners/&amp;lt;listener_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt; or
+       * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/scheduled_callers/&amp;lt;scheduled_caller_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;.
+       * Empty for a container that serves none (e.g. the project&amp;apos;s Asterisk).
        * </pre>
        *
        * <code>string voip_call_name = 6;</code>
@@ -17406,6 +18971,108 @@ public final class LogsOuterClass {
         return this;
       }
 
+      private java.lang.Object vtsiProjectName_ = "";
+      /**
+       * <pre>
+       * Resource name of the VTSI project owning the container, the resource-name form of
+       * &lt;code&gt;project_id&lt;/code&gt;.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 22;</code>
+       * @return The vtsiProjectName.
+       */
+      public java.lang.String getVtsiProjectName() {
+        java.lang.Object ref = vtsiProjectName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          vtsiProjectName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the VTSI project owning the container, the resource-name form of
+       * &lt;code&gt;project_id&lt;/code&gt;.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 22;</code>
+       * @return The bytes for vtsiProjectName.
+       */
+      public com.google.protobuf.ByteString
+          getVtsiProjectNameBytes() {
+        java.lang.Object ref = vtsiProjectName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          vtsiProjectName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the VTSI project owning the container, the resource-name form of
+       * &lt;code&gt;project_id&lt;/code&gt;.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 22;</code>
+       * @param value The vtsiProjectName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVtsiProjectName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        vtsiProjectName_ = value;
+        bitField0_ |= 0x00200000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the VTSI project owning the container, the resource-name form of
+       * &lt;code&gt;project_id&lt;/code&gt;.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVtsiProjectName() {
+        vtsiProjectName_ = getDefaultInstance().getVtsiProjectName();
+        bitField0_ = (bitField0_ & ~0x00200000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the VTSI project owning the container, the resource-name form of
+       * &lt;code&gt;project_id&lt;/code&gt;.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 22;</code>
+       * @param value The bytes for vtsiProjectName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVtsiProjectNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        vtsiProjectName_ = value;
+        bitField0_ |= 0x00200000;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.CallLogStream)
     }
 
@@ -17519,7 +19186,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+     * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+     * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
      * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      * </pre>
@@ -17531,7 +19200,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+     * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+     * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
      * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      * </pre>
@@ -17745,7 +19416,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+     * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+     * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
      * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      * </pre>
@@ -17760,7 +19433,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+     * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+     * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+     * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
      * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      * </pre>
@@ -18581,7 +20256,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Replay at most this many of the most recent stored entries before switching to live follow.
-       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+       * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+       * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
        * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
        * matching entries rather than the matches within the last 100 entries.
        * </pre>
@@ -18596,7 +20273,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Replay at most this many of the most recent stored entries before switching to live follow.
-       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+       * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+       * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
        * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
        * matching entries rather than the matches within the last 100 entries.
        * </pre>
@@ -18611,7 +20290,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Replay at most this many of the most recent stored entries before switching to live follow.
-       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+       * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+       * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
        * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
        * matching entries rather than the matches within the last 100 entries.
        * </pre>
@@ -18630,7 +20311,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Replay at most this many of the most recent stored entries before switching to live follow.
-       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay. Applied to the
+       * &lt;code&gt;0&lt;/code&gt; (the default) starts the follow with no historical replay; a negative value is
+       * treated as &lt;code&gt;0&lt;/code&gt;; values above the server hard cap
+       * (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it. Applied to the
        * FILTERED result, so &lt;code&gt;tail_lines = 100&lt;/code&gt; with a severity floor returns up to 100
        * matching entries rather than the matches within the last 100 entries.
        * </pre>
@@ -18887,7 +20570,9 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -18896,7 +20581,9 @@ public final class LogsOuterClass {
         getLogEntriesList();
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -18904,7 +20591,9 @@ public final class LogsOuterClass {
     ondewo.vtsi.LogsOuterClass.CallLogEntry getLogEntries(int index);
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -18912,7 +20601,9 @@ public final class LogsOuterClass {
     int getLogEntriesCount();
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -18921,7 +20612,9 @@ public final class LogsOuterClass {
         getLogEntriesOrBuilderList();
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19008,7 +20701,8 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
      * </pre>
      *
      * <code>string end_reason = 6;</code>
@@ -19018,7 +20712,8 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
      * </pre>
      *
      * <code>string end_reason = 6;</code>
@@ -19026,6 +20721,27 @@ public final class LogsOuterClass {
      */
     com.google.protobuf.ByteString
         getEndReasonBytes();
+
+    /**
+     * <pre>
+     * Set on the final message when the stream was ended by the server, together with
+     * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @return The enum numeric value on the wire for endReasonCode.
+     */
+    int getEndReasonCodeValue();
+    /**
+     * <pre>
+     * Set on the final message when the stream was ended by the server, together with
+     * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @return The endReasonCode.
+     */
+    ondewo.vtsi.LogsOuterClass.LogStreamEndReason getEndReasonCode();
   }
   /**
    * <pre>
@@ -19061,6 +20777,7 @@ public final class LogsOuterClass {
       captureError_ = "";
       resumeToken_ = "";
       endReason_ = "";
+      endReasonCode_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -19081,7 +20798,9 @@ public final class LogsOuterClass {
     private java.util.List<ondewo.vtsi.LogsOuterClass.CallLogEntry> logEntries_;
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19092,7 +20811,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19104,7 +20825,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19115,7 +20838,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19126,7 +20851,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+     * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19285,7 +21012,8 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
      * </pre>
      *
      * <code>string end_reason = 6;</code>
@@ -19307,7 +21035,8 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
      * </pre>
      *
      * <code>string end_reason = 6;</code>
@@ -19326,6 +21055,34 @@ public final class LogsOuterClass {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int END_REASON_CODE_FIELD_NUMBER = 7;
+    private int endReasonCode_ = 0;
+    /**
+     * <pre>
+     * Set on the final message when the stream was ended by the server, together with
+     * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @return The enum numeric value on the wire for endReasonCode.
+     */
+    @java.lang.Override public int getEndReasonCodeValue() {
+      return endReasonCode_;
+    }
+    /**
+     * <pre>
+     * Set on the final message when the stream was ended by the server, together with
+     * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @return The endReasonCode.
+     */
+    @java.lang.Override public ondewo.vtsi.LogsOuterClass.LogStreamEndReason getEndReasonCode() {
+      ondewo.vtsi.LogsOuterClass.LogStreamEndReason result = ondewo.vtsi.LogsOuterClass.LogStreamEndReason.forNumber(endReasonCode_);
+      return result == null ? ondewo.vtsi.LogsOuterClass.LogStreamEndReason.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -19360,6 +21117,9 @@ public final class LogsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(endReason_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 6, endReason_);
       }
+      if (endReasonCode_ != ondewo.vtsi.LogsOuterClass.LogStreamEndReason.LOG_STREAM_END_REASON_UNSPECIFIED.getNumber()) {
+        output.writeEnum(7, endReasonCode_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -19390,6 +21150,10 @@ public final class LogsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(endReason_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(6, endReason_);
       }
+      if (endReasonCode_ != ondewo.vtsi.LogsOuterClass.LogStreamEndReason.LOG_STREAM_END_REASON_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, endReasonCode_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -19416,6 +21180,7 @@ public final class LogsOuterClass {
           .equals(other.getResumeToken())) return false;
       if (!getEndReason()
           .equals(other.getEndReason())) return false;
+      if (endReasonCode_ != other.endReasonCode_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -19442,6 +21207,8 @@ public final class LogsOuterClass {
       hash = (53 * hash) + getResumeToken().hashCode();
       hash = (37 * hash) + END_REASON_FIELD_NUMBER;
       hash = (53 * hash) + getEndReason().hashCode();
+      hash = (37 * hash) + END_REASON_CODE_FIELD_NUMBER;
+      hash = (53 * hash) + endReasonCode_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -19592,6 +21359,7 @@ public final class LogsOuterClass {
         droppedLineCount_ = 0L;
         resumeToken_ = "";
         endReason_ = "";
+        endReasonCode_ = 0;
         return this;
       }
 
@@ -19653,6 +21421,9 @@ public final class LogsOuterClass {
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.endReason_ = endReason_;
         }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.endReasonCode_ = endReasonCode_;
+        }
       }
 
       @java.lang.Override
@@ -19713,6 +21484,9 @@ public final class LogsOuterClass {
           endReason_ = other.endReason_;
           bitField0_ |= 0x00000020;
           onChanged();
+        }
+        if (other.endReasonCode_ != 0) {
+          setEndReasonCodeValue(other.getEndReasonCodeValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -19778,6 +21552,11 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00000020;
                 break;
               } // case 50
+              case 56: {
+                endReasonCode_ = input.readEnum();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 56
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -19809,7 +21588,9 @@ public final class LogsOuterClass {
 
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19823,7 +21604,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19837,7 +21620,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19851,7 +21636,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19872,7 +21659,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19890,7 +21679,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19910,7 +21701,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19931,7 +21724,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19949,7 +21744,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19967,7 +21764,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -19986,7 +21785,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20003,7 +21804,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20020,7 +21823,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20031,7 +21836,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20045,7 +21852,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20060,7 +21869,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20071,7 +21882,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20083,7 +21896,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The entries in this batch, oldest first. May be empty on a keep-alive message.
+       * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+       * &lt;code&gt;end_reason&lt;/code&gt;. (No keep-alive messages are sent; see
+       * &lt;a href="index.html#ondewo.vtsi.Logs.StreamCallLogs"&gt;Logs.StreamCallLogs&lt;/a&gt;.)
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
@@ -20428,7 +22243,8 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Set on the final message when the stream was ended by the server rather than by the client,
-       * for example because the maximum stream duration was reached. Empty otherwise.
+       * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+       * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
        * </pre>
        *
        * <code>string end_reason = 6;</code>
@@ -20449,7 +22265,8 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Set on the final message when the stream was ended by the server rather than by the client,
-       * for example because the maximum stream duration was reached. Empty otherwise.
+       * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+       * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
        * </pre>
        *
        * <code>string end_reason = 6;</code>
@@ -20471,7 +22288,8 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Set on the final message when the stream was ended by the server rather than by the client,
-       * for example because the maximum stream duration was reached. Empty otherwise.
+       * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+       * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
        * </pre>
        *
        * <code>string end_reason = 6;</code>
@@ -20489,7 +22307,8 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Set on the final message when the stream was ended by the server rather than by the client,
-       * for example because the maximum stream duration was reached. Empty otherwise.
+       * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+       * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
        * </pre>
        *
        * <code>string end_reason = 6;</code>
@@ -20504,7 +22323,8 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Set on the final message when the stream was ended by the server rather than by the client,
-       * for example because the maximum stream duration was reached. Empty otherwise.
+       * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+       * text, not a contract: match on &lt;code&gt;end_reason_code&lt;/code&gt;.
        * </pre>
        *
        * <code>string end_reason = 6;</code>
@@ -20517,6 +22337,82 @@ public final class LogsOuterClass {
         checkByteStringIsUtf8(value);
         endReason_ = value;
         bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+
+      private int endReasonCode_ = 0;
+      /**
+       * <pre>
+       * Set on the final message when the stream was ended by the server, together with
+       * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+       * @return The enum numeric value on the wire for endReasonCode.
+       */
+      @java.lang.Override public int getEndReasonCodeValue() {
+        return endReasonCode_;
+      }
+      /**
+       * <pre>
+       * Set on the final message when the stream was ended by the server, together with
+       * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+       * @param value The enum numeric value on the wire for endReasonCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEndReasonCodeValue(int value) {
+        endReasonCode_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Set on the final message when the stream was ended by the server, together with
+       * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+       * @return The endReasonCode.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.LogStreamEndReason getEndReasonCode() {
+        ondewo.vtsi.LogsOuterClass.LogStreamEndReason result = ondewo.vtsi.LogsOuterClass.LogStreamEndReason.forNumber(endReasonCode_);
+        return result == null ? ondewo.vtsi.LogsOuterClass.LogStreamEndReason.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Set on the final message when the stream was ended by the server, together with
+       * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+       * @param value The endReasonCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEndReasonCode(ondewo.vtsi.LogsOuterClass.LogStreamEndReason value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000040;
+        endReasonCode_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Set on the final message when the stream was ended by the server, together with
+       * &lt;code&gt;end_reason&lt;/code&gt;; &lt;code&gt;LOG_STREAM_END_REASON_UNSPECIFIED&lt;/code&gt; on every other message.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEndReasonCode() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        endReasonCode_ = 0;
         onChanged();
         return this;
       }
@@ -20627,8 +22523,9 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+     * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+     * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
      * </pre>
      *
      * <code>optional int32 max_lines = 3;</code>
@@ -20637,8 +22534,9 @@ public final class LogsOuterClass {
     boolean hasMaxLines();
     /**
      * <pre>
-     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+     * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+     * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
      * </pre>
      *
      * <code>optional int32 max_lines = 3;</code>
@@ -20742,6 +22640,73 @@ public final class LogsOuterClass {
      * @return The oldestFirst.
      */
     boolean getOldestFirst();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Also count the matching entries: fills &lt;code&gt;ListCallLogsResponse.total_matching_count&lt;/code&gt;
+     * and &lt;code&gt;count_by_level&lt;/code&gt; over the WHOLE filtered history (not only the returned window, and
+     * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     * is off by default; set it on the first page only.
+     * </pre>
+     *
+     * <code>bool include_counts = 9;</code>
+     * @return The includeCounts.
+     */
+    boolean getIncludeCounts();
   }
   /**
    * <pre>
@@ -20879,8 +22844,9 @@ public final class LogsOuterClass {
     private int maxLines_ = 0;
     /**
      * <pre>
-     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+     * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+     * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
      * </pre>
      *
      * <code>optional int32 max_lines = 3;</code>
@@ -20892,8 +22858,9 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+     * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+     * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
      * </pre>
      *
      * <code>optional int32 max_lines = 3;</code>
@@ -21055,6 +23022,89 @@ public final class LogsOuterClass {
       return oldestFirst_;
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 8;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000040) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+     * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+     * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+     * are computed exactly as without a mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
+    public static final int INCLUDE_COUNTS_FIELD_NUMBER = 9;
+    private boolean includeCounts_ = false;
+    /**
+     * <pre>
+     * Optional. Also count the matching entries: fills &lt;code&gt;ListCallLogsResponse.total_matching_count&lt;/code&gt;
+     * and &lt;code&gt;count_by_level&lt;/code&gt; over the WHOLE filtered history (not only the returned window, and
+     * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     * is off by default; set it on the first page only.
+     * </pre>
+     *
+     * <code>bool include_counts = 9;</code>
+     * @return The includeCounts.
+     */
+    @java.lang.Override
+    public boolean getIncludeCounts() {
+      return includeCounts_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -21090,6 +23140,12 @@ public final class LogsOuterClass {
       if (((bitField0_ & 0x00000020) != 0)) {
         output.writeBool(7, oldestFirst_);
       }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        output.writeMessage(8, getFieldMask());
+      }
+      if (includeCounts_ != false) {
+        output.writeBool(9, includeCounts_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21124,6 +23180,14 @@ public final class LogsOuterClass {
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(7, oldestFirst_);
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getFieldMask());
+      }
+      if (includeCounts_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(9, includeCounts_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -21172,6 +23236,13 @@ public final class LogsOuterClass {
         if (getOldestFirst()
             != other.getOldestFirst()) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
+      if (getIncludeCounts()
+          != other.getIncludeCounts()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -21212,6 +23283,13 @@ public final class LogsOuterClass {
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getOldestFirst());
       }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
+      hash = (37 * hash) + INCLUDE_COUNTS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIncludeCounts());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -21348,6 +23426,7 @@ public final class LogsOuterClass {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetFilterFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -21365,6 +23444,12 @@ public final class LogsOuterClass {
         afterSeq_ = 0L;
         resumeToken_ = "";
         oldestFirst_ = false;
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        includeCounts_ = false;
         return this;
       }
 
@@ -21428,6 +23513,15 @@ public final class LogsOuterClass {
           result.oldestFirst_ = oldestFirst_;
           to_bitField0_ |= 0x00000020;
         }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000040;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.includeCounts_ = includeCounts_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -21467,6 +23561,12 @@ public final class LogsOuterClass {
         }
         if (other.hasOldestFirst()) {
           setOldestFirst(other.getOldestFirst());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
+        }
+        if (other.getIncludeCounts() != false) {
+          setIncludeCounts(other.getIncludeCounts());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -21531,6 +23631,18 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00000040;
                 break;
               } // case 56
+              case 66: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 66
+              case 72: {
+                includeCounts_ = input.readBool();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 72
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -21805,8 +23917,9 @@ public final class LogsOuterClass {
       private int maxLines_ ;
       /**
        * <pre>
-       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-       * values above the server hard cap are clamped to it.
+       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+       * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+       * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
        * </pre>
        *
        * <code>optional int32 max_lines = 3;</code>
@@ -21818,8 +23931,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-       * values above the server hard cap are clamped to it.
+       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+       * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+       * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
        * </pre>
        *
        * <code>optional int32 max_lines = 3;</code>
@@ -21831,8 +23945,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-       * values above the server hard cap are clamped to it.
+       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+       * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+       * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
        * </pre>
        *
        * <code>optional int32 max_lines = 3;</code>
@@ -21848,8 +23963,9 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) applies the server default;
-       * values above the server hard cap are clamped to it.
+       * Return at most this many entries. &lt;code&gt;0&lt;/code&gt; (the default) and negative values apply the
+       * server default (&lt;code&gt;ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES&lt;/code&gt;, default 5000); values above the
+       * server hard cap (&lt;code&gt;ONDEWO_VTSI_LOG_HARD_MAX_LINES&lt;/code&gt;, default 50000) are clamped to it.
        * </pre>
        *
        * <code>optional int32 max_lines = 3;</code>
@@ -22155,6 +24271,297 @@ public final class LogsOuterClass {
         return this;
       }
 
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000080) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000080;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogEntry&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogEntry&lt;/code&gt; message (no &lt;code&gt;log_entries.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;timestamp&lt;/code&gt;, &lt;code&gt;level&lt;/code&gt;, &lt;code&gt;message&lt;/code&gt;. Nested paths through singular
+       * message fields are allowed; a path below a repeated or map field is not. &lt;code&gt;log_stream&lt;/code&gt; and
+       * &lt;code&gt;seq&lt;/code&gt;, which together identify an entry, are always populated. Unset or empty returns
+       * every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after
+       * the server&amp;apos;s secret redaction of the log text, so it can only narrow the response and never
+       * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+       * the response (&lt;code&gt;truncated&lt;/code&gt;, the &lt;code&gt;seq&lt;/code&gt; bounds, &lt;code&gt;next_resume_token&lt;/code&gt;)
+       * are computed exactly as without a mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
+      private boolean includeCounts_ ;
+      /**
+       * <pre>
+       * Optional. Also count the matching entries: fills &lt;code&gt;ListCallLogsResponse.total_matching_count&lt;/code&gt;
+       * and &lt;code&gt;count_by_level&lt;/code&gt; over the WHOLE filtered history (not only the returned window, and
+       * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+       * is off by default; set it on the first page only.
+       * </pre>
+       *
+       * <code>bool include_counts = 9;</code>
+       * @return The includeCounts.
+       */
+      @java.lang.Override
+      public boolean getIncludeCounts() {
+        return includeCounts_;
+      }
+      /**
+       * <pre>
+       * Optional. Also count the matching entries: fills &lt;code&gt;ListCallLogsResponse.total_matching_count&lt;/code&gt;
+       * and &lt;code&gt;count_by_level&lt;/code&gt; over the WHOLE filtered history (not only the returned window, and
+       * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+       * is off by default; set it on the first page only.
+       * </pre>
+       *
+       * <code>bool include_counts = 9;</code>
+       * @param value The includeCounts to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIncludeCounts(boolean value) {
+
+        includeCounts_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Also count the matching entries: fills &lt;code&gt;ListCallLogsResponse.total_matching_count&lt;/code&gt;
+       * and &lt;code&gt;count_by_level&lt;/code&gt; over the WHOLE filtered history (not only the returned window, and
+       * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+       * is off by default; set it on the first page only.
+       * </pre>
+       *
+       * <code>bool include_counts = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIncludeCounts() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        includeCounts_ = false;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ListCallLogsRequest)
     }
 
@@ -22384,6 +24791,103 @@ public final class LogsOuterClass {
      * @return The enum numeric value on the wire of scopeLimitedFilters at the given index.
      */
     int getScopeLimitedFiltersValue(int index);
+
+    /**
+     * <pre>
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     * </pre>
+     *
+     * <code>optional int64 total_matching_count = 9;</code>
+     * @return Whether the totalMatchingCount field is set.
+     */
+    boolean hasTotalMatchingCount();
+    /**
+     * <pre>
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     * </pre>
+     *
+     * <code>optional int64 total_matching_count = 9;</code>
+     * @return The totalMatchingCount.
+     */
+    long getTotalMatchingCount();
+
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    int getCountByLevelCount();
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    boolean containsCountByLevel(
+        java.lang.String key);
+    /**
+     * Use {@link #getCountByLevelMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.Long>
+    getCountByLevel();
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    java.util.Map<java.lang.String, java.lang.Long>
+    getCountByLevelMap();
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    long getCountByLevelOrDefault(
+        java.lang.String key,
+        long defaultValue);
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    long getCountByLevelOrThrow(
+        java.lang.String key);
   }
   /**
    * <pre>
@@ -22422,6 +24926,18 @@ public final class LogsOuterClass {
       return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ListCallLogsResponse_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 10:
+          return internalGetCountByLevel();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -22430,6 +24946,7 @@ public final class LogsOuterClass {
               ondewo.vtsi.LogsOuterClass.ListCallLogsResponse.class, ondewo.vtsi.LogsOuterClass.ListCallLogsResponse.Builder.class);
     }
 
+    private int bitField0_;
     public static final int LOG_ENTRIES_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private java.util.List<ondewo.vtsi.LogsOuterClass.CallLogEntry> logEntries_;
@@ -22704,6 +25221,148 @@ public final class LogsOuterClass {
     }
     private int scopeLimitedFiltersMemoizedSerializedSize;
 
+    public static final int TOTAL_MATCHING_COUNT_FIELD_NUMBER = 9;
+    private long totalMatchingCount_ = 0L;
+    /**
+     * <pre>
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     * </pre>
+     *
+     * <code>optional int64 total_matching_count = 9;</code>
+     * @return Whether the totalMatchingCount field is set.
+     */
+    @java.lang.Override
+    public boolean hasTotalMatchingCount() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     * </pre>
+     *
+     * <code>optional int64 total_matching_count = 9;</code>
+     * @return The totalMatchingCount.
+     */
+    @java.lang.Override
+    public long getTotalMatchingCount() {
+      return totalMatchingCount_;
+    }
+
+    public static final int COUNT_BY_LEVEL_FIELD_NUMBER = 10;
+    private static final class CountByLevelDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.Long> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.Long>newDefaultInstance(
+                  ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.INT64,
+                  0L);
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.Long> countByLevel_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.Long>
+    internalGetCountByLevel() {
+      if (countByLevel_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            CountByLevelDefaultEntryHolder.defaultEntry);
+      }
+      return countByLevel_;
+    }
+    public int getCountByLevelCount() {
+      return internalGetCountByLevel().getMap().size();
+    }
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    @java.lang.Override
+    public boolean containsCountByLevel(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetCountByLevel().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getCountByLevelMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.Long> getCountByLevel() {
+      return getCountByLevelMap();
+    }
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.Long> getCountByLevelMap() {
+      return internalGetCountByLevel().getMap();
+    }
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    @java.lang.Override
+    public long getCountByLevelOrDefault(
+        java.lang.String key,
+        long defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Long> map =
+          internalGetCountByLevel().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+     * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+     * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+     * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+     * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+     */
+    @java.lang.Override
+    public long getCountByLevelOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Long> map =
+          internalGetCountByLevel().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -22747,6 +25406,15 @@ public final class LogsOuterClass {
       for (int i = 0; i < scopeLimitedFilters_.size(); i++) {
         output.writeEnumNoTag(scopeLimitedFilters_.getInt(i));
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt64(9, totalMatchingCount_);
+      }
+      com.google.protobuf.GeneratedMessage
+        .serializeStringMapTo(
+          output,
+          internalGetCountByLevel(),
+          CountByLevelDefaultEntryHolder.defaultEntry,
+          10);
       getUnknownFields().writeTo(output);
     }
 
@@ -22795,6 +25463,20 @@ public final class LogsOuterClass {
             .computeUInt32SizeNoTag(dataSize);
         }scopeLimitedFiltersMemoizedSerializedSize = dataSize;
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, totalMatchingCount_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.Long> entry
+           : internalGetCountByLevel().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.Long>
+        countByLevel__ = CountByLevelDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(10, countByLevel__);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -22825,6 +25507,13 @@ public final class LogsOuterClass {
       if (!getNextResumeToken()
           .equals(other.getNextResumeToken())) return false;
       if (!scopeLimitedFilters_.equals(other.scopeLimitedFilters_)) return false;
+      if (hasTotalMatchingCount() != other.hasTotalMatchingCount()) return false;
+      if (hasTotalMatchingCount()) {
+        if (getTotalMatchingCount()
+            != other.getTotalMatchingCount()) return false;
+      }
+      if (!internalGetCountByLevel().equals(
+          other.internalGetCountByLevel())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -22860,6 +25549,15 @@ public final class LogsOuterClass {
       if (getScopeLimitedFiltersCount() > 0) {
         hash = (37 * hash) + SCOPE_LIMITED_FILTERS_FIELD_NUMBER;
         hash = (53 * hash) + scopeLimitedFilters_.hashCode();
+      }
+      if (hasTotalMatchingCount()) {
+        hash = (37 * hash) + TOTAL_MATCHING_COUNT_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getTotalMatchingCount());
+      }
+      if (!internalGetCountByLevel().getMap().isEmpty()) {
+        hash = (37 * hash) + COUNT_BY_LEVEL_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetCountByLevel().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -22975,6 +25673,28 @@ public final class LogsOuterClass {
         return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ListCallLogsResponse_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 10:
+            return internalGetCountByLevel();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 10:
+            return internalGetMutableCountByLevel();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -23011,6 +25731,8 @@ public final class LogsOuterClass {
         hasMoreNewer_ = false;
         nextResumeToken_ = "";
         scopeLimitedFilters_ = emptyIntList();
+        totalMatchingCount_ = 0L;
+        internalGetMutableCountByLevel().clear();
         return this;
       }
 
@@ -23079,6 +25801,16 @@ public final class LogsOuterClass {
           scopeLimitedFilters_.makeImmutable();
           result.scopeLimitedFilters_ = scopeLimitedFilters_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.totalMatchingCount_ = totalMatchingCount_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.countByLevel_ = internalGetCountByLevel();
+          result.countByLevel_.makeImmutable();
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -23150,6 +25882,12 @@ public final class LogsOuterClass {
           }
           onChanged();
         }
+        if (other.hasTotalMatchingCount()) {
+          setTotalMatchingCount(other.getTotalMatchingCount());
+        }
+        internalGetMutableCountByLevel().mergeFrom(
+            other.internalGetCountByLevel());
+        bitField0_ |= 0x00000200;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -23235,6 +25973,20 @@ public final class LogsOuterClass {
                 input.popLimit(limit);
                 break;
               } // case 66
+              case 72: {
+                totalMatchingCount_ = input.readInt64();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 72
+              case 82: {
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.Long>
+                countByLevel__ = input.readMessage(
+                    CountByLevelDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableCountByLevel().getMutableMap().put(
+                    countByLevel__.getKey(), countByLevel__.getValue());
+                bitField0_ |= 0x00000200;
+                break;
+              } // case 82
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -24090,6 +26842,255 @@ public final class LogsOuterClass {
         return this;
       }
 
+      private long totalMatchingCount_ ;
+      /**
+       * <pre>
+       * The number of entries matching the filter over the whole stored history, regardless of the window
+       * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+       * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+       * there are not applied to the count, so it is then an UPPER BOUND.
+       * </pre>
+       *
+       * <code>optional int64 total_matching_count = 9;</code>
+       * @return Whether the totalMatchingCount field is set.
+       */
+      @java.lang.Override
+      public boolean hasTotalMatchingCount() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <pre>
+       * The number of entries matching the filter over the whole stored history, regardless of the window
+       * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+       * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+       * there are not applied to the count, so it is then an UPPER BOUND.
+       * </pre>
+       *
+       * <code>optional int64 total_matching_count = 9;</code>
+       * @return The totalMatchingCount.
+       */
+      @java.lang.Override
+      public long getTotalMatchingCount() {
+        return totalMatchingCount_;
+      }
+      /**
+       * <pre>
+       * The number of entries matching the filter over the whole stored history, regardless of the window
+       * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+       * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+       * there are not applied to the count, so it is then an UPPER BOUND.
+       * </pre>
+       *
+       * <code>optional int64 total_matching_count = 9;</code>
+       * @param value The totalMatchingCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotalMatchingCount(long value) {
+
+        totalMatchingCount_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The number of entries matching the filter over the whole stored history, regardless of the window
+       * and the cursors. Set only when &lt;code&gt;include_counts&lt;/code&gt; was requested (unset otherwise, and by a
+       * 9.0.0 server). APPROXIMATE when &lt;code&gt;scope_limited_filters&lt;/code&gt; is non-empty: the filters listed
+       * there are not applied to the count, so it is then an UPPER BOUND.
+       * </pre>
+       *
+       * <code>optional int64 total_matching_count = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTotalMatchingCount() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        totalMatchingCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.Long> countByLevel_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.Long>
+          internalGetCountByLevel() {
+        if (countByLevel_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              CountByLevelDefaultEntryHolder.defaultEntry);
+        }
+        return countByLevel_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.Long>
+          internalGetMutableCountByLevel() {
+        if (countByLevel_ == null) {
+          countByLevel_ = com.google.protobuf.MapField.newMapField(
+              CountByLevelDefaultEntryHolder.defaultEntry);
+        }
+        if (!countByLevel_.isMutable()) {
+          countByLevel_ = countByLevel_.copy();
+        }
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return countByLevel_;
+      }
+      public int getCountByLevelCount() {
+        return internalGetCountByLevel().getMap().size();
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      @java.lang.Override
+      public boolean containsCountByLevel(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetCountByLevel().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getCountByLevelMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.Long> getCountByLevel() {
+        return getCountByLevelMap();
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.Long> getCountByLevelMap() {
+        return internalGetCountByLevel().getMap();
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      @java.lang.Override
+      public long getCountByLevelOrDefault(
+          java.lang.String key,
+          long defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.Long> map =
+            internalGetCountByLevel().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      @java.lang.Override
+      public long getCountByLevelOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.Long> map =
+            internalGetCountByLevel().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearCountByLevel() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        internalGetMutableCountByLevel().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      public Builder removeCountByLevel(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableCountByLevel().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.Long>
+          getMutableCountByLevel() {
+        bitField0_ |= 0x00000200;
+        return internalGetMutableCountByLevel().getMutableMap();
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      public Builder putCountByLevel(
+          java.lang.String key,
+          long value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+
+        internalGetMutableCountByLevel().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      /**
+       * <pre>
+       * The matching entries counted per severity, keyed by the &lt;code&gt;ondewo.nlu.LogSeverity&lt;/code&gt; value
+       * NAME (e.g. &lt;code&gt;LOG_SEVERITY_ERROR&lt;/code&gt;; entries without a recognised severity under
+       * &lt;code&gt;LOG_SEVERITY_UNSPECIFIED&lt;/code&gt;). Severities with no entry are omitted; the values sum to
+       * &lt;code&gt;total_matching_count&lt;/code&gt;. Filled only with &lt;code&gt;include_counts&lt;/code&gt;; approximate (upper
+       * bounds) under the same condition as &lt;code&gt;total_matching_count&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>map&lt;string, int64&gt; count_by_level = 10;</code>
+       */
+      public Builder putAllCountByLevel(
+          java.util.Map<java.lang.String, java.lang.Long> values) {
+        internalGetMutableCountByLevel().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ListCallLogsResponse)
     }
 
@@ -24169,6 +27170,8 @@ public final class LogsOuterClass {
      * <pre>
      * The name of the log stream to retrieve of the form
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+     * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
      * </pre>
      *
      * <code>string name = 2;</code>
@@ -24179,6 +27182,8 @@ public final class LogsOuterClass {
      * <pre>
      * The name of the log stream to retrieve of the form
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+     * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
      * </pre>
      *
      * <code>string name = 2;</code>
@@ -24186,6 +27191,45 @@ public final class LogsOuterClass {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -24231,6 +27275,7 @@ public final class LogsOuterClass {
               ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest.class, ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int VTSI_PROJECT_NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object vtsiProjectName_ = "";
@@ -24285,6 +27330,8 @@ public final class LogsOuterClass {
      * <pre>
      * The name of the log stream to retrieve of the form
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+     * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
      * </pre>
      *
      * <code>string name = 2;</code>
@@ -24307,6 +27354,8 @@ public final class LogsOuterClass {
      * <pre>
      * The name of the log stream to retrieve of the form
      * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+     * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
      * </pre>
      *
      * <code>string name = 2;</code>
@@ -24325,6 +27374,56 @@ public final class LogsOuterClass {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+     * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -24347,6 +27446,9 @@ public final class LogsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, name_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -24361,6 +27463,10 @@ public final class LogsOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -24381,6 +27487,11 @@ public final class LogsOuterClass {
           .equals(other.getVtsiProjectName())) return false;
       if (!getName()
           .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -24396,6 +27507,10 @@ public final class LogsOuterClass {
       hash = (53 * hash) + getVtsiProjectName().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -24520,13 +27635,19 @@ public final class LogsOuterClass {
 
       // Construct using ondewo.vtsi.LogsOuterClass.GetCallLogStreamRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -24534,6 +27655,11 @@ public final class LogsOuterClass {
         bitField0_ = 0;
         vtsiProjectName_ = "";
         name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -24573,6 +27699,14 @@ public final class LogsOuterClass {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.name_ = name_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -24596,6 +27730,9 @@ public final class LogsOuterClass {
           name_ = other.name_;
           bitField0_ |= 0x00000002;
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -24633,6 +27770,13 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -24747,6 +27891,8 @@ public final class LogsOuterClass {
        * <pre>
        * The name of the log stream to retrieve of the form
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+       * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
        * </pre>
        *
        * <code>string name = 2;</code>
@@ -24768,6 +27914,8 @@ public final class LogsOuterClass {
        * <pre>
        * The name of the log stream to retrieve of the form
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+       * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
        * </pre>
        *
        * <code>string name = 2;</code>
@@ -24790,6 +27938,8 @@ public final class LogsOuterClass {
        * <pre>
        * The name of the log stream to retrieve of the form
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+       * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
        * </pre>
        *
        * <code>string name = 2;</code>
@@ -24808,6 +27958,8 @@ public final class LogsOuterClass {
        * <pre>
        * The name of the log stream to retrieve of the form
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+       * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
        * </pre>
        *
        * <code>string name = 2;</code>
@@ -24823,6 +27975,8 @@ public final class LogsOuterClass {
        * <pre>
        * The name of the log stream to retrieve of the form
        * &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/logStreams/&amp;lt;log_stream_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * Its project must be the one of &lt;code&gt;vtsi_project_name&lt;/code&gt;: a log stream of another project is
+       * refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, also when it exists.
        * </pre>
        *
        * <code>string name = 2;</code>
@@ -24837,6 +27991,199 @@ public final class LogsOuterClass {
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;CallLogStream&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;capture_state&lt;/code&gt;, &lt;code&gt;line_count&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest"&gt;ListCallLogStreamsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field, an unknown path is
+       * rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.GetCallLogStreamRequest)
@@ -24919,7 +28266,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -24929,7 +28278,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -24939,7 +28290,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -24948,8 +28301,10 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -24958,8 +28313,10 @@ public final class LogsOuterClass {
     boolean hasPageToken();
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -24968,8 +28325,10 @@ public final class LogsOuterClass {
     java.lang.String getPageToken();
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -24977,6 +28336,125 @@ public final class LogsOuterClass {
      */
     com.google.protobuf.ByteString
         getPageTokenBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Maximum number of log streams per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>int32 page_size = 5;</code>
+     * @return The pageSize.
+     */
+    int getPageSize();
+
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return A list containing the captureStates.
+     */
+    java.util.List<ondewo.vtsi.LogsOuterClass.LogCaptureState> getCaptureStatesList();
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return The count of captureStates.
+     */
+    int getCaptureStatesCount();
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @param index The index of the element to return.
+     * @return The captureStates at the given index.
+     */
+    ondewo.vtsi.LogsOuterClass.LogCaptureState getCaptureStates(int index);
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return A list containing the enum numeric values on the wire for captureStates.
+     */
+    java.util.List<java.lang.Integer>
+    getCaptureStatesValueList();
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of captureStates at the given index.
+     */
+    int getCaptureStatesValue(int index);
   }
   /**
    * <pre>
@@ -25007,6 +28485,7 @@ public final class LogsOuterClass {
     private ListCallLogStreamsRequest() {
       vtsiProjectName_ = "";
       pageToken_ = "";
+      captureStates_ = emptyIntList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -25077,7 +28556,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25090,7 +28571,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25103,7 +28586,9 @@ public final class LogsOuterClass {
     /**
      * <pre>
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25118,8 +28603,10 @@ public final class LogsOuterClass {
     private volatile java.lang.Object pageToken_ = "";
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -25131,8 +28618,10 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -25153,8 +28642,10 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      * </pre>
      *
      * <code>optional string page_token = 3;</code>
@@ -25175,6 +28666,171 @@ public final class LogsOuterClass {
       }
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 4;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+     * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+     * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+     * with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
+    public static final int PAGE_SIZE_FIELD_NUMBER = 5;
+    private int pageSize_ = 0;
+    /**
+     * <pre>
+     * Optional. Maximum number of log streams per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>int32 page_size = 5;</code>
+     * @return The pageSize.
+     */
+    @java.lang.Override
+    public int getPageSize() {
+      return pageSize_;
+    }
+
+    public static final int CAPTURE_STATES_FIELD_NUMBER = 6;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList captureStates_ =
+        emptyIntList();
+    private static final     com.google.protobuf.Internal.IntListAdapter.IntConverter<
+        ondewo.vtsi.LogsOuterClass.LogCaptureState> captureStates_converter_ =
+            new com.google.protobuf.Internal.IntListAdapter.IntConverter<
+                ondewo.vtsi.LogsOuterClass.LogCaptureState>() {
+              public ondewo.vtsi.LogsOuterClass.LogCaptureState convert(int from) {
+                ondewo.vtsi.LogsOuterClass.LogCaptureState result = ondewo.vtsi.LogsOuterClass.LogCaptureState.forNumber(from);
+                return result == null ? ondewo.vtsi.LogsOuterClass.LogCaptureState.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return A list containing the captureStates.
+     */
+    @java.lang.Override
+    public java.util.List<ondewo.vtsi.LogsOuterClass.LogCaptureState> getCaptureStatesList() {
+      return new com.google.protobuf.Internal.IntListAdapter<
+          ondewo.vtsi.LogsOuterClass.LogCaptureState>(captureStates_, captureStates_converter_);
+    }
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return The count of captureStates.
+     */
+    @java.lang.Override
+    public int getCaptureStatesCount() {
+      return captureStates_.size();
+    }
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @param index The index of the element to return.
+     * @return The captureStates at the given index.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.LogsOuterClass.LogCaptureState getCaptureStates(int index) {
+      return captureStates_converter_.convert(captureStates_.getInt(index));
+    }
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return A list containing the enum numeric values on the wire for captureStates.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getCaptureStatesValueList() {
+      return captureStates_;
+    }
+    /**
+     * <pre>
+     * Optional. Only log streams in one of these capture states, e.g.
+     * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+     * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of captureStates at the given index.
+     */
+    @java.lang.Override
+    public int getCaptureStatesValue(int index) {
+      return captureStates_.getInt(index);
+    }
+    private int captureStatesMemoizedSerializedSize;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -25189,6 +28845,7 @@ public final class LogsOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(vtsiProjectName_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, vtsiProjectName_);
       }
@@ -25197,6 +28854,19 @@ public final class LogsOuterClass {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 3, pageToken_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(4, getFieldMask());
+      }
+      if (pageSize_ != 0) {
+        output.writeInt32(5, pageSize_);
+      }
+      if (getCaptureStatesList().size() > 0) {
+        output.writeUInt32NoTag(50);
+        output.writeUInt32NoTag(captureStatesMemoizedSerializedSize);
+      }
+      for (int i = 0; i < captureStates_.size(); i++) {
+        output.writeEnumNoTag(captureStates_.getInt(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -25216,6 +28886,26 @@ public final class LogsOuterClass {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(3, pageToken_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getFieldMask());
+      }
+      if (pageSize_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, pageSize_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < captureStates_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(captureStates_.getInt(i));
+        }
+        size += dataSize;
+        if (!getCaptureStatesList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }captureStatesMemoizedSerializedSize = dataSize;
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -25244,6 +28934,14 @@ public final class LogsOuterClass {
         if (!getPageToken()
             .equals(other.getPageToken())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
+      if (getPageSize()
+          != other.getPageSize()) return false;
+      if (!captureStates_.equals(other.captureStates_)) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -25264,6 +28962,16 @@ public final class LogsOuterClass {
       if (hasPageToken()) {
         hash = (37 * hash) + PAGE_TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getPageToken().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
+      hash = (37 * hash) + PAGE_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getPageSize();
+      if (getCaptureStatesCount() > 0) {
+        hash = (37 * hash) + CAPTURE_STATES_FIELD_NUMBER;
+        hash = (53 * hash) + captureStates_.hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -25401,6 +29109,7 @@ public final class LogsOuterClass {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetFilterFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -25414,6 +29123,13 @@ public final class LogsOuterClass {
           filterBuilder_ = null;
         }
         pageToken_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        pageSize_ = 0;
+        captureStates_ = emptyIntList();
         return this;
       }
 
@@ -25461,6 +29177,19 @@ public final class LogsOuterClass {
           result.pageToken_ = pageToken_;
           to_bitField0_ |= 0x00000002;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.pageSize_ = pageSize_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          captureStates_.makeImmutable();
+          result.captureStates_ = captureStates_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -25487,6 +29216,23 @@ public final class LogsOuterClass {
         if (other.hasPageToken()) {
           pageToken_ = other.pageToken_;
           bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
+        }
+        if (other.getPageSize() != 0) {
+          setPageSize(other.getPageSize());
+        }
+        if (!other.captureStates_.isEmpty()) {
+          if (captureStates_.isEmpty()) {
+            captureStates_ = other.captureStates_;
+            captureStates_.makeImmutable();
+            bitField0_ |= 0x00000020;
+          } else {
+            ensureCaptureStatesIsMutable();
+            captureStates_.addAll(other.captureStates_);
+          }
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -25532,6 +29278,34 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 40: {
+                pageSize_ = input.readInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
+              case 48: {
+                int tmpRaw = input.readEnum();
+                ensureCaptureStatesIsMutable();
+                captureStates_.addInt(tmpRaw);
+                break;
+              } // case 48
+              case 50: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureCaptureStatesIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  captureStates_.addInt(input.readEnum());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 50
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -25652,7 +29426,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25664,7 +29440,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25680,7 +29458,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25701,7 +29481,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25720,7 +29502,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25746,7 +29530,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25764,7 +29550,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25777,7 +29565,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25793,7 +29583,9 @@ public final class LogsOuterClass {
       /**
        * <pre>
        * Optional. A filter to narrow the response down to the log streams of interest. Only the
-       * identity fields of the filter apply here; content fields are ignored.
+       * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+       * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+       * them, and an empty list when none does.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -25815,8 +29607,10 @@ public final class LogsOuterClass {
       private java.lang.Object pageToken_ = "";
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25827,8 +29621,10 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25848,8 +29644,10 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25870,8 +29668,10 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25888,8 +29688,10 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25903,8 +29705,10 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field unchanged while paging:
+       * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+       * the other listing.
        * </pre>
        *
        * <code>optional string page_token = 3;</code>
@@ -25917,6 +29721,484 @@ public final class LogsOuterClass {
         checkByteStringIsUtf8(value);
         pageToken_ = value;
         bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;CallLogStream&lt;/code&gt;,
+       * relative to the &lt;code&gt;CallLogStream&lt;/code&gt; message (no &lt;code&gt;log_streams.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;container_name&lt;/code&gt;, &lt;code&gt;capture_state&lt;/code&gt;. Nested paths through singular message fields are
+       * allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always populated. Unset or
+       * empty returns every field. An unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it.
+       * Applied after the server&amp;apos;s redaction, so it can only narrow the response and never populates a
+       * field that was left empty. Not part of the paging contract: a &lt;code&gt;page_token&lt;/code&gt; stays valid
+       * with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
+      private int pageSize_ ;
+      /**
+       * <pre>
+       * Optional. Maximum number of log streams per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>int32 page_size = 5;</code>
+       * @return The pageSize.
+       */
+      @java.lang.Override
+      public int getPageSize() {
+        return pageSize_;
+      }
+      /**
+       * <pre>
+       * Optional. Maximum number of log streams per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>int32 page_size = 5;</code>
+       * @param value The pageSize to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPageSize(int value) {
+
+        pageSize_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Maximum number of log streams per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>int32 page_size = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPageSize() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        pageSize_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList captureStates_ = emptyIntList();
+      private void ensureCaptureStatesIsMutable() {
+        if (!captureStates_.isModifiable()) {
+          captureStates_ = makeMutableCopy(captureStates_);
+        }
+        bitField0_ |= 0x00000020;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @return A list containing the captureStates.
+       */
+      public java.util.List<ondewo.vtsi.LogsOuterClass.LogCaptureState> getCaptureStatesList() {
+        return new com.google.protobuf.Internal.IntListAdapter<
+            ondewo.vtsi.LogsOuterClass.LogCaptureState>(captureStates_, captureStates_converter_);
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @return The count of captureStates.
+       */
+      public int getCaptureStatesCount() {
+        return captureStates_.size();
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param index The index of the element to return.
+       * @return The captureStates at the given index.
+       */
+      public ondewo.vtsi.LogsOuterClass.LogCaptureState getCaptureStates(int index) {
+        return captureStates_converter_.convert(captureStates_.getInt(index));
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The captureStates to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCaptureStates(
+          int index, ondewo.vtsi.LogsOuterClass.LogCaptureState value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureCaptureStatesIsMutable();
+        captureStates_.setInt(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param value The captureStates to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCaptureStates(ondewo.vtsi.LogsOuterClass.LogCaptureState value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureCaptureStatesIsMutable();
+        captureStates_.addInt(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param values The captureStates to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllCaptureStates(
+          java.lang.Iterable<? extends ondewo.vtsi.LogsOuterClass.LogCaptureState> values) {
+        ensureCaptureStatesIsMutable();
+        for (ondewo.vtsi.LogsOuterClass.LogCaptureState value : values) {
+          captureStates_.addInt(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCaptureStates() {
+        captureStates_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @return A list containing the enum numeric values on the wire for captureStates.
+       */
+      public java.util.List<java.lang.Integer>
+      getCaptureStatesValueList() {
+        captureStates_.makeImmutable();
+        return captureStates_;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of captureStates at the given index.
+       */
+      public int getCaptureStatesValue(int index) {
+        return captureStates_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The enum numeric value on the wire for captureStates to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCaptureStatesValue(
+          int index, int value) {
+        ensureCaptureStatesIsMutable();
+        captureStates_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param value The enum numeric value on the wire for captureStates to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCaptureStatesValue(int value) {
+        ensureCaptureStatesIsMutable();
+        captureStates_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only log streams in one of these capture states, e.g.
+       * &lt;code&gt;LOG_CAPTURE_STATE_CAPTURING&lt;/code&gt; for the containers being captured now. Empty matches every
+       * state. &lt;code&gt;LOG_CAPTURE_STATE_UNSPECIFIED&lt;/code&gt; is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+       * @param values The enum numeric values on the wire for captureStates to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllCaptureStatesValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensureCaptureStatesIsMutable();
+        for (int value : values) {
+          captureStates_.addInt(value);
+        }
         onChanged();
         return this;
       }
@@ -25978,7 +30260,7 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -25987,7 +30269,7 @@ public final class LogsOuterClass {
         getLogStreamsList();
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -25995,7 +30277,7 @@ public final class LogsOuterClass {
     ondewo.vtsi.LogsOuterClass.CallLogStream getLogStreams(int index);
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26003,7 +30285,7 @@ public final class LogsOuterClass {
     int getLogStreamsCount();
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26012,7 +30294,7 @@ public final class LogsOuterClass {
         getLogStreamsOrBuilderList();
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26022,9 +30304,8 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -26033,9 +30314,8 @@ public final class LogsOuterClass {
     java.lang.String getNextPageToken();
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -26093,7 +30373,7 @@ public final class LogsOuterClass {
     private java.util.List<ondewo.vtsi.LogsOuterClass.CallLogStream> logStreams_;
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26104,7 +30384,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26116,7 +30396,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26127,7 +30407,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26138,7 +30418,7 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26154,9 +30434,8 @@ public final class LogsOuterClass {
     private volatile java.lang.Object nextPageToken_ = "";
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -26177,9 +30456,8 @@ public final class LogsOuterClass {
     }
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -26585,7 +30863,7 @@ public final class LogsOuterClass {
 
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26599,7 +30877,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26613,7 +30891,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26627,7 +30905,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26648,7 +30926,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26666,7 +30944,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26686,7 +30964,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26707,7 +30985,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26725,7 +31003,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26743,7 +31021,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26762,7 +31040,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26779,7 +31057,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26796,7 +31074,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26807,7 +31085,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26821,7 +31099,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26836,7 +31114,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26847,7 +31125,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26859,7 +31137,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * The list of log streams returned in the response.
+       * The log streams of this page, newest &lt;code&gt;capture_started_at&lt;/code&gt; first.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
@@ -26886,9 +31164,8 @@ public final class LogsOuterClass {
       private java.lang.Object nextPageToken_ = "";
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -26908,9 +31185,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -26931,9 +31207,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -26950,9 +31225,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -26966,9 +31240,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListCallLogStreamsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -27067,7 +31340,7 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27079,7 +31352,7 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27091,12 +31364,24 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
      */
     ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder getFilterOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Validate only: run every check of a real deletion and report in the response how many
+     * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     * deletion may count differently (live capture, retention). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 3;</code>
+     * @return The validateOnly.
+     */
+    boolean getValidateOnly();
   }
   /**
    * <pre>
@@ -27198,7 +31483,7 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27213,7 +31498,7 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27228,7 +31513,7 @@ public final class LogsOuterClass {
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-     * everything&amp;quot;.
+     * everything&amp;quot;. The time window alone counts as a set field.
      * </pre>
      *
      * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27236,6 +31521,23 @@ public final class LogsOuterClass {
     @java.lang.Override
     public ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder getFilterOrBuilder() {
       return filter_ == null ? ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance() : filter_;
+    }
+
+    public static final int VALIDATE_ONLY_FIELD_NUMBER = 3;
+    private boolean validateOnly_ = false;
+    /**
+     * <pre>
+     * Optional. Validate only: run every check of a real deletion and report in the response how many
+     * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     * deletion may count differently (live capture, retention). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 3;</code>
+     * @return The validateOnly.
+     */
+    @java.lang.Override
+    public boolean getValidateOnly() {
+      return validateOnly_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -27258,6 +31560,9 @@ public final class LogsOuterClass {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(2, getFilter());
       }
+      if (validateOnly_ != false) {
+        output.writeBool(3, validateOnly_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -27273,6 +31578,10 @@ public final class LogsOuterClass {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getFilter());
+      }
+      if (validateOnly_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, validateOnly_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -27296,6 +31605,8 @@ public final class LogsOuterClass {
         if (!getFilter()
             .equals(other.getFilter())) return false;
       }
+      if (getValidateOnly()
+          != other.getValidateOnly()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -27313,6 +31624,9 @@ public final class LogsOuterClass {
         hash = (37 * hash) + FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getFilter().hashCode();
       }
+      hash = (37 * hash) + VALIDATE_ONLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getValidateOnly());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -27461,6 +31775,7 @@ public final class LogsOuterClass {
           filterBuilder_.dispose();
           filterBuilder_ = null;
         }
+        validateOnly_ = false;
         return this;
       }
 
@@ -27504,6 +31819,9 @@ public final class LogsOuterClass {
               : filterBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.validateOnly_ = validateOnly_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -27526,6 +31844,9 @@ public final class LogsOuterClass {
         }
         if (other.hasFilter()) {
           mergeFilter(other.getFilter());
+        }
+        if (other.getValidateOnly() != false) {
+          setValidateOnly(other.getValidateOnly());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -27565,6 +31886,11 @@ public final class LogsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 24: {
+                validateOnly_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -27687,7 +32013,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27701,7 +32027,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27719,7 +32045,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27742,7 +32068,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27763,7 +32089,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27791,7 +32117,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27811,7 +32137,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27826,7 +32152,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27844,7 +32170,7 @@ public final class LogsOuterClass {
        * The entries to delete. Only the identity fields and the time window apply; content filters are
        * rejected, because deleting by message content is not an auditable operation. At least one
        * field must be set: an empty filter is rejected rather than treated as &amp;quot;delete
-       * everything&amp;quot;.
+       * everything&amp;quot;. The time window alone counts as a set field.
        * </pre>
        *
        * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
@@ -27861,6 +32187,56 @@ public final class LogsOuterClass {
           filter_ = null;
         }
         return filterBuilder_;
+      }
+
+      private boolean validateOnly_ ;
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real deletion and report in the response how many
+       * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+       * deletion may count differently (live capture, retention). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @return The validateOnly.
+       */
+      @java.lang.Override
+      public boolean getValidateOnly() {
+        return validateOnly_;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real deletion and report in the response how many
+       * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+       * deletion may count differently (live capture, retention). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @param value The validateOnly to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValidateOnly(boolean value) {
+
+        validateOnly_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real deletion and report in the response how many
+       * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+       * deletion may count differently (live capture, retention). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValidateOnly() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        validateOnly_ = false;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.DeleteCallLogsRequest)
@@ -27920,7 +32296,7 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * How many log entries were deleted.
+     * How many log entries were deleted (with &lt;code&gt;validate_only&lt;/code&gt;: would be deleted).
      * </pre>
      *
      * <code>int64 deleted_log_entry_count = 1;</code>
@@ -27930,7 +32306,8 @@ public final class LogsOuterClass {
 
     /**
      * <pre>
-     * How many log streams were deleted because no entries remained.
+     * How many log streams were deleted because no entries remained (with &lt;code&gt;validate_only&lt;/code&gt;:
+     * would be deleted).
      * </pre>
      *
      * <code>int64 deleted_log_stream_count = 2;</code>
@@ -27984,7 +32361,7 @@ public final class LogsOuterClass {
     private long deletedLogEntryCount_ = 0L;
     /**
      * <pre>
-     * How many log entries were deleted.
+     * How many log entries were deleted (with &lt;code&gt;validate_only&lt;/code&gt;: would be deleted).
      * </pre>
      *
      * <code>int64 deleted_log_entry_count = 1;</code>
@@ -27999,7 +32376,8 @@ public final class LogsOuterClass {
     private long deletedLogStreamCount_ = 0L;
     /**
      * <pre>
-     * How many log streams were deleted because no entries remained.
+     * How many log streams were deleted because no entries remained (with &lt;code&gt;validate_only&lt;/code&gt;:
+     * would be deleted).
      * </pre>
      *
      * <code>int64 deleted_log_stream_count = 2;</code>
@@ -28336,7 +32714,7 @@ public final class LogsOuterClass {
       private long deletedLogEntryCount_ ;
       /**
        * <pre>
-       * How many log entries were deleted.
+       * How many log entries were deleted (with &lt;code&gt;validate_only&lt;/code&gt;: would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_entry_count = 1;</code>
@@ -28348,7 +32726,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * How many log entries were deleted.
+       * How many log entries were deleted (with &lt;code&gt;validate_only&lt;/code&gt;: would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_entry_count = 1;</code>
@@ -28364,7 +32742,7 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * How many log entries were deleted.
+       * How many log entries were deleted (with &lt;code&gt;validate_only&lt;/code&gt;: would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_entry_count = 1;</code>
@@ -28380,7 +32758,8 @@ public final class LogsOuterClass {
       private long deletedLogStreamCount_ ;
       /**
        * <pre>
-       * How many log streams were deleted because no entries remained.
+       * How many log streams were deleted because no entries remained (with &lt;code&gt;validate_only&lt;/code&gt;:
+       * would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_stream_count = 2;</code>
@@ -28392,7 +32771,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * How many log streams were deleted because no entries remained.
+       * How many log streams were deleted because no entries remained (with &lt;code&gt;validate_only&lt;/code&gt;:
+       * would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_stream_count = 2;</code>
@@ -28408,7 +32788,8 @@ public final class LogsOuterClass {
       }
       /**
        * <pre>
-       * How many log streams were deleted because no entries remained.
+       * How many log streams were deleted because no entries remained (with &lt;code&gt;validate_only&lt;/code&gt;:
+       * would be deleted).
        * </pre>
        *
        * <code>int64 deleted_log_stream_count = 2;</code>
@@ -28472,6 +32853,1913 @@ public final class LogsOuterClass {
 
   }
 
+  public interface ExportCallLogsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.ExportCallLogsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * VTSI project whose logs to export.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 1;</code>
+     * @return The vtsiProjectName.
+     */
+    java.lang.String getVtsiProjectName();
+    /**
+     * <pre>
+     * VTSI project whose logs to export.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 1;</code>
+     * @return The bytes for vtsiProjectName.
+     */
+    com.google.protobuf.ByteString
+        getVtsiProjectNameBytes();
+
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     * @return Whether the filter field is set.
+     */
+    boolean hasFilter();
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     * @return The filter.
+     */
+    ondewo.vtsi.LogsOuterClass.CallLogFilter getFilter();
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     */
+    ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder getFilterOrBuilder();
+
+    /**
+     * <pre>
+     * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+     * @return The enum numeric value on the wire for format.
+     */
+    int getFormatValue();
+    /**
+     * <pre>
+     * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+     * @return The format.
+     */
+    ondewo.vtsi.LogsOuterClass.LogExportFormat getFormat();
+
+    /**
+     * <pre>
+     * Include every field of each entry rather than only the timestamp, the severity and the message
+     * (see &lt;a href="index.html#ondewo.vtsi.LogExportFormat"&gt;LogExportFormat&lt;/a&gt; for what each format
+     * adds). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool include_metadata = 4;</code>
+     * @return The includeMetadata.
+     */
+    boolean getIncludeMetadata();
+  }
+  /**
+   * <pre>
+   * The request message for
+   * &lt;a href="index.html#ondewo.vtsi.Logs.ExportCallLogs"&gt;Logs.ExportCallLogs&lt;/a&gt;.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.ExportCallLogsRequest}
+   */
+  public static final class ExportCallLogsRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.ExportCallLogsRequest)
+      ExportCallLogsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        ExportCallLogsRequest.class.getName());
+    }
+    // Use ExportCallLogsRequest.newBuilder() to construct.
+    private ExportCallLogsRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ExportCallLogsRequest() {
+      vtsiProjectName_ = "";
+      format_ = 0;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.class, ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int VTSI_PROJECT_NAME_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object vtsiProjectName_ = "";
+    /**
+     * <pre>
+     * VTSI project whose logs to export.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 1;</code>
+     * @return The vtsiProjectName.
+     */
+    @java.lang.Override
+    public java.lang.String getVtsiProjectName() {
+      java.lang.Object ref = vtsiProjectName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        vtsiProjectName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * VTSI project whose logs to export.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string vtsi_project_name = 1;</code>
+     * @return The bytes for vtsiProjectName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVtsiProjectNameBytes() {
+      java.lang.Object ref = vtsiProjectName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        vtsiProjectName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FILTER_FIELD_NUMBER = 2;
+    private ondewo.vtsi.LogsOuterClass.CallLogFilter filter_;
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     * @return Whether the filter field is set.
+     */
+    @java.lang.Override
+    public boolean hasFilter() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     * @return The filter.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.LogsOuterClass.CallLogFilter getFilter() {
+      return filter_ == null ? ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance() : filter_;
+    }
+    /**
+     * <pre>
+     * The entries to export. Every field of
+     * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+     * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+     * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+     * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+     */
+    @java.lang.Override
+    public ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder getFilterOrBuilder() {
+      return filter_ == null ? ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance() : filter_;
+    }
+
+    public static final int FORMAT_FIELD_NUMBER = 3;
+    private int format_ = 0;
+    /**
+     * <pre>
+     * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+     * @return The enum numeric value on the wire for format.
+     */
+    @java.lang.Override public int getFormatValue() {
+      return format_;
+    }
+    /**
+     * <pre>
+     * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+     * @return The format.
+     */
+    @java.lang.Override public ondewo.vtsi.LogsOuterClass.LogExportFormat getFormat() {
+      ondewo.vtsi.LogsOuterClass.LogExportFormat result = ondewo.vtsi.LogsOuterClass.LogExportFormat.forNumber(format_);
+      return result == null ? ondewo.vtsi.LogsOuterClass.LogExportFormat.UNRECOGNIZED : result;
+    }
+
+    public static final int INCLUDE_METADATA_FIELD_NUMBER = 4;
+    private boolean includeMetadata_ = false;
+    /**
+     * <pre>
+     * Include every field of each entry rather than only the timestamp, the severity and the message
+     * (see &lt;a href="index.html#ondewo.vtsi.LogExportFormat"&gt;LogExportFormat&lt;/a&gt; for what each format
+     * adds). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool include_metadata = 4;</code>
+     * @return The includeMetadata.
+     */
+    @java.lang.Override
+    public boolean getIncludeMetadata() {
+      return includeMetadata_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(vtsiProjectName_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, vtsiProjectName_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFilter());
+      }
+      if (format_ != ondewo.vtsi.LogsOuterClass.LogExportFormat.LOG_EXPORT_FORMAT_UNSPECIFIED.getNumber()) {
+        output.writeEnum(3, format_);
+      }
+      if (includeMetadata_ != false) {
+        output.writeBool(4, includeMetadata_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(vtsiProjectName_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, vtsiProjectName_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFilter());
+      }
+      if (format_ != ondewo.vtsi.LogsOuterClass.LogExportFormat.LOG_EXPORT_FORMAT_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, format_);
+      }
+      if (includeMetadata_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, includeMetadata_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest other = (ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest) obj;
+
+      if (!getVtsiProjectName()
+          .equals(other.getVtsiProjectName())) return false;
+      if (hasFilter() != other.hasFilter()) return false;
+      if (hasFilter()) {
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
+      }
+      if (format_ != other.format_) return false;
+      if (getIncludeMetadata()
+          != other.getIncludeMetadata()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + VTSI_PROJECT_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getVtsiProjectName().hashCode();
+      if (hasFilter()) {
+        hash = (37 * hash) + FILTER_FIELD_NUMBER;
+        hash = (53 * hash) + getFilter().hashCode();
+      }
+      hash = (37 * hash) + FORMAT_FIELD_NUMBER;
+      hash = (53 * hash) + format_;
+      hash = (37 * hash) + INCLUDE_METADATA_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIncludeMetadata());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The request message for
+     * &lt;a href="index.html#ondewo.vtsi.Logs.ExportCallLogs"&gt;Logs.ExportCallLogs&lt;/a&gt;.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.ExportCallLogsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.ExportCallLogsRequest)
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.class, ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFilterFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        vtsiProjectName_ = "";
+        filter_ = null;
+        if (filterBuilder_ != null) {
+          filterBuilder_.dispose();
+          filterBuilder_ = null;
+        }
+        format_ = 0;
+        includeMetadata_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest getDefaultInstanceForType() {
+        return ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest build() {
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest buildPartial() {
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest result = new ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.vtsiProjectName_ = vtsiProjectName_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.filter_ = filterBuilder_ == null
+              ? filter_
+              : filterBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.format_ = format_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.includeMetadata_ = includeMetadata_;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest) {
+          return mergeFrom((ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest other) {
+        if (other == ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest.getDefaultInstance()) return this;
+        if (!other.getVtsiProjectName().isEmpty()) {
+          vtsiProjectName_ = other.vtsiProjectName_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.hasFilter()) {
+          mergeFilter(other.getFilter());
+        }
+        if (other.format_ != 0) {
+          setFormatValue(other.getFormatValue());
+        }
+        if (other.getIncludeMetadata() != false) {
+          setIncludeMetadata(other.getIncludeMetadata());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                vtsiProjectName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFilterFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 24: {
+                format_ = input.readEnum();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 32: {
+                includeMetadata_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object vtsiProjectName_ = "";
+      /**
+       * <pre>
+       * VTSI project whose logs to export.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 1;</code>
+       * @return The vtsiProjectName.
+       */
+      public java.lang.String getVtsiProjectName() {
+        java.lang.Object ref = vtsiProjectName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          vtsiProjectName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * VTSI project whose logs to export.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 1;</code>
+       * @return The bytes for vtsiProjectName.
+       */
+      public com.google.protobuf.ByteString
+          getVtsiProjectNameBytes() {
+        java.lang.Object ref = vtsiProjectName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          vtsiProjectName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * VTSI project whose logs to export.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 1;</code>
+       * @param value The vtsiProjectName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVtsiProjectName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        vtsiProjectName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * VTSI project whose logs to export.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVtsiProjectName() {
+        vtsiProjectName_ = getDefaultInstance().getVtsiProjectName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * VTSI project whose logs to export.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string vtsi_project_name = 1;</code>
+       * @param value The bytes for vtsiProjectName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVtsiProjectNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        vtsiProjectName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private ondewo.vtsi.LogsOuterClass.CallLogFilter filter_;
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.LogsOuterClass.CallLogFilter, ondewo.vtsi.LogsOuterClass.CallLogFilter.Builder, ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder> filterBuilder_;
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       * @return Whether the filter field is set.
+       */
+      public boolean hasFilter() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       * @return The filter.
+       */
+      public ondewo.vtsi.LogsOuterClass.CallLogFilter getFilter() {
+        if (filterBuilder_ == null) {
+          return filter_ == null ? ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance() : filter_;
+        } else {
+          return filterBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public Builder setFilter(ondewo.vtsi.LogsOuterClass.CallLogFilter value) {
+        if (filterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          filter_ = value;
+        } else {
+          filterBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public Builder setFilter(
+          ondewo.vtsi.LogsOuterClass.CallLogFilter.Builder builderForValue) {
+        if (filterBuilder_ == null) {
+          filter_ = builderForValue.build();
+        } else {
+          filterBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public Builder mergeFilter(ondewo.vtsi.LogsOuterClass.CallLogFilter value) {
+        if (filterBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            filter_ != null &&
+            filter_ != ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance()) {
+            getFilterBuilder().mergeFrom(value);
+          } else {
+            filter_ = value;
+          }
+        } else {
+          filterBuilder_.mergeFrom(value);
+        }
+        if (filter_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public Builder clearFilter() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        filter_ = null;
+        if (filterBuilder_ != null) {
+          filterBuilder_.dispose();
+          filterBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public ondewo.vtsi.LogsOuterClass.CallLogFilter.Builder getFilterBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFilterFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      public ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder getFilterOrBuilder() {
+        if (filterBuilder_ != null) {
+          return filterBuilder_.getMessageOrBuilder();
+        } else {
+          return filter_ == null ?
+              ondewo.vtsi.LogsOuterClass.CallLogFilter.getDefaultInstance() : filter_;
+        }
+      }
+      /**
+       * <pre>
+       * The entries to export. Every field of
+       * &lt;a href="index.html#ondewo.vtsi.CallLogFilter"&gt;CallLogFilter&lt;/a&gt; applies, identity and content
+       * filters alike, with the semantics of &lt;code&gt;ListCallLogs&lt;/code&gt;. REQUIRED, with both
+       * &lt;code&gt;start_time&lt;/code&gt; and &lt;code&gt;end_time&lt;/code&gt; set and &lt;code&gt;start_time&lt;/code&gt; before
+       * &lt;code&gt;end_time&lt;/code&gt;; otherwise &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.LogsOuterClass.CallLogFilter, ondewo.vtsi.LogsOuterClass.CallLogFilter.Builder, ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder> 
+          internalGetFilterFieldBuilder() {
+        if (filterBuilder_ == null) {
+          filterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              ondewo.vtsi.LogsOuterClass.CallLogFilter, ondewo.vtsi.LogsOuterClass.CallLogFilter.Builder, ondewo.vtsi.LogsOuterClass.CallLogFilterOrBuilder>(
+                  getFilter(),
+                  getParentForChildren(),
+                  isClean());
+          filter_ = null;
+        }
+        return filterBuilder_;
+      }
+
+      private int format_ = 0;
+      /**
+       * <pre>
+       * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+       * @return The enum numeric value on the wire for format.
+       */
+      @java.lang.Override public int getFormatValue() {
+        return format_;
+      }
+      /**
+       * <pre>
+       * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+       * @param value The enum numeric value on the wire for format to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFormatValue(int value) {
+        format_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+       * @return The format.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.LogExportFormat getFormat() {
+        ondewo.vtsi.LogsOuterClass.LogExportFormat result = ondewo.vtsi.LogsOuterClass.LogExportFormat.forNumber(format_);
+        return result == null ? ondewo.vtsi.LogsOuterClass.LogExportFormat.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+       * @param value The format to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFormat(ondewo.vtsi.LogsOuterClass.LogExportFormat value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000004;
+        format_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The file format. Unset means &lt;code&gt;LOG_EXPORT_FORMAT_TEXT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.LogExportFormat format = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFormat() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        format_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean includeMetadata_ ;
+      /**
+       * <pre>
+       * Include every field of each entry rather than only the timestamp, the severity and the message
+       * (see &lt;a href="index.html#ondewo.vtsi.LogExportFormat"&gt;LogExportFormat&lt;/a&gt; for what each format
+       * adds). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool include_metadata = 4;</code>
+       * @return The includeMetadata.
+       */
+      @java.lang.Override
+      public boolean getIncludeMetadata() {
+        return includeMetadata_;
+      }
+      /**
+       * <pre>
+       * Include every field of each entry rather than only the timestamp, the severity and the message
+       * (see &lt;a href="index.html#ondewo.vtsi.LogExportFormat"&gt;LogExportFormat&lt;/a&gt; for what each format
+       * adds). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool include_metadata = 4;</code>
+       * @param value The includeMetadata to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIncludeMetadata(boolean value) {
+
+        includeMetadata_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Include every field of each entry rather than only the timestamp, the severity and the message
+       * (see &lt;a href="index.html#ondewo.vtsi.LogExportFormat"&gt;LogExportFormat&lt;/a&gt; for what each format
+       * adds). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool include_metadata = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIncludeMetadata() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        includeMetadata_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ExportCallLogsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.ExportCallLogsRequest)
+    private static final ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest();
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ExportCallLogsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ExportCallLogsRequest>() {
+      @java.lang.Override
+      public ExportCallLogsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ExportCallLogsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ExportCallLogsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.LogsOuterClass.ExportCallLogsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ExportCallLogsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.ExportCallLogsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+     * a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+     * chunk.
+     * </pre>
+     *
+     * <code>bytes chunk = 1;</code>
+     * @return The chunk.
+     */
+    com.google.protobuf.ByteString getChunk();
+
+    /**
+     * <pre>
+     * The number of entries exported so far, including those of this chunk (an entry that spans two
+     * chunks is counted in the chunk where it ends).
+     * </pre>
+     *
+     * <code>int64 entry_count = 2;</code>
+     * @return The entryCount.
+     */
+    long getEntryCount();
+
+    /**
+     * <pre>
+     * True on the last message of a complete export. A stream that ends without a message carrying
+     * &lt;code&gt;last = true&lt;/code&gt; was cut off (error status, disconnect) and its file is incomplete.
+     * </pre>
+     *
+     * <code>bool last = 3;</code>
+     * @return The last.
+     */
+    boolean getLast();
+
+    /**
+     * <pre>
+     * True on the last message when the export stopped early because it reached
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; or &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt;:
+     * matching entries after the last exported one were left out.
+     * </pre>
+     *
+     * <code>bool truncated = 4;</code>
+     * @return The truncated.
+     */
+    boolean getTruncated();
+  }
+  /**
+   * <pre>
+   * One message of an &lt;a href="index.html#ondewo.vtsi.Logs.ExportCallLogs"&gt;ExportCallLogs&lt;/a&gt; stream.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.ExportCallLogsResponse}
+   */
+  public static final class ExportCallLogsResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.ExportCallLogsResponse)
+      ExportCallLogsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        ExportCallLogsResponse.class.getName());
+    }
+    // Use ExportCallLogsResponse.newBuilder() to construct.
+    private ExportCallLogsResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ExportCallLogsResponse() {
+      chunk_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.class, ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.Builder.class);
+    }
+
+    public static final int CHUNK_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString chunk_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+     * a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+     * chunk.
+     * </pre>
+     *
+     * <code>bytes chunk = 1;</code>
+     * @return The chunk.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getChunk() {
+      return chunk_;
+    }
+
+    public static final int ENTRY_COUNT_FIELD_NUMBER = 2;
+    private long entryCount_ = 0L;
+    /**
+     * <pre>
+     * The number of entries exported so far, including those of this chunk (an entry that spans two
+     * chunks is counted in the chunk where it ends).
+     * </pre>
+     *
+     * <code>int64 entry_count = 2;</code>
+     * @return The entryCount.
+     */
+    @java.lang.Override
+    public long getEntryCount() {
+      return entryCount_;
+    }
+
+    public static final int LAST_FIELD_NUMBER = 3;
+    private boolean last_ = false;
+    /**
+     * <pre>
+     * True on the last message of a complete export. A stream that ends without a message carrying
+     * &lt;code&gt;last = true&lt;/code&gt; was cut off (error status, disconnect) and its file is incomplete.
+     * </pre>
+     *
+     * <code>bool last = 3;</code>
+     * @return The last.
+     */
+    @java.lang.Override
+    public boolean getLast() {
+      return last_;
+    }
+
+    public static final int TRUNCATED_FIELD_NUMBER = 4;
+    private boolean truncated_ = false;
+    /**
+     * <pre>
+     * True on the last message when the export stopped early because it reached
+     * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; or &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt;:
+     * matching entries after the last exported one were left out.
+     * </pre>
+     *
+     * <code>bool truncated = 4;</code>
+     * @return The truncated.
+     */
+    @java.lang.Override
+    public boolean getTruncated() {
+      return truncated_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!chunk_.isEmpty()) {
+        output.writeBytes(1, chunk_);
+      }
+      if (entryCount_ != 0L) {
+        output.writeInt64(2, entryCount_);
+      }
+      if (last_ != false) {
+        output.writeBool(3, last_);
+      }
+      if (truncated_ != false) {
+        output.writeBool(4, truncated_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!chunk_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, chunk_);
+      }
+      if (entryCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, entryCount_);
+      }
+      if (last_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, last_);
+      }
+      if (truncated_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, truncated_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse other = (ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse) obj;
+
+      if (!getChunk()
+          .equals(other.getChunk())) return false;
+      if (getEntryCount()
+          != other.getEntryCount()) return false;
+      if (getLast()
+          != other.getLast()) return false;
+      if (getTruncated()
+          != other.getTruncated()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CHUNK_FIELD_NUMBER;
+      hash = (53 * hash) + getChunk().hashCode();
+      hash = (37 * hash) + ENTRY_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getEntryCount());
+      hash = (37 * hash) + LAST_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getLast());
+      hash = (37 * hash) + TRUNCATED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getTruncated());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * One message of an &lt;a href="index.html#ondewo.vtsi.Logs.ExportCallLogs"&gt;ExportCallLogs&lt;/a&gt; stream.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.ExportCallLogsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.ExportCallLogsResponse)
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.class, ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        chunk_ = com.google.protobuf.ByteString.EMPTY;
+        entryCount_ = 0L;
+        last_ = false;
+        truncated_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.LogsOuterClass.internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse getDefaultInstanceForType() {
+        return ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse build() {
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse buildPartial() {
+        ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse result = new ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.chunk_ = chunk_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.entryCount_ = entryCount_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.last_ = last_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.truncated_ = truncated_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse) {
+          return mergeFrom((ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse other) {
+        if (other == ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse.getDefaultInstance()) return this;
+        if (!other.getChunk().isEmpty()) {
+          setChunk(other.getChunk());
+        }
+        if (other.getEntryCount() != 0L) {
+          setEntryCount(other.getEntryCount());
+        }
+        if (other.getLast() != false) {
+          setLast(other.getLast());
+        }
+        if (other.getTruncated() != false) {
+          setTruncated(other.getTruncated());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                chunk_ = input.readBytes();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                entryCount_ = input.readInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                last_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 32: {
+                truncated_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.ByteString chunk_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+       * a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+       * chunk.
+       * </pre>
+       *
+       * <code>bytes chunk = 1;</code>
+       * @return The chunk.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getChunk() {
+        return chunk_;
+      }
+      /**
+       * <pre>
+       * The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+       * a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+       * chunk.
+       * </pre>
+       *
+       * <code>bytes chunk = 1;</code>
+       * @param value The chunk to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChunk(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        chunk_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The next bytes of the exported file, at most 1 MiB. Chunk boundaries carry no meaning: an entry,
+       * a line or a multi-byte UTF-8 character may span two chunks. The last message may carry an empty
+       * chunk.
+       * </pre>
+       *
+       * <code>bytes chunk = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearChunk() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        chunk_ = getDefaultInstance().getChunk();
+        onChanged();
+        return this;
+      }
+
+      private long entryCount_ ;
+      /**
+       * <pre>
+       * The number of entries exported so far, including those of this chunk (an entry that spans two
+       * chunks is counted in the chunk where it ends).
+       * </pre>
+       *
+       * <code>int64 entry_count = 2;</code>
+       * @return The entryCount.
+       */
+      @java.lang.Override
+      public long getEntryCount() {
+        return entryCount_;
+      }
+      /**
+       * <pre>
+       * The number of entries exported so far, including those of this chunk (an entry that spans two
+       * chunks is counted in the chunk where it ends).
+       * </pre>
+       *
+       * <code>int64 entry_count = 2;</code>
+       * @param value The entryCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEntryCount(long value) {
+
+        entryCount_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The number of entries exported so far, including those of this chunk (an entry that spans two
+       * chunks is counted in the chunk where it ends).
+       * </pre>
+       *
+       * <code>int64 entry_count = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEntryCount() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        entryCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean last_ ;
+      /**
+       * <pre>
+       * True on the last message of a complete export. A stream that ends without a message carrying
+       * &lt;code&gt;last = true&lt;/code&gt; was cut off (error status, disconnect) and its file is incomplete.
+       * </pre>
+       *
+       * <code>bool last = 3;</code>
+       * @return The last.
+       */
+      @java.lang.Override
+      public boolean getLast() {
+        return last_;
+      }
+      /**
+       * <pre>
+       * True on the last message of a complete export. A stream that ends without a message carrying
+       * &lt;code&gt;last = true&lt;/code&gt; was cut off (error status, disconnect) and its file is incomplete.
+       * </pre>
+       *
+       * <code>bool last = 3;</code>
+       * @param value The last to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLast(boolean value) {
+
+        last_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * True on the last message of a complete export. A stream that ends without a message carrying
+       * &lt;code&gt;last = true&lt;/code&gt; was cut off (error status, disconnect) and its file is incomplete.
+       * </pre>
+       *
+       * <code>bool last = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLast() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        last_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean truncated_ ;
+      /**
+       * <pre>
+       * True on the last message when the export stopped early because it reached
+       * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; or &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt;:
+       * matching entries after the last exported one were left out.
+       * </pre>
+       *
+       * <code>bool truncated = 4;</code>
+       * @return The truncated.
+       */
+      @java.lang.Override
+      public boolean getTruncated() {
+        return truncated_;
+      }
+      /**
+       * <pre>
+       * True on the last message when the export stopped early because it reached
+       * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; or &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt;:
+       * matching entries after the last exported one were left out.
+       * </pre>
+       *
+       * <code>bool truncated = 4;</code>
+       * @param value The truncated to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTruncated(boolean value) {
+
+        truncated_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * True on the last message when the export stopped early because it reached
+       * &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_ENTRIES&lt;/code&gt; or &lt;code&gt;ONDEWO_VTSI_LOG_EXPORT_MAX_BYTES&lt;/code&gt;:
+       * matching entries after the last exported one were left out.
+       * </pre>
+       *
+       * <code>bool truncated = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTruncated() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        truncated_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ExportCallLogsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.ExportCallLogsResponse)
+    private static final ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse();
+    }
+
+    public static ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ExportCallLogsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ExportCallLogsResponse>() {
+      @java.lang.Override
+      public ExportCallLogsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ExportCallLogsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ExportCallLogsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.LogsOuterClass.ExportCallLogsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ondewo_vtsi_CallLogEntry_descriptor;
   private static final 
@@ -28513,6 +34801,11 @@ public final class LogsOuterClass {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ondewo_vtsi_ListCallLogsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ondewo_vtsi_GetCallLogStreamRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -28537,6 +34830,16 @@ public final class LogsOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ondewo_vtsi_DeleteCallLogsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_ExportCallLogsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_ExportCallLogsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -28546,137 +34849,174 @@ public final class LogsOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\026ondewo/vtsi/logs.proto\022\013ondewo.vtsi\032\037g" +
-      "oogle/protobuf/timestamp.proto\032\027ondewo/n" +
-      "lu/common.proto\032\027ondewo/vtsi/calls.proto" +
-      "\"\250\003\n\014CallLogEntry\022\013\n\003seq\030\001 \001(\003\022-\n\ttimest" +
-      "amp\030\002 \001(\0132\032.google.protobuf.Timestamp\022\032\n" +
-      "\022timestamp_is_exact\030\003 \001(\010\022&\n\005level\030\004 \001(\016" +
-      "2\027.ondewo.nlu.LogSeverity\022\017\n\007message\030\005 \001" +
-      "(\t\022\024\n\014container_id\030\006 \001(\t\022\026\n\016container_na" +
-      "me\030\007 \001(\t\022*\n\nlog_source\030\010 \001(\0162\026.ondewo.vt" +
-      "si.LogSource\022.\n\007channel\030\t \001(\0162\035.ondewo.v" +
-      "tsi.LogStreamChannel\022\017\n\007emitter\030\n \001(\t\022\023\n" +
-      "\013thread_name\030\013 \001(\t\022\022\n\nlog_stream\030\014 \001(\t\022\014" +
-      "\n\004call\030\r \001(\t\022\030\n\020nlu_session_name\030\016 \001(\t\022\033" +
-      "\n\023physical_line_count\030\017 \001(\005\"-\n\017SipHeader" +
-      "Filter\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\360\007\n\rC" +
-      "allLogFilter\022\022\n\ncall_names\030\001 \003(\t\022\024\n\014call" +
-      "er_names\030\002 \003(\t\022\026\n\016listener_names\030\003 \003(\t\022\022" +
-      "\n\ncaller_ids\030\004 \003(\t\022\024\n\014listener_ids\030\005 \003(\t" +
-      "\022\020\n\010call_ids\030\006 \003(\t\022\027\n\017container_names\030\007 " +
-      "\003(\t\022\025\n\rcontainer_ids\030\010 \003(\t\022\030\n\020log_stream" +
-      "_names\030\t \003(\t\022\024\n\014sip_accounts\030\n \003(\t\022\021\n\tsi" +
-      "p_ports\030\013 \003(\t\022\021\n\tcsi_ports\030\014 \003(\t\022\026\n\016aste" +
-      "risk_ports\030\r \003(\t\022\025\n\rphone_numbers\030\016 \003(\t\022" +
-      "\022\n\ncallee_ids\030\017 \003(\t\022\031\n\021nlu_session_names" +
-      "\030\020 \003(\t\022\031\n\021nlu_session_uuids\030\021 \003(\t\022\031\n\021nlu" +
-      "_project_uuids\030\022 \003(\t\022)\n\ncall_types\030\023 \003(\016" +
-      "2\025.ondewo.vtsi.CallType\0221\n\013sip_headers\030\024" +
-      " \003(\0132\034.ondewo.vtsi.SipHeaderFilter\022+\n\013lo" +
-      "g_sources\030\025 \003(\0162\026.ondewo.vtsi.LogSource\022" +
-      "/\n\010channels\030\026 \003(\0162\035.ondewo.vtsi.LogStrea" +
-      "mChannel\022.\n\rmin_log_level\030\027 \001(\0162\027.ondewo" +
-      ".nlu.LogSeverity\022+\n\nlog_levels\030\030 \003(\0162\027.o" +
-      "ndewo.nlu.LogSeverity\022$\n\027include_unlevel" +
-      "ed_lines\030\031 \001(\010H\000\210\001\001\022\021\n\004text\030\032 \001(\tH\001\210\001\001\022\022" +
-      "\n\005regex\030\033 \001(\tH\002\210\001\001\022\030\n\020emitter_prefixes\030\034" +
-      " \003(\t\022\024\n\014thread_names\030\035 \003(\t\0223\n\nstart_time" +
-      "\030\036 \001(\0132\032.google.protobuf.TimestampH\003\210\001\001\022" +
-      "1\n\010end_time\030\037 \001(\0132\032.google.protobuf.Time" +
-      "stampH\004\210\001\001B\032\n\030_include_unleveled_linesB\007" +
-      "\n\005_textB\010\n\006_regexB\r\n\013_start_timeB\013\n\t_end" +
-      "_time\"\354\004\n\rCallLogStream\022\014\n\004name\030\001 \001(\t\022\026\n" +
-      "\016container_name\030\002 \001(\t\022\024\n\014container_id\030\003 " +
-      "\001(\t\022.\n\007channel\030\004 \001(\0162\035.ondewo.vtsi.LogSt" +
-      "reamChannel\022\022\n\nproject_id\030\005 \001(\t\022\026\n\016voip_" +
-      "call_name\030\006 \001(\t\022(\n\tcall_type\030\007 \001(\0162\025.ond" +
-      "ewo.vtsi.CallType\022\023\n\013sip_account\030\010 \001(\t\022\020" +
-      "\n\010sip_port\030\t \001(\005\022\020\n\010csi_port\030\n \001(\005\022\025\n\ras" +
-      "terisk_port\030\013 \001(\005\022\r\n\005image\030\014 \001(\t\0223\n\rcapt" +
-      "ure_state\030\r \001(\0162\034.ondewo.vtsi.LogCapture" +
-      "State\022\025\n\rcapture_error\030\016 \001(\t\0226\n\022capture_" +
-      "started_at\030\017 \001(\0132\032.google.protobuf.Times" +
-      "tamp\0227\n\023capture_finished_at\030\020 \001(\0132\032.goog" +
-      "le.protobuf.Timestamp\022\027\n\017partial_capture" +
-      "\030\021 \001(\010\022\031\n\021min_available_seq\030\022 \001(\003\022\031\n\021max" +
-      "_available_seq\030\023 \001(\003\022\022\n\nline_count\030\024 \001(\003" +
-      "\022\032\n\022dropped_line_count\030\025 \001(\003\"\350\001\n\025StreamC" +
-      "allLogsRequest\022\031\n\021vtsi_project_name\030\001 \001(" +
-      "\t\022/\n\006filter\030\002 \001(\0132\032.ondewo.vtsi.CallLogF" +
-      "ilterH\000\210\001\001\022\027\n\ntail_lines\030\003 \001(\005H\001\210\001\001\022\031\n\014r" +
-      "esume_token\030\004 \001(\tH\002\210\001\001\022\026\n\tafter_seq\030\005 \001(" +
-      "\003H\003\210\001\001B\t\n\007_filterB\r\n\013_tail_linesB\017\n\r_res" +
-      "ume_tokenB\014\n\n_after_seq\"\332\001\n\026StreamCallLo" +
-      "gsResponse\022.\n\013log_entries\030\001 \003(\0132\031.ondewo" +
-      ".vtsi.CallLogEntry\0223\n\rcapture_state\030\002 \001(" +
-      "\0162\034.ondewo.vtsi.LogCaptureState\022\025\n\rcaptu" +
-      "re_error\030\003 \001(\t\022\032\n\022dropped_line_count\030\004 \001" +
-      "(\003\022\024\n\014resume_token\030\005 \001(\t\022\022\n\nend_reason\030\006" +
-      " \001(\t\"\270\002\n\023ListCallLogsRequest\022\031\n\021vtsi_pro" +
-      "ject_name\030\001 \001(\t\022/\n\006filter\030\002 \001(\0132\032.ondewo" +
-      ".vtsi.CallLogFilterH\000\210\001\001\022\026\n\tmax_lines\030\003 " +
-      "\001(\005H\001\210\001\001\022\027\n\nbefore_seq\030\004 \001(\003H\002\210\001\001\022\026\n\taft" +
-      "er_seq\030\005 \001(\003H\003\210\001\001\022\031\n\014resume_token\030\006 \001(\tH" +
-      "\004\210\001\001\022\031\n\014oldest_first\030\007 \001(\010H\005\210\001\001B\t\n\007_filt" +
-      "erB\014\n\n_max_linesB\r\n\013_before_seqB\014\n\n_afte" +
-      "r_seqB\017\n\r_resume_tokenB\017\n\r_oldest_first\"" +
-      "\232\002\n\024ListCallLogsResponse\022.\n\013log_entries\030" +
-      "\001 \003(\0132\031.ondewo.vtsi.CallLogEntry\022\021\n\ttrun" +
-      "cated\030\002 \001(\010\022\031\n\021min_available_seq\030\003 \001(\003\022\031" +
-      "\n\021max_available_seq\030\004 \001(\003\022\026\n\016has_more_ol" +
-      "der\030\005 \001(\010\022\026\n\016has_more_newer\030\006 \001(\010\022\031\n\021nex" +
-      "t_resume_token\030\007 \001(\t\022>\n\025scope_limited_fi" +
-      "lters\030\010 \003(\0162\037.ondewo.vtsi.CallLogFilterF" +
-      "ield\"B\n\027GetCallLogStreamRequest\022\031\n\021vtsi_" +
-      "project_name\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"\232\001\n\031Lis" +
-      "tCallLogStreamsRequest\022\031\n\021vtsi_project_n" +
-      "ame\030\001 \001(\t\022/\n\006filter\030\002 \001(\0132\032.ondewo.vtsi." +
-      "CallLogFilterH\000\210\001\001\022\027\n\npage_token\030\003 \001(\tH\001" +
-      "\210\001\001B\t\n\007_filterB\r\n\013_page_token\"f\n\032ListCal" +
-      "lLogStreamsResponse\022/\n\013log_streams\030\001 \003(\013" +
-      "2\032.ondewo.vtsi.CallLogStream\022\027\n\017next_pag" +
-      "e_token\030\002 \001(\t\"^\n\025DeleteCallLogsRequest\022\031" +
-      "\n\021vtsi_project_name\030\001 \001(\t\022*\n\006filter\030\002 \001(" +
-      "\0132\032.ondewo.vtsi.CallLogFilter\"[\n\026DeleteC" +
-      "allLogsResponse\022\037\n\027deleted_log_entry_cou" +
-      "nt\030\001 \001(\003\022 \n\030deleted_log_stream_count\030\002 \001" +
-      "(\003*\232\001\n\tLogSource\022\032\n\026LOG_SOURCE_UNSPECIFI" +
-      "ED\020\000\022\022\n\016LOG_SOURCE_SIP\020\001\022\022\n\016LOG_SOURCE_C" +
-      "SI\020\002\022\027\n\023LOG_SOURCE_ASTERISK\020\003\022\031\n\025LOG_SOU" +
-      "RCE_PULSEAUDIO\020\004\022\025\n\021LOG_SOURCE_SYSTEM\020\005*" +
-      "t\n\020LogStreamChannel\022\"\n\036LOG_STREAM_CHANNE" +
-      "L_UNSPECIFIED\020\000\022\035\n\031LOG_STREAM_CHANNEL_ST" +
-      "DOUT\020\001\022\035\n\031LOG_STREAM_CHANNEL_STDERR\020\002*\262\001" +
-      "\n\017LogCaptureState\022!\n\035LOG_CAPTURE_STATE_U" +
-      "NSPECIFIED\020\000\022\037\n\033LOG_CAPTURE_STATE_CAPTUR" +
-      "ING\020\001\022\035\n\031LOG_CAPTURE_STATE_STOPPED\020\002\022\034\n\030" +
-      "LOG_CAPTURE_STATE_FAILED\020\003\022\036\n\032LOG_CAPTUR" +
-      "E_STATE_DETACHED\020\004*\302\002\n\022CallLogFilterFiel" +
-      "d\022%\n!CALL_LOG_FILTER_FIELD_UNSPECIFIED\020\000" +
-      "\022\036\n\032CALL_LOG_FILTER_FIELD_TEXT\020\001\022\037\n\033CALL" +
-      "_LOG_FILTER_FIELD_REGEX\020\002\022%\n!CALL_LOG_FI" +
-      "LTER_FIELD_LOG_SOURCES\020\003\022\"\n\036CALL_LOG_FIL" +
-      "TER_FIELD_CHANNELS\020\004\022*\n&CALL_LOG_FILTER_" +
-      "FIELD_EMITTER_PREFIXES\020\005\022&\n\"CALL_LOG_FIL" +
-      "TER_FIELD_THREAD_NAMES\020\006\022%\n!CALL_LOG_FIL" +
-      "TER_FIELD_SIP_HEADERS\020\0072\320\003\n\004Logs\022[\n\016Stre" +
-      "amCallLogs\022\".ondewo.vtsi.StreamCallLogsR" +
-      "equest\032#.ondewo.vtsi.StreamCallLogsRespo" +
-      "nse0\001\022S\n\014ListCallLogs\022 .ondewo.vtsi.List" +
-      "CallLogsRequest\032!.ondewo.vtsi.ListCallLo" +
-      "gsResponse\022T\n\020GetCallLogStream\022$.ondewo." +
-      "vtsi.GetCallLogStreamRequest\032\032.ondewo.vt" +
-      "si.CallLogStream\022e\n\022ListCallLogStreams\022&" +
-      ".ondewo.vtsi.ListCallLogStreamsRequest\032\'" +
-      ".ondewo.vtsi.ListCallLogStreamsResponse\022" +
-      "Y\n\016DeleteCallLogs\022\".ondewo.vtsi.DeleteCa" +
-      "llLogsRequest\032#.ondewo.vtsi.DeleteCallLo" +
-      "gsResponseb\006proto3"
+      "\n\026ondewo/vtsi/logs.proto\022\013ondewo.vtsi\032 g" +
+      "oogle/protobuf/field_mask.proto\032\037google/" +
+      "protobuf/timestamp.proto\032\027ondewo/nlu/com" +
+      "mon.proto\032\027ondewo/vtsi/calls.proto\"\250\003\n\014C" +
+      "allLogEntry\022\013\n\003seq\030\001 \001(\003\022-\n\ttimestamp\030\002 " +
+      "\001(\0132\032.google.protobuf.Timestamp\022\032\n\022times" +
+      "tamp_is_exact\030\003 \001(\010\022&\n\005level\030\004 \001(\0162\027.ond" +
+      "ewo.nlu.LogSeverity\022\017\n\007message\030\005 \001(\t\022\024\n\014" +
+      "container_id\030\006 \001(\t\022\026\n\016container_name\030\007 \001" +
+      "(\t\022*\n\nlog_source\030\010 \001(\0162\026.ondewo.vtsi.Log" +
+      "Source\022.\n\007channel\030\t \001(\0162\035.ondewo.vtsi.Lo" +
+      "gStreamChannel\022\017\n\007emitter\030\n \001(\t\022\023\n\013threa" +
+      "d_name\030\013 \001(\t\022\022\n\nlog_stream\030\014 \001(\t\022\014\n\004call" +
+      "\030\r \001(\t\022\030\n\020nlu_session_name\030\016 \001(\t\022\033\n\023phys" +
+      "ical_line_count\030\017 \001(\005\"-\n\017SipHeaderFilter" +
+      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\317\010\n\rCallLog" +
+      "Filter\022\022\n\ncall_names\030\001 \003(\t\022\024\n\014caller_nam" +
+      "es\030\002 \003(\t\022\026\n\016listener_names\030\003 \003(\t\022\022\n\ncall" +
+      "er_ids\030\004 \003(\t\022\024\n\014listener_ids\030\005 \003(\t\022\020\n\010ca" +
+      "ll_ids\030\006 \003(\t\022\027\n\017container_names\030\007 \003(\t\022\025\n" +
+      "\rcontainer_ids\030\010 \003(\t\022\030\n\020log_stream_names" +
+      "\030\t \003(\t\022\024\n\014sip_accounts\030\n \003(\t\022\025\n\tsip_port" +
+      "s\030\013 \003(\tB\002\030\001\022\025\n\tcsi_ports\030\014 \003(\tB\002\030\001\022\032\n\016as" +
+      "terisk_ports\030\r \003(\tB\002\030\001\022\025\n\rphone_numbers\030" +
+      "\016 \003(\t\022\022\n\ncallee_ids\030\017 \003(\t\022\031\n\021nlu_session" +
+      "_names\030\020 \003(\t\022\031\n\021nlu_session_uuids\030\021 \003(\t\022" +
+      "\031\n\021nlu_project_uuids\030\022 \003(\t\022)\n\ncall_types" +
+      "\030\023 \003(\0162\025.ondewo.vtsi.CallType\0221\n\013sip_hea" +
+      "ders\030\024 \003(\0132\034.ondewo.vtsi.SipHeaderFilter" +
+      "\022+\n\013log_sources\030\025 \003(\0162\026.ondewo.vtsi.LogS" +
+      "ource\022/\n\010channels\030\026 \003(\0162\035.ondewo.vtsi.Lo" +
+      "gStreamChannel\022.\n\rmin_log_level\030\027 \001(\0162\027." +
+      "ondewo.nlu.LogSeverity\022+\n\nlog_levels\030\030 \003" +
+      "(\0162\027.ondewo.nlu.LogSeverity\022$\n\027include_u" +
+      "nleveled_lines\030\031 \001(\010H\000\210\001\001\022\021\n\004text\030\032 \001(\tH" +
+      "\001\210\001\001\022\022\n\005regex\030\033 \001(\tH\002\210\001\001\022\030\n\020emitter_pref" +
+      "ixes\030\034 \003(\t\022\024\n\014thread_names\030\035 \003(\t\0223\n\nstar" +
+      "t_time\030\036 \001(\0132\032.google.protobuf.Timestamp" +
+      "H\003\210\001\001\0221\n\010end_time\030\037 \001(\0132\032.google.protobu" +
+      "f.TimestampH\004\210\001\001\022\030\n\020sip_port_numbers\030  \003" +
+      "(\005\022\030\n\020csi_port_numbers\030! \003(\005\022\035\n\025asterisk" +
+      "_port_numbers\030\" \003(\005B\032\n\030_include_unlevele" +
+      "d_linesB\007\n\005_textB\010\n\006_regexB\r\n\013_start_tim" +
+      "eB\013\n\t_end_time\"\207\005\n\rCallLogStream\022\014\n\004name" +
+      "\030\001 \001(\t\022\026\n\016container_name\030\002 \001(\t\022\024\n\014contai" +
+      "ner_id\030\003 \001(\t\022.\n\007channel\030\004 \001(\0162\035.ondewo.v" +
+      "tsi.LogStreamChannel\022\022\n\nproject_id\030\005 \001(\t" +
+      "\022\026\n\016voip_call_name\030\006 \001(\t\022(\n\tcall_type\030\007 " +
+      "\001(\0162\025.ondewo.vtsi.CallType\022\023\n\013sip_accoun" +
+      "t\030\010 \001(\t\022\020\n\010sip_port\030\t \001(\005\022\020\n\010csi_port\030\n " +
+      "\001(\005\022\025\n\rasterisk_port\030\013 \001(\005\022\r\n\005image\030\014 \001(" +
+      "\t\0223\n\rcapture_state\030\r \001(\0162\034.ondewo.vtsi.L" +
+      "ogCaptureState\022\025\n\rcapture_error\030\016 \001(\t\0226\n" +
+      "\022capture_started_at\030\017 \001(\0132\032.google.proto" +
+      "buf.Timestamp\0227\n\023capture_finished_at\030\020 \001" +
+      "(\0132\032.google.protobuf.Timestamp\022\027\n\017partia" +
+      "l_capture\030\021 \001(\010\022\031\n\021min_available_seq\030\022 \001" +
+      "(\003\022\031\n\021max_available_seq\030\023 \001(\003\022\022\n\nline_co" +
+      "unt\030\024 \001(\003\022\032\n\022dropped_line_count\030\025 \001(\003\022\031\n" +
+      "\021vtsi_project_name\030\026 \001(\t\"\350\001\n\025StreamCallL" +
+      "ogsRequest\022\031\n\021vtsi_project_name\030\001 \001(\t\022/\n" +
+      "\006filter\030\002 \001(\0132\032.ondewo.vtsi.CallLogFilte" +
+      "rH\000\210\001\001\022\027\n\ntail_lines\030\003 \001(\005H\001\210\001\001\022\031\n\014resum" +
+      "e_token\030\004 \001(\tH\002\210\001\001\022\026\n\tafter_seq\030\005 \001(\003H\003\210" +
+      "\001\001B\t\n\007_filterB\r\n\013_tail_linesB\017\n\r_resume_" +
+      "tokenB\014\n\n_after_seq\"\224\002\n\026StreamCallLogsRe" +
+      "sponse\022.\n\013log_entries\030\001 \003(\0132\031.ondewo.vts" +
+      "i.CallLogEntry\0223\n\rcapture_state\030\002 \001(\0162\034." +
+      "ondewo.vtsi.LogCaptureState\022\025\n\rcapture_e" +
+      "rror\030\003 \001(\t\022\032\n\022dropped_line_count\030\004 \001(\003\022\024" +
+      "\n\014resume_token\030\005 \001(\t\022\022\n\nend_reason\030\006 \001(\t" +
+      "\0228\n\017end_reason_code\030\007 \001(\0162\037.ondewo.vtsi." +
+      "LogStreamEndReason\"\200\003\n\023ListCallLogsReque" +
+      "st\022\031\n\021vtsi_project_name\030\001 \001(\t\022/\n\006filter\030" +
+      "\002 \001(\0132\032.ondewo.vtsi.CallLogFilterH\000\210\001\001\022\026" +
+      "\n\tmax_lines\030\003 \001(\005H\001\210\001\001\022\027\n\nbefore_seq\030\004 \001" +
+      "(\003H\002\210\001\001\022\026\n\tafter_seq\030\005 \001(\003H\003\210\001\001\022\031\n\014resum" +
+      "e_token\030\006 \001(\tH\004\210\001\001\022\031\n\014oldest_first\030\007 \001(\010" +
+      "H\005\210\001\001\022.\n\nfield_mask\030\010 \001(\0132\032.google.proto" +
+      "buf.FieldMask\022\026\n\016include_counts\030\t \001(\010B\t\n" +
+      "\007_filterB\014\n\n_max_linesB\r\n\013_before_seqB\014\n" +
+      "\n_after_seqB\017\n\r_resume_tokenB\017\n\r_oldest_" +
+      "first\"\330\003\n\024ListCallLogsResponse\022.\n\013log_en" +
+      "tries\030\001 \003(\0132\031.ondewo.vtsi.CallLogEntry\022\021" +
+      "\n\ttruncated\030\002 \001(\010\022\031\n\021min_available_seq\030\003" +
+      " \001(\003\022\031\n\021max_available_seq\030\004 \001(\003\022\026\n\016has_m" +
+      "ore_older\030\005 \001(\010\022\026\n\016has_more_newer\030\006 \001(\010\022" +
+      "\031\n\021next_resume_token\030\007 \001(\t\022>\n\025scope_limi" +
+      "ted_filters\030\010 \003(\0162\037.ondewo.vtsi.CallLogF" +
+      "ilterField\022!\n\024total_matching_count\030\t \001(\003" +
+      "H\000\210\001\001\022K\n\016count_by_level\030\n \003(\01323.ondewo.v" +
+      "tsi.ListCallLogsResponse.CountByLevelEnt" +
+      "ry\0323\n\021CountByLevelEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005" +
+      "value\030\002 \001(\003:\0028\001B\027\n\025_total_matching_count" +
+      "\"r\n\027GetCallLogStreamRequest\022\031\n\021vtsi_proj" +
+      "ect_name\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022.\n\nfield_ma" +
+      "sk\030\003 \001(\0132\032.google.protobuf.FieldMask\"\223\002\n" +
+      "\031ListCallLogStreamsRequest\022\031\n\021vtsi_proje" +
+      "ct_name\030\001 \001(\t\022/\n\006filter\030\002 \001(\0132\032.ondewo.v" +
+      "tsi.CallLogFilterH\000\210\001\001\022\027\n\npage_token\030\003 \001" +
+      "(\tH\001\210\001\001\022.\n\nfield_mask\030\004 \001(\0132\032.google.pro" +
+      "tobuf.FieldMask\022\021\n\tpage_size\030\005 \001(\005\0224\n\016ca" +
+      "pture_states\030\006 \003(\0162\034.ondewo.vtsi.LogCapt" +
+      "ureStateB\t\n\007_filterB\r\n\013_page_token\"f\n\032Li" +
+      "stCallLogStreamsResponse\022/\n\013log_streams\030" +
+      "\001 \003(\0132\032.ondewo.vtsi.CallLogStream\022\027\n\017nex" +
+      "t_page_token\030\002 \001(\t\"u\n\025DeleteCallLogsRequ" +
+      "est\022\031\n\021vtsi_project_name\030\001 \001(\t\022*\n\006filter" +
+      "\030\002 \001(\0132\032.ondewo.vtsi.CallLogFilter\022\025\n\rva" +
+      "lidate_only\030\003 \001(\010\"[\n\026DeleteCallLogsRespo" +
+      "nse\022\037\n\027deleted_log_entry_count\030\001 \001(\003\022 \n\030" +
+      "deleted_log_stream_count\030\002 \001(\003\"\246\001\n\025Expor" +
+      "tCallLogsRequest\022\031\n\021vtsi_project_name\030\001 " +
+      "\001(\t\022*\n\006filter\030\002 \001(\0132\032.ondewo.vtsi.CallLo" +
+      "gFilter\022,\n\006format\030\003 \001(\0162\034.ondewo.vtsi.Lo" +
+      "gExportFormat\022\030\n\020include_metadata\030\004 \001(\010\"" +
+      "]\n\026ExportCallLogsResponse\022\r\n\005chunk\030\001 \001(\014" +
+      "\022\023\n\013entry_count\030\002 \001(\003\022\014\n\004last\030\003 \001(\010\022\021\n\tt" +
+      "runcated\030\004 \001(\010*\232\001\n\tLogSource\022\032\n\026LOG_SOUR" +
+      "CE_UNSPECIFIED\020\000\022\022\n\016LOG_SOURCE_SIP\020\001\022\022\n\016" +
+      "LOG_SOURCE_CSI\020\002\022\027\n\023LOG_SOURCE_ASTERISK\020" +
+      "\003\022\031\n\025LOG_SOURCE_PULSEAUDIO\020\004\022\025\n\021LOG_SOUR" +
+      "CE_SYSTEM\020\005*t\n\020LogStreamChannel\022\"\n\036LOG_S" +
+      "TREAM_CHANNEL_UNSPECIFIED\020\000\022\035\n\031LOG_STREA" +
+      "M_CHANNEL_STDOUT\020\001\022\035\n\031LOG_STREAM_CHANNEL" +
+      "_STDERR\020\002*\262\001\n\017LogCaptureState\022!\n\035LOG_CAP" +
+      "TURE_STATE_UNSPECIFIED\020\000\022\037\n\033LOG_CAPTURE_" +
+      "STATE_CAPTURING\020\001\022\035\n\031LOG_CAPTURE_STATE_S" +
+      "TOPPED\020\002\022\034\n\030LOG_CAPTURE_STATE_FAILED\020\003\022\036" +
+      "\n\032LOG_CAPTURE_STATE_DETACHED\020\004*\302\002\n\022CallL" +
+      "ogFilterField\022%\n!CALL_LOG_FILTER_FIELD_U" +
+      "NSPECIFIED\020\000\022\036\n\032CALL_LOG_FILTER_FIELD_TE" +
+      "XT\020\001\022\037\n\033CALL_LOG_FILTER_FIELD_REGEX\020\002\022%\n" +
+      "!CALL_LOG_FILTER_FIELD_LOG_SOURCES\020\003\022\"\n\036" +
+      "CALL_LOG_FILTER_FIELD_CHANNELS\020\004\022*\n&CALL" +
+      "_LOG_FILTER_FIELD_EMITTER_PREFIXES\020\005\022&\n\"" +
+      "CALL_LOG_FILTER_FIELD_THREAD_NAMES\020\006\022%\n!" +
+      "CALL_LOG_FILTER_FIELD_SIP_HEADERS\020\007*\236\002\n\022" +
+      "LogStreamEndReason\022%\n!LOG_STREAM_END_REA" +
+      "SON_UNSPECIFIED\020\000\0221\n-LOG_STREAM_END_REAS" +
+      "ON_ALL_CAPTURES_TERMINATED\020\001\022&\n\"LOG_STRE" +
+      "AM_END_REASON_MAX_DURATION\020\002\022)\n%LOG_STRE" +
+      "AM_END_REASON_SERVER_SHUTDOWN\020\003\022,\n(LOG_S" +
+      "TREAM_END_REASON_PERMISSION_REVOKED\020\004\022-\n" +
+      ")LOG_STREAM_END_REASON_CREDENTIALS_EXPIR" +
+      "ED\020\005*\211\001\n\017LogExportFormat\022!\n\035LOG_EXPORT_F" +
+      "ORMAT_UNSPECIFIED\020\000\022\032\n\026LOG_EXPORT_FORMAT" +
+      "_TEXT\020\001\022\034\n\030LOG_EXPORT_FORMAT_NDJSON\020\002\022\031\n" +
+      "\025LOG_EXPORT_FORMAT_CSV\020\0032\255\004\n\004Logs\022[\n\016Str" +
+      "eamCallLogs\022\".ondewo.vtsi.StreamCallLogs" +
+      "Request\032#.ondewo.vtsi.StreamCallLogsResp" +
+      "onse0\001\022S\n\014ListCallLogs\022 .ondewo.vtsi.Lis" +
+      "tCallLogsRequest\032!.ondewo.vtsi.ListCallL" +
+      "ogsResponse\022T\n\020GetCallLogStream\022$.ondewo" +
+      ".vtsi.GetCallLogStreamRequest\032\032.ondewo.v" +
+      "tsi.CallLogStream\022e\n\022ListCallLogStreams\022" +
+      "&.ondewo.vtsi.ListCallLogStreamsRequest\032" +
+      "\'.ondewo.vtsi.ListCallLogStreamsResponse" +
+      "\022Y\n\016DeleteCallLogs\022\".ondewo.vtsi.DeleteC" +
+      "allLogsRequest\032#.ondewo.vtsi.DeleteCallL" +
+      "ogsResponse\022[\n\016ExportCallLogs\022\".ondewo.v" +
+      "tsi.ExportCallLogsRequest\032#.ondewo.vtsi." +
+      "ExportCallLogsResponse0\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.FieldMaskProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.ondewo.nlu.CommonProto.getDescriptor(),
           ondewo.vtsi.CallsOuterClass.getDescriptor(),
@@ -28698,13 +35038,13 @@ public final class LogsOuterClass {
     internal_static_ondewo_vtsi_CallLogFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CallLogFilter_descriptor,
-        new java.lang.String[] { "CallNames", "CallerNames", "ListenerNames", "CallerIds", "ListenerIds", "CallIds", "ContainerNames", "ContainerIds", "LogStreamNames", "SipAccounts", "SipPorts", "CsiPorts", "AsteriskPorts", "PhoneNumbers", "CalleeIds", "NluSessionNames", "NluSessionUuids", "NluProjectUuids", "CallTypes", "SipHeaders", "LogSources", "Channels", "MinLogLevel", "LogLevels", "IncludeUnleveledLines", "Text", "Regex", "EmitterPrefixes", "ThreadNames", "StartTime", "EndTime", });
+        new java.lang.String[] { "CallNames", "CallerNames", "ListenerNames", "CallerIds", "ListenerIds", "CallIds", "ContainerNames", "ContainerIds", "LogStreamNames", "SipAccounts", "SipPorts", "CsiPorts", "AsteriskPorts", "PhoneNumbers", "CalleeIds", "NluSessionNames", "NluSessionUuids", "NluProjectUuids", "CallTypes", "SipHeaders", "LogSources", "Channels", "MinLogLevel", "LogLevels", "IncludeUnleveledLines", "Text", "Regex", "EmitterPrefixes", "ThreadNames", "StartTime", "EndTime", "SipPortNumbers", "CsiPortNumbers", "AsteriskPortNumbers", });
     internal_static_ondewo_vtsi_CallLogStream_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_ondewo_vtsi_CallLogStream_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CallLogStream_descriptor,
-        new java.lang.String[] { "Name", "ContainerName", "ContainerId", "Channel", "ProjectId", "VoipCallName", "CallType", "SipAccount", "SipPort", "CsiPort", "AsteriskPort", "Image", "CaptureState", "CaptureError", "CaptureStartedAt", "CaptureFinishedAt", "PartialCapture", "MinAvailableSeq", "MaxAvailableSeq", "LineCount", "DroppedLineCount", });
+        new java.lang.String[] { "Name", "ContainerName", "ContainerId", "Channel", "ProjectId", "VoipCallName", "CallType", "SipAccount", "SipPort", "CsiPort", "AsteriskPort", "Image", "CaptureState", "CaptureError", "CaptureStartedAt", "CaptureFinishedAt", "PartialCapture", "MinAvailableSeq", "MaxAvailableSeq", "LineCount", "DroppedLineCount", "VtsiProjectName", });
     internal_static_ondewo_vtsi_StreamCallLogsRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_ondewo_vtsi_StreamCallLogsRequest_fieldAccessorTable = new
@@ -28716,31 +35056,37 @@ public final class LogsOuterClass {
     internal_static_ondewo_vtsi_StreamCallLogsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_StreamCallLogsResponse_descriptor,
-        new java.lang.String[] { "LogEntries", "CaptureState", "CaptureError", "DroppedLineCount", "ResumeToken", "EndReason", });
+        new java.lang.String[] { "LogEntries", "CaptureState", "CaptureError", "DroppedLineCount", "ResumeToken", "EndReason", "EndReasonCode", });
     internal_static_ondewo_vtsi_ListCallLogsRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_ondewo_vtsi_ListCallLogsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListCallLogsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "Filter", "MaxLines", "BeforeSeq", "AfterSeq", "ResumeToken", "OldestFirst", });
+        new java.lang.String[] { "VtsiProjectName", "Filter", "MaxLines", "BeforeSeq", "AfterSeq", "ResumeToken", "OldestFirst", "FieldMask", "IncludeCounts", });
     internal_static_ondewo_vtsi_ListCallLogsResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_ondewo_vtsi_ListCallLogsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListCallLogsResponse_descriptor,
-        new java.lang.String[] { "LogEntries", "Truncated", "MinAvailableSeq", "MaxAvailableSeq", "HasMoreOlder", "HasMoreNewer", "NextResumeToken", "ScopeLimitedFilters", });
+        new java.lang.String[] { "LogEntries", "Truncated", "MinAvailableSeq", "MaxAvailableSeq", "HasMoreOlder", "HasMoreNewer", "NextResumeToken", "ScopeLimitedFilters", "TotalMatchingCount", "CountByLevel", });
+    internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_descriptor =
+      internal_static_ondewo_vtsi_ListCallLogsResponse_descriptor.getNestedTypes().get(0);
+    internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_ListCallLogsResponse_CountByLevelEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_ondewo_vtsi_GetCallLogStreamRequest_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_ondewo_vtsi_GetCallLogStreamRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_GetCallLogStreamRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "Name", });
+        new java.lang.String[] { "VtsiProjectName", "Name", "FieldMask", });
     internal_static_ondewo_vtsi_ListCallLogStreamsRequest_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_ondewo_vtsi_ListCallLogStreamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListCallLogStreamsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "Filter", "PageToken", });
+        new java.lang.String[] { "VtsiProjectName", "Filter", "PageToken", "FieldMask", "PageSize", "CaptureStates", });
     internal_static_ondewo_vtsi_ListCallLogStreamsResponse_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_ondewo_vtsi_ListCallLogStreamsResponse_fieldAccessorTable = new
@@ -28752,14 +35098,27 @@ public final class LogsOuterClass {
     internal_static_ondewo_vtsi_DeleteCallLogsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_DeleteCallLogsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "Filter", });
+        new java.lang.String[] { "VtsiProjectName", "Filter", "ValidateOnly", });
     internal_static_ondewo_vtsi_DeleteCallLogsResponse_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_ondewo_vtsi_DeleteCallLogsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_DeleteCallLogsResponse_descriptor,
         new java.lang.String[] { "DeletedLogEntryCount", "DeletedLogStreamCount", });
+    internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_ondewo_vtsi_ExportCallLogsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_ExportCallLogsRequest_descriptor,
+        new java.lang.String[] { "VtsiProjectName", "Filter", "Format", "IncludeMetadata", });
+    internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_ondewo_vtsi_ExportCallLogsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_ExportCallLogsResponse_descriptor,
+        new java.lang.String[] { "Chunk", "EntryCount", "Last", "Truncated", });
     descriptor.resolveAllFeaturesImmutable();
+    com.google.protobuf.FieldMaskProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     com.ondewo.nlu.CommonProto.getDescriptor();
     ondewo.vtsi.CallsOuterClass.getDescriptor();

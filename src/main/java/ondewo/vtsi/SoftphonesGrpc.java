@@ -31,6 +31,10 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
  * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
  * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+ * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+ * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+ * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+ * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
  * </pre>
  */
 @io.grpc.stub.annotations.GrpcGenerated
@@ -351,6 +355,37 @@ public final class SoftphonesGrpc {
     return getGetSoftphoneProvisioningMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest,
+      ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> getGetSoftphoneRegistrationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetSoftphoneRegistration",
+      requestType = ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.class,
+      responseType = ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest,
+      ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> getGetSoftphoneRegistrationMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest, ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> getGetSoftphoneRegistrationMethod;
+    if ((getGetSoftphoneRegistrationMethod = SoftphonesGrpc.getGetSoftphoneRegistrationMethod) == null) {
+      synchronized (SoftphonesGrpc.class) {
+        if ((getGetSoftphoneRegistrationMethod = SoftphonesGrpc.getGetSoftphoneRegistrationMethod) == null) {
+          SoftphonesGrpc.getGetSoftphoneRegistrationMethod = getGetSoftphoneRegistrationMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest, ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSoftphoneRegistration"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.getDefaultInstance()))
+              .setSchemaDescriptor(new SoftphonesMethodDescriptorSupplier("GetSoftphoneRegistration"))
+              .build();
+        }
+      }
+    }
+    return getGetSoftphoneRegistrationMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -439,6 +474,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public interface AsyncService {
@@ -459,6 +498,13 @@ public final class SoftphonesGrpc {
      * &lt;p&gt;The account is reachable on either TLS port only from the project&amp;apos;s
      * &lt;code&gt;softphone_permit_cidrs&lt;/code&gt; (default: the server&amp;apos;s list, private networks unless the
      * operator changed it); see &lt;code&gt;AsteriskConfigsVariables.softphone_permit_cidrs&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: with &lt;code&gt;idempotency_key&lt;/code&gt; a retry after a lost response does not create a
+     * second account; it ROTATES the credentials of the account the first attempt created and returns
+     * NEW one-time secrets (see &lt;code&gt;CreateSoftphoneAccountRequest.idempotency_key&lt;/code&gt;). Without a key a
+     * retry is answered &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; for the same &lt;code&gt;sip_username&lt;/code&gt;; recover the
+     * lost secrets then with &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED&lt;/code&gt; (a replayed key:
+     * &lt;code&gt;VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED&lt;/code&gt;).&lt;/p&gt;
      * </pre>
      */
     default void createSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountRequest request,
@@ -500,8 +546,19 @@ public final class SoftphonesGrpc {
     /**
      * <pre>
      * &lt;p&gt;Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-     * dropped and every certificate it holds is revoked. Deletion is permanent.&lt;/p&gt;
-     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist.&lt;/p&gt;
+     * dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+     * permanent.&lt;/p&gt;
+     * &lt;p&gt;Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+     * succeeded) is &lt;code&gt;NOT_FOUND&lt;/code&gt;. Allowed in every project status, also while the project is
+     * being deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the deletion was STORED but the running
+     * Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+     * project&amp;apos;s Asterisk configuration stayed locked by another change for too long): the account is
+     * gone from the database and its removal from the Asterisk is applied by the next successful change or
+     * deployment, so a retry is &lt;code&gt;NOT_FOUND&lt;/code&gt;; &lt;code&gt;INTERNAL&lt;/code&gt; when the account was removed
+     * but one of its calls could not be hung up. Never &lt;code&gt;ABORTED&lt;/code&gt;: a deletion is not compared
+     * against concurrent changes, it wins over them.&lt;/p&gt;
      * </pre>
      */
     default void deleteSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountRequest request,
@@ -591,7 +648,14 @@ public final class SoftphonesGrpc {
      * Revoking an already revoked certificate is idempotent and keeps the original revocation time and
      * reason.&lt;/p&gt;
      * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the certificate does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
-     * for a malformed name or an over-long reason.&lt;/p&gt;
+     * for a malformed name or an over-long reason; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the revocation
+     * (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+     * (reload failed, container unreachable, or the project&amp;apos;s Asterisk configuration stayed locked by
+     * another change for too long): it is applied by the next successful change or deployment, and a
+     * retry is idempotent; &lt;code&gt;ABORTED&lt;/code&gt; when the account was changed concurrently (e.g. a rotation
+     * or an update committed between the read and the write), in which case nothing was stored and the
+     * request can be retried.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED&lt;/code&gt; (not for an idempotent repeat).&lt;/p&gt;
      * </pre>
      */
     default void revokeSoftphoneCertificate(ondewo.vtsi.SoftphonesOuterClass.RevokeSoftphoneCertificateRequest request,
@@ -615,6 +679,27 @@ public final class SoftphonesGrpc {
     default void getSoftphoneProvisioning(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneProvisioningRequest request,
         io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSoftphoneProvisioningMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+     * Asterisk of the project at the moment of the request (in the manner of &lt;code&gt;pjsip show
+     * contacts&lt;/code&gt;). Nothing is stored: two calls may differ, and an empty &lt;code&gt;contacts&lt;/code&gt; list
+     * means no device is registered right now (a disabled or locked account never has one). Answers
+     * &amp;quot;is the softphone of this account connected, from where, with which client, and is it
+     * reachable?&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; if the
+     * project is not &lt;code&gt;DEPLOYED&lt;/code&gt; (there is no running Asterisk to ask);
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; if the project&amp;apos;s Asterisk could not be queried (container not running
+     * or not answering within the server&amp;apos;s timeout); retry later.&lt;/p&gt;
+     * &lt;p&gt;Read only, no event. Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    default void getSoftphoneRegistration(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSoftphoneRegistrationMethod(), responseObserver);
     }
   }
 
@@ -648,6 +733,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public static abstract class SoftphonesImplBase
@@ -688,6 +777,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public static final class SoftphonesStub
@@ -719,6 +812,13 @@ public final class SoftphonesGrpc {
      * &lt;p&gt;The account is reachable on either TLS port only from the project&amp;apos;s
      * &lt;code&gt;softphone_permit_cidrs&lt;/code&gt; (default: the server&amp;apos;s list, private networks unless the
      * operator changed it); see &lt;code&gt;AsteriskConfigsVariables.softphone_permit_cidrs&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: with &lt;code&gt;idempotency_key&lt;/code&gt; a retry after a lost response does not create a
+     * second account; it ROTATES the credentials of the account the first attempt created and returns
+     * NEW one-time secrets (see &lt;code&gt;CreateSoftphoneAccountRequest.idempotency_key&lt;/code&gt;). Without a key a
+     * retry is answered &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; for the same &lt;code&gt;sip_username&lt;/code&gt;; recover the
+     * lost secrets then with &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED&lt;/code&gt; (a replayed key:
+     * &lt;code&gt;VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED&lt;/code&gt;).&lt;/p&gt;
      * </pre>
      */
     public void createSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountRequest request,
@@ -763,8 +863,19 @@ public final class SoftphonesGrpc {
     /**
      * <pre>
      * &lt;p&gt;Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-     * dropped and every certificate it holds is revoked. Deletion is permanent.&lt;/p&gt;
-     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist.&lt;/p&gt;
+     * dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+     * permanent.&lt;/p&gt;
+     * &lt;p&gt;Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+     * succeeded) is &lt;code&gt;NOT_FOUND&lt;/code&gt;. Allowed in every project status, also while the project is
+     * being deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the deletion was STORED but the running
+     * Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+     * project&amp;apos;s Asterisk configuration stayed locked by another change for too long): the account is
+     * gone from the database and its removal from the Asterisk is applied by the next successful change or
+     * deployment, so a retry is &lt;code&gt;NOT_FOUND&lt;/code&gt;; &lt;code&gt;INTERNAL&lt;/code&gt; when the account was removed
+     * but one of its calls could not be hung up. Never &lt;code&gt;ABORTED&lt;/code&gt;: a deletion is not compared
+     * against concurrent changes, it wins over them.&lt;/p&gt;
      * </pre>
      */
     public void deleteSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountRequest request,
@@ -859,7 +970,14 @@ public final class SoftphonesGrpc {
      * Revoking an already revoked certificate is idempotent and keeps the original revocation time and
      * reason.&lt;/p&gt;
      * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the certificate does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
-     * for a malformed name or an over-long reason.&lt;/p&gt;
+     * for a malformed name or an over-long reason; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the revocation
+     * (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+     * (reload failed, container unreachable, or the project&amp;apos;s Asterisk configuration stayed locked by
+     * another change for too long): it is applied by the next successful change or deployment, and a
+     * retry is idempotent; &lt;code&gt;ABORTED&lt;/code&gt; when the account was changed concurrently (e.g. a rotation
+     * or an update committed between the read and the write), in which case nothing was stored and the
+     * request can be retried.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED&lt;/code&gt; (not for an idempotent repeat).&lt;/p&gt;
      * </pre>
      */
     public void revokeSoftphoneCertificate(ondewo.vtsi.SoftphonesOuterClass.RevokeSoftphoneCertificateRequest request,
@@ -885,6 +1003,28 @@ public final class SoftphonesGrpc {
         io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetSoftphoneProvisioningMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+     * Asterisk of the project at the moment of the request (in the manner of &lt;code&gt;pjsip show
+     * contacts&lt;/code&gt;). Nothing is stored: two calls may differ, and an empty &lt;code&gt;contacts&lt;/code&gt; list
+     * means no device is registered right now (a disabled or locked account never has one). Answers
+     * &amp;quot;is the softphone of this account connected, from where, with which client, and is it
+     * reachable?&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; if the
+     * project is not &lt;code&gt;DEPLOYED&lt;/code&gt; (there is no running Asterisk to ask);
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; if the project&amp;apos;s Asterisk could not be queried (container not running
+     * or not answering within the server&amp;apos;s timeout); retry later.&lt;/p&gt;
+     * &lt;p&gt;Read only, no event. Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public void getSoftphoneRegistration(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetSoftphoneRegistrationMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -918,6 +1058,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public static final class SoftphonesBlockingV2Stub
@@ -949,6 +1093,13 @@ public final class SoftphonesGrpc {
      * &lt;p&gt;The account is reachable on either TLS port only from the project&amp;apos;s
      * &lt;code&gt;softphone_permit_cidrs&lt;/code&gt; (default: the server&amp;apos;s list, private networks unless the
      * operator changed it); see &lt;code&gt;AsteriskConfigsVariables.softphone_permit_cidrs&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: with &lt;code&gt;idempotency_key&lt;/code&gt; a retry after a lost response does not create a
+     * second account; it ROTATES the credentials of the account the first attempt created and returns
+     * NEW one-time secrets (see &lt;code&gt;CreateSoftphoneAccountRequest.idempotency_key&lt;/code&gt;). Without a key a
+     * retry is answered &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; for the same &lt;code&gt;sip_username&lt;/code&gt;; recover the
+     * lost secrets then with &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED&lt;/code&gt; (a replayed key:
+     * &lt;code&gt;VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED&lt;/code&gt;).&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountResponse createSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountRequest request) throws io.grpc.StatusException {
@@ -990,8 +1141,19 @@ public final class SoftphonesGrpc {
     /**
      * <pre>
      * &lt;p&gt;Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-     * dropped and every certificate it holds is revoked. Deletion is permanent.&lt;/p&gt;
-     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist.&lt;/p&gt;
+     * dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+     * permanent.&lt;/p&gt;
+     * &lt;p&gt;Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+     * succeeded) is &lt;code&gt;NOT_FOUND&lt;/code&gt;. Allowed in every project status, also while the project is
+     * being deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the deletion was STORED but the running
+     * Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+     * project&amp;apos;s Asterisk configuration stayed locked by another change for too long): the account is
+     * gone from the database and its removal from the Asterisk is applied by the next successful change or
+     * deployment, so a retry is &lt;code&gt;NOT_FOUND&lt;/code&gt;; &lt;code&gt;INTERNAL&lt;/code&gt; when the account was removed
+     * but one of its calls could not be hung up. Never &lt;code&gt;ABORTED&lt;/code&gt;: a deletion is not compared
+     * against concurrent changes, it wins over them.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountResponse deleteSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountRequest request) throws io.grpc.StatusException {
@@ -1081,7 +1243,14 @@ public final class SoftphonesGrpc {
      * Revoking an already revoked certificate is idempotent and keeps the original revocation time and
      * reason.&lt;/p&gt;
      * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the certificate does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
-     * for a malformed name or an over-long reason.&lt;/p&gt;
+     * for a malformed name or an over-long reason; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the revocation
+     * (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+     * (reload failed, container unreachable, or the project&amp;apos;s Asterisk configuration stayed locked by
+     * another change for too long): it is applied by the next successful change or deployment, and a
+     * retry is idempotent; &lt;code&gt;ABORTED&lt;/code&gt; when the account was changed concurrently (e.g. a rotation
+     * or an update committed between the read and the write), in which case nothing was stored and the
+     * request can be retried.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED&lt;/code&gt; (not for an idempotent repeat).&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.SoftphoneCertificate revokeSoftphoneCertificate(ondewo.vtsi.SoftphonesOuterClass.RevokeSoftphoneCertificateRequest request) throws io.grpc.StatusException {
@@ -1105,6 +1274,27 @@ public final class SoftphonesGrpc {
     public ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning getSoftphoneProvisioning(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneProvisioningRequest request) throws io.grpc.StatusException {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getGetSoftphoneProvisioningMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+     * Asterisk of the project at the moment of the request (in the manner of &lt;code&gt;pjsip show
+     * contacts&lt;/code&gt;). Nothing is stored: two calls may differ, and an empty &lt;code&gt;contacts&lt;/code&gt; list
+     * means no device is registered right now (a disabled or locked account never has one). Answers
+     * &amp;quot;is the softphone of this account connected, from where, with which client, and is it
+     * reachable?&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; if the
+     * project is not &lt;code&gt;DEPLOYED&lt;/code&gt; (there is no running Asterisk to ask);
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; if the project&amp;apos;s Asterisk could not be queried (container not running
+     * or not answering within the server&amp;apos;s timeout); retry later.&lt;/p&gt;
+     * &lt;p&gt;Read only, no event. Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration getSoftphoneRegistration(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getGetSoftphoneRegistrationMethod(), getCallOptions(), request);
     }
   }
 
@@ -1138,6 +1328,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public static final class SoftphonesBlockingStub
@@ -1169,6 +1363,13 @@ public final class SoftphonesGrpc {
      * &lt;p&gt;The account is reachable on either TLS port only from the project&amp;apos;s
      * &lt;code&gt;softphone_permit_cidrs&lt;/code&gt; (default: the server&amp;apos;s list, private networks unless the
      * operator changed it); see &lt;code&gt;AsteriskConfigsVariables.softphone_permit_cidrs&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: with &lt;code&gt;idempotency_key&lt;/code&gt; a retry after a lost response does not create a
+     * second account; it ROTATES the credentials of the account the first attempt created and returns
+     * NEW one-time secrets (see &lt;code&gt;CreateSoftphoneAccountRequest.idempotency_key&lt;/code&gt;). Without a key a
+     * retry is answered &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; for the same &lt;code&gt;sip_username&lt;/code&gt;; recover the
+     * lost secrets then with &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED&lt;/code&gt; (a replayed key:
+     * &lt;code&gt;VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED&lt;/code&gt;).&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountResponse createSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountRequest request) {
@@ -1210,8 +1411,19 @@ public final class SoftphonesGrpc {
     /**
      * <pre>
      * &lt;p&gt;Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-     * dropped and every certificate it holds is revoked. Deletion is permanent.&lt;/p&gt;
-     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist.&lt;/p&gt;
+     * dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+     * permanent.&lt;/p&gt;
+     * &lt;p&gt;Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+     * succeeded) is &lt;code&gt;NOT_FOUND&lt;/code&gt;. Allowed in every project status, also while the project is
+     * being deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the deletion was STORED but the running
+     * Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+     * project&amp;apos;s Asterisk configuration stayed locked by another change for too long): the account is
+     * gone from the database and its removal from the Asterisk is applied by the next successful change or
+     * deployment, so a retry is &lt;code&gt;NOT_FOUND&lt;/code&gt;; &lt;code&gt;INTERNAL&lt;/code&gt; when the account was removed
+     * but one of its calls could not be hung up. Never &lt;code&gt;ABORTED&lt;/code&gt;: a deletion is not compared
+     * against concurrent changes, it wins over them.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountResponse deleteSoftphoneAccount(ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountRequest request) {
@@ -1301,7 +1513,14 @@ public final class SoftphonesGrpc {
      * Revoking an already revoked certificate is idempotent and keeps the original revocation time and
      * reason.&lt;/p&gt;
      * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the certificate does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
-     * for a malformed name or an over-long reason.&lt;/p&gt;
+     * for a malformed name or an over-long reason; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the revocation
+     * (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+     * (reload failed, container unreachable, or the project&amp;apos;s Asterisk configuration stayed locked by
+     * another change for too long): it is applied by the next successful change or deployment, and a
+     * retry is idempotent; &lt;code&gt;ABORTED&lt;/code&gt; when the account was changed concurrently (e.g. a rotation
+     * or an update committed between the read and the write), in which case nothing was stored and the
+     * request can be retried.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED&lt;/code&gt; (not for an idempotent repeat).&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.SoftphonesOuterClass.SoftphoneCertificate revokeSoftphoneCertificate(ondewo.vtsi.SoftphonesOuterClass.RevokeSoftphoneCertificateRequest request) {
@@ -1325,6 +1544,27 @@ public final class SoftphonesGrpc {
     public ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning getSoftphoneProvisioning(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneProvisioningRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetSoftphoneProvisioningMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+     * Asterisk of the project at the moment of the request (in the manner of &lt;code&gt;pjsip show
+     * contacts&lt;/code&gt;). Nothing is stored: two calls may differ, and an empty &lt;code&gt;contacts&lt;/code&gt; list
+     * means no device is registered right now (a disabled or locked account never has one). Answers
+     * &amp;quot;is the softphone of this account connected, from where, with which client, and is it
+     * reachable?&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; if the
+     * project is not &lt;code&gt;DEPLOYED&lt;/code&gt; (there is no running Asterisk to ask);
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; if the project&amp;apos;s Asterisk could not be queried (container not running
+     * or not answering within the server&amp;apos;s timeout); retry later.&lt;/p&gt;
+     * &lt;p&gt;Read only, no event. Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration getSoftphoneRegistration(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetSoftphoneRegistrationMethod(), getCallOptions(), request);
     }
   }
 
@@ -1358,6 +1598,10 @@ public final class SoftphonesGrpc {
    * not be updated, the RPC fails with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;; the stored change is applied by
    * the next successful change or deployment. &lt;code&gt;CreateSoftphoneAccount&lt;/code&gt; and
    * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; return their one-time secrets even then.&lt;/p&gt;
+   * &lt;p&gt;Authorization (only when the server enforces it, see the &lt;code&gt;Projects&lt;/code&gt; service): a caller
+   * without a credential is &lt;code&gt;UNAUTHENTICATED&lt;/code&gt;; every RPC of this service requires
+   * &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the account&amp;apos;s project, otherwise
+   * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, also for an unknown project.&lt;/p&gt;
    * </pre>
    */
   public static final class SoftphonesFutureStub
@@ -1389,6 +1633,13 @@ public final class SoftphonesGrpc {
      * &lt;p&gt;The account is reachable on either TLS port only from the project&amp;apos;s
      * &lt;code&gt;softphone_permit_cidrs&lt;/code&gt; (default: the server&amp;apos;s list, private networks unless the
      * operator changed it); see &lt;code&gt;AsteriskConfigsVariables.softphone_permit_cidrs&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: with &lt;code&gt;idempotency_key&lt;/code&gt; a retry after a lost response does not create a
+     * second account; it ROTATES the credentials of the account the first attempt created and returns
+     * NEW one-time secrets (see &lt;code&gt;CreateSoftphoneAccountRequest.idempotency_key&lt;/code&gt;). Without a key a
+     * retry is answered &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; for the same &lt;code&gt;sip_username&lt;/code&gt;; recover the
+     * lost secrets then with &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED&lt;/code&gt; (a replayed key:
+     * &lt;code&gt;VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED&lt;/code&gt;).&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.SoftphonesOuterClass.CreateSoftphoneAccountResponse> createSoftphoneAccount(
@@ -1433,8 +1684,19 @@ public final class SoftphonesGrpc {
     /**
      * <pre>
      * &lt;p&gt;Deletes a softphone account. Its endpoint is removed from the Asterisk, its registrations are
-     * dropped and every certificate it holds is revoked. Deletion is permanent.&lt;/p&gt;
-     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist.&lt;/p&gt;
+     * dropped, its calls in progress are hung up and every certificate it holds is revoked. Deletion is
+     * permanent.&lt;/p&gt;
+     * &lt;p&gt;Not idempotent: deleting an account that no longer exists (also a retry of a deletion that
+     * succeeded) is &lt;code&gt;NOT_FOUND&lt;/code&gt;. Allowed in every project status, also while the project is
+     * being deleted.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the deletion was STORED but the running
+     * Asterisk of a deployed project could not be updated (reload failed, container unreachable, or the
+     * project&amp;apos;s Asterisk configuration stayed locked by another change for too long): the account is
+     * gone from the database and its removal from the Asterisk is applied by the next successful change or
+     * deployment, so a retry is &lt;code&gt;NOT_FOUND&lt;/code&gt;; &lt;code&gt;INTERNAL&lt;/code&gt; when the account was removed
+     * but one of its calls could not be hung up. Never &lt;code&gt;ABORTED&lt;/code&gt;: a deletion is not compared
+     * against concurrent changes, it wins over them.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.SoftphonesOuterClass.DeleteSoftphoneAccountResponse> deleteSoftphoneAccount(
@@ -1529,7 +1791,14 @@ public final class SoftphonesGrpc {
      * Revoking an already revoked certificate is idempotent and keeps the original revocation time and
      * reason.&lt;/p&gt;
      * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the certificate does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;
-     * for a malformed name or an over-long reason.&lt;/p&gt;
+     * for a malformed name or an over-long reason; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when the revocation
+     * (and the lock) was STORED but the running Asterisk of a deployed project could not be updated
+     * (reload failed, container unreachable, or the project&amp;apos;s Asterisk configuration stayed locked by
+     * another change for too long): it is applied by the next successful change or deployment, and a
+     * retry is idempotent; &lt;code&gt;ABORTED&lt;/code&gt; when the account was changed concurrently (e.g. a rotation
+     * or an update committed between the read and the write), in which case nothing was stored and the
+     * request can be retried.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED&lt;/code&gt; (not for an idempotent repeat).&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.SoftphonesOuterClass.SoftphoneCertificate> revokeSoftphoneCertificate(
@@ -1556,6 +1825,28 @@ public final class SoftphonesGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetSoftphoneProvisioningMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Returns the CURRENT registrations (contacts) of a softphone account, read LIVE from the running
+     * Asterisk of the project at the moment of the request (in the manner of &lt;code&gt;pjsip show
+     * contacts&lt;/code&gt;). Nothing is stored: two calls may differ, and an empty &lt;code&gt;contacts&lt;/code&gt; list
+     * means no device is registered right now (a disabled or locked account never has one). Answers
+     * &amp;quot;is the softphone of this account connected, from where, with which client, and is it
+     * reachable?&amp;quot;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;NOT_FOUND&lt;/code&gt; if the account does not exist; &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a
+     * malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; if the
+     * project is not &lt;code&gt;DEPLOYED&lt;/code&gt; (there is no running Asterisk to ask);
+     * &lt;code&gt;UNAVAILABLE&lt;/code&gt; if the project&amp;apos;s Asterisk could not be queried (container not running
+     * or not answering within the server&amp;apos;s timeout); retry later.&lt;/p&gt;
+     * &lt;p&gt;Read only, no event. Authorization: &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration> getSoftphoneRegistration(
+        ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetSoftphoneRegistrationMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_SOFTPHONE_ACCOUNT = 0;
@@ -1568,6 +1859,7 @@ public final class SoftphonesGrpc {
   private static final int METHODID_GET_SOFTPHONE_CERTIFICATE = 7;
   private static final int METHODID_REVOKE_SOFTPHONE_CERTIFICATE = 8;
   private static final int METHODID_GET_SOFTPHONE_PROVISIONING = 9;
+  private static final int METHODID_GET_SOFTPHONE_REGISTRATION = 10;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1625,6 +1917,10 @@ public final class SoftphonesGrpc {
         case METHODID_GET_SOFTPHONE_PROVISIONING:
           serviceImpl.getSoftphoneProvisioning((ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneProvisioningRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning>) responseObserver);
+          break;
+        case METHODID_GET_SOFTPHONE_REGISTRATION:
+          serviceImpl.getSoftphoneRegistration((ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1714,6 +2010,13 @@ public final class SoftphonesGrpc {
               ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneProvisioningRequest,
               ondewo.vtsi.SoftphonesOuterClass.SoftphoneProvisioning>(
                 service, METHODID_GET_SOFTPHONE_PROVISIONING)))
+        .addMethod(
+          getGetSoftphoneRegistrationMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest,
+              ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration>(
+                service, METHODID_GET_SOFTPHONE_REGISTRATION)))
         .build();
   }
 
@@ -1772,6 +2075,7 @@ public final class SoftphonesGrpc {
               .addMethod(getGetSoftphoneCertificateMethod())
               .addMethod(getRevokeSoftphoneCertificateMethod())
               .addMethod(getGetSoftphoneProvisioningMethod())
+              .addMethod(getGetSoftphoneRegistrationMethod())
               .build();
         }
       }

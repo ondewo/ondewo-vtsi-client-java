@@ -394,6 +394,201 @@ public final class SoftphonesOuterClass {
 
   /**
    * <pre>
+   * Reachability of one registered contact of a softphone account, as the project&amp;apos;s Asterisk
+   * qualifies it (SIP &lt;code&gt;OPTIONS&lt;/code&gt;).
+   * </pre>
+   *
+   * Protobuf enum {@code ondewo.vtsi.SoftphoneContactStatus}
+   */
+  public enum SoftphoneContactStatus
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Unspecified. Never returned.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNSPECIFIED = 0;</code>
+     */
+    SOFTPHONE_CONTACT_STATUS_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * The contact answered the last qualify (&lt;code&gt;Avail&lt;/code&gt;); &lt;code&gt;round_trip_ms&lt;/code&gt; is set.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_AVAILABLE = 1;</code>
+     */
+    SOFTPHONE_CONTACT_STATUS_AVAILABLE(1),
+    /**
+     * <pre>
+     * The contact did not answer the last qualify (&lt;code&gt;Unavail&lt;/code&gt;): the device is registered but
+     * currently unreachable, e.g. offline or behind a NAT that expired. Calls to it fail until it answers
+     * again or its registration expires.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNAVAILABLE = 2;</code>
+     */
+    SOFTPHONE_CONTACT_STATUS_UNAVAILABLE(2),
+    /**
+     * <pre>
+     * The contact is not qualified (&lt;code&gt;NonQual&lt;/code&gt;), so its reachability is not checked.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED = 3;</code>
+     */
+    SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED(3),
+    /**
+     * <pre>
+     * The Asterisk has not determined the reachability yet (&lt;code&gt;Unknown&lt;/code&gt;, &lt;code&gt;Created&lt;/code&gt;),
+     * e.g. right after the registration.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNKNOWN = 4;</code>
+     */
+    SOFTPHONE_CONTACT_STATUS_UNKNOWN(4),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        SoftphoneContactStatus.class.getName());
+    }
+    /**
+     * <pre>
+     * Unspecified. Never returned.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNSPECIFIED = 0;</code>
+     */
+    public static final int SOFTPHONE_CONTACT_STATUS_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * The contact answered the last qualify (&lt;code&gt;Avail&lt;/code&gt;); &lt;code&gt;round_trip_ms&lt;/code&gt; is set.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_AVAILABLE = 1;</code>
+     */
+    public static final int SOFTPHONE_CONTACT_STATUS_AVAILABLE_VALUE = 1;
+    /**
+     * <pre>
+     * The contact did not answer the last qualify (&lt;code&gt;Unavail&lt;/code&gt;): the device is registered but
+     * currently unreachable, e.g. offline or behind a NAT that expired. Calls to it fail until it answers
+     * again or its registration expires.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNAVAILABLE = 2;</code>
+     */
+    public static final int SOFTPHONE_CONTACT_STATUS_UNAVAILABLE_VALUE = 2;
+    /**
+     * <pre>
+     * The contact is not qualified (&lt;code&gt;NonQual&lt;/code&gt;), so its reachability is not checked.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED = 3;</code>
+     */
+    public static final int SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED_VALUE = 3;
+    /**
+     * <pre>
+     * The Asterisk has not determined the reachability yet (&lt;code&gt;Unknown&lt;/code&gt;, &lt;code&gt;Created&lt;/code&gt;),
+     * e.g. right after the registration.
+     * </pre>
+     *
+     * <code>SOFTPHONE_CONTACT_STATUS_UNKNOWN = 4;</code>
+     */
+    public static final int SOFTPHONE_CONTACT_STATUS_UNKNOWN_VALUE = 4;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static SoftphoneContactStatus valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static SoftphoneContactStatus forNumber(int value) {
+      switch (value) {
+        case 0: return SOFTPHONE_CONTACT_STATUS_UNSPECIFIED;
+        case 1: return SOFTPHONE_CONTACT_STATUS_AVAILABLE;
+        case 2: return SOFTPHONE_CONTACT_STATUS_UNAVAILABLE;
+        case 3: return SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIED;
+        case 4: return SOFTPHONE_CONTACT_STATUS_UNKNOWN;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<SoftphoneContactStatus>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        SoftphoneContactStatus> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SoftphoneContactStatus>() {
+            public SoftphoneContactStatus findValueByNumber(int number) {
+              return SoftphoneContactStatus.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return ondewo.vtsi.SoftphonesOuterClass.getDescriptor().getEnumTypes().get(2);
+    }
+
+    private static final SoftphoneContactStatus[] VALUES = values();
+
+    public static SoftphoneContactStatus valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private SoftphoneContactStatus(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ondewo.vtsi.SoftphoneContactStatus)
+  }
+
+  /**
+   * <pre>
    * Media encryption a softphone must use.
    * </pre>
    *
@@ -507,7 +702,7 @@ public final class SoftphonesOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.SoftphonesOuterClass.getDescriptor().getEnumTypes().get(2);
+      return ondewo.vtsi.SoftphonesOuterClass.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final SoftphoneSrtpMode[] VALUES = values();
@@ -715,6 +910,10 @@ public final class SoftphonesOuterClass {
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -725,6 +924,10 @@ public final class SoftphonesOuterClass {
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -742,6 +945,10 @@ public final class SoftphonesOuterClass {
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -753,6 +960,10 @@ public final class SoftphonesOuterClass {
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -767,6 +978,10 @@ java.lang.String defaultValue);
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -1020,6 +1235,73 @@ java.lang.String defaultValue);
      * <code>.google.protobuf.Timestamp modified_at = 18;</code>
      */
     com.google.protobuf.TimestampOrBuilder getModifiedAtOrBuilder();
+
+    /**
+     * <pre>
+     * Output only. Whether the account is LOCKED: &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; revoked its
+     * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; unlocks it. Independent of &lt;code&gt;enabled&lt;/code&gt;: an account
+     * is usable only when it is enabled AND not locked.
+     * </pre>
+     *
+     * <code>bool locked = 19;</code>
+     * @return The locked.
+     */
+    boolean getLocked();
+
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @return Whether the lockedAt field is set.
+     */
+    boolean hasLockedAt();
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @return The lockedAt.
+     */
+    com.google.protobuf.Timestamp getLockedAt();
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getLockedAtOrBuilder();
+
+    /**
+     * <pre>
+     * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+     * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+     * not locked).
+     * </pre>
+     *
+     * <code>string locked_reason = 21;</code>
+     * @return The lockedReason.
+     */
+    java.lang.String getLockedReason();
+    /**
+     * <pre>
+     * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+     * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+     * not locked).
+     * </pre>
+     *
+     * <code>string locked_reason = 21;</code>
+     * @return The bytes for lockedReason.
+     */
+    com.google.protobuf.ByteString
+        getLockedReasonBytes();
   }
   /**
    * <pre>
@@ -1060,6 +1342,7 @@ java.lang.String defaultValue);
       currentCertificateSha256Fingerprint_ = "";
       createdBy_ = "";
       modifiedBy_ = "";
+      lockedReason_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -1447,6 +1730,10 @@ java.lang.String defaultValue);
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -1470,6 +1757,10 @@ java.lang.String defaultValue);
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -1483,6 +1774,10 @@ java.lang.String defaultValue);
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -1503,6 +1798,10 @@ java.lang.String defaultValue) {
      * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
      * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      * </pre>
      *
      * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -1930,6 +2229,116 @@ java.lang.String defaultValue) {
       return modifiedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : modifiedAt_;
     }
 
+    public static final int LOCKED_FIELD_NUMBER = 19;
+    private boolean locked_ = false;
+    /**
+     * <pre>
+     * Output only. Whether the account is LOCKED: &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; revoked its
+     * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; unlocks it. Independent of &lt;code&gt;enabled&lt;/code&gt;: an account
+     * is usable only when it is enabled AND not locked.
+     * </pre>
+     *
+     * <code>bool locked = 19;</code>
+     * @return The locked.
+     */
+    @java.lang.Override
+    public boolean getLocked() {
+      return locked_;
+    }
+
+    public static final int LOCKED_AT_FIELD_NUMBER = 20;
+    private com.google.protobuf.Timestamp lockedAt_;
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @return Whether the lockedAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasLockedAt() {
+      return ((bitField0_ & 0x00000020) != 0);
+    }
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @return The lockedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getLockedAt() {
+      return lockedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lockedAt_;
+    }
+    /**
+     * <pre>
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getLockedAtOrBuilder() {
+      return lockedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lockedAt_;
+    }
+
+    public static final int LOCKED_REASON_FIELD_NUMBER = 21;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object lockedReason_ = "";
+    /**
+     * <pre>
+     * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+     * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+     * not locked).
+     * </pre>
+     *
+     * <code>string locked_reason = 21;</code>
+     * @return The lockedReason.
+     */
+    @java.lang.Override
+    public java.lang.String getLockedReason() {
+      java.lang.Object ref = lockedReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lockedReason_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+     * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+     * not locked).
+     * </pre>
+     *
+     * <code>string locked_reason = 21;</code>
+     * @return The bytes for lockedReason.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLockedReasonBytes() {
+      java.lang.Object ref = lockedReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lockedReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2000,6 +2409,15 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         output.writeMessage(18, getModifiedAt());
+      }
+      if (locked_ != false) {
+        output.writeBool(19, locked_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        output.writeMessage(20, getLockedAt());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lockedReason_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 21, lockedReason_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2083,6 +2501,17 @@ java.lang.String defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(18, getModifiedAt());
       }
+      if (locked_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(19, locked_);
+      }
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(20, getLockedAt());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lockedReason_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(21, lockedReason_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2148,6 +2577,15 @@ java.lang.String defaultValue) {
         if (!getModifiedAt()
             .equals(other.getModifiedAt())) return false;
       }
+      if (getLocked()
+          != other.getLocked()) return false;
+      if (hasLockedAt() != other.hasLockedAt()) return false;
+      if (hasLockedAt()) {
+        if (!getLockedAt()
+            .equals(other.getLockedAt())) return false;
+      }
+      if (!getLockedReason()
+          .equals(other.getLockedReason())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -2210,6 +2648,15 @@ java.lang.String defaultValue) {
         hash = (37 * hash) + MODIFIED_AT_FIELD_NUMBER;
         hash = (53 * hash) + getModifiedAt().hashCode();
       }
+      hash = (37 * hash) + LOCKED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getLocked());
+      if (hasLockedAt()) {
+        hash = (37 * hash) + LOCKED_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getLockedAt().hashCode();
+      }
+      hash = (37 * hash) + LOCKED_REASON_FIELD_NUMBER;
+      hash = (53 * hash) + getLockedReason().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2371,6 +2818,7 @@ java.lang.String defaultValue) {
           internalGetSipPasswordSetAtFieldBuilder();
           internalGetCreatedAtFieldBuilder();
           internalGetModifiedAtFieldBuilder();
+          internalGetLockedAtFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2412,6 +2860,13 @@ java.lang.String defaultValue) {
           modifiedAtBuilder_.dispose();
           modifiedAtBuilder_ = null;
         }
+        locked_ = false;
+        lockedAt_ = null;
+        if (lockedAtBuilder_ != null) {
+          lockedAtBuilder_.dispose();
+          lockedAtBuilder_ = null;
+        }
+        lockedReason_ = "";
         return this;
       }
 
@@ -2515,6 +2970,18 @@ java.lang.String defaultValue) {
               : modifiedAtBuilder_.build();
           to_bitField0_ |= 0x00000010;
         }
+        if (((from_bitField0_ & 0x00040000) != 0)) {
+          result.locked_ = locked_;
+        }
+        if (((from_bitField0_ & 0x00080000) != 0)) {
+          result.lockedAt_ = lockedAtBuilder_ == null
+              ? lockedAt_
+              : lockedAtBuilder_.build();
+          to_bitField0_ |= 0x00000020;
+        }
+        if (((from_bitField0_ & 0x00100000) != 0)) {
+          result.lockedReason_ = lockedReason_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -2608,6 +3075,17 @@ java.lang.String defaultValue) {
         }
         if (other.hasModifiedAt()) {
           mergeModifiedAt(other.getModifiedAt());
+        }
+        if (other.getLocked() != false) {
+          setLocked(other.getLocked());
+        }
+        if (other.hasLockedAt()) {
+          mergeLockedAt(other.getLockedAt());
+        }
+        if (!other.getLockedReason().isEmpty()) {
+          lockedReason_ = other.lockedReason_;
+          bitField0_ |= 0x00100000;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -2738,6 +3216,23 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00020000;
                 break;
               } // case 146
+              case 152: {
+                locked_ = input.readBool();
+                bitField0_ |= 0x00040000;
+                break;
+              } // case 152
+              case 162: {
+                input.readMessage(
+                    internalGetLockedAtFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00080000;
+                break;
+              } // case 162
+              case 170: {
+                lockedReason_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00100000;
+                break;
+              } // case 170
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3478,6 +3973,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3501,6 +4000,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3514,6 +4017,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3534,6 +4041,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3560,6 +4071,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3585,6 +4100,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -3604,6 +4123,10 @@ java.lang.String defaultValue) {
        * Free-form labels for organising and filtering accounts, e.g. &lt;code&gt;team: support&lt;/code&gt;. Keys: 1 to
        * 63 characters of &lt;pre&gt;&lt;code&gt;[a-z0-9_.-]&lt;/code&gt;&lt;/pre&gt;, starting with a letter; values: at most 256
        * characters; at most 64 entries. Updatable (the whole map is replaced).
+       * Control characters: a KEY cannot contain one (the key pattern refuses it with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;); a VALUE is checked for its length only, so control characters
+       * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+       * label values must escape them.
        * </pre>
        *
        * <code>map&lt;string, string&gt; labels = 9;</code>
@@ -4799,6 +5322,327 @@ java.lang.String defaultValue) {
           modifiedAt_ = null;
         }
         return modifiedAtBuilder_;
+      }
+
+      private boolean locked_ ;
+      /**
+       * <pre>
+       * Output only. Whether the account is LOCKED: &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; revoked its
+       * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; unlocks it. Independent of &lt;code&gt;enabled&lt;/code&gt;: an account
+       * is usable only when it is enabled AND not locked.
+       * </pre>
+       *
+       * <code>bool locked = 19;</code>
+       * @return The locked.
+       */
+      @java.lang.Override
+      public boolean getLocked() {
+        return locked_;
+      }
+      /**
+       * <pre>
+       * Output only. Whether the account is LOCKED: &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; revoked its
+       * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; unlocks it. Independent of &lt;code&gt;enabled&lt;/code&gt;: an account
+       * is usable only when it is enabled AND not locked.
+       * </pre>
+       *
+       * <code>bool locked = 19;</code>
+       * @param value The locked to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocked(boolean value) {
+
+        locked_ = value;
+        bitField0_ |= 0x00040000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Whether the account is LOCKED: &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; revoked its
+       * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; unlocks it. Independent of &lt;code&gt;enabled&lt;/code&gt;: an account
+       * is usable only when it is enabled AND not locked.
+       * </pre>
+       *
+       * <code>bool locked = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLocked() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        locked_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp lockedAt_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> lockedAtBuilder_;
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       * @return Whether the lockedAt field is set.
+       */
+      public boolean hasLockedAt() {
+        return ((bitField0_ & 0x00080000) != 0);
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       * @return The lockedAt.
+       */
+      public com.google.protobuf.Timestamp getLockedAt() {
+        if (lockedAtBuilder_ == null) {
+          return lockedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lockedAt_;
+        } else {
+          return lockedAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public Builder setLockedAt(com.google.protobuf.Timestamp value) {
+        if (lockedAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          lockedAt_ = value;
+        } else {
+          lockedAtBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public Builder setLockedAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (lockedAtBuilder_ == null) {
+          lockedAt_ = builderForValue.build();
+        } else {
+          lockedAtBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public Builder mergeLockedAt(com.google.protobuf.Timestamp value) {
+        if (lockedAtBuilder_ == null) {
+          if (((bitField0_ & 0x00080000) != 0) &&
+            lockedAt_ != null &&
+            lockedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getLockedAtBuilder().mergeFrom(value);
+          } else {
+            lockedAt_ = value;
+          }
+        } else {
+          lockedAtBuilder_.mergeFrom(value);
+        }
+        if (lockedAt_ != null) {
+          bitField0_ |= 0x00080000;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public Builder clearLockedAt() {
+        bitField0_ = (bitField0_ & ~0x00080000);
+        lockedAt_ = null;
+        if (lockedAtBuilder_ != null) {
+          lockedAtBuilder_.dispose();
+          lockedAtBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getLockedAtBuilder() {
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return internalGetLockedAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getLockedAtOrBuilder() {
+        if (lockedAtBuilder_ != null) {
+          return lockedAtBuilder_.getMessageOrBuilder();
+        } else {
+          return lockedAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : lockedAt_;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+       * by a server older than 9.1.0 whose lock time is not known).
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp locked_at = 20;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetLockedAtFieldBuilder() {
+        if (lockedAtBuilder_ == null) {
+          lockedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getLockedAt(),
+                  getParentForChildren(),
+                  isClean());
+          lockedAt_ = null;
+        }
+        return lockedAtBuilder_;
+      }
+
+      private java.lang.Object lockedReason_ = "";
+      /**
+       * <pre>
+       * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+       * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+       * not locked).
+       * </pre>
+       *
+       * <code>string locked_reason = 21;</code>
+       * @return The lockedReason.
+       */
+      public java.lang.String getLockedReason() {
+        java.lang.Object ref = lockedReason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          lockedReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+       * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+       * not locked).
+       * </pre>
+       *
+       * <code>string locked_reason = 21;</code>
+       * @return The bytes for lockedReason.
+       */
+      public com.google.protobuf.ByteString
+          getLockedReasonBytes() {
+        java.lang.Object ref = lockedReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          lockedReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+       * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+       * not locked).
+       * </pre>
+       *
+       * <code>string locked_reason = 21;</code>
+       * @param value The lockedReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLockedReason(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        lockedReason_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+       * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+       * not locked).
+       * </pre>
+       *
+       * <code>string locked_reason = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLockedReason() {
+        lockedReason_ = getDefaultInstance().getLockedReason();
+        bitField0_ = (bitField0_ & ~0x00100000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Why the account was locked: the &lt;code&gt;reason&lt;/code&gt; given to the
+       * &lt;code&gt;RevokeSoftphoneCertificate&lt;/code&gt; that locked it (empty when none was given or the account is
+       * not locked).
+       * </pre>
+       *
+       * <code>string locked_reason = 21;</code>
+       * @param value The bytes for lockedReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLockedReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        lockedReason_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.SoftphoneAccount)
@@ -14410,6 +15254,27 @@ java.lang.String defaultValue);
      * <code>.google.protobuf.Timestamp certificate_expires_after = 7;</code>
      */
     com.google.protobuf.TimestampOrBuilder getCertificateExpiresAfterOrBuilder();
+
+    /**
+     * <pre>
+     * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+     * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+     * </pre>
+     *
+     * <code>optional bool locked = 8;</code>
+     * @return Whether the locked field is set.
+     */
+    boolean hasLocked();
+    /**
+     * <pre>
+     * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+     * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+     * </pre>
+     *
+     * <code>optional bool locked = 8;</code>
+     * @return The locked.
+     */
+    boolean getLocked();
   }
   /**
    * <pre>
@@ -14863,6 +15728,35 @@ java.lang.String defaultValue) {
       return certificateExpiresAfter_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : certificateExpiresAfter_;
     }
 
+    public static final int LOCKED_FIELD_NUMBER = 8;
+    private boolean locked_ = false;
+    /**
+     * <pre>
+     * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+     * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+     * </pre>
+     *
+     * <code>optional bool locked = 8;</code>
+     * @return Whether the locked field is set.
+     */
+    @java.lang.Override
+    public boolean hasLocked() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+     * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+     * </pre>
+     *
+     * <code>optional bool locked = 8;</code>
+     * @return The locked.
+     */
+    @java.lang.Override
+    public boolean getLocked() {
+      return locked_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -14905,6 +15799,9 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeMessage(7, getCertificateExpiresAfter());
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeBool(8, locked_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -14955,6 +15852,10 @@ java.lang.String defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, getCertificateExpiresAfter());
       }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(8, locked_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -14992,6 +15893,11 @@ java.lang.String defaultValue) {
         if (!getCertificateExpiresAfter()
             .equals(other.getCertificateExpiresAfter())) return false;
       }
+      if (hasLocked() != other.hasLocked()) return false;
+      if (hasLocked()) {
+        if (getLocked()
+            != other.getLocked()) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -15027,6 +15933,11 @@ java.lang.String defaultValue) {
       if (hasCertificateExpiresAfter()) {
         hash = (37 * hash) + CERTIFICATE_EXPIRES_AFTER_FIELD_NUMBER;
         hash = (53 * hash) + getCertificateExpiresAfter().hashCode();
+      }
+      if (hasLocked()) {
+        hash = (37 * hash) + LOCKED_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getLocked());
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -15209,6 +16120,7 @@ java.lang.String defaultValue) {
           certificateExpiresAfterBuilder_.dispose();
           certificateExpiresAfterBuilder_ = null;
         }
+        locked_ = false;
         return this;
       }
 
@@ -15273,6 +16185,10 @@ java.lang.String defaultValue) {
               : certificateExpiresAfterBuilder_.build();
           to_bitField0_ |= 0x00000004;
         }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.locked_ = locked_;
+          to_bitField0_ |= 0x00000008;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -15320,6 +16236,9 @@ java.lang.String defaultValue) {
         }
         if (other.hasCertificateExpiresAfter()) {
           mergeCertificateExpiresAfter(other.getCertificateExpiresAfter());
+        }
+        if (other.hasLocked()) {
+          setLocked(other.getLocked());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -15401,6 +16320,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000040;
                 break;
               } // case 58
+              case 64: {
+                locked_ = input.readBool();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 64
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -16365,6 +17289,66 @@ java.lang.String defaultValue) {
           certificateExpiresAfter_ = null;
         }
         return certificateExpiresAfterBuilder_;
+      }
+
+      private boolean locked_ ;
+      /**
+       * <pre>
+       * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+       * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+       * </pre>
+       *
+       * <code>optional bool locked = 8;</code>
+       * @return Whether the locked field is set.
+       */
+      @java.lang.Override
+      public boolean hasLocked() {
+        return ((bitField0_ & 0x00000080) != 0);
+      }
+      /**
+       * <pre>
+       * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+       * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+       * </pre>
+       *
+       * <code>optional bool locked = 8;</code>
+       * @return The locked.
+       */
+      @java.lang.Override
+      public boolean getLocked() {
+        return locked_;
+      }
+      /**
+       * <pre>
+       * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+       * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+       * </pre>
+       *
+       * <code>optional bool locked = 8;</code>
+       * @param value The locked to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocked(boolean value) {
+
+        locked_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Only locked (&lt;code&gt;true&lt;/code&gt;) or only unlocked (&lt;code&gt;false&lt;/code&gt;) accounts, see
+       * &lt;code&gt;SoftphoneAccount.locked&lt;/code&gt;. Unset matches both.
+       * </pre>
+       *
+       * <code>optional bool locked = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLocked() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        locked_ = false;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.SoftphoneAccountFilter)
@@ -18712,6 +19696,60 @@ java.lang.String defaultValue) {
      * <code>.ondewo.vtsi.SoftphoneAccount softphone_account = 2;</code>
      */
     ondewo.vtsi.SoftphonesOuterClass.SoftphoneAccountOrBuilder getSoftphoneAccountOrBuilder();
+
+    /**
+     * <pre>
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+     * replica a retry reaches.
+     * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+     * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+     * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+     * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+     * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string idempotency_key = 3;</code>
+     * @return The idempotencyKey.
+     */
+    java.lang.String getIdempotencyKey();
+    /**
+     * <pre>
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+     * replica a retry reaches.
+     * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+     * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+     * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+     * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+     * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string idempotency_key = 3;</code>
+     * @return The bytes for idempotencyKey.
+     */
+    com.google.protobuf.ByteString
+        getIdempotencyKeyBytes();
   }
   /**
    * <pre>
@@ -18741,6 +19779,7 @@ java.lang.String defaultValue) {
     }
     private CreateSoftphoneAccountRequest() {
       vtsiProjectName_ = "";
+      idempotencyKey_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -18847,6 +19886,87 @@ java.lang.String defaultValue) {
       return softphoneAccount_ == null ? ondewo.vtsi.SoftphonesOuterClass.SoftphoneAccount.getDefaultInstance() : softphoneAccount_;
     }
 
+    public static final int IDEMPOTENCY_KEY_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object idempotencyKey_ = "";
+    /**
+     * <pre>
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+     * replica a retry reaches.
+     * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+     * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+     * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+     * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+     * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string idempotency_key = 3;</code>
+     * @return The idempotencyKey.
+     */
+    @java.lang.Override
+    public java.lang.String getIdempotencyKey() {
+      java.lang.Object ref = idempotencyKey_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        idempotencyKey_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+     * replica a retry reaches.
+     * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+     * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+     * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+     * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+     * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+     * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+     * </pre>
+     *
+     * <code>string idempotency_key = 3;</code>
+     * @return The bytes for idempotencyKey.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdempotencyKeyBytes() {
+      java.lang.Object ref = idempotencyKey_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        idempotencyKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -18867,6 +19987,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(2, getSoftphoneAccount());
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(idempotencyKey_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, idempotencyKey_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -18882,6 +20005,9 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getSoftphoneAccount());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(idempotencyKey_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, idempotencyKey_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -18905,6 +20031,8 @@ java.lang.String defaultValue) {
         if (!getSoftphoneAccount()
             .equals(other.getSoftphoneAccount())) return false;
       }
+      if (!getIdempotencyKey()
+          .equals(other.getIdempotencyKey())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -18922,6 +20050,8 @@ java.lang.String defaultValue) {
         hash = (37 * hash) + SOFTPHONE_ACCOUNT_FIELD_NUMBER;
         hash = (53 * hash) + getSoftphoneAccount().hashCode();
       }
+      hash = (37 * hash) + IDEMPOTENCY_KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getIdempotencyKey().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -19070,6 +20200,7 @@ java.lang.String defaultValue) {
           softphoneAccountBuilder_.dispose();
           softphoneAccountBuilder_ = null;
         }
+        idempotencyKey_ = "";
         return this;
       }
 
@@ -19113,6 +20244,9 @@ java.lang.String defaultValue) {
               : softphoneAccountBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.idempotencyKey_ = idempotencyKey_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -19135,6 +20269,11 @@ java.lang.String defaultValue) {
         }
         if (other.hasSoftphoneAccount()) {
           mergeSoftphoneAccount(other.getSoftphoneAccount());
+        }
+        if (!other.getIdempotencyKey().isEmpty()) {
+          idempotencyKey_ = other.idempotencyKey_;
+          bitField0_ |= 0x00000004;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -19174,6 +20313,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                idempotencyKey_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -19454,6 +20598,183 @@ java.lang.String defaultValue) {
         return softphoneAccountBuilder_;
       }
 
+      private java.lang.Object idempotencyKey_ = "";
+      /**
+       * <pre>
+       * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+       * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+       * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+       * replica a retry reaches.
+       * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+       * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+       * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+       * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+       * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+       * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+       * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+       * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+       * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+       * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+       * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+       * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string idempotency_key = 3;</code>
+       * @return The idempotencyKey.
+       */
+      public java.lang.String getIdempotencyKey() {
+        java.lang.Object ref = idempotencyKey_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          idempotencyKey_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+       * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+       * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+       * replica a retry reaches.
+       * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+       * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+       * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+       * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+       * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+       * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+       * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+       * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+       * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+       * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+       * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+       * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string idempotency_key = 3;</code>
+       * @return The bytes for idempotencyKey.
+       */
+      public com.google.protobuf.ByteString
+          getIdempotencyKeyBytes() {
+        java.lang.Object ref = idempotencyKey_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          idempotencyKey_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+       * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+       * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+       * replica a retry reaches.
+       * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+       * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+       * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+       * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+       * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+       * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+       * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+       * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+       * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+       * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+       * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+       * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string idempotency_key = 3;</code>
+       * @param value The idempotencyKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdempotencyKey(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        idempotencyKey_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+       * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+       * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+       * replica a retry reaches.
+       * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+       * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+       * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+       * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+       * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+       * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+       * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+       * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+       * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+       * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+       * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+       * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string idempotency_key = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIdempotencyKey() {
+        idempotencyKey_ = getDefaultInstance().getIdempotencyKey();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+       * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+       * default (the server&amp;apos;s &lt;code&gt;ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S&lt;/code&gt;), whichever server
+       * replica a retry reaches.
+       * &lt;p&gt;A retry carrying the same key and the same request does NOT create a second account. Because the
+       * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+       * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt; (the SIP password always, and a new certificate for a
+       * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt; account), and returns the account with
+       * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+       * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+       * grants nothing a caller could not do anyway: both RPCs require the same role.&lt;/p&gt;
+       * &lt;p&gt;Reusing a key with a different request is refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A retry that
+       * arrives while the first attempt is still running is answered &lt;code&gt;ABORTED&lt;/code&gt; and may be retried
+       * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+       * A retry after the account was deleted is &lt;code&gt;NOT_FOUND&lt;/code&gt;; a retry while the account is
+       * &lt;code&gt;locked&lt;/code&gt; is refused with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; (unlock it deliberately with
+       * &lt;code&gt;RotateSoftphoneCredentials&lt;/code&gt;: a replayed key must not undo a revocation).&lt;/p&gt;
+       * </pre>
+       *
+       * <code>string idempotency_key = 3;</code>
+       * @param value The bytes for idempotencyKey to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdempotencyKeyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        idempotencyKey_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.CreateSoftphoneAccountRequest)
     }
 
@@ -19540,6 +20861,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -19550,6 +20872,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -19560,6 +20883,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -19653,6 +20977,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -19666,6 +20991,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -19679,6 +21005,7 @@ java.lang.String defaultValue) {
      * <pre>
      * ONE-TIME secrets: the SIP password and, for
      * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+     * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
      * </pre>
      *
      * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20210,6 +21537,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20222,6 +21550,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20238,6 +21567,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20259,6 +21589,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20278,6 +21609,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20304,6 +21636,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20322,6 +21655,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20335,6 +21669,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -20351,6 +21686,7 @@ java.lang.String defaultValue) {
        * <pre>
        * ONE-TIME secrets: the SIP password and, for
        * &lt;code&gt;SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE&lt;/code&gt;, the PKCS#12 bundle and its password.
+       * For a replayed &lt;code&gt;idempotency_key&lt;/code&gt;: the newly rotated secrets.
        * </pre>
        *
        * <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
@@ -33126,6 +34462,3691 @@ java.lang.String defaultValue) {
 
   }
 
+  public interface GetSoftphoneRegistrationRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.GetSoftphoneRegistrationRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Resource name of the account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * Resource name of the account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
+  }
+  /**
+   * <pre>
+   * The request message for
+   * &lt;a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration"&gt;Softphones.GetSoftphoneRegistration&lt;/a&gt;.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.GetSoftphoneRegistrationRequest}
+   */
+  public static final class GetSoftphoneRegistrationRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.GetSoftphoneRegistrationRequest)
+      GetSoftphoneRegistrationRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        GetSoftphoneRegistrationRequest.class.getName());
+    }
+    // Use GetSoftphoneRegistrationRequest.newBuilder() to construct.
+    private GetSoftphoneRegistrationRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private GetSoftphoneRegistrationRequest() {
+      name_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.class, ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object name_ = "";
+    /**
+     * <pre>
+     * Resource name of the account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Resource name of the account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string name = 1;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 2;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field. An unknown path, or a path below
+     * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getFieldMask());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getFieldMask());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest other = (ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest) obj;
+
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The request message for
+     * &lt;a href="index.html#ondewo.vtsi.Softphones.GetSoftphoneRegistration"&gt;Softphones.GetSoftphoneRegistration&lt;/a&gt;.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.GetSoftphoneRegistrationRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.GetSoftphoneRegistrationRequest)
+        ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.class, ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        name_ = "";
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest getDefaultInstanceForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest build() {
+        ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest buildPartial() {
+        ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest result = new ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.name_ = name_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest) {
+          return mergeFrom((ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest other) {
+        if (other == ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                name_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * Resource name of the account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        name_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        name_ = getDefaultInstance().getName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        name_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;SoftphoneRegistration&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;contacts&lt;/code&gt;, &lt;code&gt;observed_at&lt;/code&gt;. &lt;code&gt;softphone_account_name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field. An unknown path, or a path below
+       * &lt;code&gt;contacts&lt;/code&gt; (a repeated field), is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.GetSoftphoneRegistrationRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.GetSoftphoneRegistrationRequest)
+    private static final ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest();
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetSoftphoneRegistrationRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetSoftphoneRegistrationRequest>() {
+      @java.lang.Override
+      public GetSoftphoneRegistrationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetSoftphoneRegistrationRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetSoftphoneRegistrationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.SoftphonesOuterClass.GetSoftphoneRegistrationRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SoftphoneRegistrationOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.SoftphoneRegistration)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Resource name of the softphone account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string softphone_account_name = 1;</code>
+     * @return The softphoneAccountName.
+     */
+    java.lang.String getSoftphoneAccountName();
+    /**
+     * <pre>
+     * Resource name of the softphone account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string softphone_account_name = 1;</code>
+     * @return The bytes for softphoneAccountName.
+     */
+    com.google.protobuf.ByteString
+        getSoftphoneAccountNameBytes();
+
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> 
+        getContactsList();
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getContacts(int index);
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    int getContactsCount();
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    java.util.List<? extends ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder> 
+        getContactsOrBuilderList();
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder getContactsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     * @return Whether the observedAt field is set.
+     */
+    boolean hasObservedAt();
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     * @return The observedAt.
+     */
+    com.google.protobuf.Timestamp getObservedAt();
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getObservedAtOrBuilder();
+  }
+  /**
+   * <pre>
+   * The live registrations of one softphone account on its project&amp;apos;s Asterisk. Every field is output
+   * only. Never carries a secret.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.SoftphoneRegistration}
+   */
+  public static final class SoftphoneRegistration extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.SoftphoneRegistration)
+      SoftphoneRegistrationOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        SoftphoneRegistration.class.getName());
+    }
+    // Use SoftphoneRegistration.newBuilder() to construct.
+    private SoftphoneRegistration(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SoftphoneRegistration() {
+      softphoneAccountName_ = "";
+      contacts_ = java.util.Collections.emptyList();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneRegistration_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.class, ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object softphoneAccountName_ = "";
+    /**
+     * <pre>
+     * Resource name of the softphone account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string softphone_account_name = 1;</code>
+     * @return The softphoneAccountName.
+     */
+    @java.lang.Override
+    public java.lang.String getSoftphoneAccountName() {
+      java.lang.Object ref = softphoneAccountName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        softphoneAccountName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Resource name of the softphone account.
+     * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * </pre>
+     *
+     * <code>string softphone_account_name = 1;</code>
+     * @return The bytes for softphoneAccountName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSoftphoneAccountNameBytes() {
+      java.lang.Object ref = softphoneAccountName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        softphoneAccountName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CONTACTS_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> contacts_;
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> getContactsList() {
+      return contacts_;
+    }
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder> 
+        getContactsOrBuilderList() {
+      return contacts_;
+    }
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    @java.lang.Override
+    public int getContactsCount() {
+      return contacts_.size();
+    }
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    @java.lang.Override
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getContacts(int index) {
+      return contacts_.get(index);
+    }
+    /**
+     * <pre>
+     * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+     * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+     */
+    @java.lang.Override
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder getContactsOrBuilder(
+        int index) {
+      return contacts_.get(index);
+    }
+
+    public static final int OBSERVED_AT_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp observedAt_;
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     * @return Whether the observedAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasObservedAt() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     * @return The observedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getObservedAt() {
+      return observedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : observedAt_;
+    }
+    /**
+     * <pre>
+     * When the server read the registrations from the Asterisk.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getObservedAtOrBuilder() {
+      return observedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : observedAt_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(softphoneAccountName_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, softphoneAccountName_);
+      }
+      for (int i = 0; i < contacts_.size(); i++) {
+        output.writeMessage(2, contacts_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getObservedAt());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(softphoneAccountName_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, softphoneAccountName_);
+      }
+      for (int i = 0; i < contacts_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, contacts_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getObservedAt());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration other = (ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration) obj;
+
+      if (!getSoftphoneAccountName()
+          .equals(other.getSoftphoneAccountName())) return false;
+      if (!getContactsList()
+          .equals(other.getContactsList())) return false;
+      if (hasObservedAt() != other.hasObservedAt()) return false;
+      if (hasObservedAt()) {
+        if (!getObservedAt()
+            .equals(other.getObservedAt())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SOFTPHONE_ACCOUNT_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getSoftphoneAccountName().hashCode();
+      if (getContactsCount() > 0) {
+        hash = (37 * hash) + CONTACTS_FIELD_NUMBER;
+        hash = (53 * hash) + getContactsList().hashCode();
+      }
+      if (hasObservedAt()) {
+        hash = (37 * hash) + OBSERVED_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getObservedAt().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * The live registrations of one softphone account on its project&amp;apos;s Asterisk. Every field is output
+     * only. Never carries a secret.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.SoftphoneRegistration}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.SoftphoneRegistration)
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistrationOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneRegistration_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.class, ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetContactsFieldBuilder();
+          internalGetObservedAtFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        softphoneAccountName_ = "";
+        if (contactsBuilder_ == null) {
+          contacts_ = java.util.Collections.emptyList();
+        } else {
+          contacts_ = null;
+          contactsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        observedAt_ = null;
+        if (observedAtBuilder_ != null) {
+          observedAtBuilder_.dispose();
+          observedAtBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration getDefaultInstanceForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration build() {
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration buildPartial() {
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration result = new ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration result) {
+        if (contactsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            contacts_ = java.util.Collections.unmodifiableList(contacts_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.contacts_ = contacts_;
+        } else {
+          result.contacts_ = contactsBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.softphoneAccountName_ = softphoneAccountName_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.observedAt_ = observedAtBuilder_ == null
+              ? observedAt_
+              : observedAtBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration) {
+          return mergeFrom((ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration other) {
+        if (other == ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration.getDefaultInstance()) return this;
+        if (!other.getSoftphoneAccountName().isEmpty()) {
+          softphoneAccountName_ = other.softphoneAccountName_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (contactsBuilder_ == null) {
+          if (!other.contacts_.isEmpty()) {
+            if (contacts_.isEmpty()) {
+              contacts_ = other.contacts_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureContactsIsMutable();
+              contacts_.addAll(other.contacts_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.contacts_.isEmpty()) {
+            if (contactsBuilder_.isEmpty()) {
+              contactsBuilder_.dispose();
+              contactsBuilder_ = null;
+              contacts_ = other.contacts_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              contactsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   internalGetContactsFieldBuilder() : null;
+            } else {
+              contactsBuilder_.addAllMessages(other.contacts_);
+            }
+          }
+        }
+        if (other.hasObservedAt()) {
+          mergeObservedAt(other.getObservedAt());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                softphoneAccountName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact m =
+                    input.readMessage(
+                        ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.parser(),
+                        extensionRegistry);
+                if (contactsBuilder_ == null) {
+                  ensureContactsIsMutable();
+                  contacts_.add(m);
+                } else {
+                  contactsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetObservedAtFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object softphoneAccountName_ = "";
+      /**
+       * <pre>
+       * Resource name of the softphone account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string softphone_account_name = 1;</code>
+       * @return The softphoneAccountName.
+       */
+      public java.lang.String getSoftphoneAccountName() {
+        java.lang.Object ref = softphoneAccountName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          softphoneAccountName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the softphone account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string softphone_account_name = 1;</code>
+       * @return The bytes for softphoneAccountName.
+       */
+      public com.google.protobuf.ByteString
+          getSoftphoneAccountNameBytes() {
+        java.lang.Object ref = softphoneAccountName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          softphoneAccountName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Resource name of the softphone account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string softphone_account_name = 1;</code>
+       * @param value The softphoneAccountName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSoftphoneAccountName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        softphoneAccountName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the softphone account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string softphone_account_name = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSoftphoneAccountName() {
+        softphoneAccountName_ = getDefaultInstance().getSoftphoneAccountName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Resource name of the softphone account.
+       * The format is: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/softphoneAccounts/&amp;lt;softphone_account_uuid&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * </pre>
+       *
+       * <code>string softphone_account_name = 1;</code>
+       * @param value The bytes for softphoneAccountName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSoftphoneAccountNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        softphoneAccountName_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> contacts_ =
+        java.util.Collections.emptyList();
+      private void ensureContactsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          contacts_ = new java.util.ArrayList<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact>(contacts_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder> contactsBuilder_;
+
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> getContactsList() {
+        if (contactsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(contacts_);
+        } else {
+          return contactsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public int getContactsCount() {
+        if (contactsBuilder_ == null) {
+          return contacts_.size();
+        } else {
+          return contactsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getContacts(int index) {
+        if (contactsBuilder_ == null) {
+          return contacts_.get(index);
+        } else {
+          return contactsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder setContacts(
+          int index, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact value) {
+        if (contactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureContactsIsMutable();
+          contacts_.set(index, value);
+          onChanged();
+        } else {
+          contactsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder setContacts(
+          int index, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder builderForValue) {
+        if (contactsBuilder_ == null) {
+          ensureContactsIsMutable();
+          contacts_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          contactsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder addContacts(ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact value) {
+        if (contactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureContactsIsMutable();
+          contacts_.add(value);
+          onChanged();
+        } else {
+          contactsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder addContacts(
+          int index, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact value) {
+        if (contactsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureContactsIsMutable();
+          contacts_.add(index, value);
+          onChanged();
+        } else {
+          contactsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder addContacts(
+          ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder builderForValue) {
+        if (contactsBuilder_ == null) {
+          ensureContactsIsMutable();
+          contacts_.add(builderForValue.build());
+          onChanged();
+        } else {
+          contactsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder addContacts(
+          int index, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder builderForValue) {
+        if (contactsBuilder_ == null) {
+          ensureContactsIsMutable();
+          contacts_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          contactsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder addAllContacts(
+          java.lang.Iterable<? extends ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact> values) {
+        if (contactsBuilder_ == null) {
+          ensureContactsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, contacts_);
+          onChanged();
+        } else {
+          contactsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder clearContacts() {
+        if (contactsBuilder_ == null) {
+          contacts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          contactsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public Builder removeContacts(int index) {
+        if (contactsBuilder_ == null) {
+          ensureContactsIsMutable();
+          contacts_.remove(index);
+          onChanged();
+        } else {
+          contactsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder getContactsBuilder(
+          int index) {
+        return internalGetContactsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder getContactsOrBuilder(
+          int index) {
+        if (contactsBuilder_ == null) {
+          return contacts_.get(index);  } else {
+          return contactsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public java.util.List<? extends ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder> 
+           getContactsOrBuilderList() {
+        if (contactsBuilder_ != null) {
+          return contactsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(contacts_);
+        }
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder addContactsBuilder() {
+        return internalGetContactsFieldBuilder().addBuilder(
+            ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder addContactsBuilder(
+          int index) {
+        return internalGetContactsFieldBuilder().addBuilder(
+            index, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * The currently registered contacts (devices), at most the account&amp;apos;s &lt;code&gt;max_contacts&lt;/code&gt;,
+       * ordered by &lt;code&gt;expire_time&lt;/code&gt;, latest first. Empty when no device is registered.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.SoftphoneContact contacts = 2;</code>
+       */
+      public java.util.List<ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder> 
+           getContactsBuilderList() {
+        return internalGetContactsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder> 
+          internalGetContactsFieldBuilder() {
+        if (contactsBuilder_ == null) {
+          contactsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder>(
+                  contacts_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          contacts_ = null;
+        }
+        return contactsBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp observedAt_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> observedAtBuilder_;
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       * @return Whether the observedAt field is set.
+       */
+      public boolean hasObservedAt() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       * @return The observedAt.
+       */
+      public com.google.protobuf.Timestamp getObservedAt() {
+        if (observedAtBuilder_ == null) {
+          return observedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : observedAt_;
+        } else {
+          return observedAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public Builder setObservedAt(com.google.protobuf.Timestamp value) {
+        if (observedAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          observedAt_ = value;
+        } else {
+          observedAtBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public Builder setObservedAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (observedAtBuilder_ == null) {
+          observedAt_ = builderForValue.build();
+        } else {
+          observedAtBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public Builder mergeObservedAt(com.google.protobuf.Timestamp value) {
+        if (observedAtBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            observedAt_ != null &&
+            observedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getObservedAtBuilder().mergeFrom(value);
+          } else {
+            observedAt_ = value;
+          }
+        } else {
+          observedAtBuilder_.mergeFrom(value);
+        }
+        if (observedAt_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public Builder clearObservedAt() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        observedAt_ = null;
+        if (observedAtBuilder_ != null) {
+          observedAtBuilder_.dispose();
+          observedAtBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getObservedAtBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetObservedAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getObservedAtOrBuilder() {
+        if (observedAtBuilder_ != null) {
+          return observedAtBuilder_.getMessageOrBuilder();
+        } else {
+          return observedAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : observedAt_;
+        }
+      }
+      /**
+       * <pre>
+       * When the server read the registrations from the Asterisk.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp observed_at = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetObservedAtFieldBuilder() {
+        if (observedAtBuilder_ == null) {
+          observedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getObservedAt(),
+                  getParentForChildren(),
+                  isClean());
+          observedAt_ = null;
+        }
+        return observedAtBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.SoftphoneRegistration)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.SoftphoneRegistration)
+    private static final ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration();
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SoftphoneRegistration>
+        PARSER = new com.google.protobuf.AbstractParser<SoftphoneRegistration>() {
+      @java.lang.Override
+      public SoftphoneRegistration parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SoftphoneRegistration> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SoftphoneRegistration> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneRegistration getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SoftphoneContactOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ondewo.vtsi.SoftphoneContact)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The contact URI the device registered, e.g.
+     * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>string uri = 1;</code>
+     * @return The uri.
+     */
+    java.lang.String getUri();
+    /**
+     * <pre>
+     * The contact URI the device registered, e.g.
+     * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>string uri = 1;</code>
+     * @return The bytes for uri.
+     */
+    com.google.protobuf.ByteString
+        getUriBytes();
+
+    /**
+     * <pre>
+     * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+     * Empty when the device sent none.
+     * </pre>
+     *
+     * <code>string user_agent = 2;</code>
+     * @return The userAgent.
+     */
+    java.lang.String getUserAgent();
+    /**
+     * <pre>
+     * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+     * Empty when the device sent none.
+     * </pre>
+     *
+     * <code>string user_agent = 2;</code>
+     * @return The bytes for userAgent.
+     */
+    com.google.protobuf.ByteString
+        getUserAgentBytes();
+
+    /**
+     * <pre>
+     * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+     * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+     * </pre>
+     *
+     * <code>string source_address = 3;</code>
+     * @return The sourceAddress.
+     */
+    java.lang.String getSourceAddress();
+    /**
+     * <pre>
+     * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+     * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+     * </pre>
+     *
+     * <code>string source_address = 3;</code>
+     * @return The bytes for sourceAddress.
+     */
+    com.google.protobuf.ByteString
+        getSourceAddressBytes();
+
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     * @return Whether the expireTime field is set.
+     */
+    boolean hasExpireTime();
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     * @return The expireTime.
+     */
+    com.google.protobuf.Timestamp getExpireTime();
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getExpireTimeOrBuilder();
+
+    /**
+     * <pre>
+     * Round-trip time of the last qualify (SIP &lt;code&gt;OPTIONS&lt;/code&gt;) in milliseconds. &lt;code&gt;0&lt;/code&gt; unless
+     * &lt;code&gt;status&lt;/code&gt; is &lt;code&gt;SOFTPHONE_CONTACT_STATUS_AVAILABLE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>double round_trip_ms = 5;</code>
+     * @return The roundTripMs.
+     */
+    double getRoundTripMs();
+
+    /**
+     * <pre>
+     * Reachability of the contact.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <pre>
+     * Reachability of the contact.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+     * @return The status.
+     */
+    ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus getStatus();
+  }
+  /**
+   * <pre>
+   * One registered contact (device) of a softphone account.
+   * </pre>
+   *
+   * Protobuf type {@code ondewo.vtsi.SoftphoneContact}
+   */
+  public static final class SoftphoneContact extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ondewo.vtsi.SoftphoneContact)
+      SoftphoneContactOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        SoftphoneContact.class.getName());
+    }
+    // Use SoftphoneContact.newBuilder() to construct.
+    private SoftphoneContact(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private SoftphoneContact() {
+      uri_ = "";
+      userAgent_ = "";
+      sourceAddress_ = "";
+      status_ = 0;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneContact_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneContact_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.class, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int URI_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object uri_ = "";
+    /**
+     * <pre>
+     * The contact URI the device registered, e.g.
+     * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>string uri = 1;</code>
+     * @return The uri.
+     */
+    @java.lang.Override
+    public java.lang.String getUri() {
+      java.lang.Object ref = uri_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uri_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The contact URI the device registered, e.g.
+     * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>string uri = 1;</code>
+     * @return The bytes for uri.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUriBytes() {
+      java.lang.Object ref = uri_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uri_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_AGENT_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object userAgent_ = "";
+    /**
+     * <pre>
+     * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+     * Empty when the device sent none.
+     * </pre>
+     *
+     * <code>string user_agent = 2;</code>
+     * @return The userAgent.
+     */
+    @java.lang.Override
+    public java.lang.String getUserAgent() {
+      java.lang.Object ref = userAgent_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userAgent_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+     * Empty when the device sent none.
+     * </pre>
+     *
+     * <code>string user_agent = 2;</code>
+     * @return The bytes for userAgent.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserAgentBytes() {
+      java.lang.Object ref = userAgent_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userAgent_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SOURCE_ADDRESS_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object sourceAddress_ = "";
+    /**
+     * <pre>
+     * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+     * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+     * </pre>
+     *
+     * <code>string source_address = 3;</code>
+     * @return The sourceAddress.
+     */
+    @java.lang.Override
+    public java.lang.String getSourceAddress() {
+      java.lang.Object ref = sourceAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sourceAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+     * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+     * </pre>
+     *
+     * <code>string source_address = 3;</code>
+     * @return The bytes for sourceAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSourceAddressBytes() {
+      java.lang.Object ref = sourceAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sourceAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXPIRE_TIME_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp expireTime_;
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     * @return Whether the expireTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasExpireTime() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     * @return The expireTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getExpireTime() {
+      return expireTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expireTime_;
+    }
+    /**
+     * <pre>
+     * When the registration expires unless the device refreshes it.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getExpireTimeOrBuilder() {
+      return expireTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expireTime_;
+    }
+
+    public static final int ROUND_TRIP_MS_FIELD_NUMBER = 5;
+    private double roundTripMs_ = 0D;
+    /**
+     * <pre>
+     * Round-trip time of the last qualify (SIP &lt;code&gt;OPTIONS&lt;/code&gt;) in milliseconds. &lt;code&gt;0&lt;/code&gt; unless
+     * &lt;code&gt;status&lt;/code&gt; is &lt;code&gt;SOFTPHONE_CONTACT_STATUS_AVAILABLE&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>double round_trip_ms = 5;</code>
+     * @return The roundTripMs.
+     */
+    @java.lang.Override
+    public double getRoundTripMs() {
+      return roundTripMs_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 6;
+    private int status_ = 0;
+    /**
+     * <pre>
+     * Reachability of the contact.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <pre>
+     * Reachability of the contact.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+     * @return The status.
+     */
+    @java.lang.Override public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus getStatus() {
+      ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus result = ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.forNumber(status_);
+      return result == null ? ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uri_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, uri_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userAgent_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, userAgent_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sourceAddress_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, sourceAddress_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(4, getExpireTime());
+      }
+      if (java.lang.Double.doubleToRawLongBits(roundTripMs_) != 0) {
+        output.writeDouble(5, roundTripMs_);
+      }
+      if (status_ != ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.SOFTPHONE_CONTACT_STATUS_UNSPECIFIED.getNumber()) {
+        output.writeEnum(6, status_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(uri_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, uri_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(userAgent_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, userAgent_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(sourceAddress_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, sourceAddress_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getExpireTime());
+      }
+      if (java.lang.Double.doubleToRawLongBits(roundTripMs_) != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, roundTripMs_);
+      }
+      if (status_ != ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.SOFTPHONE_CONTACT_STATUS_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, status_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact)) {
+        return super.equals(obj);
+      }
+      ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact other = (ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact) obj;
+
+      if (!getUri()
+          .equals(other.getUri())) return false;
+      if (!getUserAgent()
+          .equals(other.getUserAgent())) return false;
+      if (!getSourceAddress()
+          .equals(other.getSourceAddress())) return false;
+      if (hasExpireTime() != other.hasExpireTime()) return false;
+      if (hasExpireTime()) {
+        if (!getExpireTime()
+            .equals(other.getExpireTime())) return false;
+      }
+      if (java.lang.Double.doubleToLongBits(getRoundTripMs())
+          != java.lang.Double.doubleToLongBits(
+              other.getRoundTripMs())) return false;
+      if (status_ != other.status_) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + URI_FIELD_NUMBER;
+      hash = (53 * hash) + getUri().hashCode();
+      hash = (37 * hash) + USER_AGENT_FIELD_NUMBER;
+      hash = (53 * hash) + getUserAgent().hashCode();
+      hash = (37 * hash) + SOURCE_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getSourceAddress().hashCode();
+      if (hasExpireTime()) {
+        hash = (37 * hash) + EXPIRE_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getExpireTime().hashCode();
+      }
+      hash = (37 * hash) + ROUND_TRIP_MS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getRoundTripMs()));
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * One registered contact (device) of a softphone account.
+     * </pre>
+     *
+     * Protobuf type {@code ondewo.vtsi.SoftphoneContact}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ondewo.vtsi.SoftphoneContact)
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneContact_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneContact_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.class, ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.Builder.class);
+      }
+
+      // Construct using ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetExpireTimeFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        uri_ = "";
+        userAgent_ = "";
+        sourceAddress_ = "";
+        expireTime_ = null;
+        if (expireTimeBuilder_ != null) {
+          expireTimeBuilder_.dispose();
+          expireTimeBuilder_ = null;
+        }
+        roundTripMs_ = 0D;
+        status_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.internal_static_ondewo_vtsi_SoftphoneContact_descriptor;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getDefaultInstanceForType() {
+        return ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact build() {
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact buildPartial() {
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact result = new ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.uri_ = uri_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.userAgent_ = userAgent_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.sourceAddress_ = sourceAddress_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.expireTime_ = expireTimeBuilder_ == null
+              ? expireTime_
+              : expireTimeBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.roundTripMs_ = roundTripMs_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.status_ = status_;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact) {
+          return mergeFrom((ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact other) {
+        if (other == ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact.getDefaultInstance()) return this;
+        if (!other.getUri().isEmpty()) {
+          uri_ = other.uri_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getUserAgent().isEmpty()) {
+          userAgent_ = other.userAgent_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getSourceAddress().isEmpty()) {
+          sourceAddress_ = other.sourceAddress_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (other.hasExpireTime()) {
+          mergeExpireTime(other.getExpireTime());
+        }
+        if (java.lang.Double.doubleToRawLongBits(other.getRoundTripMs()) != 0) {
+          setRoundTripMs(other.getRoundTripMs());
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                uri_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                userAgent_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                sourceAddress_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                input.readMessage(
+                    internalGetExpireTimeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 41: {
+                roundTripMs_ = input.readDouble();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 41
+              case 48: {
+                status_ = input.readEnum();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 48
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object uri_ = "";
+      /**
+       * <pre>
+       * The contact URI the device registered, e.g.
+       * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>string uri = 1;</code>
+       * @return The uri.
+       */
+      public java.lang.String getUri() {
+        java.lang.Object ref = uri_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uri_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The contact URI the device registered, e.g.
+       * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>string uri = 1;</code>
+       * @return The bytes for uri.
+       */
+      public com.google.protobuf.ByteString
+          getUriBytes() {
+        java.lang.Object ref = uri_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uri_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The contact URI the device registered, e.g.
+       * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>string uri = 1;</code>
+       * @param value The uri to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUri(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        uri_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The contact URI the device registered, e.g.
+       * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>string uri = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUri() {
+        uri_ = getDefaultInstance().getUri();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The contact URI the device registered, e.g.
+       * &lt;code&gt;sip:alice&#64;198.51.100.7:52114;transport=TLS&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>string uri = 1;</code>
+       * @param value The bytes for uri to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUriBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        uri_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object userAgent_ = "";
+      /**
+       * <pre>
+       * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+       * Empty when the device sent none.
+       * </pre>
+       *
+       * <code>string user_agent = 2;</code>
+       * @return The userAgent.
+       */
+      public java.lang.String getUserAgent() {
+        java.lang.Object ref = userAgent_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userAgent_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+       * Empty when the device sent none.
+       * </pre>
+       *
+       * <code>string user_agent = 2;</code>
+       * @return The bytes for userAgent.
+       */
+      public com.google.protobuf.ByteString
+          getUserAgentBytes() {
+        java.lang.Object ref = userAgent_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userAgent_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+       * Empty when the device sent none.
+       * </pre>
+       *
+       * <code>string user_agent = 2;</code>
+       * @param value The userAgent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserAgent(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        userAgent_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+       * Empty when the device sent none.
+       * </pre>
+       *
+       * <code>string user_agent = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserAgent() {
+        userAgent_ = getDefaultInstance().getUserAgent();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The &lt;code&gt;User-Agent&lt;/code&gt; header of the device&amp;apos;s registration, e.g. &lt;code&gt;Z 5.6.1 v2.10.20.3&lt;/code&gt;.
+       * Empty when the device sent none.
+       * </pre>
+       *
+       * <code>string user_agent = 2;</code>
+       * @param value The bytes for userAgent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserAgentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        userAgent_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sourceAddress_ = "";
+      /**
+       * <pre>
+       * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+       * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+       * </pre>
+       *
+       * <code>string source_address = 3;</code>
+       * @return The sourceAddress.
+       */
+      public java.lang.String getSourceAddress() {
+        java.lang.Object ref = sourceAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sourceAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+       * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+       * </pre>
+       *
+       * <code>string source_address = 3;</code>
+       * @return The bytes for sourceAddress.
+       */
+      public com.google.protobuf.ByteString
+          getSourceAddressBytes() {
+        java.lang.Object ref = sourceAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sourceAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+       * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+       * </pre>
+       *
+       * <code>string source_address = 3;</code>
+       * @param value The sourceAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSourceAddress(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        sourceAddress_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+       * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+       * </pre>
+       *
+       * <code>string source_address = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSourceAddress() {
+        sourceAddress_ = getDefaultInstance().getSourceAddress();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The source address the registration arrived from, as &lt;code&gt;host:port&lt;/code&gt; (an IPv6 host in
+       * brackets). It can differ from the host of &lt;code&gt;uri&lt;/code&gt; behind a NAT.
+       * </pre>
+       *
+       * <code>string source_address = 3;</code>
+       * @param value The bytes for sourceAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSourceAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        sourceAddress_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp expireTime_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> expireTimeBuilder_;
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       * @return Whether the expireTime field is set.
+       */
+      public boolean hasExpireTime() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       * @return The expireTime.
+       */
+      public com.google.protobuf.Timestamp getExpireTime() {
+        if (expireTimeBuilder_ == null) {
+          return expireTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expireTime_;
+        } else {
+          return expireTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public Builder setExpireTime(com.google.protobuf.Timestamp value) {
+        if (expireTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          expireTime_ = value;
+        } else {
+          expireTimeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public Builder setExpireTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (expireTimeBuilder_ == null) {
+          expireTime_ = builderForValue.build();
+        } else {
+          expireTimeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public Builder mergeExpireTime(com.google.protobuf.Timestamp value) {
+        if (expireTimeBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            expireTime_ != null &&
+            expireTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getExpireTimeBuilder().mergeFrom(value);
+          } else {
+            expireTime_ = value;
+          }
+        } else {
+          expireTimeBuilder_.mergeFrom(value);
+        }
+        if (expireTime_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public Builder clearExpireTime() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        expireTime_ = null;
+        if (expireTimeBuilder_ != null) {
+          expireTimeBuilder_.dispose();
+          expireTimeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getExpireTimeBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return internalGetExpireTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getExpireTimeOrBuilder() {
+        if (expireTimeBuilder_ != null) {
+          return expireTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return expireTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : expireTime_;
+        }
+      }
+      /**
+       * <pre>
+       * When the registration expires unless the device refreshes it.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp expire_time = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetExpireTimeFieldBuilder() {
+        if (expireTimeBuilder_ == null) {
+          expireTimeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getExpireTime(),
+                  getParentForChildren(),
+                  isClean());
+          expireTime_ = null;
+        }
+        return expireTimeBuilder_;
+      }
+
+      private double roundTripMs_ ;
+      /**
+       * <pre>
+       * Round-trip time of the last qualify (SIP &lt;code&gt;OPTIONS&lt;/code&gt;) in milliseconds. &lt;code&gt;0&lt;/code&gt; unless
+       * &lt;code&gt;status&lt;/code&gt; is &lt;code&gt;SOFTPHONE_CONTACT_STATUS_AVAILABLE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>double round_trip_ms = 5;</code>
+       * @return The roundTripMs.
+       */
+      @java.lang.Override
+      public double getRoundTripMs() {
+        return roundTripMs_;
+      }
+      /**
+       * <pre>
+       * Round-trip time of the last qualify (SIP &lt;code&gt;OPTIONS&lt;/code&gt;) in milliseconds. &lt;code&gt;0&lt;/code&gt; unless
+       * &lt;code&gt;status&lt;/code&gt; is &lt;code&gt;SOFTPHONE_CONTACT_STATUS_AVAILABLE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>double round_trip_ms = 5;</code>
+       * @param value The roundTripMs to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRoundTripMs(double value) {
+
+        roundTripMs_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Round-trip time of the last qualify (SIP &lt;code&gt;OPTIONS&lt;/code&gt;) in milliseconds. &lt;code&gt;0&lt;/code&gt; unless
+       * &lt;code&gt;status&lt;/code&gt; is &lt;code&gt;SOFTPHONE_CONTACT_STATUS_AVAILABLE&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>double round_trip_ms = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRoundTripMs() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        roundTripMs_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <pre>
+       * Reachability of the contact.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * Reachability of the contact.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        status_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Reachability of the contact.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus getStatus() {
+        ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus result = ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.forNumber(status_);
+        return result == null ? ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Reachability of the contact.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(ondewo.vtsi.SoftphonesOuterClass.SoftphoneContactStatus value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00000020;
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Reachability of the contact.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ondewo.vtsi.SoftphoneContact)
+    }
+
+    // @@protoc_insertion_point(class_scope:ondewo.vtsi.SoftphoneContact)
+    private static final ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact();
+    }
+
+    public static ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SoftphoneContact>
+        PARSER = new com.google.protobuf.AbstractParser<SoftphoneContact>() {
+      @java.lang.Override
+      public SoftphoneContact parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SoftphoneContact> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SoftphoneContact> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ondewo.vtsi.SoftphonesOuterClass.SoftphoneContact getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ondewo_vtsi_SoftphoneAccount_descriptor;
   private static final 
@@ -33246,6 +38267,21 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ondewo_vtsi_GetSoftphoneProvisioningRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_SoftphoneRegistration_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ondewo_vtsi_SoftphoneContact_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ondewo_vtsi_SoftphoneContact_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33258,7 +38294,7 @@ java.lang.String defaultValue) {
       "\n\034ondewo/vtsi/softphones.proto\022\013ondewo.v" +
       "tsi\032 google/protobuf/field_mask.proto\032\037g" +
       "oogle/protobuf/timestamp.proto\032\032ondewo/v" +
-      "tsi/projects.proto\"\344\005\n\020SoftphoneAccount\022" +
+      "tsi/projects.proto\"\272\006\n\020SoftphoneAccount\022" +
       "\014\n\004name\030\001 \001(\t\022\034\n\024softphone_account_id\030\002 " +
       "\001(\t\022\031\n\021vtsi_project_name\030\003 \001(\t\022\024\n\014displa" +
       "y_name\030\004 \001(\t\022\024\n\014sip_username\030\005 \001(\t\022C\n\022tr" +
@@ -33275,121 +38311,136 @@ java.lang.String defaultValue) {
       "tamp\022\022\n\ncreated_by\030\017 \001(\t\022.\n\ncreated_at\030\020" +
       " \001(\0132\032.google.protobuf.Timestamp\022\023\n\013modi" +
       "fied_by\030\021 \001(\t\022/\n\013modified_at\030\022 \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\032-\n\013LabelsEntry\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\n\n\010_enable" +
-      "d\"\332\004\n\024SoftphoneCertificate\022\014\n\004name\030\001 \001(\t" +
-      "\022\036\n\026softphone_account_name\030\002 \001(\t\0227\n\006stat" +
-      "us\030\003 \001(\0162\'.ondewo.vtsi.SoftphoneCertific" +
-      "ateStatus\022\027\n\017certificate_pem\030\004 \001(\t\022!\n\031is" +
-      "suer_ca_certificate_pem\030\005 \001(\t\022\032\n\022sha256_" +
-      "fingerprint\030\006 \001(\t\022\025\n\rserial_number\030\007 \001(\t" +
-      "\022\017\n\007subject\030\010 \001(\t\022.\n\nnot_before\030\t \001(\0132\032." +
-      "google.protobuf.Timestamp\022-\n\tnot_after\030\n" +
-      " \001(\0132\032.google.protobuf.Timestamp\022\022\n\ncrea" +
-      "ted_by\030\013 \001(\t\022.\n\ncreated_at\030\014 \001(\0132\032.googl" +
-      "e.protobuf.Timestamp\0221\n\rsuperseded_at\030\r " +
-      "\001(\0132\032.google.protobuf.Timestamp\022&\n\036super" +
-      "seded_by_certificate_name\030\016 \001(\t\022.\n\nrevok" +
-      "ed_at\030\017 \001(\0132\032.google.protobuf.Timestamp\022" +
-      "\022\n\nrevoked_by\030\020 \001(\t\022\031\n\021revocation_reason" +
-      "\030\021 \001(\t\"\224\001\n\024SoftphoneCredentials\022\024\n\014sip_p" +
-      "assword\030\001 \001(\t\022\025\n\rpkcs12_bundle\030\002 \001(\014\022\027\n\017" +
-      "pkcs12_password\030\003 \001(\t\0226\n\013certificate\030\004 \001" +
-      "(\0132!.ondewo.vtsi.SoftphoneCertificate\"\255\005" +
-      "\n\025SoftphoneProvisioning\022\036\n\026softphone_acc" +
-      "ount_name\030\001 \001(\t\022C\n\022transport_security\030\002 " +
-      "\001(\0162\'.ondewo.vtsi.SoftphoneTransportSecu" +
-      "rity\022\022\n\nsip_domain\030\003 \001(\t\022\023\n\013sip_address\030" +
-      "\004 \001(\t\022\027\n\017sip_server_host\030\005 \001(\t\022\027\n\017sip_se" +
-      "rver_port\030\006 \001(\005\022\025\n\rsip_transport\030\007 \001(\t\022\026" +
-      "\n\016outbound_proxy\030\010 \001(\t\022\020\n\010username\030\t \001(\t" +
-      "\022\025\n\rauth_username\030\n \001(\t\022\r\n\005realm\030\013 \001(\t\0221" +
-      "\n\tsrtp_mode\030\014 \001(\0162\036.ondewo.vtsi.Softphon" +
-      "eSrtpMode\022\016\n\006codecs\030\r \003(\t\022!\n\031server_ca_c" +
-      "ertificate_pem\030\016 \001(\t\022-\n%server_certifica" +
-      "te_sha256_fingerprint\030\017 \001(\t\022\037\n\027client_ce" +
-      "rtificate_name\030\020 \001(\t\022-\n%client_certifica" +
-      "te_sha256_fingerprint\030\021 \001(\t\022B\n\036client_ce" +
-      "rtificate_expire_time\030\022 \001(\0132\032.google.pro" +
-      "tobuf.Timestamp\022\033\n\023zoiper_instructions\030\023" +
-      " \001(\t\022\'\n\037client_certificate_support_note\030" +
-      "\024 \001(\t\"\256\003\n\026SoftphoneAccountFilter\022E\n\024tran" +
-      "sport_securities\030\001 \003(\0162\'.ondewo.vtsi.Sof" +
-      "tphoneTransportSecurity\022\024\n\007enabled\030\002 \001(\010" +
-      "H\000\210\001\001\022?\n\006labels\030\003 \003(\0132/.ondewo.vtsi.Soft" +
-      "phoneAccountFilter.LabelsEntry\022\035\n\025displa" +
-      "y_name_contains\030\004 \001(\t\022\035\n\025sip_username_co" +
-      "ntains\030\005 \001(\t\022>\n\032certificate_expires_befo" +
-      "re\030\006 \001(\0132\032.google.protobuf.Timestamp\022=\n\031" +
-      "certificate_expires_after\030\007 \001(\0132\032.google" +
-      ".protobuf.Timestamp\032-\n\013LabelsEntry\022\013\n\003ke" +
-      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\n\n\010_enabled\"\276" +
-      "\001\n\032SoftphoneCertificateFilter\0229\n\010statuse" +
-      "s\030\001 \003(\0162\'.ondewo.vtsi.SoftphoneCertifica" +
-      "teStatus\0222\n\016expires_before\030\002 \001(\0132\032.googl" +
-      "e.protobuf.Timestamp\0221\n\rexpires_after\030\003 " +
-      "\001(\0132\032.google.protobuf.Timestamp\"\202\004\n\027Soft" +
-      "phoneAccountSorting\022]\n\rsorting_field\030\001 \001" +
-      "(\0162A.ondewo.vtsi.SoftphoneAccountSorting" +
-      ".SoftphoneAccountSortingFieldH\000\210\001\001\022>\n\014so" +
-      "rting_mode\030\002 \001(\0162#.ondewo.vtsi.VtsiProje" +
-      "ctSortingModeH\001\210\001\001\"\244\002\n\034SoftphoneAccountS" +
-      "ortingField\022 \n\034NO_SOFTPHONE_ACCOUNT_SORT" +
-      "ING\020\000\022*\n&SORT_SOFTPHONE_ACCOUNT_BY_DISPL" +
-      "AY_NAME\020\001\022*\n&SORT_SOFTPHONE_ACCOUNT_BY_S" +
-      "IP_USERNAME\020\002\022+\n\'SORT_SOFTPHONE_ACCOUNT_" +
-      "BY_CREATION_DATE\020\003\022+\n\'SORT_SOFTPHONE_ACC" +
-      "OUNT_BY_LAST_MODIFIED\020\004\0220\n,SORT_SOFTPHON" +
-      "E_ACCOUNT_BY_CERTIFICATE_EXPIRY\020\005B\020\n\016_so" +
-      "rting_fieldB\017\n\r_sorting_mode\"t\n\035CreateSo" +
-      "ftphoneAccountRequest\022\031\n\021vtsi_project_na" +
-      "me\030\001 \001(\t\0228\n\021softphone_account\030\002 \001(\0132\035.on" +
-      "dewo.vtsi.SoftphoneAccount\"\222\001\n\036CreateSof" +
-      "tphoneAccountResponse\0228\n\021softphone_accou" +
-      "nt\030\001 \001(\0132\035.ondewo.vtsi.SoftphoneAccount\022" +
-      "6\n\013credentials\030\002 \001(\0132!.ondewo.vtsi.Softp" +
-      "honeCredentials\"Z\n\032GetSoftphoneAccountRe" +
-      "quest\022\014\n\004name\030\001 \001(\t\022.\n\nfield_mask\030\002 \001(\0132" +
-      "\032.google.protobuf.FieldMask\"\212\001\n\035UpdateSo" +
-      "ftphoneAccountRequest\0228\n\021softphone_accou" +
-      "nt\030\001 \001(\0132\035.ondewo.vtsi.SoftphoneAccount\022" +
-      "/\n\013update_mask\030\002 \001(\0132\032.google.protobuf.F" +
-      "ieldMask\"-\n\035DeleteSoftphoneAccountReques" +
-      "t\022\014\n\004name\030\001 \001(\t\"Q\n\036DeleteSoftphoneAccoun" +
-      "tResponse\022\014\n\004name\030\001 \001(\t\022!\n\031revoked_certi" +
-      "ficate_count\030\002 \001(\005\"\242\002\n\034ListSoftphoneAcco" +
-      "untsRequest\022\031\n\021vtsi_project_name\030\001 \001(\t\0223" +
-      "\n\006filter\030\002 \001(\0132#.ondewo.vtsi.SoftphoneAc" +
-      "countFilter\022.\n\nfield_mask\030\003 \001(\0132\032.google" +
-      ".protobuf.FieldMask\022\021\n\tpage_size\030\004 \001(\005\022\027" +
-      "\n\npage_token\030\005 \001(\tH\000\210\001\001\022G\n\031softphone_acc" +
-      "ount_sorting\030\006 \001(\0132$.ondewo.vtsi.Softpho" +
-      "neAccountSortingB\r\n\013_page_token\"s\n\035ListS" +
-      "oftphoneAccountsResponse\0229\n\022softphone_ac" +
-      "counts\030\001 \003(\0132\035.ondewo.vtsi.SoftphoneAcco" +
-      "unt\022\027\n\017next_page_token\030\002 \001(\t\"j\n!RotateSo" +
-      "ftphoneCredentialsRequest\022\014\n\004name\030\001 \001(\t\022" +
-      "\033\n\023rotate_sip_password\030\002 \001(\010\022\032\n\022rotate_c" +
-      "ertificate\030\003 \001(\010\"\226\001\n\"RotateSoftphoneCred" +
-      "entialsResponse\0228\n\021softphone_account\030\001 \001" +
-      "(\0132\035.ondewo.vtsi.SoftphoneAccount\0226\n\013cre" +
-      "dentials\030\002 \001(\0132!.ondewo.vtsi.SoftphoneCr" +
-      "edentials\"\216\002\n ListSoftphoneCertificatesR" +
-      "equest\022\033\n\021vtsi_project_name\030\001 \001(\tH\000\022 \n\026s" +
-      "oftphone_account_name\030\002 \001(\tH\000\0227\n\006filter\030" +
-      "\003 \001(\0132\'.ondewo.vtsi.SoftphoneCertificate" +
-      "Filter\022.\n\nfield_mask\030\004 \001(\0132\032.google.prot" +
-      "obuf.FieldMask\022\021\n\tpage_size\030\005 \001(\005\022\027\n\npag" +
-      "e_token\030\006 \001(\tH\001\210\001\001B\007\n\005scopeB\r\n\013_page_tok" +
-      "en\"\177\n!ListSoftphoneCertificatesResponse\022" +
-      "A\n\026softphone_certificates\030\001 \003(\0132!.ondewo" +
-      ".vtsi.SoftphoneCertificate\022\027\n\017next_page_" +
-      "token\030\002 \001(\t\"^\n\036GetSoftphoneCertificateRe" +
-      "quest\022\014\n\004name\030\001 \001(\t\022.\n\nfield_mask\030\002 \001(\0132" +
-      "\032.google.protobuf.FieldMask\"A\n!RevokeSof" +
-      "tphoneCertificateRequest\022\014\n\004name\030\001 \001(\t\022\016" +
-      "\n\006reason\030\002 \001(\t\"/\n\037GetSoftphoneProvisioni" +
-      "ngRequest\022\014\n\004name\030\001 \001(\t*\261\001\n\032SoftphoneTra" +
+      "gle.protobuf.Timestamp\022\016\n\006locked\030\023 \001(\010\022-" +
+      "\n\tlocked_at\030\024 \001(\0132\032.google.protobuf.Time" +
+      "stamp\022\025\n\rlocked_reason\030\025 \001(\t\032-\n\013LabelsEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\n\n\010_" +
+      "enabled\"\332\004\n\024SoftphoneCertificate\022\014\n\004name" +
+      "\030\001 \001(\t\022\036\n\026softphone_account_name\030\002 \001(\t\0227" +
+      "\n\006status\030\003 \001(\0162\'.ondewo.vtsi.SoftphoneCe" +
+      "rtificateStatus\022\027\n\017certificate_pem\030\004 \001(\t" +
+      "\022!\n\031issuer_ca_certificate_pem\030\005 \001(\t\022\032\n\022s" +
+      "ha256_fingerprint\030\006 \001(\t\022\025\n\rserial_number" +
+      "\030\007 \001(\t\022\017\n\007subject\030\010 \001(\t\022.\n\nnot_before\030\t " +
+      "\001(\0132\032.google.protobuf.Timestamp\022-\n\tnot_a" +
+      "fter\030\n \001(\0132\032.google.protobuf.Timestamp\022\022" +
+      "\n\ncreated_by\030\013 \001(\t\022.\n\ncreated_at\030\014 \001(\0132\032" +
+      ".google.protobuf.Timestamp\0221\n\rsuperseded" +
+      "_at\030\r \001(\0132\032.google.protobuf.Timestamp\022&\n" +
+      "\036superseded_by_certificate_name\030\016 \001(\t\022.\n" +
+      "\nrevoked_at\030\017 \001(\0132\032.google.protobuf.Time" +
+      "stamp\022\022\n\nrevoked_by\030\020 \001(\t\022\031\n\021revocation_" +
+      "reason\030\021 \001(\t\"\224\001\n\024SoftphoneCredentials\022\024\n" +
+      "\014sip_password\030\001 \001(\t\022\025\n\rpkcs12_bundle\030\002 \001" +
+      "(\014\022\027\n\017pkcs12_password\030\003 \001(\t\0226\n\013certifica" +
+      "te\030\004 \001(\0132!.ondewo.vtsi.SoftphoneCertific" +
+      "ate\"\255\005\n\025SoftphoneProvisioning\022\036\n\026softpho" +
+      "ne_account_name\030\001 \001(\t\022C\n\022transport_secur" +
+      "ity\030\002 \001(\0162\'.ondewo.vtsi.SoftphoneTranspo" +
+      "rtSecurity\022\022\n\nsip_domain\030\003 \001(\t\022\023\n\013sip_ad" +
+      "dress\030\004 \001(\t\022\027\n\017sip_server_host\030\005 \001(\t\022\027\n\017" +
+      "sip_server_port\030\006 \001(\005\022\025\n\rsip_transport\030\007" +
+      " \001(\t\022\026\n\016outbound_proxy\030\010 \001(\t\022\020\n\010username" +
+      "\030\t \001(\t\022\025\n\rauth_username\030\n \001(\t\022\r\n\005realm\030\013" +
+      " \001(\t\0221\n\tsrtp_mode\030\014 \001(\0162\036.ondewo.vtsi.So" +
+      "ftphoneSrtpMode\022\016\n\006codecs\030\r \003(\t\022!\n\031serve" +
+      "r_ca_certificate_pem\030\016 \001(\t\022-\n%server_cer" +
+      "tificate_sha256_fingerprint\030\017 \001(\t\022\037\n\027cli" +
+      "ent_certificate_name\030\020 \001(\t\022-\n%client_cer" +
+      "tificate_sha256_fingerprint\030\021 \001(\t\022B\n\036cli" +
+      "ent_certificate_expire_time\030\022 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022\033\n\023zoiper_instruct" +
+      "ions\030\023 \001(\t\022\'\n\037client_certificate_support" +
+      "_note\030\024 \001(\t\"\316\003\n\026SoftphoneAccountFilter\022E" +
+      "\n\024transport_securities\030\001 \003(\0162\'.ondewo.vt" +
+      "si.SoftphoneTransportSecurity\022\024\n\007enabled" +
+      "\030\002 \001(\010H\000\210\001\001\022?\n\006labels\030\003 \003(\0132/.ondewo.vts" +
+      "i.SoftphoneAccountFilter.LabelsEntry\022\035\n\025" +
+      "display_name_contains\030\004 \001(\t\022\035\n\025sip_usern" +
+      "ame_contains\030\005 \001(\t\022>\n\032certificate_expire" +
+      "s_before\030\006 \001(\0132\032.google.protobuf.Timesta" +
+      "mp\022=\n\031certificate_expires_after\030\007 \001(\0132\032." +
+      "google.protobuf.Timestamp\022\023\n\006locked\030\010 \001(" +
+      "\010H\001\210\001\001\032-\n\013LabelsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005va" +
+      "lue\030\002 \001(\t:\0028\001B\n\n\010_enabledB\t\n\007_locked\"\276\001\n" +
+      "\032SoftphoneCertificateFilter\0229\n\010statuses\030" +
+      "\001 \003(\0162\'.ondewo.vtsi.SoftphoneCertificate" +
+      "Status\0222\n\016expires_before\030\002 \001(\0132\032.google." +
+      "protobuf.Timestamp\0221\n\rexpires_after\030\003 \001(" +
+      "\0132\032.google.protobuf.Timestamp\"\202\004\n\027Softph" +
+      "oneAccountSorting\022]\n\rsorting_field\030\001 \001(\016" +
+      "2A.ondewo.vtsi.SoftphoneAccountSorting.S" +
+      "oftphoneAccountSortingFieldH\000\210\001\001\022>\n\014sort" +
+      "ing_mode\030\002 \001(\0162#.ondewo.vtsi.VtsiProject" +
+      "SortingModeH\001\210\001\001\"\244\002\n\034SoftphoneAccountSor" +
+      "tingField\022 \n\034NO_SOFTPHONE_ACCOUNT_SORTIN" +
+      "G\020\000\022*\n&SORT_SOFTPHONE_ACCOUNT_BY_DISPLAY" +
+      "_NAME\020\001\022*\n&SORT_SOFTPHONE_ACCOUNT_BY_SIP" +
+      "_USERNAME\020\002\022+\n\'SORT_SOFTPHONE_ACCOUNT_BY" +
+      "_CREATION_DATE\020\003\022+\n\'SORT_SOFTPHONE_ACCOU" +
+      "NT_BY_LAST_MODIFIED\020\004\0220\n,SORT_SOFTPHONE_" +
+      "ACCOUNT_BY_CERTIFICATE_EXPIRY\020\005B\020\n\016_sort" +
+      "ing_fieldB\017\n\r_sorting_mode\"\215\001\n\035CreateSof" +
+      "tphoneAccountRequest\022\031\n\021vtsi_project_nam" +
+      "e\030\001 \001(\t\0228\n\021softphone_account\030\002 \001(\0132\035.ond" +
+      "ewo.vtsi.SoftphoneAccount\022\027\n\017idempotency" +
+      "_key\030\003 \001(\t\"\222\001\n\036CreateSoftphoneAccountRes" +
+      "ponse\0228\n\021softphone_account\030\001 \001(\0132\035.ondew" +
+      "o.vtsi.SoftphoneAccount\0226\n\013credentials\030\002" +
+      " \001(\0132!.ondewo.vtsi.SoftphoneCredentials\"" +
+      "Z\n\032GetSoftphoneAccountRequest\022\014\n\004name\030\001 " +
+      "\001(\t\022.\n\nfield_mask\030\002 \001(\0132\032.google.protobu" +
+      "f.FieldMask\"\212\001\n\035UpdateSoftphoneAccountRe" +
+      "quest\0228\n\021softphone_account\030\001 \001(\0132\035.ondew" +
+      "o.vtsi.SoftphoneAccount\022/\n\013update_mask\030\002" +
+      " \001(\0132\032.google.protobuf.FieldMask\"-\n\035Dele" +
+      "teSoftphoneAccountRequest\022\014\n\004name\030\001 \001(\t\"" +
+      "Q\n\036DeleteSoftphoneAccountResponse\022\014\n\004nam" +
+      "e\030\001 \001(\t\022!\n\031revoked_certificate_count\030\002 \001" +
+      "(\005\"\242\002\n\034ListSoftphoneAccountsRequest\022\031\n\021v" +
+      "tsi_project_name\030\001 \001(\t\0223\n\006filter\030\002 \001(\0132#" +
+      ".ondewo.vtsi.SoftphoneAccountFilter\022.\n\nf" +
+      "ield_mask\030\003 \001(\0132\032.google.protobuf.FieldM" +
+      "ask\022\021\n\tpage_size\030\004 \001(\005\022\027\n\npage_token\030\005 \001" +
+      "(\tH\000\210\001\001\022G\n\031softphone_account_sorting\030\006 \001" +
+      "(\0132$.ondewo.vtsi.SoftphoneAccountSorting" +
+      "B\r\n\013_page_token\"s\n\035ListSoftphoneAccounts" +
+      "Response\0229\n\022softphone_accounts\030\001 \003(\0132\035.o" +
+      "ndewo.vtsi.SoftphoneAccount\022\027\n\017next_page" +
+      "_token\030\002 \001(\t\"j\n!RotateSoftphoneCredentia" +
+      "lsRequest\022\014\n\004name\030\001 \001(\t\022\033\n\023rotate_sip_pa" +
+      "ssword\030\002 \001(\010\022\032\n\022rotate_certificate\030\003 \001(\010" +
+      "\"\226\001\n\"RotateSoftphoneCredentialsResponse\022" +
+      "8\n\021softphone_account\030\001 \001(\0132\035.ondewo.vtsi" +
+      ".SoftphoneAccount\0226\n\013credentials\030\002 \001(\0132!" +
+      ".ondewo.vtsi.SoftphoneCredentials\"\216\002\n Li" +
+      "stSoftphoneCertificatesRequest\022\033\n\021vtsi_p" +
+      "roject_name\030\001 \001(\tH\000\022 \n\026softphone_account" +
+      "_name\030\002 \001(\tH\000\0227\n\006filter\030\003 \001(\0132\'.ondewo.v" +
+      "tsi.SoftphoneCertificateFilter\022.\n\nfield_" +
+      "mask\030\004 \001(\0132\032.google.protobuf.FieldMask\022\021" +
+      "\n\tpage_size\030\005 \001(\005\022\027\n\npage_token\030\006 \001(\tH\001\210" +
+      "\001\001B\007\n\005scopeB\r\n\013_page_token\"\177\n!ListSoftph" +
+      "oneCertificatesResponse\022A\n\026softphone_cer" +
+      "tificates\030\001 \003(\0132!.ondewo.vtsi.SoftphoneC" +
+      "ertificate\022\027\n\017next_page_token\030\002 \001(\t\"^\n\036G" +
+      "etSoftphoneCertificateRequest\022\014\n\004name\030\001 " +
+      "\001(\t\022.\n\nfield_mask\030\002 \001(\0132\032.google.protobu" +
+      "f.FieldMask\"A\n!RevokeSoftphoneCertificat" +
+      "eRequest\022\014\n\004name\030\001 \001(\t\022\016\n\006reason\030\002 \001(\t\"/" +
+      "\n\037GetSoftphoneProvisioningRequest\022\014\n\004nam" +
+      "e\030\001 \001(\t\"_\n\037GetSoftphoneRegistrationReque" +
+      "st\022\014\n\004name\030\001 \001(\t\022.\n\nfield_mask\030\002 \001(\0132\032.g" +
+      "oogle.protobuf.FieldMask\"\231\001\n\025SoftphoneRe" +
+      "gistration\022\036\n\026softphone_account_name\030\001 \001" +
+      "(\t\022/\n\010contacts\030\002 \003(\0132\035.ondewo.vtsi.Softp" +
+      "honeContact\022/\n\013observed_at\030\003 \001(\0132\032.googl" +
+      "e.protobuf.Timestamp\"\310\001\n\020SoftphoneContac" +
+      "t\022\013\n\003uri\030\001 \001(\t\022\022\n\nuser_agent\030\002 \001(\t\022\026\n\016so" +
+      "urce_address\030\003 \001(\t\022/\n\013expire_time\030\004 \001(\0132" +
+      "\032.google.protobuf.Timestamp\022\025\n\rround_tri" +
+      "p_ms\030\005 \001(\001\0223\n\006status\030\006 \001(\0162#.ondewo.vtsi" +
+      ".SoftphoneContactStatus*\261\001\n\032SoftphoneTra" +
       "nsportSecurity\022,\n(SOFTPHONE_TRANSPORT_SE" +
       "CURITY_UNSPECIFIED\020\000\0223\n/SOFTPHONE_TRANSP" +
       "ORT_SECURITY_CLIENT_CERTIFICATE\020\001\0220\n,SOF" +
@@ -33399,38 +38450,46 @@ java.lang.String defaultValue) {
       "\022\'\n#SOFTPHONE_CERTIFICATE_STATUS_ACTIVE\020" +
       "\001\022+\n\'SOFTPHONE_CERTIFICATE_STATUS_SUPERS" +
       "EDED\020\002\022(\n$SOFTPHONE_CERTIFICATE_STATUS_R" +
-      "EVOKED\020\003*`\n\021SoftphoneSrtpMode\022#\n\037SOFTPHO" +
-      "NE_SRTP_MODE_UNSPECIFIED\020\000\022&\n\"SOFTPHONE_" +
-      "SRTP_MODE_SDES_MANDATORY\020\0012\353\010\n\nSoftphone" +
-      "s\022q\n\026CreateSoftphoneAccount\022*.ondewo.vts" +
-      "i.CreateSoftphoneAccountRequest\032+.ondewo" +
-      ".vtsi.CreateSoftphoneAccountResponse\022]\n\023" +
-      "GetSoftphoneAccount\022\'.ondewo.vtsi.GetSof" +
-      "tphoneAccountRequest\032\035.ondewo.vtsi.Softp" +
-      "honeAccount\022c\n\026UpdateSoftphoneAccount\022*." +
-      "ondewo.vtsi.UpdateSoftphoneAccountReques" +
-      "t\032\035.ondewo.vtsi.SoftphoneAccount\022q\n\026Dele" +
-      "teSoftphoneAccount\022*.ondewo.vtsi.DeleteS" +
-      "oftphoneAccountRequest\032+.ondewo.vtsi.Del" +
-      "eteSoftphoneAccountResponse\022n\n\025ListSoftp" +
-      "honeAccounts\022).ondewo.vtsi.ListSoftphone" +
-      "AccountsRequest\032*.ondewo.vtsi.ListSoftph" +
-      "oneAccountsResponse\022}\n\032RotateSoftphoneCr" +
-      "edentials\022..ondewo.vtsi.RotateSoftphoneC" +
-      "redentialsRequest\032/.ondewo.vtsi.RotateSo" +
-      "ftphoneCredentialsResponse\022z\n\031ListSoftph" +
-      "oneCertificates\022-.ondewo.vtsi.ListSoftph" +
-      "oneCertificatesRequest\032..ondewo.vtsi.Lis" +
-      "tSoftphoneCertificatesResponse\022i\n\027GetSof" +
-      "tphoneCertificate\022+.ondewo.vtsi.GetSoftp" +
-      "honeCertificateRequest\032!.ondewo.vtsi.Sof" +
-      "tphoneCertificate\022o\n\032RevokeSoftphoneCert" +
-      "ificate\022..ondewo.vtsi.RevokeSoftphoneCer" +
+      "EVOKED\020\003*\346\001\n\026SoftphoneContactStatus\022(\n$S" +
+      "OFTPHONE_CONTACT_STATUS_UNSPECIFIED\020\000\022&\n" +
+      "\"SOFTPHONE_CONTACT_STATUS_AVAILABLE\020\001\022(\n" +
+      "$SOFTPHONE_CONTACT_STATUS_UNAVAILABLE\020\002\022" +
+      "*\n&SOFTPHONE_CONTACT_STATUS_NOT_QUALIFIE" +
+      "D\020\003\022$\n SOFTPHONE_CONTACT_STATUS_UNKNOWN\020" +
+      "\004*`\n\021SoftphoneSrtpMode\022#\n\037SOFTPHONE_SRTP" +
+      "_MODE_UNSPECIFIED\020\000\022&\n\"SOFTPHONE_SRTP_MO" +
+      "DE_SDES_MANDATORY\020\0012\331\t\n\nSoftphones\022q\n\026Cr" +
+      "eateSoftphoneAccount\022*.ondewo.vtsi.Creat" +
+      "eSoftphoneAccountRequest\032+.ondewo.vtsi.C" +
+      "reateSoftphoneAccountResponse\022]\n\023GetSoft" +
+      "phoneAccount\022\'.ondewo.vtsi.GetSoftphoneA" +
+      "ccountRequest\032\035.ondewo.vtsi.SoftphoneAcc" +
+      "ount\022c\n\026UpdateSoftphoneAccount\022*.ondewo." +
+      "vtsi.UpdateSoftphoneAccountRequest\032\035.ond" +
+      "ewo.vtsi.SoftphoneAccount\022q\n\026DeleteSoftp" +
+      "honeAccount\022*.ondewo.vtsi.DeleteSoftphon" +
+      "eAccountRequest\032+.ondewo.vtsi.DeleteSoft" +
+      "phoneAccountResponse\022n\n\025ListSoftphoneAcc" +
+      "ounts\022).ondewo.vtsi.ListSoftphoneAccount" +
+      "sRequest\032*.ondewo.vtsi.ListSoftphoneAcco" +
+      "untsResponse\022}\n\032RotateSoftphoneCredentia" +
+      "ls\022..ondewo.vtsi.RotateSoftphoneCredenti" +
+      "alsRequest\032/.ondewo.vtsi.RotateSoftphone" +
+      "CredentialsResponse\022z\n\031ListSoftphoneCert" +
+      "ificates\022-.ondewo.vtsi.ListSoftphoneCert" +
+      "ificatesRequest\032..ondewo.vtsi.ListSoftph" +
+      "oneCertificatesResponse\022i\n\027GetSoftphoneC" +
+      "ertificate\022+.ondewo.vtsi.GetSoftphoneCer" +
       "tificateRequest\032!.ondewo.vtsi.SoftphoneC" +
-      "ertificate\022l\n\030GetSoftphoneProvisioning\022," +
-      ".ondewo.vtsi.GetSoftphoneProvisioningReq" +
-      "uest\032\".ondewo.vtsi.SoftphoneProvisioning" +
-      "b\006proto3"
+      "ertificate\022o\n\032RevokeSoftphoneCertificate" +
+      "\022..ondewo.vtsi.RevokeSoftphoneCertificat" +
+      "eRequest\032!.ondewo.vtsi.SoftphoneCertific" +
+      "ate\022l\n\030GetSoftphoneProvisioning\022,.ondewo" +
+      ".vtsi.GetSoftphoneProvisioningRequest\032\"." +
+      "ondewo.vtsi.SoftphoneProvisioning\022l\n\030Get" +
+      "SoftphoneRegistration\022,.ondewo.vtsi.GetS" +
+      "oftphoneRegistrationRequest\032\".ondewo.vts" +
+      "i.SoftphoneRegistrationb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -33444,7 +38503,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_SoftphoneAccount_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_SoftphoneAccount_descriptor,
-        new java.lang.String[] { "Name", "SoftphoneAccountId", "VtsiProjectName", "DisplayName", "SipUsername", "TransportSecurity", "Enabled", "MaxContacts", "Labels", "AllowedDestinations", "CurrentCertificateName", "CurrentCertificateSha256Fingerprint", "CurrentCertificateExpireTime", "SipPasswordSetAt", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", });
+        new java.lang.String[] { "Name", "SoftphoneAccountId", "VtsiProjectName", "DisplayName", "SipUsername", "TransportSecurity", "Enabled", "MaxContacts", "Labels", "AllowedDestinations", "CurrentCertificateName", "CurrentCertificateSha256Fingerprint", "CurrentCertificateExpireTime", "SipPasswordSetAt", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "Locked", "LockedAt", "LockedReason", });
     internal_static_ondewo_vtsi_SoftphoneAccount_LabelsEntry_descriptor =
       internal_static_ondewo_vtsi_SoftphoneAccount_descriptor.getNestedTypes().get(0);
     internal_static_ondewo_vtsi_SoftphoneAccount_LabelsEntry_fieldAccessorTable = new
@@ -33474,7 +38533,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_SoftphoneAccountFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_SoftphoneAccountFilter_descriptor,
-        new java.lang.String[] { "TransportSecurities", "Enabled", "Labels", "DisplayNameContains", "SipUsernameContains", "CertificateExpiresBefore", "CertificateExpiresAfter", });
+        new java.lang.String[] { "TransportSecurities", "Enabled", "Labels", "DisplayNameContains", "SipUsernameContains", "CertificateExpiresBefore", "CertificateExpiresAfter", "Locked", });
     internal_static_ondewo_vtsi_SoftphoneAccountFilter_LabelsEntry_descriptor =
       internal_static_ondewo_vtsi_SoftphoneAccountFilter_descriptor.getNestedTypes().get(0);
     internal_static_ondewo_vtsi_SoftphoneAccountFilter_LabelsEntry_fieldAccessorTable = new
@@ -33498,7 +38557,7 @@ java.lang.String defaultValue) {
     internal_static_ondewo_vtsi_CreateSoftphoneAccountRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CreateSoftphoneAccountRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectName", "SoftphoneAccount", });
+        new java.lang.String[] { "VtsiProjectName", "SoftphoneAccount", "IdempotencyKey", });
     internal_static_ondewo_vtsi_CreateSoftphoneAccountResponse_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_ondewo_vtsi_CreateSoftphoneAccountResponse_fieldAccessorTable = new
@@ -33583,6 +38642,24 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_GetSoftphoneProvisioningRequest_descriptor,
         new java.lang.String[] { "Name", });
+    internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_GetSoftphoneRegistrationRequest_descriptor,
+        new java.lang.String[] { "Name", "FieldMask", });
+    internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_ondewo_vtsi_SoftphoneRegistration_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_SoftphoneRegistration_descriptor,
+        new java.lang.String[] { "SoftphoneAccountName", "Contacts", "ObservedAt", });
+    internal_static_ondewo_vtsi_SoftphoneContact_descriptor =
+      getDescriptor().getMessageTypes().get(24);
+    internal_static_ondewo_vtsi_SoftphoneContact_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ondewo_vtsi_SoftphoneContact_descriptor,
+        new java.lang.String[] { "Uri", "UserAgent", "SourceAddress", "ExpireTime", "RoundTripMs", "Status", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.FieldMaskProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();

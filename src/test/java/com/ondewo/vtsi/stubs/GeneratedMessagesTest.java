@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.google.protobuf.Timestamp;
 import com.ondewo.nlu.Context;
 import java.util.stream.Stream;
+import ondewo.vtsi.CallConfigs;
 import ondewo.vtsi.CallsOuterClass;
 import ondewo.vtsi.ProjectsOuterClass;
 import org.junit.jupiter.api.Test;
@@ -131,19 +132,19 @@ class GeneratedMessagesTest {
                         .getPjsipConfFileString());
     }
 
-    /** One of the eleven calls.proto scalars that gained explicit presence in 9.0.0. */
+    /** One of the eleven scalars that gained explicit presence in 9.0.0; call_configs.proto since 9.1.0. */
     @Test
     void keepsExplicitPresenceOfAScalarThatGainedItInApi9() throws Exception {
-        final CallsOuterClass.InterruptionHandlingConfig explicitFalse =
-                CallsOuterClass.InterruptionHandlingConfig.newBuilder()
+        final CallConfigs.InterruptionHandlingConfig explicitFalse =
+                CallConfigs.InterruptionHandlingConfig.newBuilder()
                         .setTranscribeOnDisabledInterruptions(false)
                         .build();
 
         assertFalse(
-                CallsOuterClass.InterruptionHandlingConfig.getDefaultInstance()
+                CallConfigs.InterruptionHandlingConfig.getDefaultInstance()
                         .hasTranscribeOnDisabledInterruptions());
         assertTrue(
-                CallsOuterClass.InterruptionHandlingConfig.parseFrom(explicitFalse.toByteArray())
+                CallConfigs.InterruptionHandlingConfig.parseFrom(explicitFalse.toByteArray())
                         .hasTranscribeOnDisabledInterruptions());
     }
 

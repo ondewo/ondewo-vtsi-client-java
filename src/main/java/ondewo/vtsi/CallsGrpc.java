@@ -139,6 +139,68 @@ public final class CallsGrpc {
     return getGetCallerMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallerRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> getUpdateCallerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateCaller",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateCallerRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateCallerResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallerRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> getUpdateCallerMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallerRequest, ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> getUpdateCallerMethod;
+    if ((getUpdateCallerMethod = CallsGrpc.getUpdateCallerMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateCallerMethod = CallsGrpc.getUpdateCallerMethod) == null) {
+          CallsGrpc.getUpdateCallerMethod = getUpdateCallerMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateCallerRequest, ondewo.vtsi.CallsOuterClass.UpdateCallerResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateCaller"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallerRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallerResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateCaller"))
+              .build();
+        }
+      }
+    }
+    return getUpdateCallerMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallersRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> getUpdateCallersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateCallers",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateCallersRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateCallersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallersRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> getUpdateCallersMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallersRequest, ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> getUpdateCallersMethod;
+    if ((getUpdateCallersMethod = CallsGrpc.getUpdateCallersMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateCallersMethod = CallsGrpc.getUpdateCallersMethod) == null) {
+          CallsGrpc.getUpdateCallersMethod = getUpdateCallersMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateCallersRequest, ondewo.vtsi.CallsOuterClass.UpdateCallersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateCallers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateCallers"))
+              .build();
+        }
+      }
+    }
+    return getUpdateCallersMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.DeleteCallerRequest,
       ondewo.vtsi.CallsOuterClass.DeleteCallerResponse> getDeleteCallerMethod;
 
@@ -449,6 +511,68 @@ public final class CallsGrpc {
     return getGetListenerMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenerRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> getUpdateListenerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateListener",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateListenerRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateListenerResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenerRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> getUpdateListenerMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenerRequest, ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> getUpdateListenerMethod;
+    if ((getUpdateListenerMethod = CallsGrpc.getUpdateListenerMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateListenerMethod = CallsGrpc.getUpdateListenerMethod) == null) {
+          CallsGrpc.getUpdateListenerMethod = getUpdateListenerMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateListenerRequest, ondewo.vtsi.CallsOuterClass.UpdateListenerResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateListener"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateListenerRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateListenerResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateListener"))
+              .build();
+        }
+      }
+    }
+    return getUpdateListenerMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenersRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> getUpdateListenersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateListeners",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateListenersRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateListenersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenersRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> getUpdateListenersMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateListenersRequest, ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> getUpdateListenersMethod;
+    if ((getUpdateListenersMethod = CallsGrpc.getUpdateListenersMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateListenersMethod = CallsGrpc.getUpdateListenersMethod) == null) {
+          CallsGrpc.getUpdateListenersMethod = getUpdateListenersMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateListenersRequest, ondewo.vtsi.CallsOuterClass.UpdateListenersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateListeners"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateListenersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateListenersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateListeners"))
+              .build();
+        }
+      }
+    }
+    return getUpdateListenersMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.DeleteListenerRequest,
       ondewo.vtsi.CallsOuterClass.DeleteListenerResponse> getDeleteListenerMethod;
 
@@ -697,6 +821,37 @@ public final class CallsGrpc {
     return getListScheduledCallersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest,
+      ondewo.vtsi.CallsOuterClass.ScheduledCaller> getUpdateScheduledCallerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateScheduledCaller",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.ScheduledCaller.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest,
+      ondewo.vtsi.CallsOuterClass.ScheduledCaller> getUpdateScheduledCallerMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest, ondewo.vtsi.CallsOuterClass.ScheduledCaller> getUpdateScheduledCallerMethod;
+    if ((getUpdateScheduledCallerMethod = CallsGrpc.getUpdateScheduledCallerMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateScheduledCallerMethod = CallsGrpc.getUpdateScheduledCallerMethod) == null) {
+          CallsGrpc.getUpdateScheduledCallerMethod = getUpdateScheduledCallerMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest, ondewo.vtsi.CallsOuterClass.ScheduledCaller>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateScheduledCaller"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.ScheduledCaller.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateScheduledCaller"))
+              .build();
+        }
+      }
+    }
+    return getUpdateScheduledCallerMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest,
       ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse> getCancelScheduledCallerMethod;
 
@@ -726,6 +881,68 @@ public final class CallsGrpc {
       }
     }
     return getCancelScheduledCallerMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest,
+      ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> getCancelScheduledCallersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CancelScheduledCallers",
+      requestType = ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest,
+      ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> getCancelScheduledCallersMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest, ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> getCancelScheduledCallersMethod;
+    if ((getCancelScheduledCallersMethod = CallsGrpc.getCancelScheduledCallersMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getCancelScheduledCallersMethod = CallsGrpc.getCancelScheduledCallersMethod) == null) {
+          CallsGrpc.getCancelScheduledCallersMethod = getCancelScheduledCallersMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest, ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CancelScheduledCallers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("CancelScheduledCallers"))
+              .build();
+        }
+      }
+    }
+    return getCancelScheduledCallersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest,
+      ondewo.vtsi.CallsOuterClass.ScheduledCaller> getRetryScheduledCallerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RetryScheduledCaller",
+      requestType = ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.ScheduledCaller.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest,
+      ondewo.vtsi.CallsOuterClass.ScheduledCaller> getRetryScheduledCallerMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest, ondewo.vtsi.CallsOuterClass.ScheduledCaller> getRetryScheduledCallerMethod;
+    if ((getRetryScheduledCallerMethod = CallsGrpc.getRetryScheduledCallerMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getRetryScheduledCallerMethod = CallsGrpc.getRetryScheduledCallerMethod) == null) {
+          CallsGrpc.getRetryScheduledCallerMethod = getRetryScheduledCallerMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest, ondewo.vtsi.CallsOuterClass.ScheduledCaller>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RetryScheduledCaller"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.ScheduledCaller.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("RetryScheduledCaller"))
+              .build();
+        }
+      }
+    }
+    return getRetryScheduledCallerMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StopCallRequest,
@@ -943,6 +1160,99 @@ public final class CallsGrpc {
       }
     }
     return getListCallsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest,
+      ondewo.vtsi.CallsOuterClass.CallStatistics> getGetCallStatisticsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetCallStatistics",
+      requestType = ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.CallStatistics.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest,
+      ondewo.vtsi.CallsOuterClass.CallStatistics> getGetCallStatisticsMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest, ondewo.vtsi.CallsOuterClass.CallStatistics> getGetCallStatisticsMethod;
+    if ((getGetCallStatisticsMethod = CallsGrpc.getGetCallStatisticsMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getGetCallStatisticsMethod = CallsGrpc.getGetCallStatisticsMethod) == null) {
+          CallsGrpc.getGetCallStatisticsMethod = getGetCallStatisticsMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest, ondewo.vtsi.CallsOuterClass.CallStatistics>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetCallStatistics"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.CallStatistics.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("GetCallStatistics"))
+              .build();
+        }
+      }
+    }
+    return getGetCallStatisticsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallResponse> getUpdateCallMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateCall",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateCallRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateCallResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallResponse> getUpdateCallMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallRequest, ondewo.vtsi.CallsOuterClass.UpdateCallResponse> getUpdateCallMethod;
+    if ((getUpdateCallMethod = CallsGrpc.getUpdateCallMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateCallMethod = CallsGrpc.getUpdateCallMethod) == null) {
+          CallsGrpc.getUpdateCallMethod = getUpdateCallMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateCallRequest, ondewo.vtsi.CallsOuterClass.UpdateCallResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateCall"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateCall"))
+              .build();
+        }
+      }
+    }
+    return getUpdateCallMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallsRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> getUpdateCallsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateCalls",
+      requestType = ondewo.vtsi.CallsOuterClass.UpdateCallsRequest.class,
+      responseType = ondewo.vtsi.CallsOuterClass.UpdateCallsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallsRequest,
+      ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> getUpdateCallsMethod() {
+    io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.UpdateCallsRequest, ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> getUpdateCallsMethod;
+    if ((getUpdateCallsMethod = CallsGrpc.getUpdateCallsMethod) == null) {
+      synchronized (CallsGrpc.class) {
+        if ((getUpdateCallsMethod = CallsGrpc.getUpdateCallsMethod) == null) {
+          CallsGrpc.getUpdateCallsMethod = getUpdateCallsMethod =
+              io.grpc.MethodDescriptor.<ondewo.vtsi.CallsOuterClass.UpdateCallsRequest, ondewo.vtsi.CallsOuterClass.UpdateCallsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateCalls"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ondewo.vtsi.CallsOuterClass.UpdateCallsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CallsMethodDescriptorSupplier("UpdateCalls"))
+              .build();
+        }
+      }
+    }
+    return getUpdateCallsMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest,
@@ -1261,7 +1571,21 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single caller instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one caller in a VTSI project: an ondewo-sip container that places one outbound call to
+     * &lt;code&gt;sip_caller_config.callee_id&lt;/code&gt; (or a pooled caller of the server&amp;apos;s caller pool that runs the same
+     * configuration). The configuration is validated first, including live checks against the upstream services;
+     * nothing is started when it fails. Not idempotent: every successful request places a new call (send it as a
+     * batch of one with an &lt;code&gt;idempotency_key&lt;/code&gt; to make it idempotent). &lt;code&gt;validate_only&lt;/code&gt; runs the
+     * validation alone.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed or invalid request or
+     * configuration (also when the NLU credentials are refused) or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when an upstream config lacks
+     * the required TLS certificate (&lt;code&gt;UPSTREAM_TLS_REQUIRED&lt;/code&gt;) or the project is not deployed;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when an
+     * upstream service could not be reached; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_CALLER_START_FAILED&lt;/code&gt;, then the
+     * events of the call (&lt;code&gt;VTSI_EVENT_CALL_*&lt;/code&gt;). None with &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void startCaller(ondewo.vtsi.CallsOuterClass.StartCallerRequest request,
@@ -1271,7 +1595,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip callers instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several callers, each like &lt;code&gt;StartCaller&lt;/code&gt;. Not atomic: every caller is started on its own;
+     * a caller that fails to start is rolled back and has no entry in the response, which accounts for it in
+     * &lt;code&gt;StartCallersResponse.error_message&lt;/code&gt;. The project&amp;apos;s caller limit is checked for the batch as a
+     * whole before anything is started (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, nothing started). Idempotent per
+     * &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void startCallers(ondewo.vtsi.CallsOuterClass.StartCallersRequest request,
@@ -1281,7 +1610,18 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available callers&lt;/p&gt;
+     * &lt;p&gt;Lists the callers of a VTSI project, ordered by the caller&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending: a stable order, not a chronological one. Paged with &lt;code&gt;page_size&lt;/code&gt; /
+     * &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;campaign_name&lt;/code&gt; or &lt;code&gt;campaign_display_name&lt;/code&gt; set, lists only the callers of that
+     * campaign: the callers that placed at least one attempt of one of its campaign calls (see
+     * &lt;code&gt;ListCallersRequest.campaign_name&lt;/code&gt;). &lt;code&gt;active_only&lt;/code&gt; and &lt;code&gt;sip_status_types&lt;/code&gt;
+     * narrow the listing further.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid selector, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listCallers(ondewo.vtsi.CallsOuterClass.ListCallersRequest request,
@@ -1291,7 +1631,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a caller&lt;/p&gt;
+     * &lt;p&gt;Gets a caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or caller, or a caller of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void getCaller(ondewo.vtsi.CallsOuterClass.GetCallerRequest request,
@@ -1301,7 +1645,83 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a caller&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a caller: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the caller has a call running.&lt;/p&gt;
+     * &lt;p&gt;A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+     * and the call goes on with the configuration its container was deployed with.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: a caller is ONE call (every &lt;code&gt;StartCaller&lt;/code&gt; creates
+     * a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+     * is not pooled the update changes ONLY the stored and returned configuration and never any present or
+     * future call. The one case in which the server deploys a container from a caller&amp;apos;s stored
+     * configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+     * recycles the pooled callers of a project onto its Asterisk (an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, a change of the project&amp;apos;s
+     * TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+     * updated, configuration. An in-place restart of a pooled caller&amp;apos;s container (the call monitor&amp;apos;s
+     * health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+     * pooled caller is matched to later &lt;code&gt;StartCaller&lt;/code&gt; requests by the configuration its container
+     * RUNS, never by an updated stored configuration it does not run.&lt;/p&gt;
+     * &lt;p&gt;Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+     * from the campaign and the campaign call, never from a &lt;code&gt;Caller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;A STOPPED caller (its call ended and its configuration was released) has no stored configuration left:
+     * the update starts from an empty one, so it must state a complete configuration
+     * (&lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;), and a partial one is refused as a
+     * configuration a &lt;code&gt;StartCallerRequest&lt;/code&gt; would be refused for. Nothing is deployed.&lt;/p&gt;
+     * &lt;p&gt;Credentials follow their endpoint: an update that MOVES an upstream (the &lt;code&gt;host&lt;/code&gt;,
+     * &lt;code&gt;port&lt;/code&gt; or &lt;code&gt;grpc_cert&lt;/code&gt; of the NLU, S2T or T2S &lt;code&gt;*_base_config&lt;/code&gt;, or the
+     * &lt;code&gt;host&lt;/code&gt; / ports of &lt;code&gt;csi_vtsi_config.message_broker_config.rabbit_mq_config&lt;/code&gt;) must
+     * also write every credential path of that upstream that holds a stored value -- the NLU
+     * &lt;code&gt;credentials&lt;/code&gt;, &lt;code&gt;auth_token&lt;/code&gt;, &lt;code&gt;http_basic_auth_token&lt;/code&gt; and
+     * &lt;code&gt;contexts&lt;/code&gt;, the S2T &lt;code&gt;s2t_transcribe_request_config&lt;/code&gt;, the T2S
+     * &lt;code&gt;t2s_request_config&lt;/code&gt;, the RabbitMQ &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; -- named itself
+     * or by a shorter path, with the values to use. A stored credential is never sent to an endpoint the request
+     * moved without restating it, also not for the live validation of the result.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;caller.name&lt;/code&gt;,
+     * an empty &lt;code&gt;update_mask&lt;/code&gt;, an unknown, output-only or immutable &lt;code&gt;update_mask&lt;/code&gt; path, an
+     * update that moves an upstream without restating its stored credentials (naming the paths to add), a
+     * resulting configuration that a &lt;code&gt;StartCallerRequest&lt;/code&gt; carrying it would be refused for, or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or field); &lt;code&gt;NOT_FOUND&lt;/code&gt; for an
+     * unknown caller or project; &lt;code&gt;ABORTED&lt;/code&gt; when concurrent updates kept changing the caller, or while
+     * an update, deploy or undeploy of its project is still running (an update waits for it, for a bounded time,
+     * so that a recycle of the project cannot lose it), nothing being written (retry the request); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop callers of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    default void updateCaller(ondewo.vtsi.CallsOuterClass.UpdateCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateCallerMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several callers, each like &lt;code&gt;UpdateCaller&lt;/code&gt;. Not atomic: every entry is applied on its
+     * own and reported in &lt;code&gt;UpdateCallersResponse.update_caller_responses&lt;/code&gt;, in request order; an entry
+     * that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+     * &lt;code&gt;UpdateCallersRequest&lt;/code&gt;) are gRPC status codes, and then no entry is applied.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void updateCallers(ondewo.vtsi.CallsOuterClass.UpdateCallersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateCallersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a caller: stops it if it still runs (hanging up its call) and removes it, so it is no longer
+     * listed or returned. Its call records (and their participants) are deleted with it and are no longer returned
+     * by &lt;code&gt;GetCall&lt;/code&gt; / &lt;code&gt;ListCalls&lt;/code&gt;; stop it instead to keep them.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that was already deleted (so deleting is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;);
+     * with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void deleteCaller(ondewo.vtsi.CallsOuterClass.DeleteCallerRequest request,
@@ -1311,7 +1731,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple callers&lt;/p&gt;
+     * &lt;p&gt;Deletes several callers, each like &lt;code&gt;DeleteCaller&lt;/code&gt;. Not atomic: every caller is deleted on its own
+     * and reported in its own entry, whose &lt;code&gt;error_message&lt;/code&gt; carries the gRPC status code name
+     * &lt;code&gt;DeleteCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;); an entry that fails does not
+     * stop the others. The request as a whole is refused, nothing being deleted, for no entry or more than 1000
+     * distinct names, and, when &lt;code&gt;vtsi_project_name&lt;/code&gt; is set, as described there.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void deleteCallers(ondewo.vtsi.CallsOuterClass.DeleteCallersRequest request,
@@ -1321,7 +1746,16 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops a caller&lt;/p&gt;
+     * &lt;p&gt;Stops a caller: hangs up its call if one is up and releases its container and SIP account. The caller
+     * stays listed (with &lt;code&gt;active = false&lt;/code&gt;) until it is deleted, and its stored configuration stays
+     * updatable (see &lt;code&gt;UpdateCaller&lt;/code&gt;). A pooled caller is taken out of the pool.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that is already stopped (so stopping is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void stopCaller(ondewo.vtsi.CallsOuterClass.StopCallerRequest request,
@@ -1331,7 +1765,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops multiple callers&lt;/p&gt;
+     * &lt;p&gt;Stops several callers, each like &lt;code&gt;StopCaller&lt;/code&gt;, with the per-entry results and the request-level
+     * errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void stopCallers(ondewo.vtsi.CallsOuterClass.StopCallersRequest request,
@@ -1341,7 +1777,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single listener instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one listener in a VTSI project: an ondewo-sip container registered on the project&amp;apos;s Asterisk
+     * that answers inbound calls, one after the other (persistent). Validation, &lt;code&gt;validate_only&lt;/code&gt;, errors
+     * (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; for the project&amp;apos;s listener limit) and idempotency as for
+     * &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_LISTENER_START_FAILED&lt;/code&gt;. None with
+     * &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void startListener(ondewo.vtsi.CallsOuterClass.StartListenerRequest request,
@@ -1351,7 +1793,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several listeners, each like &lt;code&gt;StartListener&lt;/code&gt;, with the batch semantics of
+     * &lt;code&gt;StartCallers&lt;/code&gt; (a listener that fails to start has no entry and is accounted for in
+     * &lt;code&gt;StartListenersResponse.error_message&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void startListeners(ondewo.vtsi.CallsOuterClass.StartListenersRequest request,
@@ -1361,7 +1806,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop a ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops a listener: hangs up its call if one is up and releases its container and SIP account. A stopped
+     * listener has no stored configuration left (see &lt;code&gt;UpdateListener&lt;/code&gt;). Errors and idempotency as for
+     * &lt;code&gt;StopCaller&lt;/code&gt; (a listener that is already stopped is &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void stopListener(ondewo.vtsi.CallsOuterClass.StopListenerRequest request,
@@ -1371,7 +1821,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops several listeners, each like &lt;code&gt;StopListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void stopListeners(ondewo.vtsi.CallsOuterClass.StopListenersRequest request,
@@ -1381,7 +1833,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available listeners&lt;/p&gt;
+     * &lt;p&gt;Lists the listeners of a VTSI project, ordered by the listener&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending. Paging, &lt;code&gt;total_size&lt;/code&gt;, filters and errors as for
+     * &lt;code&gt;ListCallers&lt;/code&gt; (without a campaign selector).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listListeners(ondewo.vtsi.CallsOuterClass.ListListenersRequest request,
@@ -1391,7 +1846,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a listener&lt;/p&gt;
+     * &lt;p&gt;Gets a listener, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;. Errors as for
+     * &lt;code&gt;GetCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void getListener(ondewo.vtsi.CallsOuterClass.GetListenerRequest request,
@@ -1401,7 +1858,57 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a listener&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a listener: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_base_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the listener&amp;apos;s container is running or has a call, as long as the listener is
+     * DEPLOYED: a stopped listener has no stored configuration (it is deployed again only by a
+     * &lt;code&gt;StartListener&lt;/code&gt; carrying a complete one) and is &lt;code&gt;NOT_FOUND&lt;/code&gt;, unlike a stopped caller,
+     * which &lt;code&gt;UpdateCaller&lt;/code&gt; accepts with a complete configuration.&lt;/p&gt;
+     * &lt;p&gt;A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+     * reconfigured, and the running container answers its calls with the configuration it was deployed with
+     * until it is replaced.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+     * when it recycles the listeners of the project onto its Asterisk: an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, or a change of the
+     * project&amp;apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+     * stored, i.e. updated, configuration. An in-place restart of the listener&amp;apos;s container (the
+     * server&amp;apos;s restore of listener containers when it starts, the call monitor&amp;apos;s restart of an
+     * unhealthy container, a &lt;code&gt;docker restart&lt;/code&gt;) keeps the configuration the container was deployed
+     * with. A listener that is never recycled keeps the update only as its stored (and returned)
+     * configuration.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;UpdateCaller&lt;/code&gt; (the credential rule included), with
+     * &lt;code&gt;StartListenerRequest&lt;/code&gt; as the validation of the resulting configuration, and
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; also for a stopped listener.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop listeners of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    default void updateListener(ondewo.vtsi.CallsOuterClass.UpdateListenerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateListenerMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several listeners, each like &lt;code&gt;UpdateListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateListener&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void updateListeners(ondewo.vtsi.CallsOuterClass.UpdateListenersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateListenersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a listener: stops it if it still runs (hanging up its call) and removes it, with its call
+     * records, like &lt;code&gt;DeleteCaller&lt;/code&gt;. Errors and idempotency as for &lt;code&gt;DeleteCaller&lt;/code&gt; (a repeat
+     * answers &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void deleteListener(ondewo.vtsi.CallsOuterClass.DeleteListenerRequest request,
@@ -1411,7 +1918,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple listeners&lt;/p&gt;
+     * &lt;p&gt;Deletes several listeners, each like &lt;code&gt;DeleteListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void deleteListeners(ondewo.vtsi.CallsOuterClass.DeleteListenersRequest request,
@@ -1421,7 +1930,20 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start a single ondewo-sip caller instance at a scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates a scheduled caller: a caller that the server starts at or after &lt;code&gt;scheduled_time&lt;/code&gt;, like a
+     * &lt;code&gt;StartCaller&lt;/code&gt; of the stored request. The request is checked structurally now; the live checks of
+     * the configuration run when it fires, and a failure then leaves the scheduled caller
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; with its &lt;code&gt;error_message&lt;/code&gt;. A &lt;code&gt;scheduled_time&lt;/code&gt; in
+     * the past is due at once. Not idempotent (use &lt;code&gt;StartScheduledCallers&lt;/code&gt; with an
+     * &lt;code&gt;idempotency_key&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, a missing
+     * &lt;code&gt;scheduled_time&lt;/code&gt;, a nested request with its own &lt;code&gt;field_mask&lt;/code&gt; or
+     * &lt;code&gt;validate_only&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt;; later &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FIRED&lt;/code&gt;,
+     * &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FAILED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void startScheduledCaller(ondewo.vtsi.CallsOuterClass.StartScheduledCallerRequest request,
@@ -1431,7 +1953,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip caller instances, each at its own scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates several scheduled callers, each like &lt;code&gt;StartScheduledCaller&lt;/code&gt;, at most 1000. Not atomic: an
+     * entry that fails is reported in its own &lt;code&gt;error_message&lt;/code&gt; and does not stop the others. Idempotent
+     * per &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartScheduledCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void startScheduledCallers(ondewo.vtsi.CallsOuterClass.StartScheduledCallersRequest request,
@@ -1467,7 +1992,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
+     * &lt;p&gt;Gets a scheduled caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void getScheduledCaller(ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest request,
@@ -1477,7 +2006,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists the scheduled callers of a vtsi-project&lt;/p&gt;
+     * &lt;p&gt;Lists the scheduled callers of a VTSI project, ordered by &lt;code&gt;scheduled_time&lt;/code&gt;, oldest first,
+     * optionally narrowed by state, campaign and a &lt;code&gt;scheduled_time&lt;/code&gt; window. Paging,
+     * &lt;code&gt;total_size&lt;/code&gt; and errors as for &lt;code&gt;ListCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listScheduledCallers(ondewo.vtsi.CallsOuterClass.ListScheduledCallersRequest request,
@@ -1487,12 +2019,47 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;Changes the &lt;code&gt;scheduled_time&lt;/code&gt; and/or the &lt;code&gt;sip_caller_config.sip_headers&lt;/code&gt; of a scheduled
+     * caller that has not fired yet; the only updatable &lt;code&gt;update_mask&lt;/code&gt; paths (see
+     * &lt;code&gt;UpdateScheduledCallerRequest.update_mask&lt;/code&gt;). Allowed only while the status is
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_PENDING&lt;/code&gt;; for a scheduled caller of a campaign only while its campaign call
+     * is &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; (a retry of a campaign call is timed by the campaign&amp;apos;s
+     * &lt;code&gt;retry_delay&lt;/code&gt;). The check and the write are one atomic step, so a scheduled caller that fires
+     * concurrently is either updated before it fires or refused. Updating to the stored values is accepted and
+     * changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name, an empty
+     * &lt;code&gt;update_mask&lt;/code&gt;, a path that is not updatable, an unset &lt;code&gt;scheduled_time&lt;/code&gt; named by the
+     * mask, invalid &lt;code&gt;sip_headers&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project;
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when it is no longer PENDING (&lt;code&gt;reason=not-pending&lt;/code&gt;) or its campaign
+     * call has started (&lt;code&gt;reason=campaign-call-started&lt;/code&gt;); with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_UPDATED&lt;/code&gt; when something changed.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    default void updateScheduledCaller(ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateScheduledCallerMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Cancels a scheduled caller that has not fired yet: a PENDING scheduled caller becomes
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_CANCELLED&lt;/code&gt; and never fires. A scheduled caller that is no longer PENDING
+     * (firing, done, failed or already cancelled) is not an error: the response says &lt;code&gt;cancelled = false&lt;/code&gt;
+     * and carries its current &lt;code&gt;status&lt;/code&gt;, so cancelling is idempotent.&lt;/p&gt;
      * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
      * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
      * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
      * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
-     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
+     * &lt;code&gt;cancelled = false&lt;/code&gt;, an &lt;code&gt;error_message&lt;/code&gt; saying why, and the scheduled caller keeps its
+     * status.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt;, only when &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request,
@@ -1502,7 +2069,63 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.&lt;/p&gt;
+     * &lt;p&gt;Cancels several scheduled callers, each like &lt;code&gt;CancelScheduledCaller&lt;/code&gt;, at most 1000. Not atomic:
+     * every entry is applied on its own and reported in &lt;code&gt;CancelScheduledCallersResponse&lt;/code&gt;, in request
+     * order; a failed entry carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name
+     * &lt;code&gt;CancelScheduledCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;) and does not stop
+     * the others. Errors of the request as a whole (see &lt;code&gt;CancelScheduledCallersRequest&lt;/code&gt;) are gRPC status
+     * codes, and then nothing is cancelled.&lt;/p&gt;
+     * &lt;p&gt;Events: one &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt; per entry with &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;CancelScheduledCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void cancelScheduledCallers(ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCancelScheduledCallersMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Retries a FAILED scheduled caller by creating a NEW scheduled caller from its stored request: the same
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;, &lt;code&gt;status = PENDING&lt;/code&gt;, the
+     * &lt;code&gt;scheduled_time&lt;/code&gt; of the request (unset: now), and &lt;code&gt;retry_of_scheduled_caller_name&lt;/code&gt; naming
+     * the failed one, whose &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt; is set to the new one in the same atomic
+     * step. The failed scheduled caller itself is not changed otherwise, so its &lt;code&gt;error_message&lt;/code&gt; and
+     * &lt;code&gt;fired_at&lt;/code&gt; stay as the history of the failed attempt. Returns the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: a FAILED scheduled caller is retried at most once. A repeat of the request answers
+     * &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; naming the retry in its message (read
+     * &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt;); to retry again after the retry failed too, retry the new
+     * one.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; for a scheduled caller that is not
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; (&lt;code&gt;reason=not-failed&lt;/code&gt;) or that belongs to a campaign
+     * (&lt;code&gt;reason=campaign-scheduled-caller&lt;/code&gt;: a campaign call is retried by the campaign&amp;apos;s
+     * &lt;code&gt;max_attempts&lt;/code&gt;); &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; when it was already retried;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt; for the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    default void retryScheduledCaller(ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRetryScheduledCallerMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Stops a call: hangs it up if it is still active and stops (releases) the listener or caller that serves
+     * it, like &lt;code&gt;StopCaller&lt;/code&gt; / &lt;code&gt;StopListener&lt;/code&gt;. A call that already ended is not an error: its
+     * listener or caller is still released if it is deployed, and when there was nothing left to release the
+     * response carries &lt;code&gt;error_message = Call ... was not released&lt;/code&gt;, so a repeat succeeds with that
+     * message.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another
+     * project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt;, and &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; for the released resource.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void stopCall(ondewo.vtsi.CallsOuterClass.StopCallRequest request,
@@ -1512,8 +2135,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.&lt;/p&gt;
-     * &lt;p&gt;Stops both Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops several calls of one project, each like &lt;code&gt;StopCall&lt;/code&gt;, at most 1000 distinct names. Not
+     * atomic: every call is stopped on its own and reported in its own entry, in request order; a failed entry
+     * carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name &lt;code&gt;StopCall&lt;/code&gt; would have
+     * answered and does not stop the others. No entry, more than 1000 names or a malformed
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project &lt;code&gt;NOT_FOUND&lt;/code&gt;, and
+     * then nothing is stopped.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     default void stopCalls(ondewo.vtsi.CallsOuterClass.StopCallsRequest request,
@@ -1523,8 +2151,14 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.&lt;/p&gt;
-     * &lt;p&gt;Stops all Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops every call of a VTSI project (listener and caller calls alike), or, with
+     * &lt;code&gt;call_filter&lt;/code&gt;, those it matches, each like &lt;code&gt;StopCall&lt;/code&gt;. Not atomic and not bounded in
+     * size; a project with nothing to stop answers an empty response, so the RPC is idempotent. If a stop fails
+     * part-way, the remaining calls are still stopped one by one and every call gets its own entry.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid &lt;code&gt;call_filter&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void stopAllCalls(ondewo.vtsi.CallsOuterClass.StopAllCallsRequest request,
@@ -1561,7 +2195,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;, at most 1000. Not atomic: every transfer is
+     * run on its own and reported in its own entry, in request order; an entry &lt;code&gt;TransferCall&lt;/code&gt; would have
+     * refused with a gRPC status carries that refusal in its &lt;code&gt;error_message&lt;/code&gt; (prefixed with the status
+     * code name) and does not stop the others. Idempotent per entry &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
      * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
      * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
      * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
@@ -1575,7 +2212,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for single call instance&lt;/p&gt;
+     * &lt;p&gt;Gets a call, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt; (the call&amp;apos;s log
+     * lines are read with &lt;code&gt;Logs.ListCallLogs&lt;/code&gt;). &lt;code&gt;FULL&lt;/code&gt; also returns every participant ever
+     * invited into the call (see &lt;code&gt;Call.participants&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void getCall(ondewo.vtsi.CallsOuterClass.GetCallRequest request,
@@ -1585,12 +2228,74 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for all call instances&lt;/p&gt;
+     * &lt;p&gt;Lists the calls of a VTSI project, ended ones included, narrowed by &lt;code&gt;call_filter&lt;/code&gt;, ordered by
+     * &lt;code&gt;call_sorting&lt;/code&gt; (default: by &lt;code&gt;start_time&lt;/code&gt;, oldest first) and paged with
+     * &lt;code&gt;page_size&lt;/code&gt; / &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;call_filter.campaign_name&lt;/code&gt; or &lt;code&gt;call_filter.campaign_display_name&lt;/code&gt; set, lists
+     * only the calls of that campaign: the calls placed by the attempts of its campaign calls.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid filter, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     default void listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request,
         io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListCallsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Aggregate figures (totals, active calls, counts by SIP status type, by call type, by AMD verdict and by
+     * transfer outcome, durations, redial recommendations) over the calls of a VTSI project that
+     * &lt;code&gt;call_filter&lt;/code&gt; matches; see &lt;code&gt;CallStatistics&lt;/code&gt;. Read only, no side effect.&lt;/p&gt;
+     * &lt;p&gt;Errors: as for &lt;code&gt;ListCalls&lt;/code&gt; (an invalid filter is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project
+     * or campaign &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;ListCalls&lt;/code&gt; (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project).&lt;/p&gt;
+     * </pre>
+     */
+    default void getCallStatistics(ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CallStatistics> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetCallStatisticsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates the descriptive metadata of a call: the only updatable &lt;code&gt;update_mask&lt;/code&gt; path is
+     * &lt;code&gt;labels&lt;/code&gt;. Allowed on active and ended calls. Refused for the WAITING call of a persistent
+     * listener or a pooled caller (status &lt;code&gt;NO_ONGOING_CALL&lt;/code&gt;, not active: the record that waits for the
+     * next call, which &lt;code&gt;ListCalls&lt;/code&gt; returns too) with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; and
+     * &lt;code&gt;reason=call-not-started&lt;/code&gt; in the details: label the call once it has started. It changes only
+     * the stored call record: the live call, its SIP container, its status and its media are never touched, and
+     * nothing is sent to the call. Idempotent: writing the stored labels again changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_UPDATED&lt;/code&gt; when the labels changed.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;call.name&lt;/code&gt;, an
+     * empty &lt;code&gt;update_mask&lt;/code&gt;, any path other than &lt;code&gt;labels&lt;/code&gt; (every other field of a
+     * &lt;code&gt;Call&lt;/code&gt; is output only), a path below &lt;code&gt;labels&lt;/code&gt;, labels outside the bounds of
+     * &lt;code&gt;Call.labels&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or label);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown call or project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;reason=call-not-started&lt;/code&gt;) for a waiting call; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may stop calls of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or
+     * higher).&lt;/p&gt;
+     * </pre>
+     */
+    default void updateCall(ondewo.vtsi.CallsOuterClass.UpdateCallRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateCallMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several calls, each like &lt;code&gt;UpdateCall&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    default void updateCalls(ondewo.vtsi.CallsOuterClass.UpdateCallsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateCallsMethod(), responseObserver);
     }
 
     /**
@@ -1662,7 +2367,17 @@ public final class CallsGrpc {
      * <pre>
      * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
      * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
-     * affected.&lt;/p&gt;
+     * affected. Returns the participant after the request.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: a participant that already FAILED or LEFT (for whatever reason) is returned unchanged with OK,
+     * and nothing is sent.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request; &lt;code&gt;NOT_FOUND&lt;/code&gt; with
+     * &lt;code&gt;reason=call-not-found&lt;/code&gt; for an unknown call or a call of another project, and with
+     * &lt;code&gt;reason=participant-not-found&lt;/code&gt; for an unknown &lt;code&gt;participant_id&lt;/code&gt; or a participant of
+     * another call; &lt;code&gt;ABORTED&lt;/code&gt; with &lt;code&gt;reason=call-control-busy&lt;/code&gt; while another call-control
+     * request for the call runs (retry); &lt;code&gt;UNAVAILABLE&lt;/code&gt; with &lt;code&gt;reason=asterisk-unreachable&lt;/code&gt; when
+     * the hang-up could not be sent; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_LEFT&lt;/code&gt; (or &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;
+     * for a participant that was still ringing).&lt;/p&gt;
      * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
@@ -1676,6 +2391,12 @@ public final class CallsGrpc {
      * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
      * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
      * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Both settings &lt;code&gt;CALL_MEDIA_SETTING_UNCHANGED&lt;/code&gt; is a valid read of the current state: it answers
+     * the effective &lt;code&gt;state&lt;/code&gt; with &lt;code&gt;changed = false&lt;/code&gt;, changes nothing, and writes no audit record
+     * and no event (see &lt;code&gt;SetCallMediaControlRequest.bot_voice&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_BOT_UNMUTED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_CALL_LISTENING_PAUSED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_LISTENING_RESUMED&lt;/code&gt; when the
+     * effective state changed.&lt;/p&gt;
      * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
      * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
      * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
@@ -1769,7 +2490,21 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single caller instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one caller in a VTSI project: an ondewo-sip container that places one outbound call to
+     * &lt;code&gt;sip_caller_config.callee_id&lt;/code&gt; (or a pooled caller of the server&amp;apos;s caller pool that runs the same
+     * configuration). The configuration is validated first, including live checks against the upstream services;
+     * nothing is started when it fails. Not idempotent: every successful request places a new call (send it as a
+     * batch of one with an &lt;code&gt;idempotency_key&lt;/code&gt; to make it idempotent). &lt;code&gt;validate_only&lt;/code&gt; runs the
+     * validation alone.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed or invalid request or
+     * configuration (also when the NLU credentials are refused) or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when an upstream config lacks
+     * the required TLS certificate (&lt;code&gt;UPSTREAM_TLS_REQUIRED&lt;/code&gt;) or the project is not deployed;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when an
+     * upstream service could not be reached; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_CALLER_START_FAILED&lt;/code&gt;, then the
+     * events of the call (&lt;code&gt;VTSI_EVENT_CALL_*&lt;/code&gt;). None with &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void startCaller(ondewo.vtsi.CallsOuterClass.StartCallerRequest request,
@@ -1780,7 +2515,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip callers instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several callers, each like &lt;code&gt;StartCaller&lt;/code&gt;. Not atomic: every caller is started on its own;
+     * a caller that fails to start is rolled back and has no entry in the response, which accounts for it in
+     * &lt;code&gt;StartCallersResponse.error_message&lt;/code&gt;. The project&amp;apos;s caller limit is checked for the batch as a
+     * whole before anything is started (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, nothing started). Idempotent per
+     * &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void startCallers(ondewo.vtsi.CallsOuterClass.StartCallersRequest request,
@@ -1791,7 +2531,18 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available callers&lt;/p&gt;
+     * &lt;p&gt;Lists the callers of a VTSI project, ordered by the caller&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending: a stable order, not a chronological one. Paged with &lt;code&gt;page_size&lt;/code&gt; /
+     * &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;campaign_name&lt;/code&gt; or &lt;code&gt;campaign_display_name&lt;/code&gt; set, lists only the callers of that
+     * campaign: the callers that placed at least one attempt of one of its campaign calls (see
+     * &lt;code&gt;ListCallersRequest.campaign_name&lt;/code&gt;). &lt;code&gt;active_only&lt;/code&gt; and &lt;code&gt;sip_status_types&lt;/code&gt;
+     * narrow the listing further.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid selector, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listCallers(ondewo.vtsi.CallsOuterClass.ListCallersRequest request,
@@ -1802,7 +2553,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a caller&lt;/p&gt;
+     * &lt;p&gt;Gets a caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or caller, or a caller of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void getCaller(ondewo.vtsi.CallsOuterClass.GetCallerRequest request,
@@ -1813,7 +2568,85 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a caller&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a caller: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the caller has a call running.&lt;/p&gt;
+     * &lt;p&gt;A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+     * and the call goes on with the configuration its container was deployed with.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: a caller is ONE call (every &lt;code&gt;StartCaller&lt;/code&gt; creates
+     * a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+     * is not pooled the update changes ONLY the stored and returned configuration and never any present or
+     * future call. The one case in which the server deploys a container from a caller&amp;apos;s stored
+     * configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+     * recycles the pooled callers of a project onto its Asterisk (an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, a change of the project&amp;apos;s
+     * TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+     * updated, configuration. An in-place restart of a pooled caller&amp;apos;s container (the call monitor&amp;apos;s
+     * health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+     * pooled caller is matched to later &lt;code&gt;StartCaller&lt;/code&gt; requests by the configuration its container
+     * RUNS, never by an updated stored configuration it does not run.&lt;/p&gt;
+     * &lt;p&gt;Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+     * from the campaign and the campaign call, never from a &lt;code&gt;Caller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;A STOPPED caller (its call ended and its configuration was released) has no stored configuration left:
+     * the update starts from an empty one, so it must state a complete configuration
+     * (&lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;), and a partial one is refused as a
+     * configuration a &lt;code&gt;StartCallerRequest&lt;/code&gt; would be refused for. Nothing is deployed.&lt;/p&gt;
+     * &lt;p&gt;Credentials follow their endpoint: an update that MOVES an upstream (the &lt;code&gt;host&lt;/code&gt;,
+     * &lt;code&gt;port&lt;/code&gt; or &lt;code&gt;grpc_cert&lt;/code&gt; of the NLU, S2T or T2S &lt;code&gt;*_base_config&lt;/code&gt;, or the
+     * &lt;code&gt;host&lt;/code&gt; / ports of &lt;code&gt;csi_vtsi_config.message_broker_config.rabbit_mq_config&lt;/code&gt;) must
+     * also write every credential path of that upstream that holds a stored value -- the NLU
+     * &lt;code&gt;credentials&lt;/code&gt;, &lt;code&gt;auth_token&lt;/code&gt;, &lt;code&gt;http_basic_auth_token&lt;/code&gt; and
+     * &lt;code&gt;contexts&lt;/code&gt;, the S2T &lt;code&gt;s2t_transcribe_request_config&lt;/code&gt;, the T2S
+     * &lt;code&gt;t2s_request_config&lt;/code&gt;, the RabbitMQ &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; -- named itself
+     * or by a shorter path, with the values to use. A stored credential is never sent to an endpoint the request
+     * moved without restating it, also not for the live validation of the result.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;caller.name&lt;/code&gt;,
+     * an empty &lt;code&gt;update_mask&lt;/code&gt;, an unknown, output-only or immutable &lt;code&gt;update_mask&lt;/code&gt; path, an
+     * update that moves an upstream without restating its stored credentials (naming the paths to add), a
+     * resulting configuration that a &lt;code&gt;StartCallerRequest&lt;/code&gt; carrying it would be refused for, or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or field); &lt;code&gt;NOT_FOUND&lt;/code&gt; for an
+     * unknown caller or project; &lt;code&gt;ABORTED&lt;/code&gt; when concurrent updates kept changing the caller, or while
+     * an update, deploy or undeploy of its project is still running (an update waits for it, for a bounded time,
+     * so that a recycle of the project cannot lose it), nothing being written (retry the request); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop callers of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public void updateCaller(ondewo.vtsi.CallsOuterClass.UpdateCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateCallerMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several callers, each like &lt;code&gt;UpdateCaller&lt;/code&gt;. Not atomic: every entry is applied on its
+     * own and reported in &lt;code&gt;UpdateCallersResponse.update_caller_responses&lt;/code&gt;, in request order; an entry
+     * that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+     * &lt;code&gt;UpdateCallersRequest&lt;/code&gt;) are gRPC status codes, and then no entry is applied.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void updateCallers(ondewo.vtsi.CallsOuterClass.UpdateCallersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateCallersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a caller: stops it if it still runs (hanging up its call) and removes it, so it is no longer
+     * listed or returned. Its call records (and their participants) are deleted with it and are no longer returned
+     * by &lt;code&gt;GetCall&lt;/code&gt; / &lt;code&gt;ListCalls&lt;/code&gt;; stop it instead to keep them.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that was already deleted (so deleting is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;);
+     * with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void deleteCaller(ondewo.vtsi.CallsOuterClass.DeleteCallerRequest request,
@@ -1824,7 +2657,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple callers&lt;/p&gt;
+     * &lt;p&gt;Deletes several callers, each like &lt;code&gt;DeleteCaller&lt;/code&gt;. Not atomic: every caller is deleted on its own
+     * and reported in its own entry, whose &lt;code&gt;error_message&lt;/code&gt; carries the gRPC status code name
+     * &lt;code&gt;DeleteCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;); an entry that fails does not
+     * stop the others. The request as a whole is refused, nothing being deleted, for no entry or more than 1000
+     * distinct names, and, when &lt;code&gt;vtsi_project_name&lt;/code&gt; is set, as described there.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void deleteCallers(ondewo.vtsi.CallsOuterClass.DeleteCallersRequest request,
@@ -1835,7 +2673,16 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops a caller&lt;/p&gt;
+     * &lt;p&gt;Stops a caller: hangs up its call if one is up and releases its container and SIP account. The caller
+     * stays listed (with &lt;code&gt;active = false&lt;/code&gt;) until it is deleted, and its stored configuration stays
+     * updatable (see &lt;code&gt;UpdateCaller&lt;/code&gt;). A pooled caller is taken out of the pool.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that is already stopped (so stopping is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void stopCaller(ondewo.vtsi.CallsOuterClass.StopCallerRequest request,
@@ -1846,7 +2693,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops multiple callers&lt;/p&gt;
+     * &lt;p&gt;Stops several callers, each like &lt;code&gt;StopCaller&lt;/code&gt;, with the per-entry results and the request-level
+     * errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void stopCallers(ondewo.vtsi.CallsOuterClass.StopCallersRequest request,
@@ -1857,7 +2706,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single listener instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one listener in a VTSI project: an ondewo-sip container registered on the project&amp;apos;s Asterisk
+     * that answers inbound calls, one after the other (persistent). Validation, &lt;code&gt;validate_only&lt;/code&gt;, errors
+     * (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; for the project&amp;apos;s listener limit) and idempotency as for
+     * &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_LISTENER_START_FAILED&lt;/code&gt;. None with
+     * &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void startListener(ondewo.vtsi.CallsOuterClass.StartListenerRequest request,
@@ -1868,7 +2723,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several listeners, each like &lt;code&gt;StartListener&lt;/code&gt;, with the batch semantics of
+     * &lt;code&gt;StartCallers&lt;/code&gt; (a listener that fails to start has no entry and is accounted for in
+     * &lt;code&gt;StartListenersResponse.error_message&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void startListeners(ondewo.vtsi.CallsOuterClass.StartListenersRequest request,
@@ -1879,7 +2737,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop a ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops a listener: hangs up its call if one is up and releases its container and SIP account. A stopped
+     * listener has no stored configuration left (see &lt;code&gt;UpdateListener&lt;/code&gt;). Errors and idempotency as for
+     * &lt;code&gt;StopCaller&lt;/code&gt; (a listener that is already stopped is &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void stopListener(ondewo.vtsi.CallsOuterClass.StopListenerRequest request,
@@ -1890,7 +2753,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops several listeners, each like &lt;code&gt;StopListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void stopListeners(ondewo.vtsi.CallsOuterClass.StopListenersRequest request,
@@ -1901,7 +2766,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available listeners&lt;/p&gt;
+     * &lt;p&gt;Lists the listeners of a VTSI project, ordered by the listener&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending. Paging, &lt;code&gt;total_size&lt;/code&gt;, filters and errors as for
+     * &lt;code&gt;ListCallers&lt;/code&gt; (without a campaign selector).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listListeners(ondewo.vtsi.CallsOuterClass.ListListenersRequest request,
@@ -1912,7 +2780,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a listener&lt;/p&gt;
+     * &lt;p&gt;Gets a listener, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;. Errors as for
+     * &lt;code&gt;GetCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void getListener(ondewo.vtsi.CallsOuterClass.GetListenerRequest request,
@@ -1923,7 +2793,59 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a listener&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a listener: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_base_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the listener&amp;apos;s container is running or has a call, as long as the listener is
+     * DEPLOYED: a stopped listener has no stored configuration (it is deployed again only by a
+     * &lt;code&gt;StartListener&lt;/code&gt; carrying a complete one) and is &lt;code&gt;NOT_FOUND&lt;/code&gt;, unlike a stopped caller,
+     * which &lt;code&gt;UpdateCaller&lt;/code&gt; accepts with a complete configuration.&lt;/p&gt;
+     * &lt;p&gt;A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+     * reconfigured, and the running container answers its calls with the configuration it was deployed with
+     * until it is replaced.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+     * when it recycles the listeners of the project onto its Asterisk: an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, or a change of the
+     * project&amp;apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+     * stored, i.e. updated, configuration. An in-place restart of the listener&amp;apos;s container (the
+     * server&amp;apos;s restore of listener containers when it starts, the call monitor&amp;apos;s restart of an
+     * unhealthy container, a &lt;code&gt;docker restart&lt;/code&gt;) keeps the configuration the container was deployed
+     * with. A listener that is never recycled keeps the update only as its stored (and returned)
+     * configuration.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;UpdateCaller&lt;/code&gt; (the credential rule included), with
+     * &lt;code&gt;StartListenerRequest&lt;/code&gt; as the validation of the resulting configuration, and
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; also for a stopped listener.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop listeners of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public void updateListener(ondewo.vtsi.CallsOuterClass.UpdateListenerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateListenerMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several listeners, each like &lt;code&gt;UpdateListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateListener&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void updateListeners(ondewo.vtsi.CallsOuterClass.UpdateListenersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateListenersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a listener: stops it if it still runs (hanging up its call) and removes it, with its call
+     * records, like &lt;code&gt;DeleteCaller&lt;/code&gt;. Errors and idempotency as for &lt;code&gt;DeleteCaller&lt;/code&gt; (a repeat
+     * answers &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void deleteListener(ondewo.vtsi.CallsOuterClass.DeleteListenerRequest request,
@@ -1934,7 +2856,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple listeners&lt;/p&gt;
+     * &lt;p&gt;Deletes several listeners, each like &lt;code&gt;DeleteListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void deleteListeners(ondewo.vtsi.CallsOuterClass.DeleteListenersRequest request,
@@ -1945,7 +2869,20 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start a single ondewo-sip caller instance at a scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates a scheduled caller: a caller that the server starts at or after &lt;code&gt;scheduled_time&lt;/code&gt;, like a
+     * &lt;code&gt;StartCaller&lt;/code&gt; of the stored request. The request is checked structurally now; the live checks of
+     * the configuration run when it fires, and a failure then leaves the scheduled caller
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; with its &lt;code&gt;error_message&lt;/code&gt;. A &lt;code&gt;scheduled_time&lt;/code&gt; in
+     * the past is due at once. Not idempotent (use &lt;code&gt;StartScheduledCallers&lt;/code&gt; with an
+     * &lt;code&gt;idempotency_key&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, a missing
+     * &lt;code&gt;scheduled_time&lt;/code&gt;, a nested request with its own &lt;code&gt;field_mask&lt;/code&gt; or
+     * &lt;code&gt;validate_only&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt;; later &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FIRED&lt;/code&gt;,
+     * &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FAILED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void startScheduledCaller(ondewo.vtsi.CallsOuterClass.StartScheduledCallerRequest request,
@@ -1956,7 +2893,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip caller instances, each at its own scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates several scheduled callers, each like &lt;code&gt;StartScheduledCaller&lt;/code&gt;, at most 1000. Not atomic: an
+     * entry that fails is reported in its own &lt;code&gt;error_message&lt;/code&gt; and does not stop the others. Idempotent
+     * per &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartScheduledCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void startScheduledCallers(ondewo.vtsi.CallsOuterClass.StartScheduledCallersRequest request,
@@ -1995,7 +2935,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
+     * &lt;p&gt;Gets a scheduled caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void getScheduledCaller(ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest request,
@@ -2006,7 +2950,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists the scheduled callers of a vtsi-project&lt;/p&gt;
+     * &lt;p&gt;Lists the scheduled callers of a VTSI project, ordered by &lt;code&gt;scheduled_time&lt;/code&gt;, oldest first,
+     * optionally narrowed by state, campaign and a &lt;code&gt;scheduled_time&lt;/code&gt; window. Paging,
+     * &lt;code&gt;total_size&lt;/code&gt; and errors as for &lt;code&gt;ListCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listScheduledCallers(ondewo.vtsi.CallsOuterClass.ListScheduledCallersRequest request,
@@ -2017,12 +2964,48 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;Changes the &lt;code&gt;scheduled_time&lt;/code&gt; and/or the &lt;code&gt;sip_caller_config.sip_headers&lt;/code&gt; of a scheduled
+     * caller that has not fired yet; the only updatable &lt;code&gt;update_mask&lt;/code&gt; paths (see
+     * &lt;code&gt;UpdateScheduledCallerRequest.update_mask&lt;/code&gt;). Allowed only while the status is
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_PENDING&lt;/code&gt;; for a scheduled caller of a campaign only while its campaign call
+     * is &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; (a retry of a campaign call is timed by the campaign&amp;apos;s
+     * &lt;code&gt;retry_delay&lt;/code&gt;). The check and the write are one atomic step, so a scheduled caller that fires
+     * concurrently is either updated before it fires or refused. Updating to the stored values is accepted and
+     * changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name, an empty
+     * &lt;code&gt;update_mask&lt;/code&gt;, a path that is not updatable, an unset &lt;code&gt;scheduled_time&lt;/code&gt; named by the
+     * mask, invalid &lt;code&gt;sip_headers&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project;
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when it is no longer PENDING (&lt;code&gt;reason=not-pending&lt;/code&gt;) or its campaign
+     * call has started (&lt;code&gt;reason=campaign-call-started&lt;/code&gt;); with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_UPDATED&lt;/code&gt; when something changed.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public void updateScheduledCaller(ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateScheduledCallerMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Cancels a scheduled caller that has not fired yet: a PENDING scheduled caller becomes
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_CANCELLED&lt;/code&gt; and never fires. A scheduled caller that is no longer PENDING
+     * (firing, done, failed or already cancelled) is not an error: the response says &lt;code&gt;cancelled = false&lt;/code&gt;
+     * and carries its current &lt;code&gt;status&lt;/code&gt;, so cancelling is idempotent.&lt;/p&gt;
      * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
      * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
      * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
      * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
-     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
+     * &lt;code&gt;cancelled = false&lt;/code&gt;, an &lt;code&gt;error_message&lt;/code&gt; saying why, and the scheduled caller keeps its
+     * status.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt;, only when &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request,
@@ -2033,7 +3016,65 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.&lt;/p&gt;
+     * &lt;p&gt;Cancels several scheduled callers, each like &lt;code&gt;CancelScheduledCaller&lt;/code&gt;, at most 1000. Not atomic:
+     * every entry is applied on its own and reported in &lt;code&gt;CancelScheduledCallersResponse&lt;/code&gt;, in request
+     * order; a failed entry carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name
+     * &lt;code&gt;CancelScheduledCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;) and does not stop
+     * the others. Errors of the request as a whole (see &lt;code&gt;CancelScheduledCallersRequest&lt;/code&gt;) are gRPC status
+     * codes, and then nothing is cancelled.&lt;/p&gt;
+     * &lt;p&gt;Events: one &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt; per entry with &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;CancelScheduledCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void cancelScheduledCallers(ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCancelScheduledCallersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Retries a FAILED scheduled caller by creating a NEW scheduled caller from its stored request: the same
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;, &lt;code&gt;status = PENDING&lt;/code&gt;, the
+     * &lt;code&gt;scheduled_time&lt;/code&gt; of the request (unset: now), and &lt;code&gt;retry_of_scheduled_caller_name&lt;/code&gt; naming
+     * the failed one, whose &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt; is set to the new one in the same atomic
+     * step. The failed scheduled caller itself is not changed otherwise, so its &lt;code&gt;error_message&lt;/code&gt; and
+     * &lt;code&gt;fired_at&lt;/code&gt; stay as the history of the failed attempt. Returns the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: a FAILED scheduled caller is retried at most once. A repeat of the request answers
+     * &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; naming the retry in its message (read
+     * &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt;); to retry again after the retry failed too, retry the new
+     * one.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; for a scheduled caller that is not
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; (&lt;code&gt;reason=not-failed&lt;/code&gt;) or that belongs to a campaign
+     * (&lt;code&gt;reason=campaign-scheduled-caller&lt;/code&gt;: a campaign call is retried by the campaign&amp;apos;s
+     * &lt;code&gt;max_attempts&lt;/code&gt;); &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; when it was already retried;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt; for the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public void retryScheduledCaller(ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRetryScheduledCallerMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Stops a call: hangs it up if it is still active and stops (releases) the listener or caller that serves
+     * it, like &lt;code&gt;StopCaller&lt;/code&gt; / &lt;code&gt;StopListener&lt;/code&gt;. A call that already ended is not an error: its
+     * listener or caller is still released if it is deployed, and when there was nothing left to release the
+     * response carries &lt;code&gt;error_message = Call ... was not released&lt;/code&gt;, so a repeat succeeds with that
+     * message.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another
+     * project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt;, and &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; for the released resource.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void stopCall(ondewo.vtsi.CallsOuterClass.StopCallRequest request,
@@ -2044,8 +3085,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.&lt;/p&gt;
-     * &lt;p&gt;Stops both Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops several calls of one project, each like &lt;code&gt;StopCall&lt;/code&gt;, at most 1000 distinct names. Not
+     * atomic: every call is stopped on its own and reported in its own entry, in request order; a failed entry
+     * carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name &lt;code&gt;StopCall&lt;/code&gt; would have
+     * answered and does not stop the others. No entry, more than 1000 names or a malformed
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project &lt;code&gt;NOT_FOUND&lt;/code&gt;, and
+     * then nothing is stopped.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public void stopCalls(ondewo.vtsi.CallsOuterClass.StopCallsRequest request,
@@ -2056,8 +3102,14 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.&lt;/p&gt;
-     * &lt;p&gt;Stops all Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops every call of a VTSI project (listener and caller calls alike), or, with
+     * &lt;code&gt;call_filter&lt;/code&gt;, those it matches, each like &lt;code&gt;StopCall&lt;/code&gt;. Not atomic and not bounded in
+     * size; a project with nothing to stop answers an empty response, so the RPC is idempotent. If a stop fails
+     * part-way, the remaining calls are still stopped one by one and every call gets its own entry.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid &lt;code&gt;call_filter&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void stopAllCalls(ondewo.vtsi.CallsOuterClass.StopAllCallsRequest request,
@@ -2096,7 +3148,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;, at most 1000. Not atomic: every transfer is
+     * run on its own and reported in its own entry, in request order; an entry &lt;code&gt;TransferCall&lt;/code&gt; would have
+     * refused with a gRPC status carries that refusal in its &lt;code&gt;error_message&lt;/code&gt; (prefixed with the status
+     * code name) and does not stop the others. Idempotent per entry &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
      * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
      * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
      * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
@@ -2111,7 +3166,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for single call instance&lt;/p&gt;
+     * &lt;p&gt;Gets a call, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt; (the call&amp;apos;s log
+     * lines are read with &lt;code&gt;Logs.ListCallLogs&lt;/code&gt;). &lt;code&gt;FULL&lt;/code&gt; also returns every participant ever
+     * invited into the call (see &lt;code&gt;Call.participants&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void getCall(ondewo.vtsi.CallsOuterClass.GetCallRequest request,
@@ -2122,13 +3183,78 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for all call instances&lt;/p&gt;
+     * &lt;p&gt;Lists the calls of a VTSI project, ended ones included, narrowed by &lt;code&gt;call_filter&lt;/code&gt;, ordered by
+     * &lt;code&gt;call_sorting&lt;/code&gt; (default: by &lt;code&gt;start_time&lt;/code&gt;, oldest first) and paged with
+     * &lt;code&gt;page_size&lt;/code&gt; / &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;call_filter.campaign_name&lt;/code&gt; or &lt;code&gt;call_filter.campaign_display_name&lt;/code&gt; set, lists
+     * only the calls of that campaign: the calls placed by the attempts of its campaign calls.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid filter, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public void listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request,
         io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListCallsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Aggregate figures (totals, active calls, counts by SIP status type, by call type, by AMD verdict and by
+     * transfer outcome, durations, redial recommendations) over the calls of a VTSI project that
+     * &lt;code&gt;call_filter&lt;/code&gt; matches; see &lt;code&gt;CallStatistics&lt;/code&gt;. Read only, no side effect.&lt;/p&gt;
+     * &lt;p&gt;Errors: as for &lt;code&gt;ListCalls&lt;/code&gt; (an invalid filter is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project
+     * or campaign &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;ListCalls&lt;/code&gt; (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project).&lt;/p&gt;
+     * </pre>
+     */
+    public void getCallStatistics(ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CallStatistics> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetCallStatisticsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates the descriptive metadata of a call: the only updatable &lt;code&gt;update_mask&lt;/code&gt; path is
+     * &lt;code&gt;labels&lt;/code&gt;. Allowed on active and ended calls. Refused for the WAITING call of a persistent
+     * listener or a pooled caller (status &lt;code&gt;NO_ONGOING_CALL&lt;/code&gt;, not active: the record that waits for the
+     * next call, which &lt;code&gt;ListCalls&lt;/code&gt; returns too) with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; and
+     * &lt;code&gt;reason=call-not-started&lt;/code&gt; in the details: label the call once it has started. It changes only
+     * the stored call record: the live call, its SIP container, its status and its media are never touched, and
+     * nothing is sent to the call. Idempotent: writing the stored labels again changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_UPDATED&lt;/code&gt; when the labels changed.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;call.name&lt;/code&gt;, an
+     * empty &lt;code&gt;update_mask&lt;/code&gt;, any path other than &lt;code&gt;labels&lt;/code&gt; (every other field of a
+     * &lt;code&gt;Call&lt;/code&gt; is output only), a path below &lt;code&gt;labels&lt;/code&gt;, labels outside the bounds of
+     * &lt;code&gt;Call.labels&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or label);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown call or project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;reason=call-not-started&lt;/code&gt;) for a waiting call; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may stop calls of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or
+     * higher).&lt;/p&gt;
+     * </pre>
+     */
+    public void updateCall(ondewo.vtsi.CallsOuterClass.UpdateCallRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateCallMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several calls, each like &lt;code&gt;UpdateCall&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public void updateCalls(ondewo.vtsi.CallsOuterClass.UpdateCallsRequest request,
+        io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateCallsMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -2204,7 +3330,17 @@ public final class CallsGrpc {
      * <pre>
      * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
      * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
-     * affected.&lt;/p&gt;
+     * affected. Returns the participant after the request.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: a participant that already FAILED or LEFT (for whatever reason) is returned unchanged with OK,
+     * and nothing is sent.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request; &lt;code&gt;NOT_FOUND&lt;/code&gt; with
+     * &lt;code&gt;reason=call-not-found&lt;/code&gt; for an unknown call or a call of another project, and with
+     * &lt;code&gt;reason=participant-not-found&lt;/code&gt; for an unknown &lt;code&gt;participant_id&lt;/code&gt; or a participant of
+     * another call; &lt;code&gt;ABORTED&lt;/code&gt; with &lt;code&gt;reason=call-control-busy&lt;/code&gt; while another call-control
+     * request for the call runs (retry); &lt;code&gt;UNAVAILABLE&lt;/code&gt; with &lt;code&gt;reason=asterisk-unreachable&lt;/code&gt; when
+     * the hang-up could not be sent; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_LEFT&lt;/code&gt; (or &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;
+     * for a participant that was still ringing).&lt;/p&gt;
      * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
@@ -2219,6 +3355,12 @@ public final class CallsGrpc {
      * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
      * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
      * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Both settings &lt;code&gt;CALL_MEDIA_SETTING_UNCHANGED&lt;/code&gt; is a valid read of the current state: it answers
+     * the effective &lt;code&gt;state&lt;/code&gt; with &lt;code&gt;changed = false&lt;/code&gt;, changes nothing, and writes no audit record
+     * and no event (see &lt;code&gt;SetCallMediaControlRequest.bot_voice&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_BOT_UNMUTED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_CALL_LISTENING_PAUSED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_LISTENING_RESUMED&lt;/code&gt; when the
+     * effective state changed.&lt;/p&gt;
      * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
      * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
      * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
@@ -2301,7 +3443,21 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single caller instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one caller in a VTSI project: an ondewo-sip container that places one outbound call to
+     * &lt;code&gt;sip_caller_config.callee_id&lt;/code&gt; (or a pooled caller of the server&amp;apos;s caller pool that runs the same
+     * configuration). The configuration is validated first, including live checks against the upstream services;
+     * nothing is started when it fails. Not idempotent: every successful request places a new call (send it as a
+     * batch of one with an &lt;code&gt;idempotency_key&lt;/code&gt; to make it idempotent). &lt;code&gt;validate_only&lt;/code&gt; runs the
+     * validation alone.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed or invalid request or
+     * configuration (also when the NLU credentials are refused) or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when an upstream config lacks
+     * the required TLS certificate (&lt;code&gt;UPSTREAM_TLS_REQUIRED&lt;/code&gt;) or the project is not deployed;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when an
+     * upstream service could not be reached; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_CALLER_START_FAILED&lt;/code&gt;, then the
+     * events of the call (&lt;code&gt;VTSI_EVENT_CALL_*&lt;/code&gt;). None with &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartCallerResponse startCaller(ondewo.vtsi.CallsOuterClass.StartCallerRequest request) throws io.grpc.StatusException {
@@ -2311,7 +3467,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip callers instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several callers, each like &lt;code&gt;StartCaller&lt;/code&gt;. Not atomic: every caller is started on its own;
+     * a caller that fails to start is rolled back and has no entry in the response, which accounts for it in
+     * &lt;code&gt;StartCallersResponse.error_message&lt;/code&gt;. The project&amp;apos;s caller limit is checked for the batch as a
+     * whole before anything is started (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, nothing started). Idempotent per
+     * &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartCallersResponse startCallers(ondewo.vtsi.CallsOuterClass.StartCallersRequest request) throws io.grpc.StatusException {
@@ -2321,7 +3482,18 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available callers&lt;/p&gt;
+     * &lt;p&gt;Lists the callers of a VTSI project, ordered by the caller&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending: a stable order, not a chronological one. Paged with &lt;code&gt;page_size&lt;/code&gt; /
+     * &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;campaign_name&lt;/code&gt; or &lt;code&gt;campaign_display_name&lt;/code&gt; set, lists only the callers of that
+     * campaign: the callers that placed at least one attempt of one of its campaign calls (see
+     * &lt;code&gt;ListCallersRequest.campaign_name&lt;/code&gt;). &lt;code&gt;active_only&lt;/code&gt; and &lt;code&gt;sip_status_types&lt;/code&gt;
+     * narrow the listing further.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid selector, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListCallersResponse listCallers(ondewo.vtsi.CallsOuterClass.ListCallersRequest request) throws io.grpc.StatusException {
@@ -2331,7 +3503,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a caller&lt;/p&gt;
+     * &lt;p&gt;Gets a caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or caller, or a caller of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Caller getCaller(ondewo.vtsi.CallsOuterClass.GetCallerRequest request) throws io.grpc.StatusException {
@@ -2341,7 +3517,83 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a caller&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a caller: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the caller has a call running.&lt;/p&gt;
+     * &lt;p&gt;A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+     * and the call goes on with the configuration its container was deployed with.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: a caller is ONE call (every &lt;code&gt;StartCaller&lt;/code&gt; creates
+     * a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+     * is not pooled the update changes ONLY the stored and returned configuration and never any present or
+     * future call. The one case in which the server deploys a container from a caller&amp;apos;s stored
+     * configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+     * recycles the pooled callers of a project onto its Asterisk (an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, a change of the project&amp;apos;s
+     * TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+     * updated, configuration. An in-place restart of a pooled caller&amp;apos;s container (the call monitor&amp;apos;s
+     * health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+     * pooled caller is matched to later &lt;code&gt;StartCaller&lt;/code&gt; requests by the configuration its container
+     * RUNS, never by an updated stored configuration it does not run.&lt;/p&gt;
+     * &lt;p&gt;Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+     * from the campaign and the campaign call, never from a &lt;code&gt;Caller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;A STOPPED caller (its call ended and its configuration was released) has no stored configuration left:
+     * the update starts from an empty one, so it must state a complete configuration
+     * (&lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;), and a partial one is refused as a
+     * configuration a &lt;code&gt;StartCallerRequest&lt;/code&gt; would be refused for. Nothing is deployed.&lt;/p&gt;
+     * &lt;p&gt;Credentials follow their endpoint: an update that MOVES an upstream (the &lt;code&gt;host&lt;/code&gt;,
+     * &lt;code&gt;port&lt;/code&gt; or &lt;code&gt;grpc_cert&lt;/code&gt; of the NLU, S2T or T2S &lt;code&gt;*_base_config&lt;/code&gt;, or the
+     * &lt;code&gt;host&lt;/code&gt; / ports of &lt;code&gt;csi_vtsi_config.message_broker_config.rabbit_mq_config&lt;/code&gt;) must
+     * also write every credential path of that upstream that holds a stored value -- the NLU
+     * &lt;code&gt;credentials&lt;/code&gt;, &lt;code&gt;auth_token&lt;/code&gt;, &lt;code&gt;http_basic_auth_token&lt;/code&gt; and
+     * &lt;code&gt;contexts&lt;/code&gt;, the S2T &lt;code&gt;s2t_transcribe_request_config&lt;/code&gt;, the T2S
+     * &lt;code&gt;t2s_request_config&lt;/code&gt;, the RabbitMQ &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; -- named itself
+     * or by a shorter path, with the values to use. A stored credential is never sent to an endpoint the request
+     * moved without restating it, also not for the live validation of the result.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;caller.name&lt;/code&gt;,
+     * an empty &lt;code&gt;update_mask&lt;/code&gt;, an unknown, output-only or immutable &lt;code&gt;update_mask&lt;/code&gt; path, an
+     * update that moves an upstream without restating its stored credentials (naming the paths to add), a
+     * resulting configuration that a &lt;code&gt;StartCallerRequest&lt;/code&gt; carrying it would be refused for, or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or field); &lt;code&gt;NOT_FOUND&lt;/code&gt; for an
+     * unknown caller or project; &lt;code&gt;ABORTED&lt;/code&gt; when concurrent updates kept changing the caller, or while
+     * an update, deploy or undeploy of its project is still running (an update waits for it, for a bounded time,
+     * so that a recycle of the project cannot lose it), nothing being written (retry the request); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop callers of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallerResponse updateCaller(ondewo.vtsi.CallsOuterClass.UpdateCallerRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several callers, each like &lt;code&gt;UpdateCaller&lt;/code&gt;. Not atomic: every entry is applied on its
+     * own and reported in &lt;code&gt;UpdateCallersResponse.update_caller_responses&lt;/code&gt;, in request order; an entry
+     * that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+     * &lt;code&gt;UpdateCallersRequest&lt;/code&gt;) are gRPC status codes, and then no entry is applied.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallersResponse updateCallers(ondewo.vtsi.CallsOuterClass.UpdateCallersRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateCallersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a caller: stops it if it still runs (hanging up its call) and removes it, so it is no longer
+     * listed or returned. Its call records (and their participants) are deleted with it and are no longer returned
+     * by &lt;code&gt;GetCall&lt;/code&gt; / &lt;code&gt;ListCalls&lt;/code&gt;; stop it instead to keep them.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that was already deleted (so deleting is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;);
+     * with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteCallerResponse deleteCaller(ondewo.vtsi.CallsOuterClass.DeleteCallerRequest request) throws io.grpc.StatusException {
@@ -2351,7 +3603,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple callers&lt;/p&gt;
+     * &lt;p&gt;Deletes several callers, each like &lt;code&gt;DeleteCaller&lt;/code&gt;. Not atomic: every caller is deleted on its own
+     * and reported in its own entry, whose &lt;code&gt;error_message&lt;/code&gt; carries the gRPC status code name
+     * &lt;code&gt;DeleteCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;); an entry that fails does not
+     * stop the others. The request as a whole is refused, nothing being deleted, for no entry or more than 1000
+     * distinct names, and, when &lt;code&gt;vtsi_project_name&lt;/code&gt; is set, as described there.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteCallersResponse deleteCallers(ondewo.vtsi.CallsOuterClass.DeleteCallersRequest request) throws io.grpc.StatusException {
@@ -2361,7 +3618,16 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops a caller&lt;/p&gt;
+     * &lt;p&gt;Stops a caller: hangs up its call if one is up and releases its container and SIP account. The caller
+     * stays listed (with &lt;code&gt;active = false&lt;/code&gt;) until it is deleted, and its stored configuration stays
+     * updatable (see &lt;code&gt;UpdateCaller&lt;/code&gt;). A pooled caller is taken out of the pool.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that is already stopped (so stopping is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallerResponse stopCaller(ondewo.vtsi.CallsOuterClass.StopCallerRequest request) throws io.grpc.StatusException {
@@ -2371,7 +3637,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops multiple callers&lt;/p&gt;
+     * &lt;p&gt;Stops several callers, each like &lt;code&gt;StopCaller&lt;/code&gt;, with the per-entry results and the request-level
+     * errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallersResponse stopCallers(ondewo.vtsi.CallsOuterClass.StopCallersRequest request) throws io.grpc.StatusException {
@@ -2381,7 +3649,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single listener instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one listener in a VTSI project: an ondewo-sip container registered on the project&amp;apos;s Asterisk
+     * that answers inbound calls, one after the other (persistent). Validation, &lt;code&gt;validate_only&lt;/code&gt;, errors
+     * (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; for the project&amp;apos;s listener limit) and idempotency as for
+     * &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_LISTENER_START_FAILED&lt;/code&gt;. None with
+     * &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartListenerResponse startListener(ondewo.vtsi.CallsOuterClass.StartListenerRequest request) throws io.grpc.StatusException {
@@ -2391,7 +3665,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several listeners, each like &lt;code&gt;StartListener&lt;/code&gt;, with the batch semantics of
+     * &lt;code&gt;StartCallers&lt;/code&gt; (a listener that fails to start has no entry and is accounted for in
+     * &lt;code&gt;StartListenersResponse.error_message&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartListenersResponse startListeners(ondewo.vtsi.CallsOuterClass.StartListenersRequest request) throws io.grpc.StatusException {
@@ -2401,7 +3678,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop a ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops a listener: hangs up its call if one is up and releases its container and SIP account. A stopped
+     * listener has no stored configuration left (see &lt;code&gt;UpdateListener&lt;/code&gt;). Errors and idempotency as for
+     * &lt;code&gt;StopCaller&lt;/code&gt; (a listener that is already stopped is &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopListenerResponse stopListener(ondewo.vtsi.CallsOuterClass.StopListenerRequest request) throws io.grpc.StatusException {
@@ -2411,7 +3693,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops several listeners, each like &lt;code&gt;StopListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopListenersResponse stopListeners(ondewo.vtsi.CallsOuterClass.StopListenersRequest request) throws io.grpc.StatusException {
@@ -2421,7 +3705,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available listeners&lt;/p&gt;
+     * &lt;p&gt;Lists the listeners of a VTSI project, ordered by the listener&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending. Paging, &lt;code&gt;total_size&lt;/code&gt;, filters and errors as for
+     * &lt;code&gt;ListCallers&lt;/code&gt; (without a campaign selector).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListListenersResponse listListeners(ondewo.vtsi.CallsOuterClass.ListListenersRequest request) throws io.grpc.StatusException {
@@ -2431,7 +3718,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a listener&lt;/p&gt;
+     * &lt;p&gt;Gets a listener, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;. Errors as for
+     * &lt;code&gt;GetCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Listener getListener(ondewo.vtsi.CallsOuterClass.GetListenerRequest request) throws io.grpc.StatusException {
@@ -2441,7 +3730,57 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a listener&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a listener: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_base_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the listener&amp;apos;s container is running or has a call, as long as the listener is
+     * DEPLOYED: a stopped listener has no stored configuration (it is deployed again only by a
+     * &lt;code&gt;StartListener&lt;/code&gt; carrying a complete one) and is &lt;code&gt;NOT_FOUND&lt;/code&gt;, unlike a stopped caller,
+     * which &lt;code&gt;UpdateCaller&lt;/code&gt; accepts with a complete configuration.&lt;/p&gt;
+     * &lt;p&gt;A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+     * reconfigured, and the running container answers its calls with the configuration it was deployed with
+     * until it is replaced.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+     * when it recycles the listeners of the project onto its Asterisk: an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, or a change of the
+     * project&amp;apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+     * stored, i.e. updated, configuration. An in-place restart of the listener&amp;apos;s container (the
+     * server&amp;apos;s restore of listener containers when it starts, the call monitor&amp;apos;s restart of an
+     * unhealthy container, a &lt;code&gt;docker restart&lt;/code&gt;) keeps the configuration the container was deployed
+     * with. A listener that is never recycled keeps the update only as its stored (and returned)
+     * configuration.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;UpdateCaller&lt;/code&gt; (the credential rule included), with
+     * &lt;code&gt;StartListenerRequest&lt;/code&gt; as the validation of the resulting configuration, and
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; also for a stopped listener.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop listeners of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateListenerResponse updateListener(ondewo.vtsi.CallsOuterClass.UpdateListenerRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateListenerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several listeners, each like &lt;code&gt;UpdateListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateListener&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateListenersResponse updateListeners(ondewo.vtsi.CallsOuterClass.UpdateListenersRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateListenersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a listener: stops it if it still runs (hanging up its call) and removes it, with its call
+     * records, like &lt;code&gt;DeleteCaller&lt;/code&gt;. Errors and idempotency as for &lt;code&gt;DeleteCaller&lt;/code&gt; (a repeat
+     * answers &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteListenerResponse deleteListener(ondewo.vtsi.CallsOuterClass.DeleteListenerRequest request) throws io.grpc.StatusException {
@@ -2451,7 +3790,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple listeners&lt;/p&gt;
+     * &lt;p&gt;Deletes several listeners, each like &lt;code&gt;DeleteListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteListenersResponse deleteListeners(ondewo.vtsi.CallsOuterClass.DeleteListenersRequest request) throws io.grpc.StatusException {
@@ -2461,7 +3802,20 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start a single ondewo-sip caller instance at a scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates a scheduled caller: a caller that the server starts at or after &lt;code&gt;scheduled_time&lt;/code&gt;, like a
+     * &lt;code&gt;StartCaller&lt;/code&gt; of the stored request. The request is checked structurally now; the live checks of
+     * the configuration run when it fires, and a failure then leaves the scheduled caller
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; with its &lt;code&gt;error_message&lt;/code&gt;. A &lt;code&gt;scheduled_time&lt;/code&gt; in
+     * the past is due at once. Not idempotent (use &lt;code&gt;StartScheduledCallers&lt;/code&gt; with an
+     * &lt;code&gt;idempotency_key&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, a missing
+     * &lt;code&gt;scheduled_time&lt;/code&gt;, a nested request with its own &lt;code&gt;field_mask&lt;/code&gt; or
+     * &lt;code&gt;validate_only&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt;; later &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FIRED&lt;/code&gt;,
+     * &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FAILED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartScheduledCallerResponse startScheduledCaller(ondewo.vtsi.CallsOuterClass.StartScheduledCallerRequest request) throws io.grpc.StatusException {
@@ -2471,7 +3825,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip caller instances, each at its own scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates several scheduled callers, each like &lt;code&gt;StartScheduledCaller&lt;/code&gt;, at most 1000. Not atomic: an
+     * entry that fails is reported in its own &lt;code&gt;error_message&lt;/code&gt; and does not stop the others. Idempotent
+     * per &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartScheduledCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartScheduledCallersResponse startScheduledCallers(ondewo.vtsi.CallsOuterClass.StartScheduledCallersRequest request) throws io.grpc.StatusException {
@@ -2507,7 +3864,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
+     * &lt;p&gt;Gets a scheduled caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ScheduledCaller getScheduledCaller(ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest request) throws io.grpc.StatusException {
@@ -2517,7 +3878,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists the scheduled callers of a vtsi-project&lt;/p&gt;
+     * &lt;p&gt;Lists the scheduled callers of a VTSI project, ordered by &lt;code&gt;scheduled_time&lt;/code&gt;, oldest first,
+     * optionally narrowed by state, campaign and a &lt;code&gt;scheduled_time&lt;/code&gt; window. Paging,
+     * &lt;code&gt;total_size&lt;/code&gt; and errors as for &lt;code&gt;ListCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListScheduledCallersResponse listScheduledCallers(ondewo.vtsi.CallsOuterClass.ListScheduledCallersRequest request) throws io.grpc.StatusException {
@@ -2527,12 +3891,47 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;Changes the &lt;code&gt;scheduled_time&lt;/code&gt; and/or the &lt;code&gt;sip_caller_config.sip_headers&lt;/code&gt; of a scheduled
+     * caller that has not fired yet; the only updatable &lt;code&gt;update_mask&lt;/code&gt; paths (see
+     * &lt;code&gt;UpdateScheduledCallerRequest.update_mask&lt;/code&gt;). Allowed only while the status is
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_PENDING&lt;/code&gt;; for a scheduled caller of a campaign only while its campaign call
+     * is &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; (a retry of a campaign call is timed by the campaign&amp;apos;s
+     * &lt;code&gt;retry_delay&lt;/code&gt;). The check and the write are one atomic step, so a scheduled caller that fires
+     * concurrently is either updated before it fires or refused. Updating to the stored values is accepted and
+     * changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name, an empty
+     * &lt;code&gt;update_mask&lt;/code&gt;, a path that is not updatable, an unset &lt;code&gt;scheduled_time&lt;/code&gt; named by the
+     * mask, invalid &lt;code&gt;sip_headers&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project;
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when it is no longer PENDING (&lt;code&gt;reason=not-pending&lt;/code&gt;) or its campaign
+     * call has started (&lt;code&gt;reason=campaign-call-started&lt;/code&gt;); with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_UPDATED&lt;/code&gt; when something changed.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.ScheduledCaller updateScheduledCaller(ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateScheduledCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Cancels a scheduled caller that has not fired yet: a PENDING scheduled caller becomes
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_CANCELLED&lt;/code&gt; and never fires. A scheduled caller that is no longer PENDING
+     * (firing, done, failed or already cancelled) is not an error: the response says &lt;code&gt;cancelled = false&lt;/code&gt;
+     * and carries its current &lt;code&gt;status&lt;/code&gt;, so cancelling is idempotent.&lt;/p&gt;
      * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
      * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
      * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
      * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
-     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
+     * &lt;code&gt;cancelled = false&lt;/code&gt;, an &lt;code&gt;error_message&lt;/code&gt; saying why, and the scheduled caller keeps its
+     * status.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt;, only when &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request) throws io.grpc.StatusException {
@@ -2542,7 +3941,63 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.&lt;/p&gt;
+     * &lt;p&gt;Cancels several scheduled callers, each like &lt;code&gt;CancelScheduledCaller&lt;/code&gt;, at most 1000. Not atomic:
+     * every entry is applied on its own and reported in &lt;code&gt;CancelScheduledCallersResponse&lt;/code&gt;, in request
+     * order; a failed entry carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name
+     * &lt;code&gt;CancelScheduledCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;) and does not stop
+     * the others. Errors of the request as a whole (see &lt;code&gt;CancelScheduledCallersRequest&lt;/code&gt;) are gRPC status
+     * codes, and then nothing is cancelled.&lt;/p&gt;
+     * &lt;p&gt;Events: one &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt; per entry with &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;CancelScheduledCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse cancelScheduledCallers(ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getCancelScheduledCallersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Retries a FAILED scheduled caller by creating a NEW scheduled caller from its stored request: the same
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;, &lt;code&gt;status = PENDING&lt;/code&gt;, the
+     * &lt;code&gt;scheduled_time&lt;/code&gt; of the request (unset: now), and &lt;code&gt;retry_of_scheduled_caller_name&lt;/code&gt; naming
+     * the failed one, whose &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt; is set to the new one in the same atomic
+     * step. The failed scheduled caller itself is not changed otherwise, so its &lt;code&gt;error_message&lt;/code&gt; and
+     * &lt;code&gt;fired_at&lt;/code&gt; stay as the history of the failed attempt. Returns the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: a FAILED scheduled caller is retried at most once. A repeat of the request answers
+     * &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; naming the retry in its message (read
+     * &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt;); to retry again after the retry failed too, retry the new
+     * one.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; for a scheduled caller that is not
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; (&lt;code&gt;reason=not-failed&lt;/code&gt;) or that belongs to a campaign
+     * (&lt;code&gt;reason=campaign-scheduled-caller&lt;/code&gt;: a campaign call is retried by the campaign&amp;apos;s
+     * &lt;code&gt;max_attempts&lt;/code&gt;); &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; when it was already retried;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt; for the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.ScheduledCaller retryScheduledCaller(ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getRetryScheduledCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Stops a call: hangs it up if it is still active and stops (releases) the listener or caller that serves
+     * it, like &lt;code&gt;StopCaller&lt;/code&gt; / &lt;code&gt;StopListener&lt;/code&gt;. A call that already ended is not an error: its
+     * listener or caller is still released if it is deployed, and when there was nothing left to release the
+     * response carries &lt;code&gt;error_message = Call ... was not released&lt;/code&gt;, so a repeat succeeds with that
+     * message.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another
+     * project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt;, and &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; for the released resource.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallResponse stopCall(ondewo.vtsi.CallsOuterClass.StopCallRequest request) throws io.grpc.StatusException {
@@ -2552,8 +4007,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.&lt;/p&gt;
-     * &lt;p&gt;Stops both Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops several calls of one project, each like &lt;code&gt;StopCall&lt;/code&gt;, at most 1000 distinct names. Not
+     * atomic: every call is stopped on its own and reported in its own entry, in request order; a failed entry
+     * carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name &lt;code&gt;StopCall&lt;/code&gt; would have
+     * answered and does not stop the others. No entry, more than 1000 names or a malformed
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project &lt;code&gt;NOT_FOUND&lt;/code&gt;, and
+     * then nothing is stopped.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallsResponse stopCalls(ondewo.vtsi.CallsOuterClass.StopCallsRequest request) throws io.grpc.StatusException {
@@ -2563,8 +4023,14 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.&lt;/p&gt;
-     * &lt;p&gt;Stops all Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops every call of a VTSI project (listener and caller calls alike), or, with
+     * &lt;code&gt;call_filter&lt;/code&gt;, those it matches, each like &lt;code&gt;StopCall&lt;/code&gt;. Not atomic and not bounded in
+     * size; a project with nothing to stop answers an empty response, so the RPC is idempotent. If a stop fails
+     * part-way, the remaining calls are still stopped one by one and every call gets its own entry.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid &lt;code&gt;call_filter&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallsResponse stopAllCalls(ondewo.vtsi.CallsOuterClass.StopAllCallsRequest request) throws io.grpc.StatusException {
@@ -2601,7 +4067,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;, at most 1000. Not atomic: every transfer is
+     * run on its own and reported in its own entry, in request order; an entry &lt;code&gt;TransferCall&lt;/code&gt; would have
+     * refused with a gRPC status carries that refusal in its &lt;code&gt;error_message&lt;/code&gt; (prefixed with the status
+     * code name) and does not stop the others. Idempotent per entry &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
      * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
      * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
      * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
@@ -2615,7 +4084,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for single call instance&lt;/p&gt;
+     * &lt;p&gt;Gets a call, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt; (the call&amp;apos;s log
+     * lines are read with &lt;code&gt;Logs.ListCallLogs&lt;/code&gt;). &lt;code&gt;FULL&lt;/code&gt; also returns every participant ever
+     * invited into the call (see &lt;code&gt;Call.participants&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Call getCall(ondewo.vtsi.CallsOuterClass.GetCallRequest request) throws io.grpc.StatusException {
@@ -2625,12 +4100,74 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for all call instances&lt;/p&gt;
+     * &lt;p&gt;Lists the calls of a VTSI project, ended ones included, narrowed by &lt;code&gt;call_filter&lt;/code&gt;, ordered by
+     * &lt;code&gt;call_sorting&lt;/code&gt; (default: by &lt;code&gt;start_time&lt;/code&gt;, oldest first) and paged with
+     * &lt;code&gt;page_size&lt;/code&gt; / &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;call_filter.campaign_name&lt;/code&gt; or &lt;code&gt;call_filter.campaign_display_name&lt;/code&gt; set, lists
+     * only the calls of that campaign: the calls placed by the attempts of its campaign calls.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid filter, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListCallsResponse listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request) throws io.grpc.StatusException {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getListCallsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Aggregate figures (totals, active calls, counts by SIP status type, by call type, by AMD verdict and by
+     * transfer outcome, durations, redial recommendations) over the calls of a VTSI project that
+     * &lt;code&gt;call_filter&lt;/code&gt; matches; see &lt;code&gt;CallStatistics&lt;/code&gt;. Read only, no side effect.&lt;/p&gt;
+     * &lt;p&gt;Errors: as for &lt;code&gt;ListCalls&lt;/code&gt; (an invalid filter is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project
+     * or campaign &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;ListCalls&lt;/code&gt; (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.CallStatistics getCallStatistics(ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getGetCallStatisticsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates the descriptive metadata of a call: the only updatable &lt;code&gt;update_mask&lt;/code&gt; path is
+     * &lt;code&gt;labels&lt;/code&gt;. Allowed on active and ended calls. Refused for the WAITING call of a persistent
+     * listener or a pooled caller (status &lt;code&gt;NO_ONGOING_CALL&lt;/code&gt;, not active: the record that waits for the
+     * next call, which &lt;code&gt;ListCalls&lt;/code&gt; returns too) with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; and
+     * &lt;code&gt;reason=call-not-started&lt;/code&gt; in the details: label the call once it has started. It changes only
+     * the stored call record: the live call, its SIP container, its status and its media are never touched, and
+     * nothing is sent to the call. Idempotent: writing the stored labels again changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_UPDATED&lt;/code&gt; when the labels changed.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;call.name&lt;/code&gt;, an
+     * empty &lt;code&gt;update_mask&lt;/code&gt;, any path other than &lt;code&gt;labels&lt;/code&gt; (every other field of a
+     * &lt;code&gt;Call&lt;/code&gt; is output only), a path below &lt;code&gt;labels&lt;/code&gt;, labels outside the bounds of
+     * &lt;code&gt;Call.labels&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or label);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown call or project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;reason=call-not-started&lt;/code&gt;) for a waiting call; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may stop calls of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or
+     * higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallResponse updateCall(ondewo.vtsi.CallsOuterClass.UpdateCallRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateCallMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several calls, each like &lt;code&gt;UpdateCall&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallsResponse updateCalls(ondewo.vtsi.CallsOuterClass.UpdateCallsRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getUpdateCallsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -2708,7 +4245,17 @@ public final class CallsGrpc {
      * <pre>
      * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
      * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
-     * affected.&lt;/p&gt;
+     * affected. Returns the participant after the request.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: a participant that already FAILED or LEFT (for whatever reason) is returned unchanged with OK,
+     * and nothing is sent.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request; &lt;code&gt;NOT_FOUND&lt;/code&gt; with
+     * &lt;code&gt;reason=call-not-found&lt;/code&gt; for an unknown call or a call of another project, and with
+     * &lt;code&gt;reason=participant-not-found&lt;/code&gt; for an unknown &lt;code&gt;participant_id&lt;/code&gt; or a participant of
+     * another call; &lt;code&gt;ABORTED&lt;/code&gt; with &lt;code&gt;reason=call-control-busy&lt;/code&gt; while another call-control
+     * request for the call runs (retry); &lt;code&gt;UNAVAILABLE&lt;/code&gt; with &lt;code&gt;reason=asterisk-unreachable&lt;/code&gt; when
+     * the hang-up could not be sent; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_LEFT&lt;/code&gt; (or &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;
+     * for a participant that was still ringing).&lt;/p&gt;
      * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
@@ -2722,6 +4269,12 @@ public final class CallsGrpc {
      * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
      * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
      * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Both settings &lt;code&gt;CALL_MEDIA_SETTING_UNCHANGED&lt;/code&gt; is a valid read of the current state: it answers
+     * the effective &lt;code&gt;state&lt;/code&gt; with &lt;code&gt;changed = false&lt;/code&gt;, changes nothing, and writes no audit record
+     * and no event (see &lt;code&gt;SetCallMediaControlRequest.bot_voice&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_BOT_UNMUTED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_CALL_LISTENING_PAUSED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_LISTENING_RESUMED&lt;/code&gt; when the
+     * effective state changed.&lt;/p&gt;
      * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
      * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
      * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
@@ -2805,7 +4358,21 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single caller instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one caller in a VTSI project: an ondewo-sip container that places one outbound call to
+     * &lt;code&gt;sip_caller_config.callee_id&lt;/code&gt; (or a pooled caller of the server&amp;apos;s caller pool that runs the same
+     * configuration). The configuration is validated first, including live checks against the upstream services;
+     * nothing is started when it fails. Not idempotent: every successful request places a new call (send it as a
+     * batch of one with an &lt;code&gt;idempotency_key&lt;/code&gt; to make it idempotent). &lt;code&gt;validate_only&lt;/code&gt; runs the
+     * validation alone.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed or invalid request or
+     * configuration (also when the NLU credentials are refused) or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when an upstream config lacks
+     * the required TLS certificate (&lt;code&gt;UPSTREAM_TLS_REQUIRED&lt;/code&gt;) or the project is not deployed;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when an
+     * upstream service could not be reached; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_CALLER_START_FAILED&lt;/code&gt;, then the
+     * events of the call (&lt;code&gt;VTSI_EVENT_CALL_*&lt;/code&gt;). None with &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartCallerResponse startCaller(ondewo.vtsi.CallsOuterClass.StartCallerRequest request) {
@@ -2815,7 +4382,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip callers instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several callers, each like &lt;code&gt;StartCaller&lt;/code&gt;. Not atomic: every caller is started on its own;
+     * a caller that fails to start is rolled back and has no entry in the response, which accounts for it in
+     * &lt;code&gt;StartCallersResponse.error_message&lt;/code&gt;. The project&amp;apos;s caller limit is checked for the batch as a
+     * whole before anything is started (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, nothing started). Idempotent per
+     * &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartCallersResponse startCallers(ondewo.vtsi.CallsOuterClass.StartCallersRequest request) {
@@ -2825,7 +4397,18 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available callers&lt;/p&gt;
+     * &lt;p&gt;Lists the callers of a VTSI project, ordered by the caller&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending: a stable order, not a chronological one. Paged with &lt;code&gt;page_size&lt;/code&gt; /
+     * &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;campaign_name&lt;/code&gt; or &lt;code&gt;campaign_display_name&lt;/code&gt; set, lists only the callers of that
+     * campaign: the callers that placed at least one attempt of one of its campaign calls (see
+     * &lt;code&gt;ListCallersRequest.campaign_name&lt;/code&gt;). &lt;code&gt;active_only&lt;/code&gt; and &lt;code&gt;sip_status_types&lt;/code&gt;
+     * narrow the listing further.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid selector, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListCallersResponse listCallers(ondewo.vtsi.CallsOuterClass.ListCallersRequest request) {
@@ -2835,7 +4418,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a caller&lt;/p&gt;
+     * &lt;p&gt;Gets a caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or caller, or a caller of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Caller getCaller(ondewo.vtsi.CallsOuterClass.GetCallerRequest request) {
@@ -2845,7 +4432,83 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a caller&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a caller: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the caller has a call running.&lt;/p&gt;
+     * &lt;p&gt;A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+     * and the call goes on with the configuration its container was deployed with.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: a caller is ONE call (every &lt;code&gt;StartCaller&lt;/code&gt; creates
+     * a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+     * is not pooled the update changes ONLY the stored and returned configuration and never any present or
+     * future call. The one case in which the server deploys a container from a caller&amp;apos;s stored
+     * configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+     * recycles the pooled callers of a project onto its Asterisk (an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, a change of the project&amp;apos;s
+     * TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+     * updated, configuration. An in-place restart of a pooled caller&amp;apos;s container (the call monitor&amp;apos;s
+     * health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+     * pooled caller is matched to later &lt;code&gt;StartCaller&lt;/code&gt; requests by the configuration its container
+     * RUNS, never by an updated stored configuration it does not run.&lt;/p&gt;
+     * &lt;p&gt;Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+     * from the campaign and the campaign call, never from a &lt;code&gt;Caller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;A STOPPED caller (its call ended and its configuration was released) has no stored configuration left:
+     * the update starts from an empty one, so it must state a complete configuration
+     * (&lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;), and a partial one is refused as a
+     * configuration a &lt;code&gt;StartCallerRequest&lt;/code&gt; would be refused for. Nothing is deployed.&lt;/p&gt;
+     * &lt;p&gt;Credentials follow their endpoint: an update that MOVES an upstream (the &lt;code&gt;host&lt;/code&gt;,
+     * &lt;code&gt;port&lt;/code&gt; or &lt;code&gt;grpc_cert&lt;/code&gt; of the NLU, S2T or T2S &lt;code&gt;*_base_config&lt;/code&gt;, or the
+     * &lt;code&gt;host&lt;/code&gt; / ports of &lt;code&gt;csi_vtsi_config.message_broker_config.rabbit_mq_config&lt;/code&gt;) must
+     * also write every credential path of that upstream that holds a stored value -- the NLU
+     * &lt;code&gt;credentials&lt;/code&gt;, &lt;code&gt;auth_token&lt;/code&gt;, &lt;code&gt;http_basic_auth_token&lt;/code&gt; and
+     * &lt;code&gt;contexts&lt;/code&gt;, the S2T &lt;code&gt;s2t_transcribe_request_config&lt;/code&gt;, the T2S
+     * &lt;code&gt;t2s_request_config&lt;/code&gt;, the RabbitMQ &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; -- named itself
+     * or by a shorter path, with the values to use. A stored credential is never sent to an endpoint the request
+     * moved without restating it, also not for the live validation of the result.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;caller.name&lt;/code&gt;,
+     * an empty &lt;code&gt;update_mask&lt;/code&gt;, an unknown, output-only or immutable &lt;code&gt;update_mask&lt;/code&gt; path, an
+     * update that moves an upstream without restating its stored credentials (naming the paths to add), a
+     * resulting configuration that a &lt;code&gt;StartCallerRequest&lt;/code&gt; carrying it would be refused for, or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or field); &lt;code&gt;NOT_FOUND&lt;/code&gt; for an
+     * unknown caller or project; &lt;code&gt;ABORTED&lt;/code&gt; when concurrent updates kept changing the caller, or while
+     * an update, deploy or undeploy of its project is still running (an update waits for it, for a bounded time,
+     * so that a recycle of the project cannot lose it), nothing being written (retry the request); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop callers of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallerResponse updateCaller(ondewo.vtsi.CallsOuterClass.UpdateCallerRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several callers, each like &lt;code&gt;UpdateCaller&lt;/code&gt;. Not atomic: every entry is applied on its
+     * own and reported in &lt;code&gt;UpdateCallersResponse.update_caller_responses&lt;/code&gt;, in request order; an entry
+     * that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+     * &lt;code&gt;UpdateCallersRequest&lt;/code&gt;) are gRPC status codes, and then no entry is applied.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallersResponse updateCallers(ondewo.vtsi.CallsOuterClass.UpdateCallersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateCallersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a caller: stops it if it still runs (hanging up its call) and removes it, so it is no longer
+     * listed or returned. Its call records (and their participants) are deleted with it and are no longer returned
+     * by &lt;code&gt;GetCall&lt;/code&gt; / &lt;code&gt;ListCalls&lt;/code&gt;; stop it instead to keep them.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that was already deleted (so deleting is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;);
+     * with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteCallerResponse deleteCaller(ondewo.vtsi.CallsOuterClass.DeleteCallerRequest request) {
@@ -2855,7 +4518,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple callers&lt;/p&gt;
+     * &lt;p&gt;Deletes several callers, each like &lt;code&gt;DeleteCaller&lt;/code&gt;. Not atomic: every caller is deleted on its own
+     * and reported in its own entry, whose &lt;code&gt;error_message&lt;/code&gt; carries the gRPC status code name
+     * &lt;code&gt;DeleteCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;); an entry that fails does not
+     * stop the others. The request as a whole is refused, nothing being deleted, for no entry or more than 1000
+     * distinct names, and, when &lt;code&gt;vtsi_project_name&lt;/code&gt; is set, as described there.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteCallersResponse deleteCallers(ondewo.vtsi.CallsOuterClass.DeleteCallersRequest request) {
@@ -2865,7 +4533,16 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops a caller&lt;/p&gt;
+     * &lt;p&gt;Stops a caller: hangs up its call if one is up and releases its container and SIP account. The caller
+     * stays listed (with &lt;code&gt;active = false&lt;/code&gt;) until it is deleted, and its stored configuration stays
+     * updatable (see &lt;code&gt;UpdateCaller&lt;/code&gt;). A pooled caller is taken out of the pool.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that is already stopped (so stopping is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallerResponse stopCaller(ondewo.vtsi.CallsOuterClass.StopCallerRequest request) {
@@ -2875,7 +4552,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops multiple callers&lt;/p&gt;
+     * &lt;p&gt;Stops several callers, each like &lt;code&gt;StopCaller&lt;/code&gt;, with the per-entry results and the request-level
+     * errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallersResponse stopCallers(ondewo.vtsi.CallsOuterClass.StopCallersRequest request) {
@@ -2885,7 +4564,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single listener instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one listener in a VTSI project: an ondewo-sip container registered on the project&amp;apos;s Asterisk
+     * that answers inbound calls, one after the other (persistent). Validation, &lt;code&gt;validate_only&lt;/code&gt;, errors
+     * (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; for the project&amp;apos;s listener limit) and idempotency as for
+     * &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_LISTENER_START_FAILED&lt;/code&gt;. None with
+     * &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartListenerResponse startListener(ondewo.vtsi.CallsOuterClass.StartListenerRequest request) {
@@ -2895,7 +4580,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several listeners, each like &lt;code&gt;StartListener&lt;/code&gt;, with the batch semantics of
+     * &lt;code&gt;StartCallers&lt;/code&gt; (a listener that fails to start has no entry and is accounted for in
+     * &lt;code&gt;StartListenersResponse.error_message&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartListenersResponse startListeners(ondewo.vtsi.CallsOuterClass.StartListenersRequest request) {
@@ -2905,7 +4593,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop a ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops a listener: hangs up its call if one is up and releases its container and SIP account. A stopped
+     * listener has no stored configuration left (see &lt;code&gt;UpdateListener&lt;/code&gt;). Errors and idempotency as for
+     * &lt;code&gt;StopCaller&lt;/code&gt; (a listener that is already stopped is &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopListenerResponse stopListener(ondewo.vtsi.CallsOuterClass.StopListenerRequest request) {
@@ -2915,7 +4608,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops several listeners, each like &lt;code&gt;StopListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopListenersResponse stopListeners(ondewo.vtsi.CallsOuterClass.StopListenersRequest request) {
@@ -2925,7 +4620,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available listeners&lt;/p&gt;
+     * &lt;p&gt;Lists the listeners of a VTSI project, ordered by the listener&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending. Paging, &lt;code&gt;total_size&lt;/code&gt;, filters and errors as for
+     * &lt;code&gt;ListCallers&lt;/code&gt; (without a campaign selector).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListListenersResponse listListeners(ondewo.vtsi.CallsOuterClass.ListListenersRequest request) {
@@ -2935,7 +4633,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a listener&lt;/p&gt;
+     * &lt;p&gt;Gets a listener, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;. Errors as for
+     * &lt;code&gt;GetCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Listener getListener(ondewo.vtsi.CallsOuterClass.GetListenerRequest request) {
@@ -2945,7 +4645,57 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a listener&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a listener: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_base_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the listener&amp;apos;s container is running or has a call, as long as the listener is
+     * DEPLOYED: a stopped listener has no stored configuration (it is deployed again only by a
+     * &lt;code&gt;StartListener&lt;/code&gt; carrying a complete one) and is &lt;code&gt;NOT_FOUND&lt;/code&gt;, unlike a stopped caller,
+     * which &lt;code&gt;UpdateCaller&lt;/code&gt; accepts with a complete configuration.&lt;/p&gt;
+     * &lt;p&gt;A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+     * reconfigured, and the running container answers its calls with the configuration it was deployed with
+     * until it is replaced.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+     * when it recycles the listeners of the project onto its Asterisk: an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, or a change of the
+     * project&amp;apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+     * stored, i.e. updated, configuration. An in-place restart of the listener&amp;apos;s container (the
+     * server&amp;apos;s restore of listener containers when it starts, the call monitor&amp;apos;s restart of an
+     * unhealthy container, a &lt;code&gt;docker restart&lt;/code&gt;) keeps the configuration the container was deployed
+     * with. A listener that is never recycled keeps the update only as its stored (and returned)
+     * configuration.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;UpdateCaller&lt;/code&gt; (the credential rule included), with
+     * &lt;code&gt;StartListenerRequest&lt;/code&gt; as the validation of the resulting configuration, and
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; also for a stopped listener.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop listeners of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateListenerResponse updateListener(ondewo.vtsi.CallsOuterClass.UpdateListenerRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateListenerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several listeners, each like &lt;code&gt;UpdateListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateListener&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateListenersResponse updateListeners(ondewo.vtsi.CallsOuterClass.UpdateListenersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateListenersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a listener: stops it if it still runs (hanging up its call) and removes it, with its call
+     * records, like &lt;code&gt;DeleteCaller&lt;/code&gt;. Errors and idempotency as for &lt;code&gt;DeleteCaller&lt;/code&gt; (a repeat
+     * answers &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteListenerResponse deleteListener(ondewo.vtsi.CallsOuterClass.DeleteListenerRequest request) {
@@ -2955,7 +4705,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple listeners&lt;/p&gt;
+     * &lt;p&gt;Deletes several listeners, each like &lt;code&gt;DeleteListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.DeleteListenersResponse deleteListeners(ondewo.vtsi.CallsOuterClass.DeleteListenersRequest request) {
@@ -2965,7 +4717,20 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start a single ondewo-sip caller instance at a scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates a scheduled caller: a caller that the server starts at or after &lt;code&gt;scheduled_time&lt;/code&gt;, like a
+     * &lt;code&gt;StartCaller&lt;/code&gt; of the stored request. The request is checked structurally now; the live checks of
+     * the configuration run when it fires, and a failure then leaves the scheduled caller
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; with its &lt;code&gt;error_message&lt;/code&gt;. A &lt;code&gt;scheduled_time&lt;/code&gt; in
+     * the past is due at once. Not idempotent (use &lt;code&gt;StartScheduledCallers&lt;/code&gt; with an
+     * &lt;code&gt;idempotency_key&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, a missing
+     * &lt;code&gt;scheduled_time&lt;/code&gt;, a nested request with its own &lt;code&gt;field_mask&lt;/code&gt; or
+     * &lt;code&gt;validate_only&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt;; later &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FIRED&lt;/code&gt;,
+     * &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FAILED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartScheduledCallerResponse startScheduledCaller(ondewo.vtsi.CallsOuterClass.StartScheduledCallerRequest request) {
@@ -2975,7 +4740,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip caller instances, each at its own scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates several scheduled callers, each like &lt;code&gt;StartScheduledCaller&lt;/code&gt;, at most 1000. Not atomic: an
+     * entry that fails is reported in its own &lt;code&gt;error_message&lt;/code&gt; and does not stop the others. Idempotent
+     * per &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartScheduledCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StartScheduledCallersResponse startScheduledCallers(ondewo.vtsi.CallsOuterClass.StartScheduledCallersRequest request) {
@@ -3011,7 +4779,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
+     * &lt;p&gt;Gets a scheduled caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ScheduledCaller getScheduledCaller(ondewo.vtsi.CallsOuterClass.GetScheduledCallerRequest request) {
@@ -3021,7 +4793,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists the scheduled callers of a vtsi-project&lt;/p&gt;
+     * &lt;p&gt;Lists the scheduled callers of a VTSI project, ordered by &lt;code&gt;scheduled_time&lt;/code&gt;, oldest first,
+     * optionally narrowed by state, campaign and a &lt;code&gt;scheduled_time&lt;/code&gt; window. Paging,
+     * &lt;code&gt;total_size&lt;/code&gt; and errors as for &lt;code&gt;ListCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListScheduledCallersResponse listScheduledCallers(ondewo.vtsi.CallsOuterClass.ListScheduledCallersRequest request) {
@@ -3031,12 +4806,47 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;Changes the &lt;code&gt;scheduled_time&lt;/code&gt; and/or the &lt;code&gt;sip_caller_config.sip_headers&lt;/code&gt; of a scheduled
+     * caller that has not fired yet; the only updatable &lt;code&gt;update_mask&lt;/code&gt; paths (see
+     * &lt;code&gt;UpdateScheduledCallerRequest.update_mask&lt;/code&gt;). Allowed only while the status is
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_PENDING&lt;/code&gt;; for a scheduled caller of a campaign only while its campaign call
+     * is &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; (a retry of a campaign call is timed by the campaign&amp;apos;s
+     * &lt;code&gt;retry_delay&lt;/code&gt;). The check and the write are one atomic step, so a scheduled caller that fires
+     * concurrently is either updated before it fires or refused. Updating to the stored values is accepted and
+     * changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name, an empty
+     * &lt;code&gt;update_mask&lt;/code&gt;, a path that is not updatable, an unset &lt;code&gt;scheduled_time&lt;/code&gt; named by the
+     * mask, invalid &lt;code&gt;sip_headers&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project;
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when it is no longer PENDING (&lt;code&gt;reason=not-pending&lt;/code&gt;) or its campaign
+     * call has started (&lt;code&gt;reason=campaign-call-started&lt;/code&gt;); with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_UPDATED&lt;/code&gt; when something changed.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.ScheduledCaller updateScheduledCaller(ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateScheduledCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Cancels a scheduled caller that has not fired yet: a PENDING scheduled caller becomes
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_CANCELLED&lt;/code&gt; and never fires. A scheduled caller that is no longer PENDING
+     * (firing, done, failed or already cancelled) is not an error: the response says &lt;code&gt;cancelled = false&lt;/code&gt;
+     * and carries its current &lt;code&gt;status&lt;/code&gt;, so cancelling is idempotent.&lt;/p&gt;
      * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
      * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
      * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
      * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
-     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
+     * &lt;code&gt;cancelled = false&lt;/code&gt;, an &lt;code&gt;error_message&lt;/code&gt; saying why, and the scheduled caller keeps its
+     * status.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt;, only when &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse cancelScheduledCaller(ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest request) {
@@ -3046,7 +4856,63 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.&lt;/p&gt;
+     * &lt;p&gt;Cancels several scheduled callers, each like &lt;code&gt;CancelScheduledCaller&lt;/code&gt;, at most 1000. Not atomic:
+     * every entry is applied on its own and reported in &lt;code&gt;CancelScheduledCallersResponse&lt;/code&gt;, in request
+     * order; a failed entry carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name
+     * &lt;code&gt;CancelScheduledCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;) and does not stop
+     * the others. Errors of the request as a whole (see &lt;code&gt;CancelScheduledCallersRequest&lt;/code&gt;) are gRPC status
+     * codes, and then nothing is cancelled.&lt;/p&gt;
+     * &lt;p&gt;Events: one &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt; per entry with &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;CancelScheduledCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse cancelScheduledCallers(ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCancelScheduledCallersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Retries a FAILED scheduled caller by creating a NEW scheduled caller from its stored request: the same
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;, &lt;code&gt;status = PENDING&lt;/code&gt;, the
+     * &lt;code&gt;scheduled_time&lt;/code&gt; of the request (unset: now), and &lt;code&gt;retry_of_scheduled_caller_name&lt;/code&gt; naming
+     * the failed one, whose &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt; is set to the new one in the same atomic
+     * step. The failed scheduled caller itself is not changed otherwise, so its &lt;code&gt;error_message&lt;/code&gt; and
+     * &lt;code&gt;fired_at&lt;/code&gt; stay as the history of the failed attempt. Returns the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: a FAILED scheduled caller is retried at most once. A repeat of the request answers
+     * &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; naming the retry in its message (read
+     * &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt;); to retry again after the retry failed too, retry the new
+     * one.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; for a scheduled caller that is not
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; (&lt;code&gt;reason=not-failed&lt;/code&gt;) or that belongs to a campaign
+     * (&lt;code&gt;reason=campaign-scheduled-caller&lt;/code&gt;: a campaign call is retried by the campaign&amp;apos;s
+     * &lt;code&gt;max_attempts&lt;/code&gt;); &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; when it was already retried;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt; for the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.ScheduledCaller retryScheduledCaller(ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRetryScheduledCallerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Stops a call: hangs it up if it is still active and stops (releases) the listener or caller that serves
+     * it, like &lt;code&gt;StopCaller&lt;/code&gt; / &lt;code&gt;StopListener&lt;/code&gt;. A call that already ended is not an error: its
+     * listener or caller is still released if it is deployed, and when there was nothing left to release the
+     * response carries &lt;code&gt;error_message = Call ... was not released&lt;/code&gt;, so a repeat succeeds with that
+     * message.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another
+     * project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt;, and &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; for the released resource.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallResponse stopCall(ondewo.vtsi.CallsOuterClass.StopCallRequest request) {
@@ -3056,8 +4922,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.&lt;/p&gt;
-     * &lt;p&gt;Stops both Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops several calls of one project, each like &lt;code&gt;StopCall&lt;/code&gt;, at most 1000 distinct names. Not
+     * atomic: every call is stopped on its own and reported in its own entry, in request order; a failed entry
+     * carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name &lt;code&gt;StopCall&lt;/code&gt; would have
+     * answered and does not stop the others. No entry, more than 1000 names or a malformed
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project &lt;code&gt;NOT_FOUND&lt;/code&gt;, and
+     * then nothing is stopped.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallsResponse stopCalls(ondewo.vtsi.CallsOuterClass.StopCallsRequest request) {
@@ -3067,8 +4938,14 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.&lt;/p&gt;
-     * &lt;p&gt;Stops all Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops every call of a VTSI project (listener and caller calls alike), or, with
+     * &lt;code&gt;call_filter&lt;/code&gt;, those it matches, each like &lt;code&gt;StopCall&lt;/code&gt;. Not atomic and not bounded in
+     * size; a project with nothing to stop answers an empty response, so the RPC is idempotent. If a stop fails
+     * part-way, the remaining calls are still stopped one by one and every call gets its own entry.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid &lt;code&gt;call_filter&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.StopCallsResponse stopAllCalls(ondewo.vtsi.CallsOuterClass.StopAllCallsRequest request) {
@@ -3105,7 +4982,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;, at most 1000. Not atomic: every transfer is
+     * run on its own and reported in its own entry, in request order; an entry &lt;code&gt;TransferCall&lt;/code&gt; would have
+     * refused with a gRPC status carries that refusal in its &lt;code&gt;error_message&lt;/code&gt; (prefixed with the status
+     * code name) and does not stop the others. Idempotent per entry &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
      * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
      * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
      * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
@@ -3119,7 +4999,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for single call instance&lt;/p&gt;
+     * &lt;p&gt;Gets a call, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt; (the call&amp;apos;s log
+     * lines are read with &lt;code&gt;Logs.ListCallLogs&lt;/code&gt;). &lt;code&gt;FULL&lt;/code&gt; also returns every participant ever
+     * invited into the call (see &lt;code&gt;Call.participants&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.Call getCall(ondewo.vtsi.CallsOuterClass.GetCallRequest request) {
@@ -3129,12 +5015,74 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for all call instances&lt;/p&gt;
+     * &lt;p&gt;Lists the calls of a VTSI project, ended ones included, narrowed by &lt;code&gt;call_filter&lt;/code&gt;, ordered by
+     * &lt;code&gt;call_sorting&lt;/code&gt; (default: by &lt;code&gt;start_time&lt;/code&gt;, oldest first) and paged with
+     * &lt;code&gt;page_size&lt;/code&gt; / &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;call_filter.campaign_name&lt;/code&gt; or &lt;code&gt;call_filter.campaign_display_name&lt;/code&gt; set, lists
+     * only the calls of that campaign: the calls placed by the attempts of its campaign calls.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid filter, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public ondewo.vtsi.CallsOuterClass.ListCallsResponse listCalls(ondewo.vtsi.CallsOuterClass.ListCallsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListCallsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Aggregate figures (totals, active calls, counts by SIP status type, by call type, by AMD verdict and by
+     * transfer outcome, durations, redial recommendations) over the calls of a VTSI project that
+     * &lt;code&gt;call_filter&lt;/code&gt; matches; see &lt;code&gt;CallStatistics&lt;/code&gt;. Read only, no side effect.&lt;/p&gt;
+     * &lt;p&gt;Errors: as for &lt;code&gt;ListCalls&lt;/code&gt; (an invalid filter is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project
+     * or campaign &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;ListCalls&lt;/code&gt; (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.CallStatistics getCallStatistics(ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetCallStatisticsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates the descriptive metadata of a call: the only updatable &lt;code&gt;update_mask&lt;/code&gt; path is
+     * &lt;code&gt;labels&lt;/code&gt;. Allowed on active and ended calls. Refused for the WAITING call of a persistent
+     * listener or a pooled caller (status &lt;code&gt;NO_ONGOING_CALL&lt;/code&gt;, not active: the record that waits for the
+     * next call, which &lt;code&gt;ListCalls&lt;/code&gt; returns too) with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; and
+     * &lt;code&gt;reason=call-not-started&lt;/code&gt; in the details: label the call once it has started. It changes only
+     * the stored call record: the live call, its SIP container, its status and its media are never touched, and
+     * nothing is sent to the call. Idempotent: writing the stored labels again changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_UPDATED&lt;/code&gt; when the labels changed.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;call.name&lt;/code&gt;, an
+     * empty &lt;code&gt;update_mask&lt;/code&gt;, any path other than &lt;code&gt;labels&lt;/code&gt; (every other field of a
+     * &lt;code&gt;Call&lt;/code&gt; is output only), a path below &lt;code&gt;labels&lt;/code&gt;, labels outside the bounds of
+     * &lt;code&gt;Call.labels&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or label);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown call or project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;reason=call-not-started&lt;/code&gt;) for a waiting call; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may stop calls of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or
+     * higher).&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallResponse updateCall(ondewo.vtsi.CallsOuterClass.UpdateCallRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateCallMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several calls, each like &lt;code&gt;UpdateCall&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public ondewo.vtsi.CallsOuterClass.UpdateCallsResponse updateCalls(ondewo.vtsi.CallsOuterClass.UpdateCallsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateCallsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -3209,7 +5157,17 @@ public final class CallsGrpc {
      * <pre>
      * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
      * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
-     * affected.&lt;/p&gt;
+     * affected. Returns the participant after the request.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: a participant that already FAILED or LEFT (for whatever reason) is returned unchanged with OK,
+     * and nothing is sent.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request; &lt;code&gt;NOT_FOUND&lt;/code&gt; with
+     * &lt;code&gt;reason=call-not-found&lt;/code&gt; for an unknown call or a call of another project, and with
+     * &lt;code&gt;reason=participant-not-found&lt;/code&gt; for an unknown &lt;code&gt;participant_id&lt;/code&gt; or a participant of
+     * another call; &lt;code&gt;ABORTED&lt;/code&gt; with &lt;code&gt;reason=call-control-busy&lt;/code&gt; while another call-control
+     * request for the call runs (retry); &lt;code&gt;UNAVAILABLE&lt;/code&gt; with &lt;code&gt;reason=asterisk-unreachable&lt;/code&gt; when
+     * the hang-up could not be sent; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_LEFT&lt;/code&gt; (or &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;
+     * for a participant that was still ringing).&lt;/p&gt;
      * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
@@ -3223,6 +5181,12 @@ public final class CallsGrpc {
      * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
      * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
      * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Both settings &lt;code&gt;CALL_MEDIA_SETTING_UNCHANGED&lt;/code&gt; is a valid read of the current state: it answers
+     * the effective &lt;code&gt;state&lt;/code&gt; with &lt;code&gt;changed = false&lt;/code&gt;, changes nothing, and writes no audit record
+     * and no event (see &lt;code&gt;SetCallMediaControlRequest.bot_voice&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_BOT_UNMUTED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_CALL_LISTENING_PAUSED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_LISTENING_RESUMED&lt;/code&gt; when the
+     * effective state changed.&lt;/p&gt;
      * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
      * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
      * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
@@ -3277,7 +5241,21 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single caller instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one caller in a VTSI project: an ondewo-sip container that places one outbound call to
+     * &lt;code&gt;sip_caller_config.callee_id&lt;/code&gt; (or a pooled caller of the server&amp;apos;s caller pool that runs the same
+     * configuration). The configuration is validated first, including live checks against the upstream services;
+     * nothing is started when it fails. Not idempotent: every successful request places a new call (send it as a
+     * batch of one with an &lt;code&gt;idempotency_key&lt;/code&gt; to make it idempotent). &lt;code&gt;validate_only&lt;/code&gt; runs the
+     * validation alone.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed or invalid request or
+     * configuration (also when the NLU credentials are refused) or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when an upstream config lacks
+     * the required TLS certificate (&lt;code&gt;UPSTREAM_TLS_REQUIRED&lt;/code&gt;) or the project is not deployed;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; &lt;code&gt;UNAVAILABLE&lt;/code&gt; when an
+     * upstream service could not be reached; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_CALLER_START_FAILED&lt;/code&gt;, then the
+     * events of the call (&lt;code&gt;VTSI_EVENT_CALL_*&lt;/code&gt;). None with &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartCallerResponse> startCaller(
@@ -3288,7 +5266,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip callers instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several callers, each like &lt;code&gt;StartCaller&lt;/code&gt;. Not atomic: every caller is started on its own;
+     * a caller that fails to start is rolled back and has no entry in the response, which accounts for it in
+     * &lt;code&gt;StartCallersResponse.error_message&lt;/code&gt;. The project&amp;apos;s caller limit is checked for the batch as a
+     * whole before anything is started (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, nothing started). Idempotent per
+     * &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartCallersResponse> startCallers(
@@ -3299,7 +5282,18 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available callers&lt;/p&gt;
+     * &lt;p&gt;Lists the callers of a VTSI project, ordered by the caller&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending: a stable order, not a chronological one. Paged with &lt;code&gt;page_size&lt;/code&gt; /
+     * &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;campaign_name&lt;/code&gt; or &lt;code&gt;campaign_display_name&lt;/code&gt; set, lists only the callers of that
+     * campaign: the callers that placed at least one attempt of one of its campaign calls (see
+     * &lt;code&gt;ListCallersRequest.campaign_name&lt;/code&gt;). &lt;code&gt;active_only&lt;/code&gt; and &lt;code&gt;sip_status_types&lt;/code&gt;
+     * narrow the listing further.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid selector, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ListCallersResponse> listCallers(
@@ -3310,7 +5304,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a caller&lt;/p&gt;
+     * &lt;p&gt;Gets a caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or caller, or a caller of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.Caller> getCaller(
@@ -3321,7 +5319,85 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a caller&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a caller: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the caller has a call running.&lt;/p&gt;
+     * &lt;p&gt;A running call and its container are NEVER changed: nothing is restarted, redeployed or reconfigured,
+     * and the call goes on with the configuration its container was deployed with.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: a caller is ONE call (every &lt;code&gt;StartCaller&lt;/code&gt; creates
+     * a new caller carrying its own configuration, and no RPC redeploys an existing one), so for a caller that
+     * is not pooled the update changes ONLY the stored and returned configuration and never any present or
+     * future call. The one case in which the server deploys a container from a caller&amp;apos;s stored
+     * configuration is a POOLED (persistent) caller, which the server keeps warm between calls: when the server
+     * recycles the pooled callers of a project onto its Asterisk (an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, a change of the project&amp;apos;s
+     * TLS trust anchor), the pooled caller it starts in place of this one is deployed from the stored, i.e.
+     * updated, configuration. An in-place restart of a pooled caller&amp;apos;s container (the call monitor&amp;apos;s
+     * health recovery) keeps the configuration the container was deployed with. Until it is recycled, an idle
+     * pooled caller is matched to later &lt;code&gt;StartCaller&lt;/code&gt; requests by the configuration its container
+     * RUNS, never by an updated stored configuration it does not run.&lt;/p&gt;
+     * &lt;p&gt;Updating a caller never changes a campaign: the attempts of a campaign call take their configuration
+     * from the campaign and the campaign call, never from a &lt;code&gt;Caller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;A STOPPED caller (its call ended and its configuration was released) has no stored configuration left:
+     * the update starts from an empty one, so it must state a complete configuration
+     * (&lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;), and a partial one is refused as a
+     * configuration a &lt;code&gt;StartCallerRequest&lt;/code&gt; would be refused for. Nothing is deployed.&lt;/p&gt;
+     * &lt;p&gt;Credentials follow their endpoint: an update that MOVES an upstream (the &lt;code&gt;host&lt;/code&gt;,
+     * &lt;code&gt;port&lt;/code&gt; or &lt;code&gt;grpc_cert&lt;/code&gt; of the NLU, S2T or T2S &lt;code&gt;*_base_config&lt;/code&gt;, or the
+     * &lt;code&gt;host&lt;/code&gt; / ports of &lt;code&gt;csi_vtsi_config.message_broker_config.rabbit_mq_config&lt;/code&gt;) must
+     * also write every credential path of that upstream that holds a stored value -- the NLU
+     * &lt;code&gt;credentials&lt;/code&gt;, &lt;code&gt;auth_token&lt;/code&gt;, &lt;code&gt;http_basic_auth_token&lt;/code&gt; and
+     * &lt;code&gt;contexts&lt;/code&gt;, the S2T &lt;code&gt;s2t_transcribe_request_config&lt;/code&gt;, the T2S
+     * &lt;code&gt;t2s_request_config&lt;/code&gt;, the RabbitMQ &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; -- named itself
+     * or by a shorter path, with the values to use. A stored credential is never sent to an endpoint the request
+     * moved without restating it, also not for the live validation of the result.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;caller.name&lt;/code&gt;,
+     * an empty &lt;code&gt;update_mask&lt;/code&gt;, an unknown, output-only or immutable &lt;code&gt;update_mask&lt;/code&gt; path, an
+     * update that moves an upstream without restating its stored credentials (naming the paths to add), a
+     * resulting configuration that a &lt;code&gt;StartCallerRequest&lt;/code&gt; carrying it would be refused for, or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or field); &lt;code&gt;NOT_FOUND&lt;/code&gt; for an
+     * unknown caller or project; &lt;code&gt;ABORTED&lt;/code&gt; when concurrent updates kept changing the caller, or while
+     * an update, deploy or undeploy of its project is still running (an update waits for it, for a bounded time,
+     * so that a recycle of the project cannot lose it), nothing being written (retry the request); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop callers of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateCallerResponse> updateCaller(
+        ondewo.vtsi.CallsOuterClass.UpdateCallerRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateCallerMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several callers, each like &lt;code&gt;UpdateCaller&lt;/code&gt;. Not atomic: every entry is applied on its
+     * own and reported in &lt;code&gt;UpdateCallersResponse.update_caller_responses&lt;/code&gt;, in request order; an entry
+     * that fails changes nothing and does not stop the others. Errors of the request as a whole (see
+     * &lt;code&gt;UpdateCallersRequest&lt;/code&gt;) are gRPC status codes, and then no entry is applied.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateCallersResponse> updateCallers(
+        ondewo.vtsi.CallsOuterClass.UpdateCallersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateCallersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a caller: stops it if it still runs (hanging up its call) and removes it, so it is no longer
+     * listed or returned. Its call records (and their participants) are deleted with it and are no longer returned
+     * by &lt;code&gt;GetCall&lt;/code&gt; / &lt;code&gt;ListCalls&lt;/code&gt;; stop it instead to keep them.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that was already deleted (so deleting is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;);
+     * with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.DeleteCallerResponse> deleteCaller(
@@ -3332,7 +5408,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple callers&lt;/p&gt;
+     * &lt;p&gt;Deletes several callers, each like &lt;code&gt;DeleteCaller&lt;/code&gt;. Not atomic: every caller is deleted on its own
+     * and reported in its own entry, whose &lt;code&gt;error_message&lt;/code&gt; carries the gRPC status code name
+     * &lt;code&gt;DeleteCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;); an entry that fails does not
+     * stop the others. The request as a whole is refused, nothing being deleted, for no entry or more than 1000
+     * distinct names, and, when &lt;code&gt;vtsi_project_name&lt;/code&gt; is set, as described there.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.DeleteCallersResponse> deleteCallers(
@@ -3343,7 +5424,16 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops a caller&lt;/p&gt;
+     * &lt;p&gt;Stops a caller: hangs up its call if one is up and releases its container and SIP account. The caller
+     * stays listed (with &lt;code&gt;active = false&lt;/code&gt;) until it is deleted, and its stored configuration stays
+     * updatable (see &lt;code&gt;UpdateCaller&lt;/code&gt;). A pooled caller is taken out of the pool.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown caller, a caller of another project, or a
+     * caller that is already stopped (so stopping is NOT idempotent: a repeat answers &lt;code&gt;NOT_FOUND&lt;/code&gt;); with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopCallerResponse> stopCaller(
@@ -3354,7 +5444,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stops multiple callers&lt;/p&gt;
+     * &lt;p&gt;Stops several callers, each like &lt;code&gt;StopCaller&lt;/code&gt;, with the per-entry results and the request-level
+     * errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopCallersResponse> stopCallers(
@@ -3365,7 +5457,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start single listener instance for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts one listener in a VTSI project: an ondewo-sip container registered on the project&amp;apos;s Asterisk
+     * that answers inbound calls, one after the other (persistent). Validation, &lt;code&gt;validate_only&lt;/code&gt;, errors
+     * (&lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; for the project&amp;apos;s listener limit) and idempotency as for
+     * &lt;code&gt;StartCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STARTED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_LISTENER_START_FAILED&lt;/code&gt;. None with
+     * &lt;code&gt;validate_only&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartListenerResponse> startListener(
@@ -3376,7 +5474,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Starts several listeners, each like &lt;code&gt;StartListener&lt;/code&gt;, with the batch semantics of
+     * &lt;code&gt;StartCallers&lt;/code&gt; (a listener that fails to start has no entry and is accounted for in
+     * &lt;code&gt;StartListenersResponse.error_message&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartListenersResponse> startListeners(
@@ -3387,7 +5488,12 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop a ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops a listener: hangs up its call if one is up and releases its container and SIP account. A stopped
+     * listener has no stored configuration left (see &lt;code&gt;UpdateListener&lt;/code&gt;). Errors and idempotency as for
+     * &lt;code&gt;StopCaller&lt;/code&gt; (a listener that is already stopped is &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopListenerResponse> stopListener(
@@ -3398,7 +5504,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop multiple ondewo-sip listeners instances for a specific nlu-project.&lt;/p&gt;
+     * &lt;p&gt;Stops several listeners, each like &lt;code&gt;StopListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopListenersResponse> stopListeners(
@@ -3409,7 +5517,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists all available listeners&lt;/p&gt;
+     * &lt;p&gt;Lists the listeners of a VTSI project, ordered by the listener&amp;apos;s uuid (the last segment of
+     * &lt;code&gt;name&lt;/code&gt;), ascending. Paging, &lt;code&gt;total_size&lt;/code&gt;, filters and errors as for
+     * &lt;code&gt;ListCallers&lt;/code&gt; (without a campaign selector).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ListListenersResponse> listListeners(
@@ -3420,7 +5531,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a listener&lt;/p&gt;
+     * &lt;p&gt;Gets a listener, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;. Errors as for
+     * &lt;code&gt;GetCaller&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.Listener> getListener(
@@ -3431,7 +5544,59 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes a listener&lt;/p&gt;
+     * &lt;p&gt;Updates the STORED configuration of a listener: the fields named in &lt;code&gt;update_mask&lt;/code&gt;, i.e.
+     * &lt;code&gt;sip_base_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt; or any nested sub-path of them.
+     * Allowed whether or not the listener&amp;apos;s container is running or has a call, as long as the listener is
+     * DEPLOYED: a stopped listener has no stored configuration (it is deployed again only by a
+     * &lt;code&gt;StartListener&lt;/code&gt; carrying a complete one) and is &lt;code&gt;NOT_FOUND&lt;/code&gt;, unlike a stopped caller,
+     * which &lt;code&gt;UpdateCaller&lt;/code&gt; accepts with a complete configuration.&lt;/p&gt;
+     * &lt;p&gt;A running container and every call it takes are NEVER changed: nothing is restarted, redeployed or
+     * reconfigured, and the running container answers its calls with the configuration it was deployed with
+     * until it is replaced.&lt;/p&gt;
+     * &lt;p&gt;When the stored configuration takes effect: only when the server RECREATES the listener from it, i.e.
+     * when it recycles the listeners of the project onto its Asterisk: an &lt;code&gt;UpdateVtsiProject&lt;/code&gt; of a
+     * deployed project, the recovery after the project&amp;apos;s Asterisk restarted, or a change of the
+     * project&amp;apos;s TLS trust anchor. The listener the server starts in place of this one is deployed from the
+     * stored, i.e. updated, configuration. An in-place restart of the listener&amp;apos;s container (the
+     * server&amp;apos;s restore of listener containers when it starts, the call monitor&amp;apos;s restart of an
+     * unhealthy container, a &lt;code&gt;docker restart&lt;/code&gt;) keeps the configuration the container was deployed
+     * with. A listener that is never recycled keeps the update only as its stored (and returned)
+     * configuration.&lt;/p&gt;
+     * &lt;p&gt;Errors as for &lt;code&gt;UpdateCaller&lt;/code&gt; (the credential rule included), with
+     * &lt;code&gt;StartListenerRequest&lt;/code&gt; as the validation of the resulting configuration, and
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; also for a stopped listener.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_UPDATED&lt;/code&gt; (none with &lt;code&gt;validate_only&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may start and stop listeners of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt;
+     * or higher).&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateListenerResponse> updateListener(
+        ondewo.vtsi.CallsOuterClass.UpdateListenerRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateListenerMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several listeners, each like &lt;code&gt;UpdateListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateListener&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateListenersResponse> updateListeners(
+        ondewo.vtsi.CallsOuterClass.UpdateListenersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateListenersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Deletes a listener: stops it if it still runs (hanging up its call) and removes it, with its call
+     * records, like &lt;code&gt;DeleteCaller&lt;/code&gt;. Errors and idempotency as for &lt;code&gt;DeleteCaller&lt;/code&gt; (a repeat
+     * answers &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_LISTENER_DELETED&lt;/code&gt; (and &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt; for a call that
+     * was hung up).&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.DeleteListenerResponse> deleteListener(
@@ -3442,7 +5607,9 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Deletes multiple listeners&lt;/p&gt;
+     * &lt;p&gt;Deletes several listeners, each like &lt;code&gt;DeleteListener&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;DeleteCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;DeleteListener&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.DeleteListenersResponse> deleteListeners(
@@ -3453,7 +5620,20 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start a single ondewo-sip caller instance at a scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates a scheduled caller: a caller that the server starts at or after &lt;code&gt;scheduled_time&lt;/code&gt;, like a
+     * &lt;code&gt;StartCaller&lt;/code&gt; of the stored request. The request is checked structurally now; the live checks of
+     * the configuration run when it fires, and a failure then leaves the scheduled caller
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; with its &lt;code&gt;error_message&lt;/code&gt;. A &lt;code&gt;scheduled_time&lt;/code&gt; in
+     * the past is due at once. Not idempotent (use &lt;code&gt;StartScheduledCallers&lt;/code&gt; with an
+     * &lt;code&gt;idempotency_key&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, a missing
+     * &lt;code&gt;scheduled_time&lt;/code&gt;, a nested request with its own &lt;code&gt;field_mask&lt;/code&gt; or
+     * &lt;code&gt;validate_only&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown
+     * project; &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt;; later &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FIRED&lt;/code&gt;,
+     * &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED&lt;/code&gt; or &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_FAILED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartScheduledCallerResponse> startScheduledCaller(
@@ -3464,7 +5644,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Start multiple ondewo-sip caller instances, each at its own scheduled time&lt;/p&gt;
+     * &lt;p&gt;Creates several scheduled callers, each like &lt;code&gt;StartScheduledCaller&lt;/code&gt;, at most 1000. Not atomic: an
+     * entry that fails is reported in its own &lt;code&gt;error_message&lt;/code&gt; and does not stop the others. Idempotent
+     * per &lt;code&gt;idempotency_key&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StartScheduledCaller&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StartScheduledCallersResponse> startScheduledCallers(
@@ -3503,7 +5686,11 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Gets a scheduled caller&lt;/p&gt;
+     * &lt;p&gt;Gets a scheduled caller, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ScheduledCaller> getScheduledCaller(
@@ -3514,7 +5701,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Lists the scheduled callers of a vtsi-project&lt;/p&gt;
+     * &lt;p&gt;Lists the scheduled callers of a VTSI project, ordered by &lt;code&gt;scheduled_time&lt;/code&gt;, oldest first,
+     * optionally narrowed by state, campaign and a &lt;code&gt;scheduled_time&lt;/code&gt; window. Paging,
+     * &lt;code&gt;total_size&lt;/code&gt; and errors as for &lt;code&gt;ListCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ListScheduledCallersResponse> listScheduledCallers(
@@ -3525,12 +5715,48 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Cancels a scheduled caller that has not fired yet&lt;/p&gt;
+     * &lt;p&gt;Changes the &lt;code&gt;scheduled_time&lt;/code&gt; and/or the &lt;code&gt;sip_caller_config.sip_headers&lt;/code&gt; of a scheduled
+     * caller that has not fired yet; the only updatable &lt;code&gt;update_mask&lt;/code&gt; paths (see
+     * &lt;code&gt;UpdateScheduledCallerRequest.update_mask&lt;/code&gt;). Allowed only while the status is
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_PENDING&lt;/code&gt;; for a scheduled caller of a campaign only while its campaign call
+     * is &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; (a retry of a campaign call is timed by the campaign&amp;apos;s
+     * &lt;code&gt;retry_delay&lt;/code&gt;). The check and the write are one atomic step, so a scheduled caller that fires
+     * concurrently is either updated before it fires or refused. Updating to the stored values is accepted and
+     * changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name, an empty
+     * &lt;code&gt;update_mask&lt;/code&gt;, a path that is not updatable, an unset &lt;code&gt;scheduled_time&lt;/code&gt; named by the
+     * mask, invalid &lt;code&gt;sip_headers&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of another project;
+     * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; when it is no longer PENDING (&lt;code&gt;reason=not-pending&lt;/code&gt;) or its campaign
+     * call has started (&lt;code&gt;reason=campaign-call-started&lt;/code&gt;); with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_UPDATED&lt;/code&gt; when something changed.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ScheduledCaller> updateScheduledCaller(
+        ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateScheduledCallerMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Cancels a scheduled caller that has not fired yet: a PENDING scheduled caller becomes
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_CANCELLED&lt;/code&gt; and never fires. A scheduled caller that is no longer PENDING
+     * (firing, done, failed or already cancelled) is not an error: the response says &lt;code&gt;cancelled = false&lt;/code&gt;
+     * and carries its current &lt;code&gt;status&lt;/code&gt;, so cancelling is idempotent.&lt;/p&gt;
      * &lt;p&gt;A scheduled caller of a campaign can be cancelled while its campaign call is
      * &lt;code&gt;CAMPAIGN_CALL_STATE_NOT_STARTED&lt;/code&gt; or &lt;code&gt;CAMPAIGN_CALL_STATE_RETRY_PENDING&lt;/code&gt;;
      * the campaign call then becomes &lt;code&gt;CAMPAIGN_CALL_STATE_CANCELLED&lt;/code&gt;. While an attempt is
      * &lt;code&gt;DISPATCHING&lt;/code&gt; or &lt;code&gt;IN_PROGRESS&lt;/code&gt; the request is refused:
-     * &lt;code&gt;cancelled = false&lt;/code&gt; and the scheduled caller keeps its status.&lt;/p&gt;
+     * &lt;code&gt;cancelled = false&lt;/code&gt;, an &lt;code&gt;error_message&lt;/code&gt; saying why, and the scheduled caller keeps its
+     * status.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt;, only when &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse> cancelScheduledCaller(
@@ -3541,7 +5767,65 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.&lt;/p&gt;
+     * &lt;p&gt;Cancels several scheduled callers, each like &lt;code&gt;CancelScheduledCaller&lt;/code&gt;, at most 1000. Not atomic:
+     * every entry is applied on its own and reported in &lt;code&gt;CancelScheduledCallersResponse&lt;/code&gt;, in request
+     * order; a failed entry carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name
+     * &lt;code&gt;CancelScheduledCaller&lt;/code&gt; would have answered (e.g. &lt;code&gt;NOT_FOUND: ...&lt;/code&gt;) and does not stop
+     * the others. Errors of the request as a whole (see &lt;code&gt;CancelScheduledCallersRequest&lt;/code&gt;) are gRPC status
+     * codes, and then nothing is cancelled.&lt;/p&gt;
+     * &lt;p&gt;Events: one &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CANCELLED&lt;/code&gt; per entry with &lt;code&gt;cancelled = true&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;CancelScheduledCaller&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse> cancelScheduledCallers(
+        ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCancelScheduledCallersMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Retries a FAILED scheduled caller by creating a NEW scheduled caller from its stored request: the same
+     * &lt;code&gt;sip_caller_config&lt;/code&gt; and &lt;code&gt;common_services_config&lt;/code&gt;, &lt;code&gt;status = PENDING&lt;/code&gt;, the
+     * &lt;code&gt;scheduled_time&lt;/code&gt; of the request (unset: now), and &lt;code&gt;retry_of_scheduled_caller_name&lt;/code&gt; naming
+     * the failed one, whose &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt; is set to the new one in the same atomic
+     * step. The failed scheduled caller itself is not changed otherwise, so its &lt;code&gt;error_message&lt;/code&gt; and
+     * &lt;code&gt;fired_at&lt;/code&gt; stay as the history of the failed attempt. Returns the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Idempotency: a FAILED scheduled caller is retried at most once. A repeat of the request answers
+     * &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; naming the retry in its message (read
+     * &lt;code&gt;retried_by_scheduled_caller_name&lt;/code&gt;); to retry again after the retry failed too, retry the new
+     * one.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or scheduled caller, or one of
+     * another project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; for a scheduled caller that is not
+     * &lt;code&gt;SCHEDULED_CALLER_STATUS_FAILED&lt;/code&gt; (&lt;code&gt;reason=not-failed&lt;/code&gt;) or that belongs to a campaign
+     * (&lt;code&gt;reason=campaign-scheduled-caller&lt;/code&gt;: a campaign call is retried by the campaign&amp;apos;s
+     * &lt;code&gt;max_attempts&lt;/code&gt;); &lt;code&gt;ALREADY_EXISTS&lt;/code&gt; when it was already retried;
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt; when the project reached its caller limit; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_SCHEDULED_CALLER_CREATED&lt;/code&gt; for the new scheduled caller.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ScheduledCaller> retryScheduledCaller(
+        ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRetryScheduledCallerMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Stops a call: hangs it up if it is still active and stops (releases) the listener or caller that serves
+     * it, like &lt;code&gt;StopCaller&lt;/code&gt; / &lt;code&gt;StopListener&lt;/code&gt;. A call that already ended is not an error: its
+     * listener or caller is still released if it is deployed, and when there was nothing left to release the
+     * response carries &lt;code&gt;error_message = Call ... was not released&lt;/code&gt;, so a repeat succeeds with that
+     * message.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request or an unknown
+     * &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another
+     * project; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_STOPPED&lt;/code&gt;, and &lt;code&gt;VTSI_EVENT_CALLER_STOPPED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_LISTENER_STOPPED&lt;/code&gt; for the released resource.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopCallResponse> stopCall(
@@ -3552,8 +5836,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill a list of ondewo-sip listener or caller instances for a specific vtsi-project.&lt;/p&gt;
-     * &lt;p&gt;Stops both Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops several calls of one project, each like &lt;code&gt;StopCall&lt;/code&gt;, at most 1000 distinct names. Not
+     * atomic: every call is stopped on its own and reported in its own entry, in request order; a failed entry
+     * carries an &lt;code&gt;error_message&lt;/code&gt; prefixed with the gRPC status code name &lt;code&gt;StopCall&lt;/code&gt; would have
+     * answered and does not stop the others. No entry, more than 1000 names or a malformed
+     * &lt;code&gt;vtsi_project_name&lt;/code&gt; is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project &lt;code&gt;NOT_FOUND&lt;/code&gt;, and
+     * then nothing is stopped.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;StopCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopCallsResponse> stopCalls(
@@ -3564,8 +5853,14 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Stop/kill all ondewo-sip listener or caller instance for a specific nlu-project.&lt;/p&gt;
-     * &lt;p&gt;Stops all Listener and Caller calls&lt;/p&gt;
+     * &lt;p&gt;Stops every call of a VTSI project (listener and caller calls alike), or, with
+     * &lt;code&gt;call_filter&lt;/code&gt;, those it matches, each like &lt;code&gt;StopCall&lt;/code&gt;. Not atomic and not bounded in
+     * size; a project with nothing to stop answers an empty response, so the RPC is idempotent. If a stop fails
+     * part-way, the remaining calls are still stopped one by one and every call gets its own entry.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid &lt;code&gt;call_filter&lt;/code&gt; or an
+     * unknown &lt;code&gt;field_mask&lt;/code&gt; path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with
+     * authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.StopCallsResponse> stopAllCalls(
@@ -3604,7 +5899,10 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Transfer several calls, each like &lt;code&gt;TransferCall&lt;/code&gt;, at most 1000. Not atomic: every transfer is
+     * run on its own and reported in its own entry, in request order; an entry &lt;code&gt;TransferCall&lt;/code&gt; would have
+     * refused with a gRPC status carries that refusal in its &lt;code&gt;error_message&lt;/code&gt; (prefixed with the status
+     * code name) and does not stop the others. Idempotent per entry &lt;code&gt;request_id&lt;/code&gt;.&lt;/p&gt;
      * &lt;p&gt;Authorization: requires the role &lt;code&gt;PROJECT_DEVELOPER&lt;/code&gt; or higher on the project, and the server&amp;apos;s
      * Keycloak auth mode &lt;code&gt;ENFORCE&lt;/code&gt;; otherwise &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;, or
      * &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; with &lt;code&gt;reason=call-supervision-requires-auth&lt;/code&gt; when auth is not enforced.
@@ -3619,7 +5917,13 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for single call instance&lt;/p&gt;
+     * &lt;p&gt;Gets a call, populated according to &lt;code&gt;call_view&lt;/code&gt; and &lt;code&gt;field_mask&lt;/code&gt; (the call&amp;apos;s log
+     * lines are read with &lt;code&gt;Logs.ListCallLogs&lt;/code&gt;). &lt;code&gt;FULL&lt;/code&gt; also returns every participant ever
+     * invited into the call (see &lt;code&gt;Call.participants&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed name or an unknown &lt;code&gt;field_mask&lt;/code&gt; path;
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or call, or a call of another project; with authorization
+     * enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.Call> getCall(
@@ -3630,13 +5934,78 @@ public final class CallsGrpc {
 
     /**
      * <pre>
-     * &lt;p&gt;Get call log for all call instances&lt;/p&gt;
+     * &lt;p&gt;Lists the calls of a VTSI project, ended ones included, narrowed by &lt;code&gt;call_filter&lt;/code&gt;, ordered by
+     * &lt;code&gt;call_sorting&lt;/code&gt; (default: by &lt;code&gt;start_time&lt;/code&gt;, oldest first) and paged with
+     * &lt;code&gt;page_size&lt;/code&gt; / &lt;code&gt;page_token&lt;/code&gt;; &lt;code&gt;total_size&lt;/code&gt; counts every match.&lt;/p&gt;
+     * &lt;p&gt;With &lt;code&gt;call_filter.campaign_name&lt;/code&gt; or &lt;code&gt;call_filter.campaign_display_name&lt;/code&gt; set, lists
+     * only the calls of that campaign: the calls placed by the attempts of its campaign calls.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request, an invalid filter, a negative
+     * &lt;code&gt;page_size&lt;/code&gt;, a &lt;code&gt;page_token&lt;/code&gt; of another listing or an unknown &lt;code&gt;field_mask&lt;/code&gt;
+     * path; &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown project or campaign; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project.&lt;/p&gt;
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.ListCallsResponse> listCalls(
         ondewo.vtsi.CallsOuterClass.ListCallsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListCallsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Aggregate figures (totals, active calls, counts by SIP status type, by call type, by AMD verdict and by
+     * transfer outcome, durations, redial recommendations) over the calls of a VTSI project that
+     * &lt;code&gt;call_filter&lt;/code&gt; matches; see &lt;code&gt;CallStatistics&lt;/code&gt;. Read only, no side effect.&lt;/p&gt;
+     * &lt;p&gt;Errors: as for &lt;code&gt;ListCalls&lt;/code&gt; (an invalid filter is &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;, an unknown project
+     * or campaign &lt;code&gt;NOT_FOUND&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;ListCalls&lt;/code&gt; (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher on the project).&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.CallStatistics> getCallStatistics(
+        ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetCallStatisticsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates the descriptive metadata of a call: the only updatable &lt;code&gt;update_mask&lt;/code&gt; path is
+     * &lt;code&gt;labels&lt;/code&gt;. Allowed on active and ended calls. Refused for the WAITING call of a persistent
+     * listener or a pooled caller (status &lt;code&gt;NO_ONGOING_CALL&lt;/code&gt;, not active: the record that waits for the
+     * next call, which &lt;code&gt;ListCalls&lt;/code&gt; returns too) with &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; and
+     * &lt;code&gt;reason=call-not-started&lt;/code&gt; in the details: label the call once it has started. It changes only
+     * the stored call record: the live call, its SIP container, its status and its media are never touched, and
+     * nothing is sent to the call. Idempotent: writing the stored labels again changes nothing.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_UPDATED&lt;/code&gt; when the labels changed.&lt;/p&gt;
+     * &lt;p&gt;Errors are gRPC status codes: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed &lt;code&gt;call.name&lt;/code&gt;, an
+     * empty &lt;code&gt;update_mask&lt;/code&gt;, any path other than &lt;code&gt;labels&lt;/code&gt; (every other field of a
+     * &lt;code&gt;Call&lt;/code&gt; is output only), a path below &lt;code&gt;labels&lt;/code&gt;, labels outside the bounds of
+     * &lt;code&gt;Call.labels&lt;/code&gt;, or an unknown &lt;code&gt;field_mask&lt;/code&gt; path (each naming the path or label);
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt; for an unknown call or project; &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt;
+     * (&lt;code&gt;reason=call-not-started&lt;/code&gt;) for a waiting call; with authorization enforced
+     * &lt;code&gt;PERMISSION_DENIED&lt;/code&gt; for a project the caller holds no role on.&lt;/p&gt;
+     * &lt;p&gt;Authorization: the role that may stop calls of the project (&lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or
+     * higher).&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateCallResponse> updateCall(
+        ondewo.vtsi.CallsOuterClass.UpdateCallRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateCallMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * &lt;p&gt;Updates several calls, each like &lt;code&gt;UpdateCall&lt;/code&gt;, with the per-entry results and the
+     * request-level errors of &lt;code&gt;UpdateCallers&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Authorization: as &lt;code&gt;UpdateCall&lt;/code&gt;.&lt;/p&gt;
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ondewo.vtsi.CallsOuterClass.UpdateCallsResponse> updateCalls(
+        ondewo.vtsi.CallsOuterClass.UpdateCallsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateCallsMethod(), getCallOptions()), request);
     }
 
     /**
@@ -3672,7 +6041,17 @@ public final class CallsGrpc {
      * <pre>
      * &lt;p&gt;Hang up a participant of a call (ringing or joined). The participant ends as
      * &lt;code&gt;PARTICIPANT_STATE_LEFT&lt;/code&gt; with &lt;code&gt;end_reason = REMOVED&lt;/code&gt;; the call and the bot are not
-     * affected.&lt;/p&gt;
+     * affected. Returns the participant after the request.&lt;/p&gt;
+     * &lt;p&gt;Idempotent: a participant that already FAILED or LEFT (for whatever reason) is returned unchanged with OK,
+     * and nothing is sent.&lt;/p&gt;
+     * &lt;p&gt;Errors: &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; for a malformed request; &lt;code&gt;NOT_FOUND&lt;/code&gt; with
+     * &lt;code&gt;reason=call-not-found&lt;/code&gt; for an unknown call or a call of another project, and with
+     * &lt;code&gt;reason=participant-not-found&lt;/code&gt; for an unknown &lt;code&gt;participant_id&lt;/code&gt; or a participant of
+     * another call; &lt;code&gt;ABORTED&lt;/code&gt; with &lt;code&gt;reason=call-control-busy&lt;/code&gt; while another call-control
+     * request for the call runs (retry); &lt;code&gt;UNAVAILABLE&lt;/code&gt; with &lt;code&gt;reason=asterisk-unreachable&lt;/code&gt; when
+     * the hang-up could not be sent; with authorization enforced &lt;code&gt;PERMISSION_DENIED&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_LEFT&lt;/code&gt; (or &lt;code&gt;VTSI_EVENT_CALL_PARTICIPANT_FAILED&lt;/code&gt;
+     * for a participant that was still ringing).&lt;/p&gt;
      * &lt;p&gt;Authorization: &lt;code&gt;PROJECT_EXECUTOR&lt;/code&gt; or higher. Audited like &lt;code&gt;InviteToCall&lt;/code&gt;.&lt;/p&gt;
      * </pre>
      */
@@ -3687,6 +6066,12 @@ public final class CallsGrpc {
      * &lt;p&gt;Mute the bot of a connected call and/or stop it listening to the caller, or undo either. Every request sets a
      * desired level and never toggles: a repeat answers &lt;code&gt;changed = false&lt;/code&gt;. The bot stays muted while
      * anything else (a TALK take-over of &lt;code&gt;StreamCallAudio&lt;/code&gt;, a participant bot policy) also holds it muted.&lt;/p&gt;
+     * &lt;p&gt;Both settings &lt;code&gt;CALL_MEDIA_SETTING_UNCHANGED&lt;/code&gt; is a valid read of the current state: it answers
+     * the effective &lt;code&gt;state&lt;/code&gt; with &lt;code&gt;changed = false&lt;/code&gt;, changes nothing, and writes no audit record
+     * and no event (see &lt;code&gt;SetCallMediaControlRequest.bot_voice&lt;/code&gt;).&lt;/p&gt;
+     * &lt;p&gt;Events: &lt;code&gt;VTSI_EVENT_CALL_BOT_MUTED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_BOT_UNMUTED&lt;/code&gt; /
+     * &lt;code&gt;VTSI_EVENT_CALL_LISTENING_PAUSED&lt;/code&gt; / &lt;code&gt;VTSI_EVENT_CALL_LISTENING_RESUMED&lt;/code&gt; when the
+     * effective state changed.&lt;/p&gt;
      * &lt;p&gt;Errors as for &lt;code&gt;InviteToCall&lt;/code&gt;, plus &lt;code&gt;FAILED_PRECONDITION&lt;/code&gt; &lt;code&gt;reason=sip-image-too-old&lt;/code&gt;,
      * &lt;code&gt;ABORTED&lt;/code&gt; &lt;code&gt;reason=call-control-busy&lt;/code&gt; (another call-control request for the call is running)
      * and &lt;code&gt;UNAVAILABLE&lt;/code&gt; &lt;code&gt;reason=sip-unreachable&lt;/code&gt; or &lt;code&gt;reason=csi-media-control-failed&lt;/code&gt; (the
@@ -3708,40 +6093,50 @@ public final class CallsGrpc {
   private static final int METHODID_START_CALLERS = 1;
   private static final int METHODID_LIST_CALLERS = 2;
   private static final int METHODID_GET_CALLER = 3;
-  private static final int METHODID_DELETE_CALLER = 4;
-  private static final int METHODID_DELETE_CALLERS = 5;
-  private static final int METHODID_STOP_CALLER = 6;
-  private static final int METHODID_STOP_CALLERS = 7;
-  private static final int METHODID_START_LISTENER = 8;
-  private static final int METHODID_START_LISTENERS = 9;
-  private static final int METHODID_STOP_LISTENER = 10;
-  private static final int METHODID_STOP_LISTENERS = 11;
-  private static final int METHODID_LIST_LISTENERS = 12;
-  private static final int METHODID_GET_LISTENER = 13;
-  private static final int METHODID_DELETE_LISTENER = 14;
-  private static final int METHODID_DELETE_LISTENERS = 15;
-  private static final int METHODID_START_SCHEDULED_CALLER = 16;
-  private static final int METHODID_START_SCHEDULED_CALLERS = 17;
-  private static final int METHODID_ADD_CALLERS_TO_CAMPAIGN = 18;
-  private static final int METHODID_ADD_SCHEDULED_CALLERS_TO_CAMPAIGN = 19;
-  private static final int METHODID_GET_SCHEDULED_CALLER = 20;
-  private static final int METHODID_LIST_SCHEDULED_CALLERS = 21;
-  private static final int METHODID_CANCEL_SCHEDULED_CALLER = 22;
-  private static final int METHODID_STOP_CALL = 23;
-  private static final int METHODID_STOP_CALLS = 24;
-  private static final int METHODID_STOP_ALL_CALLS = 25;
-  private static final int METHODID_TRANSFER_CALL = 26;
-  private static final int METHODID_TRANSFER_CALLS = 27;
-  private static final int METHODID_GET_CALL = 28;
-  private static final int METHODID_LIST_CALLS = 29;
-  private static final int METHODID_STREAM_CALLER_STATUS = 30;
-  private static final int METHODID_STREAM_LISTENER_STATUS = 31;
-  private static final int METHODID_STREAM_SCHEDULED_CALLER_STATUS = 32;
-  private static final int METHODID_INVITE_TO_CALL = 33;
-  private static final int METHODID_REMOVE_CALL_PARTICIPANT = 34;
-  private static final int METHODID_SET_CALL_MEDIA_CONTROL = 35;
-  private static final int METHODID_LISTEN_CALL_AUDIO = 36;
-  private static final int METHODID_STREAM_CALL_AUDIO = 37;
+  private static final int METHODID_UPDATE_CALLER = 4;
+  private static final int METHODID_UPDATE_CALLERS = 5;
+  private static final int METHODID_DELETE_CALLER = 6;
+  private static final int METHODID_DELETE_CALLERS = 7;
+  private static final int METHODID_STOP_CALLER = 8;
+  private static final int METHODID_STOP_CALLERS = 9;
+  private static final int METHODID_START_LISTENER = 10;
+  private static final int METHODID_START_LISTENERS = 11;
+  private static final int METHODID_STOP_LISTENER = 12;
+  private static final int METHODID_STOP_LISTENERS = 13;
+  private static final int METHODID_LIST_LISTENERS = 14;
+  private static final int METHODID_GET_LISTENER = 15;
+  private static final int METHODID_UPDATE_LISTENER = 16;
+  private static final int METHODID_UPDATE_LISTENERS = 17;
+  private static final int METHODID_DELETE_LISTENER = 18;
+  private static final int METHODID_DELETE_LISTENERS = 19;
+  private static final int METHODID_START_SCHEDULED_CALLER = 20;
+  private static final int METHODID_START_SCHEDULED_CALLERS = 21;
+  private static final int METHODID_ADD_CALLERS_TO_CAMPAIGN = 22;
+  private static final int METHODID_ADD_SCHEDULED_CALLERS_TO_CAMPAIGN = 23;
+  private static final int METHODID_GET_SCHEDULED_CALLER = 24;
+  private static final int METHODID_LIST_SCHEDULED_CALLERS = 25;
+  private static final int METHODID_UPDATE_SCHEDULED_CALLER = 26;
+  private static final int METHODID_CANCEL_SCHEDULED_CALLER = 27;
+  private static final int METHODID_CANCEL_SCHEDULED_CALLERS = 28;
+  private static final int METHODID_RETRY_SCHEDULED_CALLER = 29;
+  private static final int METHODID_STOP_CALL = 30;
+  private static final int METHODID_STOP_CALLS = 31;
+  private static final int METHODID_STOP_ALL_CALLS = 32;
+  private static final int METHODID_TRANSFER_CALL = 33;
+  private static final int METHODID_TRANSFER_CALLS = 34;
+  private static final int METHODID_GET_CALL = 35;
+  private static final int METHODID_LIST_CALLS = 36;
+  private static final int METHODID_GET_CALL_STATISTICS = 37;
+  private static final int METHODID_UPDATE_CALL = 38;
+  private static final int METHODID_UPDATE_CALLS = 39;
+  private static final int METHODID_STREAM_CALLER_STATUS = 40;
+  private static final int METHODID_STREAM_LISTENER_STATUS = 41;
+  private static final int METHODID_STREAM_SCHEDULED_CALLER_STATUS = 42;
+  private static final int METHODID_INVITE_TO_CALL = 43;
+  private static final int METHODID_REMOVE_CALL_PARTICIPANT = 44;
+  private static final int METHODID_SET_CALL_MEDIA_CONTROL = 45;
+  private static final int METHODID_LISTEN_CALL_AUDIO = 46;
+  private static final int METHODID_STREAM_CALL_AUDIO = 47;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -3775,6 +6170,14 @@ public final class CallsGrpc {
         case METHODID_GET_CALLER:
           serviceImpl.getCaller((ondewo.vtsi.CallsOuterClass.GetCallerRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.Caller>) responseObserver);
+          break;
+        case METHODID_UPDATE_CALLER:
+          serviceImpl.updateCaller((ondewo.vtsi.CallsOuterClass.UpdateCallerRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallerResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_CALLERS:
+          serviceImpl.updateCallers((ondewo.vtsi.CallsOuterClass.UpdateCallersRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallersResponse>) responseObserver);
           break;
         case METHODID_DELETE_CALLER:
           serviceImpl.deleteCaller((ondewo.vtsi.CallsOuterClass.DeleteCallerRequest) request,
@@ -3816,6 +6219,14 @@ public final class CallsGrpc {
           serviceImpl.getListener((ondewo.vtsi.CallsOuterClass.GetListenerRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.Listener>) responseObserver);
           break;
+        case METHODID_UPDATE_LISTENER:
+          serviceImpl.updateListener((ondewo.vtsi.CallsOuterClass.UpdateListenerRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenerResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_LISTENERS:
+          serviceImpl.updateListeners((ondewo.vtsi.CallsOuterClass.UpdateListenersRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateListenersResponse>) responseObserver);
+          break;
         case METHODID_DELETE_LISTENER:
           serviceImpl.deleteListener((ondewo.vtsi.CallsOuterClass.DeleteListenerRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.DeleteListenerResponse>) responseObserver);
@@ -3848,9 +6259,21 @@ public final class CallsGrpc {
           serviceImpl.listScheduledCallers((ondewo.vtsi.CallsOuterClass.ListScheduledCallersRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListScheduledCallersResponse>) responseObserver);
           break;
+        case METHODID_UPDATE_SCHEDULED_CALLER:
+          serviceImpl.updateScheduledCaller((ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller>) responseObserver);
+          break;
         case METHODID_CANCEL_SCHEDULED_CALLER:
           serviceImpl.cancelScheduledCaller((ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse>) responseObserver);
+          break;
+        case METHODID_CANCEL_SCHEDULED_CALLERS:
+          serviceImpl.cancelScheduledCallers((ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse>) responseObserver);
+          break;
+        case METHODID_RETRY_SCHEDULED_CALLER:
+          serviceImpl.retryScheduledCaller((ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ScheduledCaller>) responseObserver);
           break;
         case METHODID_STOP_CALL:
           serviceImpl.stopCall((ondewo.vtsi.CallsOuterClass.StopCallRequest) request,
@@ -3879,6 +6302,18 @@ public final class CallsGrpc {
         case METHODID_LIST_CALLS:
           serviceImpl.listCalls((ondewo.vtsi.CallsOuterClass.ListCallsRequest) request,
               (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.ListCallsResponse>) responseObserver);
+          break;
+        case METHODID_GET_CALL_STATISTICS:
+          serviceImpl.getCallStatistics((ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.CallStatistics>) responseObserver);
+          break;
+        case METHODID_UPDATE_CALL:
+          serviceImpl.updateCall((ondewo.vtsi.CallsOuterClass.UpdateCallRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_CALLS:
+          serviceImpl.updateCalls((ondewo.vtsi.CallsOuterClass.UpdateCallsRequest) request,
+              (io.grpc.stub.StreamObserver<ondewo.vtsi.CallsOuterClass.UpdateCallsResponse>) responseObserver);
           break;
         case METHODID_STREAM_CALLER_STATUS:
           serviceImpl.streamCallerStatus((ondewo.vtsi.CallsOuterClass.StreamCallerStatusRequest) request,
@@ -3958,6 +6393,20 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.Caller>(
                 service, METHODID_GET_CALLER)))
         .addMethod(
+          getUpdateCallerMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateCallerRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateCallerResponse>(
+                service, METHODID_UPDATE_CALLER)))
+        .addMethod(
+          getUpdateCallersMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateCallersRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateCallersResponse>(
+                service, METHODID_UPDATE_CALLERS)))
+        .addMethod(
           getDeleteCallerMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -4028,6 +6477,20 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.Listener>(
                 service, METHODID_GET_LISTENER)))
         .addMethod(
+          getUpdateListenerMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateListenerRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateListenerResponse>(
+                service, METHODID_UPDATE_LISTENER)))
+        .addMethod(
+          getUpdateListenersMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateListenersRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateListenersResponse>(
+                service, METHODID_UPDATE_LISTENERS)))
+        .addMethod(
           getDeleteListenerMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -4084,12 +6547,33 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.ListScheduledCallersResponse>(
                 service, METHODID_LIST_SCHEDULED_CALLERS)))
         .addMethod(
+          getUpdateScheduledCallerMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateScheduledCallerRequest,
+              ondewo.vtsi.CallsOuterClass.ScheduledCaller>(
+                service, METHODID_UPDATE_SCHEDULED_CALLER)))
+        .addMethod(
           getCancelScheduledCallerMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               ondewo.vtsi.CallsOuterClass.CancelScheduledCallerRequest,
               ondewo.vtsi.CallsOuterClass.CancelScheduledCallerResponse>(
                 service, METHODID_CANCEL_SCHEDULED_CALLER)))
+        .addMethod(
+          getCancelScheduledCallersMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.CancelScheduledCallersRequest,
+              ondewo.vtsi.CallsOuterClass.CancelScheduledCallersResponse>(
+                service, METHODID_CANCEL_SCHEDULED_CALLERS)))
+        .addMethod(
+          getRetryScheduledCallerMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.RetryScheduledCallerRequest,
+              ondewo.vtsi.CallsOuterClass.ScheduledCaller>(
+                service, METHODID_RETRY_SCHEDULED_CALLER)))
         .addMethod(
           getStopCallMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -4139,6 +6623,27 @@ public final class CallsGrpc {
               ondewo.vtsi.CallsOuterClass.ListCallsRequest,
               ondewo.vtsi.CallsOuterClass.ListCallsResponse>(
                 service, METHODID_LIST_CALLS)))
+        .addMethod(
+          getGetCallStatisticsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.GetCallStatisticsRequest,
+              ondewo.vtsi.CallsOuterClass.CallStatistics>(
+                service, METHODID_GET_CALL_STATISTICS)))
+        .addMethod(
+          getUpdateCallMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateCallRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateCallResponse>(
+                service, METHODID_UPDATE_CALL)))
+        .addMethod(
+          getUpdateCallsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              ondewo.vtsi.CallsOuterClass.UpdateCallsRequest,
+              ondewo.vtsi.CallsOuterClass.UpdateCallsResponse>(
+                service, METHODID_UPDATE_CALLS)))
         .addMethod(
           getStreamCallerStatusMethod(),
           io.grpc.stub.ServerCalls.asyncServerStreamingCall(
@@ -4247,6 +6752,8 @@ public final class CallsGrpc {
               .addMethod(getStartCallersMethod())
               .addMethod(getListCallersMethod())
               .addMethod(getGetCallerMethod())
+              .addMethod(getUpdateCallerMethod())
+              .addMethod(getUpdateCallersMethod())
               .addMethod(getDeleteCallerMethod())
               .addMethod(getDeleteCallersMethod())
               .addMethod(getStopCallerMethod())
@@ -4257,6 +6764,8 @@ public final class CallsGrpc {
               .addMethod(getStopListenersMethod())
               .addMethod(getListListenersMethod())
               .addMethod(getGetListenerMethod())
+              .addMethod(getUpdateListenerMethod())
+              .addMethod(getUpdateListenersMethod())
               .addMethod(getDeleteListenerMethod())
               .addMethod(getDeleteListenersMethod())
               .addMethod(getStartScheduledCallerMethod())
@@ -4265,7 +6774,10 @@ public final class CallsGrpc {
               .addMethod(getAddScheduledCallersToCampaignMethod())
               .addMethod(getGetScheduledCallerMethod())
               .addMethod(getListScheduledCallersMethod())
+              .addMethod(getUpdateScheduledCallerMethod())
               .addMethod(getCancelScheduledCallerMethod())
+              .addMethod(getCancelScheduledCallersMethod())
+              .addMethod(getRetryScheduledCallerMethod())
               .addMethod(getStopCallMethod())
               .addMethod(getStopCallsMethod())
               .addMethod(getStopAllCallsMethod())
@@ -4273,6 +6785,9 @@ public final class CallsGrpc {
               .addMethod(getTransferCallsMethod())
               .addMethod(getGetCallMethod())
               .addMethod(getListCallsMethod())
+              .addMethod(getGetCallStatisticsMethod())
+              .addMethod(getUpdateCallMethod())
+              .addMethod(getUpdateCallsMethod())
               .addMethod(getStreamCallerStatusMethod())
               .addMethod(getStreamListenerStatusMethod())
               .addMethod(getStreamScheduledCallerStatusMethod())

@@ -2,6 +2,29 @@
 
 *****************
 
+## Release ONDEWO VTSI Java Client 9.1.0
+
+### Breaking Changes
+
+* The 23 call configuration messages (`CommonServicesConfig`, `SipCallerConfig`, `VoiceInteractionConfig`,
+  `InterruptionHandlingConfig`, `TurnDetectionConfig`, `AnsweringMachineDetectionConfig`,
+  `MessageBrokerConfig`, `AudioObjectStorageConfig` and the messages they use) moved from `calls.proto` to
+  the new `call_configs.proto` in ondewo-vtsi-api 9.1.0. In Java they move from the outer class
+  `ondewo.vtsi.CallsOuterClass` to `ondewo.vtsi.CallConfigs`. **Migration:** change the import / qualifier,
+  e.g. `CallsOuterClass.InterruptionHandlingConfig` -> `CallConfigs.InterruptionHandlingConfig`. The protobuf
+  package `ondewo.vtsi` and every message's full name are unchanged, so the change is wire-compatible.
+* The message `CampaignDisplayName` is removed: a campaign display name is now a plain `string display_name`
+  in each campaign selector, with the project in a separate `string vtsi_project_name`. Code that builds a
+  `CampaignDisplayName` no longer compiles; see the
+  [API release notes](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.1.0) for the field table.
+
+### Improvements
+
+* Tracking API Version [9.1.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.1.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
+* Stubs generated with ondewo-proto-compiler 5.15.7.
+
+*****************
+
 ## Release ONDEWO VTSI Java Client 9.0.0
 
 ### Breaking Changes

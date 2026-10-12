@@ -28,7 +28,208 @@ public final class ProjectsOuterClass {
   }
   /**
    * <pre>
+   * Registration state of a VTSI project&amp;apos;s SIP trunk with the carrier.
+   * </pre>
+   *
+   * Protobuf enum {@code ondewo.vtsi.TrunkRegistrationState}
+   */
+  public enum TrunkRegistrationState
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Not known: the project is not &lt;code&gt;DEPLOYED&lt;/code&gt;, or its Asterisk has not been observed yet.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED = 0;</code>
+     */
+    TRUNK_REGISTRATION_STATE_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * The carrier accepted the trunk&amp;apos;s registration (&lt;code&gt;Registered&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_REGISTERED = 1;</code>
+     */
+    TRUNK_REGISTRATION_STATE_REGISTERED(1),
+    /**
+     * <pre>
+     * The trunk is configured to register but is not registered: the registration has not completed
+     * yet, was stopped, or failed without a refusal by the carrier (&lt;code&gt;Unregistered&lt;/code&gt;,
+     * &lt;code&gt;Stopped&lt;/code&gt;, timeouts and any other state).
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_UNREGISTERED = 2;</code>
+     */
+    TRUNK_REGISTRATION_STATE_UNREGISTERED(2),
+    /**
+     * <pre>
+     * The carrier refused the registration (&lt;code&gt;Rejected&lt;/code&gt;), typically wrong
+     * &lt;code&gt;sip_trunk_username&lt;/code&gt; / &lt;code&gt;sip_trunk_password&lt;/code&gt;. The Asterisk retries on its own.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_REJECTED = 3;</code>
+     */
+    TRUNK_REGISTRATION_STATE_REJECTED(3),
+    /**
+     * <pre>
+     * The project&amp;apos;s running Asterisk has no outbound trunk registration to observe (no
+     * &lt;code&gt;trunk-registration&lt;/code&gt; in &lt;code&gt;pjsip show registrations&lt;/code&gt;), e.g. no SIP trunk is
+     * configured, or &lt;code&gt;asterisk_configs_files&lt;/code&gt; / a target directory define none.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_NOT_CONFIGURED = 4;</code>
+     */
+    TRUNK_REGISTRATION_STATE_NOT_CONFIGURED(4),
+    UNRECOGNIZED(-1),
+    ;
+
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 32,
+        /* patch= */ 0,
+        /* suffix= */ "",
+        TrunkRegistrationState.class.getName());
+    }
+    /**
+     * <pre>
+     * Not known: the project is not &lt;code&gt;DEPLOYED&lt;/code&gt;, or its Asterisk has not been observed yet.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED = 0;</code>
+     */
+    public static final int TRUNK_REGISTRATION_STATE_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * The carrier accepted the trunk&amp;apos;s registration (&lt;code&gt;Registered&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_REGISTERED = 1;</code>
+     */
+    public static final int TRUNK_REGISTRATION_STATE_REGISTERED_VALUE = 1;
+    /**
+     * <pre>
+     * The trunk is configured to register but is not registered: the registration has not completed
+     * yet, was stopped, or failed without a refusal by the carrier (&lt;code&gt;Unregistered&lt;/code&gt;,
+     * &lt;code&gt;Stopped&lt;/code&gt;, timeouts and any other state).
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_UNREGISTERED = 2;</code>
+     */
+    public static final int TRUNK_REGISTRATION_STATE_UNREGISTERED_VALUE = 2;
+    /**
+     * <pre>
+     * The carrier refused the registration (&lt;code&gt;Rejected&lt;/code&gt;), typically wrong
+     * &lt;code&gt;sip_trunk_username&lt;/code&gt; / &lt;code&gt;sip_trunk_password&lt;/code&gt;. The Asterisk retries on its own.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_REJECTED = 3;</code>
+     */
+    public static final int TRUNK_REGISTRATION_STATE_REJECTED_VALUE = 3;
+    /**
+     * <pre>
+     * The project&amp;apos;s running Asterisk has no outbound trunk registration to observe (no
+     * &lt;code&gt;trunk-registration&lt;/code&gt; in &lt;code&gt;pjsip show registrations&lt;/code&gt;), e.g. no SIP trunk is
+     * configured, or &lt;code&gt;asterisk_configs_files&lt;/code&gt; / a target directory define none.
+     * </pre>
+     *
+     * <code>TRUNK_REGISTRATION_STATE_NOT_CONFIGURED = 4;</code>
+     */
+    public static final int TRUNK_REGISTRATION_STATE_NOT_CONFIGURED_VALUE = 4;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static TrunkRegistrationState valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static TrunkRegistrationState forNumber(int value) {
+      switch (value) {
+        case 0: return TRUNK_REGISTRATION_STATE_UNSPECIFIED;
+        case 1: return TRUNK_REGISTRATION_STATE_REGISTERED;
+        case 2: return TRUNK_REGISTRATION_STATE_UNREGISTERED;
+        case 3: return TRUNK_REGISTRATION_STATE_REJECTED;
+        case 4: return TRUNK_REGISTRATION_STATE_NOT_CONFIGURED;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<TrunkRegistrationState>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        TrunkRegistrationState> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<TrunkRegistrationState>() {
+            public TrunkRegistrationState findValueByNumber(int number) {
+              return TrunkRegistrationState.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final TrunkRegistrationState[] VALUES = values();
+
+    public static TrunkRegistrationState valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private TrunkRegistrationState(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:ondewo.vtsi.TrunkRegistrationState)
+  }
+
+  /**
+   * <pre>
    * Status of a VtsiProject.
+   * Released with unprefixed value names, which are package scoped in proto3 (so no other enum of
+   * &lt;code&gt;ondewo.vtsi&lt;/code&gt; can declare e.g. &lt;code&gt;UNSPECIFIED&lt;/code&gt;); kept for wire and source
+   * compatibility.
    * </pre>
    *
    * Protobuf enum {@code ondewo.vtsi.VtsiProjectStatus}
@@ -37,7 +238,7 @@ public final class ProjectsOuterClass {
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <pre>
-     * No status specified
+     * No status specified. Never returned for a stored project.
      * </pre>
      *
      * <code>UNSPECIFIED = 0;</code>
@@ -93,12 +294,25 @@ public final class ProjectsOuterClass {
     DELETING(6),
     /**
      * <pre>
-     * Project is deleted
+     * Project is deleted. Never returned: a deleted project no longer exists and is
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;. Kept for wire compatibility.
      * </pre>
      *
      * <code>DELETED = 7;</code>
      */
     DELETED(7),
+    /**
+     * <pre>
+     * The last deployment failed: its half-started container was removed and
+     * &lt;code&gt;VtsiProject.status_message&lt;/code&gt; says why. Behaves like &lt;code&gt;UNDEPLOYED&lt;/code&gt;: the project
+     * can be deployed again, updated or deleted, and undeploying it makes it &lt;code&gt;UNDEPLOYED&lt;/code&gt;.
+     * Since 9.1.0; a 9.0.0 server reports a failed deployment as &lt;code&gt;UNDEPLOYED&lt;/code&gt;, and a client
+     * built against 9.0.0 sees the unknown value 8.
+     * </pre>
+     *
+     * <code>DEPLOY_FAILED = 8;</code>
+     */
+    DEPLOY_FAILED(8),
     UNRECOGNIZED(-1),
     ;
 
@@ -113,7 +327,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * No status specified
+     * No status specified. Never returned for a stored project.
      * </pre>
      *
      * <code>UNSPECIFIED = 0;</code>
@@ -169,12 +383,25 @@ public final class ProjectsOuterClass {
     public static final int DELETING_VALUE = 6;
     /**
      * <pre>
-     * Project is deleted
+     * Project is deleted. Never returned: a deleted project no longer exists and is
+     * &lt;code&gt;NOT_FOUND&lt;/code&gt;. Kept for wire compatibility.
      * </pre>
      *
      * <code>DELETED = 7;</code>
      */
     public static final int DELETED_VALUE = 7;
+    /**
+     * <pre>
+     * The last deployment failed: its half-started container was removed and
+     * &lt;code&gt;VtsiProject.status_message&lt;/code&gt; says why. Behaves like &lt;code&gt;UNDEPLOYED&lt;/code&gt;: the project
+     * can be deployed again, updated or deleted, and undeploying it makes it &lt;code&gt;UNDEPLOYED&lt;/code&gt;.
+     * Since 9.1.0; a 9.0.0 server reports a failed deployment as &lt;code&gt;UNDEPLOYED&lt;/code&gt;, and a client
+     * built against 9.0.0 sees the unknown value 8.
+     * </pre>
+     *
+     * <code>DEPLOY_FAILED = 8;</code>
+     */
+    public static final int DEPLOY_FAILED_VALUE = 8;
 
 
     public final int getNumber() {
@@ -209,6 +436,7 @@ public final class ProjectsOuterClass {
         case 5: return UNDEPLOYING;
         case 6: return DELETING;
         case 7: return DELETED;
+        case 8: return DEPLOY_FAILED;
         default: return null;
       }
     }
@@ -239,7 +467,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(0);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final VtsiProjectStatus[] VALUES = values();
@@ -412,7 +640,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(1);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final SipTrunkTransport[] VALUES = values();
@@ -440,7 +668,11 @@ public final class ProjectsOuterClass {
 
   /**
    * <pre>
-   * Sorting mode
+   * Sorting mode.
+   * Note: unlike most enums of this API the zero value is a real mode, &lt;code&gt;ASCENDING&lt;/code&gt;, not an
+   * &lt;code&gt;..._UNSPECIFIED&lt;/code&gt; placeholder, so an unset mode means ascending. Released this way and kept
+   * for wire and source compatibility (it is also reused by
+   * &lt;a href="index.html#ondewo.vtsi.SoftphoneAccountSorting"&gt;SoftphoneAccountSorting&lt;/a&gt;).
    * </pre>
    *
    * Protobuf enum {@code ondewo.vtsi.VtsiProjectSortingMode}
@@ -557,7 +789,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(2);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final VtsiProjectSortingMode[] VALUES = values();
@@ -734,7 +966,7 @@ public final class ProjectsOuterClass {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(3);
+      return ondewo.vtsi.ProjectsOuterClass.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final VtsiProjectView[] VALUES = values();
@@ -810,7 +1042,13 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * The maximum number of callers that this project can have.
+     * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     * provisioned on its Asterisk. &lt;code&gt;0&lt;/code&gt; means NO caller can be started (it is not
+     * &amp;quot;unlimited&amp;quot;); negative values are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A
+     * &lt;code&gt;StartCaller&lt;/code&gt; / &lt;code&gt;StartCallers&lt;/code&gt; beyond the free capacity is refused with
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;; an idle pooled (persistent) caller does not count. Changing it on a
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; project REDEPLOYS the project, which ends every running call (see
+     * &lt;code&gt;UpdateVtsiProject&lt;/code&gt;); lowering it below the number of running callers is not refused.
      * </pre>
      *
      * <code>int32 max_callers = 3;</code>
@@ -820,7 +1058,11 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * The maximum number of listeners that this project can have.
+     * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     * accounts provisioned on its Asterisk. Same semantics as &lt;code&gt;max_callers&lt;/code&gt;:
+     * &lt;code&gt;0&lt;/code&gt; means no listener can be started, a &lt;code&gt;StartListener&lt;/code&gt; /
+     * &lt;code&gt;StartListeners&lt;/code&gt; beyond the free capacity is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, and a change
+     * on a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it.
      * </pre>
      *
      * <code>int32 max_listeners = 4;</code>
@@ -990,7 +1232,13 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * The port of the asterisk server
+     * The port of the asterisk server. The same value as &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;, of
+     * which it is a convenience copy: &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt; is authoritative, and
+     * every response carries the project&amp;apos;s port in both. On create and update, &lt;code&gt;0&lt;/code&gt; means
+     * &amp;quot;not stated&amp;quot; (on create: assign a free port); a value set here is copied into
+     * &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;; both set and different is refused with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Changing the port of a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it and
+     * voids every softphone client certificate (the certificate authorities belong to the port).
      * </pre>
      *
      * <code>int32 asterisk_port = 13;</code>
@@ -1127,6 +1375,119 @@ public final class ProjectsOuterClass {
      */
     com.google.protobuf.ByteString
         getTransferPhoneNumberAllowlistBytes(int index);
+
+    /**
+     * <pre>
+     * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+     * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+     * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string status_message = 18;</code>
+     * @return The statusMessage.
+     */
+    java.lang.String getStatusMessage();
+    /**
+     * <pre>
+     * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+     * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+     * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string status_message = 18;</code>
+     * @return The bytes for statusMessage.
+     */
+    com.google.protobuf.ByteString
+        getStatusMessageBytes();
+
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @return Whether the statusChangedAt field is set.
+     */
+    boolean hasStatusChangedAt();
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @return The statusChangedAt.
+     */
+    com.google.protobuf.Timestamp getStatusChangedAt();
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getStatusChangedAtOrBuilder();
+
+    /**
+     * <pre>
+     * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+     * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+     * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @return The enum numeric value on the wire for trunkRegistrationState.
+     */
+    int getTrunkRegistrationStateValue();
+    /**
+     * <pre>
+     * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+     * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+     * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @return The trunkRegistrationState.
+     */
+    ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState getTrunkRegistrationState();
+
+    /**
+     * <pre>
+     * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+     * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string asterisk_version_effective = 21;</code>
+     * @return The asteriskVersionEffective.
+     */
+    java.lang.String getAsteriskVersionEffective();
+    /**
+     * <pre>
+     * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+     * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string asterisk_version_effective = 21;</code>
+     * @return The bytes for asteriskVersionEffective.
+     */
+    com.google.protobuf.ByteString
+        getAsteriskVersionEffectiveBytes();
   }
   /**
    * <pre>
@@ -1163,6 +1524,9 @@ public final class ProjectsOuterClass {
           com.google.protobuf.LazyStringArrayList.emptyList();
       transferPhoneNumberAllowlist_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
+      statusMessage_ = "";
+      trunkRegistrationState_ = 0;
+      asteriskVersionEffective_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -1281,7 +1645,13 @@ public final class ProjectsOuterClass {
     private int maxCallers_ = 0;
     /**
      * <pre>
-     * The maximum number of callers that this project can have.
+     * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     * provisioned on its Asterisk. &lt;code&gt;0&lt;/code&gt; means NO caller can be started (it is not
+     * &amp;quot;unlimited&amp;quot;); negative values are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A
+     * &lt;code&gt;StartCaller&lt;/code&gt; / &lt;code&gt;StartCallers&lt;/code&gt; beyond the free capacity is refused with
+     * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;; an idle pooled (persistent) caller does not count. Changing it on a
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; project REDEPLOYS the project, which ends every running call (see
+     * &lt;code&gt;UpdateVtsiProject&lt;/code&gt;); lowering it below the number of running callers is not refused.
      * </pre>
      *
      * <code>int32 max_callers = 3;</code>
@@ -1296,7 +1666,11 @@ public final class ProjectsOuterClass {
     private int maxListeners_ = 0;
     /**
      * <pre>
-     * The maximum number of listeners that this project can have.
+     * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     * accounts provisioned on its Asterisk. Same semantics as &lt;code&gt;max_callers&lt;/code&gt;:
+     * &lt;code&gt;0&lt;/code&gt; means no listener can be started, a &lt;code&gt;StartListener&lt;/code&gt; /
+     * &lt;code&gt;StartListeners&lt;/code&gt; beyond the free capacity is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, and a change
+     * on a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it.
      * </pre>
      *
      * <code>int32 max_listeners = 4;</code>
@@ -1575,7 +1949,13 @@ public final class ProjectsOuterClass {
     private int asteriskPort_ = 0;
     /**
      * <pre>
-     * The port of the asterisk server
+     * The port of the asterisk server. The same value as &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;, of
+     * which it is a convenience copy: &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt; is authoritative, and
+     * every response carries the project&amp;apos;s port in both. On create and update, &lt;code&gt;0&lt;/code&gt; means
+     * &amp;quot;not stated&amp;quot; (on create: assign a free port); a value set here is copied into
+     * &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;; both set and different is refused with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Changing the port of a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it and
+     * voids every softphone client certificate (the certificate authorities belong to the port).
      * </pre>
      *
      * <code>int32 asterisk_port = 13;</code>
@@ -1750,6 +2130,191 @@ public final class ProjectsOuterClass {
       return transferPhoneNumberAllowlist_.getByteString(index);
     }
 
+    public static final int STATUS_MESSAGE_FIELD_NUMBER = 18;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object statusMessage_ = "";
+    /**
+     * <pre>
+     * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+     * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+     * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string status_message = 18;</code>
+     * @return The statusMessage.
+     */
+    @java.lang.Override
+    public java.lang.String getStatusMessage() {
+      java.lang.Object ref = statusMessage_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        statusMessage_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+     * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+     * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string status_message = 18;</code>
+     * @return The bytes for statusMessage.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStatusMessageBytes() {
+      java.lang.Object ref = statusMessage_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        statusMessage_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_CHANGED_AT_FIELD_NUMBER = 19;
+    private com.google.protobuf.Timestamp statusChangedAt_;
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @return Whether the statusChangedAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasStatusChangedAt() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @return The statusChangedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getStatusChangedAt() {
+      return statusChangedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : statusChangedAt_;
+    }
+    /**
+     * <pre>
+     * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getStatusChangedAtOrBuilder() {
+      return statusChangedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : statusChangedAt_;
+    }
+
+    public static final int TRUNK_REGISTRATION_STATE_FIELD_NUMBER = 20;
+    private int trunkRegistrationState_ = 0;
+    /**
+     * <pre>
+     * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+     * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+     * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @return The enum numeric value on the wire for trunkRegistrationState.
+     */
+    @java.lang.Override public int getTrunkRegistrationStateValue() {
+      return trunkRegistrationState_;
+    }
+    /**
+     * <pre>
+     * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+     * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+     * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+     * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @return The trunkRegistrationState.
+     */
+    @java.lang.Override public ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState getTrunkRegistrationState() {
+      ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState result = ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.forNumber(trunkRegistrationState_);
+      return result == null ? ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.UNRECOGNIZED : result;
+    }
+
+    public static final int ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER = 21;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object asteriskVersionEffective_ = "";
+    /**
+     * <pre>
+     * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+     * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string asterisk_version_effective = 21;</code>
+     * @return The asteriskVersionEffective.
+     */
+    @java.lang.Override
+    public java.lang.String getAsteriskVersionEffective() {
+      java.lang.Object ref = asteriskVersionEffective_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        asteriskVersionEffective_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+     * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     * </pre>
+     *
+     * <code>string asterisk_version_effective = 21;</code>
+     * @return The bytes for asteriskVersionEffective.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAsteriskVersionEffectiveBytes() {
+      java.lang.Object ref = asteriskVersionEffective_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        asteriskVersionEffective_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1814,6 +2379,18 @@ public final class ProjectsOuterClass {
       }
       for (int i = 0; i < transferPhoneNumberAllowlist_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 17, transferPhoneNumberAllowlist_.getRaw(i));
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(statusMessage_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 18, statusMessage_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeMessage(19, getStatusChangedAt());
+      }
+      if (trunkRegistrationState_ != ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.TRUNK_REGISTRATION_STATE_UNSPECIFIED.getNumber()) {
+        output.writeEnum(20, trunkRegistrationState_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(asteriskVersionEffective_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 21, asteriskVersionEffective_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1896,6 +2473,20 @@ public final class ProjectsOuterClass {
         size += dataSize;
         size += 2 * getTransferPhoneNumberAllowlistList().size();
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(statusMessage_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(18, statusMessage_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(19, getStatusChangedAt());
+      }
+      if (trunkRegistrationState_ != ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.TRUNK_REGISTRATION_STATE_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(20, trunkRegistrationState_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(asteriskVersionEffective_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(21, asteriskVersionEffective_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1953,6 +2544,16 @@ public final class ProjectsOuterClass {
           != other.getDeployedListeners()) return false;
       if (!getTransferPhoneNumberAllowlistList()
           .equals(other.getTransferPhoneNumberAllowlistList())) return false;
+      if (!getStatusMessage()
+          .equals(other.getStatusMessage())) return false;
+      if (hasStatusChangedAt() != other.hasStatusChangedAt()) return false;
+      if (hasStatusChangedAt()) {
+        if (!getStatusChangedAt()
+            .equals(other.getStatusChangedAt())) return false;
+      }
+      if (trunkRegistrationState_ != other.trunkRegistrationState_) return false;
+      if (!getAsteriskVersionEffective()
+          .equals(other.getAsteriskVersionEffective())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -2008,6 +2609,16 @@ public final class ProjectsOuterClass {
         hash = (37 * hash) + TRANSFER_PHONE_NUMBER_ALLOWLIST_FIELD_NUMBER;
         hash = (53 * hash) + getTransferPhoneNumberAllowlistList().hashCode();
       }
+      hash = (37 * hash) + STATUS_MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getStatusMessage().hashCode();
+      if (hasStatusChangedAt()) {
+        hash = (37 * hash) + STATUS_CHANGED_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getStatusChangedAt().hashCode();
+      }
+      hash = (37 * hash) + TRUNK_REGISTRATION_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + trunkRegistrationState_;
+      hash = (37 * hash) + ASTERISK_VERSION_EFFECTIVE_FIELD_NUMBER;
+      hash = (53 * hash) + getAsteriskVersionEffective().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2145,6 +2756,7 @@ public final class ProjectsOuterClass {
           internalGetAsteriskConfigsFieldBuilder();
           internalGetCreatedAtFieldBuilder();
           internalGetModifiedAtFieldBuilder();
+          internalGetStatusChangedAtFieldBuilder();
         }
       }
       @java.lang.Override
@@ -2182,6 +2794,14 @@ public final class ProjectsOuterClass {
         deployedListeners_ = 0;
         transferPhoneNumberAllowlist_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        statusMessage_ = "";
+        statusChangedAt_ = null;
+        if (statusChangedAtBuilder_ != null) {
+          statusChangedAtBuilder_.dispose();
+          statusChangedAtBuilder_ = null;
+        }
+        trunkRegistrationState_ = 0;
+        asteriskVersionEffective_ = "";
         return this;
       }
 
@@ -2278,6 +2898,21 @@ public final class ProjectsOuterClass {
           transferPhoneNumberAllowlist_.makeImmutable();
           result.transferPhoneNumberAllowlist_ = transferPhoneNumberAllowlist_;
         }
+        if (((from_bitField0_ & 0x00020000) != 0)) {
+          result.statusMessage_ = statusMessage_;
+        }
+        if (((from_bitField0_ & 0x00040000) != 0)) {
+          result.statusChangedAt_ = statusChangedAtBuilder_ == null
+              ? statusChangedAt_
+              : statusChangedAtBuilder_.build();
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00080000) != 0)) {
+          result.trunkRegistrationState_ = trunkRegistrationState_;
+        }
+        if (((from_bitField0_ & 0x00100000) != 0)) {
+          result.asteriskVersionEffective_ = asteriskVersionEffective_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -2364,6 +2999,22 @@ public final class ProjectsOuterClass {
             ensureTransferPhoneNumberAllowlistIsMutable();
             transferPhoneNumberAllowlist_.addAll(other.transferPhoneNumberAllowlist_);
           }
+          onChanged();
+        }
+        if (!other.getStatusMessage().isEmpty()) {
+          statusMessage_ = other.statusMessage_;
+          bitField0_ |= 0x00020000;
+          onChanged();
+        }
+        if (other.hasStatusChangedAt()) {
+          mergeStatusChangedAt(other.getStatusChangedAt());
+        }
+        if (other.trunkRegistrationState_ != 0) {
+          setTrunkRegistrationStateValue(other.getTrunkRegistrationStateValue());
+        }
+        if (!other.getAsteriskVersionEffective().isEmpty()) {
+          asteriskVersionEffective_ = other.asteriskVersionEffective_;
+          bitField0_ |= 0x00100000;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2485,6 +3136,28 @@ public final class ProjectsOuterClass {
                 transferPhoneNumberAllowlist_.add(s);
                 break;
               } // case 138
+              case 146: {
+                statusMessage_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00020000;
+                break;
+              } // case 146
+              case 154: {
+                input.readMessage(
+                    internalGetStatusChangedAtFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00040000;
+                break;
+              } // case 154
+              case 160: {
+                trunkRegistrationState_ = input.readEnum();
+                bitField0_ |= 0x00080000;
+                break;
+              } // case 160
+              case 170: {
+                asteriskVersionEffective_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00100000;
+                break;
+              } // case 170
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2699,7 +3372,13 @@ public final class ProjectsOuterClass {
       private int maxCallers_ ;
       /**
        * <pre>
-       * The maximum number of callers that this project can have.
+       * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+       * provisioned on its Asterisk. &lt;code&gt;0&lt;/code&gt; means NO caller can be started (it is not
+       * &amp;quot;unlimited&amp;quot;); negative values are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A
+       * &lt;code&gt;StartCaller&lt;/code&gt; / &lt;code&gt;StartCallers&lt;/code&gt; beyond the free capacity is refused with
+       * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;; an idle pooled (persistent) caller does not count. Changing it on a
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; project REDEPLOYS the project, which ends every running call (see
+       * &lt;code&gt;UpdateVtsiProject&lt;/code&gt;); lowering it below the number of running callers is not refused.
        * </pre>
        *
        * <code>int32 max_callers = 3;</code>
@@ -2711,7 +3390,13 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The maximum number of callers that this project can have.
+       * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+       * provisioned on its Asterisk. &lt;code&gt;0&lt;/code&gt; means NO caller can be started (it is not
+       * &amp;quot;unlimited&amp;quot;); negative values are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A
+       * &lt;code&gt;StartCaller&lt;/code&gt; / &lt;code&gt;StartCallers&lt;/code&gt; beyond the free capacity is refused with
+       * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;; an idle pooled (persistent) caller does not count. Changing it on a
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; project REDEPLOYS the project, which ends every running call (see
+       * &lt;code&gt;UpdateVtsiProject&lt;/code&gt;); lowering it below the number of running callers is not refused.
        * </pre>
        *
        * <code>int32 max_callers = 3;</code>
@@ -2727,7 +3412,13 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The maximum number of callers that this project can have.
+       * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+       * provisioned on its Asterisk. &lt;code&gt;0&lt;/code&gt; means NO caller can be started (it is not
+       * &amp;quot;unlimited&amp;quot;); negative values are refused with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. A
+       * &lt;code&gt;StartCaller&lt;/code&gt; / &lt;code&gt;StartCallers&lt;/code&gt; beyond the free capacity is refused with
+       * &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;; an idle pooled (persistent) caller does not count. Changing it on a
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; project REDEPLOYS the project, which ends every running call (see
+       * &lt;code&gt;UpdateVtsiProject&lt;/code&gt;); lowering it below the number of running callers is not refused.
        * </pre>
        *
        * <code>int32 max_callers = 3;</code>
@@ -2743,7 +3434,11 @@ public final class ProjectsOuterClass {
       private int maxListeners_ ;
       /**
        * <pre>
-       * The maximum number of listeners that this project can have.
+       * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+       * accounts provisioned on its Asterisk. Same semantics as &lt;code&gt;max_callers&lt;/code&gt;:
+       * &lt;code&gt;0&lt;/code&gt; means no listener can be started, a &lt;code&gt;StartListener&lt;/code&gt; /
+       * &lt;code&gt;StartListeners&lt;/code&gt; beyond the free capacity is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, and a change
+       * on a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it.
        * </pre>
        *
        * <code>int32 max_listeners = 4;</code>
@@ -2755,7 +3450,11 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The maximum number of listeners that this project can have.
+       * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+       * accounts provisioned on its Asterisk. Same semantics as &lt;code&gt;max_callers&lt;/code&gt;:
+       * &lt;code&gt;0&lt;/code&gt; means no listener can be started, a &lt;code&gt;StartListener&lt;/code&gt; /
+       * &lt;code&gt;StartListeners&lt;/code&gt; beyond the free capacity is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, and a change
+       * on a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it.
        * </pre>
        *
        * <code>int32 max_listeners = 4;</code>
@@ -2771,7 +3470,11 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The maximum number of listeners that this project can have.
+       * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+       * accounts provisioned on its Asterisk. Same semantics as &lt;code&gt;max_callers&lt;/code&gt;:
+       * &lt;code&gt;0&lt;/code&gt; means no listener can be started, a &lt;code&gt;StartListener&lt;/code&gt; /
+       * &lt;code&gt;StartListeners&lt;/code&gt; beyond the free capacity is &lt;code&gt;RESOURCE_EXHAUSTED&lt;/code&gt;, and a change
+       * on a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it.
        * </pre>
        *
        * <code>int32 max_listeners = 4;</code>
@@ -3601,7 +4304,13 @@ public final class ProjectsOuterClass {
       private int asteriskPort_ ;
       /**
        * <pre>
-       * The port of the asterisk server
+       * The port of the asterisk server. The same value as &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;, of
+       * which it is a convenience copy: &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt; is authoritative, and
+       * every response carries the project&amp;apos;s port in both. On create and update, &lt;code&gt;0&lt;/code&gt; means
+       * &amp;quot;not stated&amp;quot; (on create: assign a free port); a value set here is copied into
+       * &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;; both set and different is refused with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Changing the port of a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it and
+       * voids every softphone client certificate (the certificate authorities belong to the port).
        * </pre>
        *
        * <code>int32 asterisk_port = 13;</code>
@@ -3613,7 +4322,13 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The port of the asterisk server
+       * The port of the asterisk server. The same value as &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;, of
+       * which it is a convenience copy: &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt; is authoritative, and
+       * every response carries the project&amp;apos;s port in both. On create and update, &lt;code&gt;0&lt;/code&gt; means
+       * &amp;quot;not stated&amp;quot; (on create: assign a free port); a value set here is copied into
+       * &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;; both set and different is refused with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Changing the port of a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it and
+       * voids every softphone client certificate (the certificate authorities belong to the port).
        * </pre>
        *
        * <code>int32 asterisk_port = 13;</code>
@@ -3629,7 +4344,13 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The port of the asterisk server
+       * The port of the asterisk server. The same value as &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;, of
+       * which it is a convenience copy: &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt; is authoritative, and
+       * every response carries the project&amp;apos;s port in both. On create and update, &lt;code&gt;0&lt;/code&gt; means
+       * &amp;quot;not stated&amp;quot; (on create: assign a free port); a value set here is copied into
+       * &lt;code&gt;asterisk_configs.asterisk_port&lt;/code&gt;; both set and different is refused with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Changing the port of a &lt;code&gt;DEPLOYED&lt;/code&gt; project redeploys it and
+       * voids every softphone client certificate (the certificate authorities belong to the port).
        * </pre>
        *
        * <code>int32 asterisk_port = 13;</code>
@@ -4087,6 +4808,487 @@ public final class ProjectsOuterClass {
         return this;
       }
 
+      private java.lang.Object statusMessage_ = "";
+      /**
+       * <pre>
+       * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+       * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+       * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+       * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+       * change. Secrets are redacted. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string status_message = 18;</code>
+       * @return The statusMessage.
+       */
+      public java.lang.String getStatusMessage() {
+        java.lang.Object ref = statusMessage_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          statusMessage_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+       * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+       * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+       * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+       * change. Secrets are redacted. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string status_message = 18;</code>
+       * @return The bytes for statusMessage.
+       */
+      public com.google.protobuf.ByteString
+          getStatusMessageBytes() {
+        java.lang.Object ref = statusMessage_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          statusMessage_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+       * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+       * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+       * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+       * change. Secrets are redacted. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string status_message = 18;</code>
+       * @param value The statusMessage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusMessage(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        statusMessage_ = value;
+        bitField0_ |= 0x00020000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+       * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+       * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+       * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+       * change. Secrets are redacted. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string status_message = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatusMessage() {
+        statusMessage_ = getDefaultInstance().getStatusMessage();
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Human-readable detail of the current &lt;code&gt;vtsi_project_status&lt;/code&gt;: the reason of a
+       * &lt;code&gt;DEPLOY_FAILED&lt;/code&gt; project (the same text as the &lt;code&gt;description&lt;/code&gt; of the
+       * &lt;code&gt;VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED&lt;/code&gt; event), or the reason the last undeploy or update
+       * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+       * change. Secrets are redacted. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string status_message = 18;</code>
+       * @param value The bytes for statusMessage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        statusMessage_ = value;
+        bitField0_ |= 0x00020000;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp statusChangedAt_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> statusChangedAtBuilder_;
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       * @return Whether the statusChangedAt field is set.
+       */
+      public boolean hasStatusChangedAt() {
+        return ((bitField0_ & 0x00040000) != 0);
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       * @return The statusChangedAt.
+       */
+      public com.google.protobuf.Timestamp getStatusChangedAt() {
+        if (statusChangedAtBuilder_ == null) {
+          return statusChangedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : statusChangedAt_;
+        } else {
+          return statusChangedAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public Builder setStatusChangedAt(com.google.protobuf.Timestamp value) {
+        if (statusChangedAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          statusChangedAt_ = value;
+        } else {
+          statusChangedAtBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00040000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public Builder setStatusChangedAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (statusChangedAtBuilder_ == null) {
+          statusChangedAt_ = builderForValue.build();
+        } else {
+          statusChangedAtBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00040000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public Builder mergeStatusChangedAt(com.google.protobuf.Timestamp value) {
+        if (statusChangedAtBuilder_ == null) {
+          if (((bitField0_ & 0x00040000) != 0) &&
+            statusChangedAt_ != null &&
+            statusChangedAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getStatusChangedAtBuilder().mergeFrom(value);
+          } else {
+            statusChangedAt_ = value;
+          }
+        } else {
+          statusChangedAtBuilder_.mergeFrom(value);
+        }
+        if (statusChangedAt_ != null) {
+          bitField0_ |= 0x00040000;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public Builder clearStatusChangedAt() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        statusChangedAt_ = null;
+        if (statusChangedAtBuilder_ != null) {
+          statusChangedAtBuilder_.dispose();
+          statusChangedAtBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getStatusChangedAtBuilder() {
+        bitField0_ |= 0x00040000;
+        onChanged();
+        return internalGetStatusChangedAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getStatusChangedAtOrBuilder() {
+        if (statusChangedAtBuilder_ != null) {
+          return statusChangedAtBuilder_.getMessageOrBuilder();
+        } else {
+          return statusChangedAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : statusChangedAt_;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. When &lt;code&gt;vtsi_project_status&lt;/code&gt; last changed. Unset for a project whose status
+       * has not changed since an older server created it. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetStatusChangedAtFieldBuilder() {
+        if (statusChangedAtBuilder_ == null) {
+          statusChangedAtBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getStatusChangedAt(),
+                  getParentForChildren(),
+                  isClean());
+          statusChangedAt_ = null;
+        }
+        return statusChangedAtBuilder_;
+      }
+
+      private int trunkRegistrationState_ = 0;
+      /**
+       * <pre>
+       * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+       * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+       * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+       * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+       * @return The enum numeric value on the wire for trunkRegistrationState.
+       */
+      @java.lang.Override public int getTrunkRegistrationStateValue() {
+        return trunkRegistrationState_;
+      }
+      /**
+       * <pre>
+       * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+       * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+       * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+       * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+       * @param value The enum numeric value on the wire for trunkRegistrationState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTrunkRegistrationStateValue(int value) {
+        trunkRegistrationState_ = value;
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+       * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+       * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+       * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+       * @return The trunkRegistrationState.
+       */
+      @java.lang.Override
+      public ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState getTrunkRegistrationState() {
+        ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState result = ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.forNumber(trunkRegistrationState_);
+        return result == null ? ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+       * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+       * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+       * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+       * @param value The trunkRegistrationState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTrunkRegistrationState(ondewo.vtsi.ProjectsOuterClass.TrunkRegistrationState value) {
+        if (value == null) { throw new NullPointerException(); }
+        bitField0_ |= 0x00080000;
+        trunkRegistrationState_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. Registration state of the project&amp;apos;s SIP trunk with the carrier, as last observed
+       * on the running Asterisk (&lt;code&gt;pjsip show registrations&lt;/code&gt;), refreshed every
+       * &lt;code&gt;ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S&lt;/code&gt; seconds (default 30), so it may lag by that
+       * much. &lt;code&gt;TRUNK_REGISTRATION_STATE_UNSPECIFIED&lt;/code&gt; when the project is not
+       * &lt;code&gt;DEPLOYED&lt;/code&gt; or has not been observed yet. Ignored on create and update.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTrunkRegistrationState() {
+        bitField0_ = (bitField0_ & ~0x00080000);
+        trunkRegistrationState_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object asteriskVersionEffective_ = "";
+      /**
+       * <pre>
+       * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+       * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+       * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+       * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+       * would start, e.g. after the server default changed. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string asterisk_version_effective = 21;</code>
+       * @return The asteriskVersionEffective.
+       */
+      public java.lang.String getAsteriskVersionEffective() {
+        java.lang.Object ref = asteriskVersionEffective_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          asteriskVersionEffective_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+       * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+       * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+       * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+       * would start, e.g. after the server default changed. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string asterisk_version_effective = 21;</code>
+       * @return The bytes for asteriskVersionEffective.
+       */
+      public com.google.protobuf.ByteString
+          getAsteriskVersionEffectiveBytes() {
+        java.lang.Object ref = asteriskVersionEffective_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          asteriskVersionEffective_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+       * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+       * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+       * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+       * would start, e.g. after the server default changed. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string asterisk_version_effective = 21;</code>
+       * @param value The asteriskVersionEffective to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAsteriskVersionEffective(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        asteriskVersionEffective_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+       * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+       * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+       * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+       * would start, e.g. after the server default changed. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string asterisk_version_effective = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAsteriskVersionEffective() {
+        asteriskVersionEffective_ = getDefaultInstance().getAsteriskVersionEffective();
+        bitField0_ = (bitField0_ & ~0x00100000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Output only. The Asterisk version the project&amp;apos;s container RUNS, i.e. the docker image tag of the
+       * ONDEWO Asterisk image it was deployed from: &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt; when
+       * pinned, otherwise the server default (&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;) at the moment
+       * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+       * would start, e.g. after the server default changed. Ignored on create and update.
+       * </pre>
+       *
+       * <code>string asterisk_version_effective = 21;</code>
+       * @param value The bytes for asteriskVersionEffective to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAsteriskVersionEffectiveBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        asteriskVersionEffective_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.VtsiProject)
     }
 
@@ -4164,7 +5366,14 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+     * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+     * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+     * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+     * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+     * value CLEARS it.
      * </pre>
      *
      * <code>string sip_trunk_password = 2;</code>
@@ -4173,7 +5382,14 @@ public final class ProjectsOuterClass {
     java.lang.String getSipTrunkPassword();
     /**
      * <pre>
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+     * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+     * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+     * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+     * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+     * value CLEARS it.
      * </pre>
      *
      * <code>string sip_trunk_password = 2;</code>
@@ -4632,7 +5848,14 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object sipTrunkPassword_ = "";
     /**
      * <pre>
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+     * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+     * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+     * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+     * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+     * value CLEARS it.
      * </pre>
      *
      * <code>string sip_trunk_password = 2;</code>
@@ -4653,7 +5876,14 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+     * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+     * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+     * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+     * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+     * value CLEARS it.
      * </pre>
      *
      * <code>string sip_trunk_password = 2;</code>
@@ -5880,7 +7110,14 @@ public final class ProjectsOuterClass {
       private java.lang.Object sipTrunkPassword_ = "";
       /**
        * <pre>
-       * SIP trunk password.
+       * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+       * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+       * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+       * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+       * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+       * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+       * value CLEARS it.
        * </pre>
        *
        * <code>string sip_trunk_password = 2;</code>
@@ -5900,7 +7137,14 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * SIP trunk password.
+       * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+       * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+       * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+       * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+       * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+       * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+       * value CLEARS it.
        * </pre>
        *
        * <code>string sip_trunk_password = 2;</code>
@@ -5921,7 +7165,14 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * SIP trunk password.
+       * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+       * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+       * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+       * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+       * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+       * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+       * value CLEARS it.
        * </pre>
        *
        * <code>string sip_trunk_password = 2;</code>
@@ -5938,7 +7189,14 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * SIP trunk password.
+       * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+       * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+       * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+       * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+       * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+       * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+       * value CLEARS it.
        * </pre>
        *
        * <code>string sip_trunk_password = 2;</code>
@@ -5952,7 +7210,14 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * SIP trunk password.
+       * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+       * to every caller allowed to read &lt;code&gt;asterisk_configs&lt;/code&gt; (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description for who that is). Server logs and &lt;code&gt;status_message&lt;/code&gt; redact it.
+       * On &lt;code&gt;UpdateVtsiProject&lt;/code&gt; WITHOUT an &lt;code&gt;update_mask&lt;/code&gt; an empty value KEEPS the stored
+       * password (an empty string cannot be told from &amp;quot;not sent&amp;quot;); WITH an
+       * &lt;code&gt;update_mask&lt;/code&gt; naming this field, or a parent of it such as
+       * &lt;code&gt;asterisk_configs&lt;/code&gt; or &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;, an empty
+       * value CLEARS it.
        * </pre>
        *
        * <code>string sip_trunk_password = 2;</code>
@@ -8379,7 +9644,8 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * OPTIONAL: The port where Asterisk should start.
+     * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     * &lt;code&gt;VtsiProject.asterisk_port&lt;/code&gt; (see there). &lt;code&gt;0&lt;/code&gt; on create assigns a free port.
      * </pre>
      *
      * <code>int32 asterisk_port = 4;</code>
@@ -8395,6 +9661,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -8410,6 +9677,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -8425,6 +9693,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -8677,7 +9946,8 @@ public final class ProjectsOuterClass {
     private int asteriskPort_ = 0;
     /**
      * <pre>
-     * OPTIONAL: The port where Asterisk should start.
+     * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     * &lt;code&gt;VtsiProject.asterisk_port&lt;/code&gt; (see there). &lt;code&gt;0&lt;/code&gt; on create assigns a free port.
      * </pre>
      *
      * <code>int32 asterisk_port = 4;</code>
@@ -8699,6 +9969,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -8717,6 +9988,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -8744,6 +10016,7 @@ public final class ProjectsOuterClass {
      * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+     * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      * </pre>
      *
@@ -9699,7 +10972,8 @@ public final class ProjectsOuterClass {
       private int asteriskPort_ ;
       /**
        * <pre>
-       * OPTIONAL: The port where Asterisk should start.
+       * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+       * &lt;code&gt;VtsiProject.asterisk_port&lt;/code&gt; (see there). &lt;code&gt;0&lt;/code&gt; on create assigns a free port.
        * </pre>
        *
        * <code>int32 asterisk_port = 4;</code>
@@ -9711,7 +10985,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * OPTIONAL: The port where Asterisk should start.
+       * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+       * &lt;code&gt;VtsiProject.asterisk_port&lt;/code&gt; (see there). &lt;code&gt;0&lt;/code&gt; on create assigns a free port.
        * </pre>
        *
        * <code>int32 asterisk_port = 4;</code>
@@ -9727,7 +11002,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * OPTIONAL: The port where Asterisk should start.
+       * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+       * &lt;code&gt;VtsiProject.asterisk_port&lt;/code&gt; (see there). &lt;code&gt;0&lt;/code&gt; on create assigns a free port.
        * </pre>
        *
        * <code>int32 asterisk_port = 4;</code>
@@ -9749,6 +11025,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9766,6 +11043,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9792,6 +11070,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9819,6 +11098,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9842,6 +11122,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9862,6 +11143,7 @@ public final class ProjectsOuterClass {
        * &lt;pre&gt;&lt;code&gt;[A-Za-z0-9_][A-Za-z0-9._-]{0,127}&lt;/code&gt;&lt;/pre&gt;.
        * Explicitly optional: when the field is not set, the server keeps using its configured
        * default (the &lt;pre&gt;&lt;code&gt;ONDEWO_VTSI_ASTERISK_IMAGE_TAG&lt;/code&gt;&lt;/pre&gt; environment variable).
+       * The version a deployed project actually runs is &lt;code&gt;VtsiProject.asterisk_version_effective&lt;/code&gt;.
        * Sending an empty string is NOT the same as leaving it unset and is rejected.
        * </pre>
        *
@@ -9972,23 +11254,45 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      * </pre>
      *
-     * <code>string error_message = 2;</code>
+     * <code>string error_message = 2 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+     *     See ondewo/vtsi/projects.proto;l=546
      * @return The errorMessage.
      */
-    java.lang.String getErrorMessage();
+    @java.lang.Deprecated java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      * </pre>
      *
-     * <code>string error_message = 2;</code>
+     * <code>string error_message = 2 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+     *     See ondewo/vtsi/projects.proto;l=546
      * @return The bytes for errorMessage.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getErrorMessageBytes();
+
+    /**
+     * <pre>
+     * Optional. Validate only: run every check of a real create (validation, authorization) and return
+     * the would-be project in &lt;code&gt;CreateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write, reserve and
+     * emit nothing. The fields the server assigns at creation are left empty in that answer because
+     * nothing is reserved: &lt;code&gt;name&lt;/code&gt; when the request gave none, the ports when the request gave
+     * &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt; and the audit fields. A successful validation does
+     * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     * &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 3;</code>
+     * @return The validateOnly.
+     */
+    boolean getValidateOnly();
   }
   /**
    * <pre>
@@ -10085,14 +11389,17 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      * </pre>
      *
-     * <code>string error_message = 2;</code>
+     * <code>string error_message = 2 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+     *     See ondewo/vtsi/projects.proto;l=546
      * @return The errorMessage.
      */
     @java.lang.Override
-    public java.lang.String getErrorMessage() {
+    @java.lang.Deprecated public java.lang.String getErrorMessage() {
       java.lang.Object ref = errorMessage_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -10106,14 +11413,17 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      * </pre>
      *
-     * <code>string error_message = 2;</code>
+     * <code>string error_message = 2 [deprecated = true];</code>
+     * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+     *     See ondewo/vtsi/projects.proto;l=546
      * @return The bytes for errorMessage.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getErrorMessageBytes() {
       java.lang.Object ref = errorMessage_;
       if (ref instanceof java.lang.String) {
@@ -10125,6 +11435,27 @@ public final class ProjectsOuterClass {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int VALIDATE_ONLY_FIELD_NUMBER = 3;
+    private boolean validateOnly_ = false;
+    /**
+     * <pre>
+     * Optional. Validate only: run every check of a real create (validation, authorization) and return
+     * the would-be project in &lt;code&gt;CreateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write, reserve and
+     * emit nothing. The fields the server assigns at creation are left empty in that answer because
+     * nothing is reserved: &lt;code&gt;name&lt;/code&gt; when the request gave none, the ports when the request gave
+     * &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt; and the audit fields. A successful validation does
+     * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     * &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 3;</code>
+     * @return The validateOnly.
+     */
+    @java.lang.Override
+    public boolean getValidateOnly() {
+      return validateOnly_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -10147,6 +11478,9 @@ public final class ProjectsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, errorMessage_);
       }
+      if (validateOnly_ != false) {
+        output.writeBool(3, validateOnly_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -10162,6 +11496,10 @@ public final class ProjectsOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, errorMessage_);
+      }
+      if (validateOnly_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, validateOnly_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -10185,6 +11523,8 @@ public final class ProjectsOuterClass {
       }
       if (!getErrorMessage()
           .equals(other.getErrorMessage())) return false;
+      if (getValidateOnly()
+          != other.getValidateOnly()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -10202,6 +11542,9 @@ public final class ProjectsOuterClass {
       }
       hash = (37 * hash) + ERROR_MESSAGE_FIELD_NUMBER;
       hash = (53 * hash) + getErrorMessage().hashCode();
+      hash = (37 * hash) + VALIDATE_ONLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getValidateOnly());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10349,6 +11692,7 @@ public final class ProjectsOuterClass {
           vtsiProjectBuilder_ = null;
         }
         errorMessage_ = "";
+        validateOnly_ = false;
         return this;
       }
 
@@ -10392,6 +11736,9 @@ public final class ProjectsOuterClass {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.errorMessage_ = errorMessage_;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.validateOnly_ = validateOnly_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -10414,6 +11761,9 @@ public final class ProjectsOuterClass {
           errorMessage_ = other.errorMessage_;
           bitField0_ |= 0x00000002;
           onChanged();
+        }
+        if (other.getValidateOnly() != false) {
+          setValidateOnly(other.getValidateOnly());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -10453,6 +11803,11 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 24: {
+                validateOnly_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -10657,13 +12012,16 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+       * compatibility.
        * </pre>
        *
-       * <code>string error_message = 2;</code>
+       * <code>string error_message = 2 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+       *     See ondewo/vtsi/projects.proto;l=546
        * @return The errorMessage.
        */
-      public java.lang.String getErrorMessage() {
+      @java.lang.Deprecated public java.lang.String getErrorMessage() {
         java.lang.Object ref = errorMessage_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -10677,13 +12035,16 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+       * compatibility.
        * </pre>
        *
-       * <code>string error_message = 2;</code>
+       * <code>string error_message = 2 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+       *     See ondewo/vtsi/projects.proto;l=546
        * @return The bytes for errorMessage.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getErrorMessageBytes() {
         java.lang.Object ref = errorMessage_;
         if (ref instanceof String) {
@@ -10698,14 +12059,17 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+       * compatibility.
        * </pre>
        *
-       * <code>string error_message = 2;</code>
+       * <code>string error_message = 2 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+       *     See ondewo/vtsi/projects.proto;l=546
        * @param value The errorMessage to set.
        * @return This builder for chaining.
        */
-      public Builder setErrorMessage(
+      @java.lang.Deprecated public Builder setErrorMessage(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         errorMessage_ = value;
@@ -10715,13 +12079,16 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+       * compatibility.
        * </pre>
        *
-       * <code>string error_message = 2;</code>
+       * <code>string error_message = 2 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+       *     See ondewo/vtsi/projects.proto;l=546
        * @return This builder for chaining.
        */
-      public Builder clearErrorMessage() {
+      @java.lang.Deprecated public Builder clearErrorMessage() {
         errorMessage_ = getDefaultInstance().getErrorMessage();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
@@ -10729,19 +12096,84 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+       * compatibility.
        * </pre>
        *
-       * <code>string error_message = 2;</code>
+       * <code>string error_message = 2 [deprecated = true];</code>
+       * @deprecated ondewo.vtsi.CreateVtsiProjectRequest.error_message is deprecated.
+       *     See ondewo/vtsi/projects.proto;l=546
        * @param value The bytes for errorMessage to set.
        * @return This builder for chaining.
        */
-      public Builder setErrorMessageBytes(
+      @java.lang.Deprecated public Builder setErrorMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         errorMessage_ = value;
         bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private boolean validateOnly_ ;
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real create (validation, authorization) and return
+       * the would-be project in &lt;code&gt;CreateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write, reserve and
+       * emit nothing. The fields the server assigns at creation are left empty in that answer because
+       * nothing is reserved: &lt;code&gt;name&lt;/code&gt; when the request gave none, the ports when the request gave
+       * &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt; and the audit fields. A successful validation does
+       * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+       * &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @return The validateOnly.
+       */
+      @java.lang.Override
+      public boolean getValidateOnly() {
+        return validateOnly_;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real create (validation, authorization) and return
+       * the would-be project in &lt;code&gt;CreateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write, reserve and
+       * emit nothing. The fields the server assigns at creation are left empty in that answer because
+       * nothing is reserved: &lt;code&gt;name&lt;/code&gt; when the request gave none, the ports when the request gave
+       * &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt; and the audit fields. A successful validation does
+       * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+       * &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @param value The validateOnly to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValidateOnly(boolean value) {
+
+        validateOnly_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: run every check of a real create (validation, authorization) and return
+       * the would-be project in &lt;code&gt;CreateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write, reserve and
+       * emit nothing. The fields the server assigns at creation are left empty in that answer because
+       * nothing is reserved: &lt;code&gt;name&lt;/code&gt; when the request gave none, the ports when the request gave
+       * &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt; and the audit fields. A successful validation does
+       * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+       * &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValidateOnly() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        validateOnly_ = false;
         onChanged();
         return this;
       }
@@ -10803,7 +12235,8 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10812,7 +12245,8 @@ public final class ProjectsOuterClass {
     boolean hasVtsiProject();
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10821,7 +12255,8 @@ public final class ProjectsOuterClass {
     ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProject();
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10830,7 +12265,8 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -10839,7 +12275,8 @@ public final class ProjectsOuterClass {
     java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -10895,7 +12332,8 @@ public final class ProjectsOuterClass {
     private ondewo.vtsi.ProjectsOuterClass.VtsiProject vtsiProject_;
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10907,7 +12345,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10919,7 +12358,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Vtsi project
+     * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+     * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -10934,7 +12374,8 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -10955,7 +12396,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -11324,7 +12766,8 @@ public final class ProjectsOuterClass {
           ondewo.vtsi.ProjectsOuterClass.VtsiProject, ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder, ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder> vtsiProjectBuilder_;
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11335,7 +12778,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11350,7 +12794,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11370,7 +12815,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11388,7 +12834,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11413,7 +12860,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11430,7 +12878,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11442,7 +12891,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11457,7 +12907,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Vtsi project
+       * The created project, &lt;code&gt;UNDEPLOYED&lt;/code&gt;, with its assigned name and port (with
+       * &lt;code&gt;validate_only&lt;/code&gt;: the would-be project).
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -11479,7 +12930,8 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -11499,7 +12951,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -11520,7 +12973,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -11537,7 +12991,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -11551,7 +13006,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -11661,6 +13117,51 @@ public final class ProjectsOuterClass {
      * @return The vtsiProjectView.
      */
     ondewo.vtsi.ProjectsOuterClass.VtsiProjectView getVtsiProjectView();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
   }
   /**
    * <pre>
@@ -11705,6 +13206,7 @@ public final class ProjectsOuterClass {
               ondewo.vtsi.ProjectsOuterClass.GetVtsiProjectRequest.class, ondewo.vtsi.ProjectsOuterClass.GetVtsiProjectRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
@@ -11778,6 +13280,62 @@ public final class ProjectsOuterClass {
       return result == null ? ondewo.vtsi.ProjectsOuterClass.VtsiProjectView.UNRECOGNIZED : result;
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+     * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11798,6 +13356,9 @@ public final class ProjectsOuterClass {
       if (vtsiProjectView_ != ondewo.vtsi.ProjectsOuterClass.VtsiProjectView.VTSI_PROJECT_VIEW_UNSPECIFIED.getNumber()) {
         output.writeEnum(2, vtsiProjectView_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -11813,6 +13374,10 @@ public final class ProjectsOuterClass {
       if (vtsiProjectView_ != ondewo.vtsi.ProjectsOuterClass.VtsiProjectView.VTSI_PROJECT_VIEW_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, vtsiProjectView_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -11832,6 +13397,11 @@ public final class ProjectsOuterClass {
       if (!getName()
           .equals(other.getName())) return false;
       if (vtsiProjectView_ != other.vtsiProjectView_) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -11847,6 +13417,10 @@ public final class ProjectsOuterClass {
       hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + VTSI_PROJECT_VIEW_FIELD_NUMBER;
       hash = (53 * hash) + vtsiProjectView_;
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11970,13 +13544,19 @@ public final class ProjectsOuterClass {
 
       // Construct using ondewo.vtsi.ProjectsOuterClass.GetVtsiProjectRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetFieldMaskFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -11984,6 +13564,11 @@ public final class ProjectsOuterClass {
         bitField0_ = 0;
         name_ = "";
         vtsiProjectView_ = 0;
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
         return this;
       }
 
@@ -12023,6 +13608,14 @@ public final class ProjectsOuterClass {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.vtsiProjectView_ = vtsiProjectView_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -12044,6 +13637,9 @@ public final class ProjectsOuterClass {
         }
         if (other.vtsiProjectView_ != 0) {
           setVtsiProjectViewValue(other.getVtsiProjectViewValue());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -12081,6 +13677,13 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -12261,6 +13864,217 @@ public final class ProjectsOuterClass {
         return this;
       }
 
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate, e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;, &lt;code&gt;status_message&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_version&lt;/code&gt;. Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest"&gt;ListVtsiProjectsRequest.field_mask&lt;/a&gt;:
+       * &lt;code&gt;name&lt;/code&gt; is always populated, unset or empty returns every field the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; populates, an unknown path is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it, and the mask is applied after the view and any redaction.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.GetVtsiProjectRequest)
     }
 
@@ -12337,8 +14151,10 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12347,8 +14163,10 @@ public final class ProjectsOuterClass {
     boolean hasPageToken();
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12357,8 +14175,10 @@ public final class ProjectsOuterClass {
     java.lang.String getPageToken();
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12370,7 +14190,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12380,7 +14201,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12390,7 +14212,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12399,7 +14222,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12410,7 +14233,7 @@ public final class ProjectsOuterClass {
         getNluAgentNamesList();
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12420,7 +14243,7 @@ public final class ProjectsOuterClass {
     int getNluAgentNamesCount();
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12431,7 +14254,7 @@ public final class ProjectsOuterClass {
     java.lang.String getNluAgentNames(int index);
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12441,10 +14264,211 @@ public final class ProjectsOuterClass {
      */
     com.google.protobuf.ByteString
         getNluAgentNamesBytes(int index);
+
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Maximum number of projects per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Fewer projects than &lt;code&gt;page_size&lt;/code&gt; may be returned (e.g. after
+     * the authorization filter), and only an empty &lt;code&gt;next_page_token&lt;/code&gt; means the end of the list.
+     * </pre>
+     *
+     * <code>int32 page_size = 6;</code>
+     * @return The pageSize.
+     */
+    int getPageSize();
+
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return A list containing the statuses.
+     */
+    java.util.List<ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus> getStatusesList();
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return The count of statuses.
+     */
+    int getStatusesCount();
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @param index The index of the element to return.
+     * @return The statuses at the given index.
+     */
+    ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus getStatuses(int index);
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return A list containing the enum numeric values on the wire for statuses.
+     */
+    java.util.List<java.lang.Integer>
+    getStatusesValueList();
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of statuses at the given index.
+     */
+    int getStatusesValue(int index);
+
+    /**
+     * <pre>
+     * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+     * filter. At most 256 characters.
+     * </pre>
+     *
+     * <code>string display_name_contains = 8;</code>
+     * @return The displayNameContains.
+     */
+    java.lang.String getDisplayNameContains();
+    /**
+     * <pre>
+     * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+     * filter. At most 256 characters.
+     * </pre>
+     *
+     * <code>string display_name_contains = 8;</code>
+     * @return The bytes for displayNameContains.
+     */
+    com.google.protobuf.ByteString
+        getDisplayNameContainsBytes();
+
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @return Whether the createdAfter field is set.
+     */
+    boolean hasCreatedAfter();
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @return The createdAfter.
+     */
+    com.google.protobuf.Timestamp getCreatedAfter();
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getCreatedAfterOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @return Whether the createdBefore field is set.
+     */
+    boolean hasCreatedBefore();
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @return The createdBefore.
+     */
+    com.google.protobuf.Timestamp getCreatedBefore();
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getCreatedBeforeOrBuilder();
   }
   /**
    * <pre>
-   * Request to get the list of agents
+   * Request to list VTSI projects. The filters are combined with AND; the values within one repeated
+   * field are combined with OR; an unset field or an empty repeated field does not filter.
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.ListVtsiProjectsRequest}
@@ -12472,6 +14496,8 @@ public final class ProjectsOuterClass {
       pageToken_ = "";
       nluAgentNames_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
+      statuses_ = emptyIntList();
+      displayNameContains_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -12519,8 +14545,10 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object pageToken_ = "";
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12532,8 +14560,10 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12554,8 +14584,10 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      * </pre>
      *
      * <code>optional string page_token = 2;</code>
@@ -12581,7 +14613,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12594,7 +14627,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12607,7 +14641,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+     * project&amp;apos;s internal id), which is a stable order.
      * </pre>
      *
      * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -12623,7 +14658,7 @@ public final class ProjectsOuterClass {
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12636,7 +14671,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12648,7 +14683,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12661,7 +14696,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
@@ -12672,6 +14707,301 @@ public final class ProjectsOuterClass {
     public com.google.protobuf.ByteString
         getNluAgentNamesBytes(int index) {
       return nluAgentNames_.getByteString(index);
+    }
+
+    public static final int FIELD_MASK_FIELD_NUMBER = 5;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+     * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+     * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+     * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+     * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+     * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
+    public static final int PAGE_SIZE_FIELD_NUMBER = 6;
+    private int pageSize_ = 0;
+    /**
+     * <pre>
+     * Optional. Maximum number of projects per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Fewer projects than &lt;code&gt;page_size&lt;/code&gt; may be returned (e.g. after
+     * the authorization filter), and only an empty &lt;code&gt;next_page_token&lt;/code&gt; means the end of the list.
+     * </pre>
+     *
+     * <code>int32 page_size = 6;</code>
+     * @return The pageSize.
+     */
+    @java.lang.Override
+    public int getPageSize() {
+      return pageSize_;
+    }
+
+    public static final int STATUSES_FIELD_NUMBER = 7;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList statuses_ =
+        emptyIntList();
+    private static final     com.google.protobuf.Internal.IntListAdapter.IntConverter<
+        ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus> statuses_converter_ =
+            new com.google.protobuf.Internal.IntListAdapter.IntConverter<
+                ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus>() {
+              public ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus convert(int from) {
+                ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus result = ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus.forNumber(from);
+                return result == null ? ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return A list containing the statuses.
+     */
+    @java.lang.Override
+    public java.util.List<ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus> getStatusesList() {
+      return new com.google.protobuf.Internal.IntListAdapter<
+          ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus>(statuses_, statuses_converter_);
+    }
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return The count of statuses.
+     */
+    @java.lang.Override
+    public int getStatusesCount() {
+      return statuses_.size();
+    }
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @param index The index of the element to return.
+     * @return The statuses at the given index.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus getStatuses(int index) {
+      return statuses_converter_.convert(statuses_.getInt(index));
+    }
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return A list containing the enum numeric values on the wire for statuses.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getStatusesValueList() {
+      return statuses_;
+    }
+    /**
+     * <pre>
+     * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+     * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of statuses at the given index.
+     */
+    @java.lang.Override
+    public int getStatusesValue(int index) {
+      return statuses_.getInt(index);
+    }
+    private int statusesMemoizedSerializedSize;
+
+    public static final int DISPLAY_NAME_CONTAINS_FIELD_NUMBER = 8;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object displayNameContains_ = "";
+    /**
+     * <pre>
+     * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+     * filter. At most 256 characters.
+     * </pre>
+     *
+     * <code>string display_name_contains = 8;</code>
+     * @return The displayNameContains.
+     */
+    @java.lang.Override
+    public java.lang.String getDisplayNameContains() {
+      java.lang.Object ref = displayNameContains_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        displayNameContains_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+     * filter. At most 256 characters.
+     * </pre>
+     *
+     * <code>string display_name_contains = 8;</code>
+     * @return The bytes for displayNameContains.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDisplayNameContainsBytes() {
+      java.lang.Object ref = displayNameContains_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        displayNameContains_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CREATED_AFTER_FIELD_NUMBER = 9;
+    private com.google.protobuf.Timestamp createdAfter_;
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @return Whether the createdAfter field is set.
+     */
+    @java.lang.Override
+    public boolean hasCreatedAfter() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @return The createdAfter.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getCreatedAfter() {
+      return createdAfter_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdAfter_;
+    }
+    /**
+     * <pre>
+     * Optional. Only projects created at or after this instant.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_after = 9;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getCreatedAfterOrBuilder() {
+      return createdAfter_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdAfter_;
+    }
+
+    public static final int CREATED_BEFORE_FIELD_NUMBER = 10;
+    private com.google.protobuf.Timestamp createdBefore_;
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @return Whether the createdBefore field is set.
+     */
+    @java.lang.Override
+    public boolean hasCreatedBefore() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @return The createdBefore.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getCreatedBefore() {
+      return createdBefore_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdBefore_;
+    }
+    /**
+     * <pre>
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp created_before = 10;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getCreatedBeforeOrBuilder() {
+      return createdBefore_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdBefore_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -12688,6 +15018,7 @@ public final class ProjectsOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (vtsiProjectView_ != ondewo.vtsi.ProjectsOuterClass.VtsiProjectView.VTSI_PROJECT_VIEW_UNSPECIFIED.getNumber()) {
         output.writeEnum(1, vtsiProjectView_);
       }
@@ -12699,6 +15030,28 @@ public final class ProjectsOuterClass {
       }
       for (int i = 0; i < nluAgentNames_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 4, nluAgentNames_.getRaw(i));
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(5, getFieldMask());
+      }
+      if (pageSize_ != 0) {
+        output.writeInt32(6, pageSize_);
+      }
+      if (getStatusesList().size() > 0) {
+        output.writeUInt32NoTag(58);
+        output.writeUInt32NoTag(statusesMemoizedSerializedSize);
+      }
+      for (int i = 0; i < statuses_.size(); i++) {
+        output.writeEnumNoTag(statuses_.getInt(i));
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(displayNameContains_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 8, displayNameContains_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeMessage(9, getCreatedAfter());
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        output.writeMessage(10, getCreatedBefore());
       }
       getUnknownFields().writeTo(output);
     }
@@ -12728,6 +15081,37 @@ public final class ProjectsOuterClass {
         size += dataSize;
         size += 1 * getNluAgentNamesList().size();
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getFieldMask());
+      }
+      if (pageSize_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, pageSize_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < statuses_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(statuses_.getInt(i));
+        }
+        size += dataSize;
+        if (!getStatusesList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }statusesMemoizedSerializedSize = dataSize;
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(displayNameContains_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, displayNameContains_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, getCreatedAfter());
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getCreatedBefore());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -12756,6 +15140,26 @@ public final class ProjectsOuterClass {
       }
       if (!getNluAgentNamesList()
           .equals(other.getNluAgentNamesList())) return false;
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
+      if (getPageSize()
+          != other.getPageSize()) return false;
+      if (!statuses_.equals(other.statuses_)) return false;
+      if (!getDisplayNameContains()
+          .equals(other.getDisplayNameContains())) return false;
+      if (hasCreatedAfter() != other.hasCreatedAfter()) return false;
+      if (hasCreatedAfter()) {
+        if (!getCreatedAfter()
+            .equals(other.getCreatedAfter())) return false;
+      }
+      if (hasCreatedBefore() != other.hasCreatedBefore()) return false;
+      if (hasCreatedBefore()) {
+        if (!getCreatedBefore()
+            .equals(other.getCreatedBefore())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -12780,6 +15184,26 @@ public final class ProjectsOuterClass {
       if (getNluAgentNamesCount() > 0) {
         hash = (37 * hash) + NLU_AGENT_NAMES_FIELD_NUMBER;
         hash = (53 * hash) + getNluAgentNamesList().hashCode();
+      }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
+      hash = (37 * hash) + PAGE_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getPageSize();
+      if (getStatusesCount() > 0) {
+        hash = (37 * hash) + STATUSES_FIELD_NUMBER;
+        hash = (53 * hash) + statuses_.hashCode();
+      }
+      hash = (37 * hash) + DISPLAY_NAME_CONTAINS_FIELD_NUMBER;
+      hash = (53 * hash) + getDisplayNameContains().hashCode();
+      if (hasCreatedAfter()) {
+        hash = (37 * hash) + CREATED_AFTER_FIELD_NUMBER;
+        hash = (53 * hash) + getCreatedAfter().hashCode();
+      }
+      if (hasCreatedBefore()) {
+        hash = (37 * hash) + CREATED_BEFORE_FIELD_NUMBER;
+        hash = (53 * hash) + getCreatedBefore().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -12880,7 +15304,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Request to get the list of agents
+     * Request to list VTSI projects. The filters are combined with AND; the values within one repeated
+     * field are combined with OR; an unset field or an empty repeated field does not filter.
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.ListVtsiProjectsRequest}
@@ -12916,6 +15341,9 @@ public final class ProjectsOuterClass {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetVtsiProjectSortingFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
+          internalGetCreatedAfterFieldBuilder();
+          internalGetCreatedBeforeFieldBuilder();
         }
       }
       @java.lang.Override
@@ -12931,6 +15359,24 @@ public final class ProjectsOuterClass {
         }
         nluAgentNames_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        pageSize_ = 0;
+        statuses_ = emptyIntList();
+        displayNameContains_ = "";
+        createdAfter_ = null;
+        if (createdAfterBuilder_ != null) {
+          createdAfterBuilder_.dispose();
+          createdAfterBuilder_ = null;
+        }
+        createdBefore_ = null;
+        if (createdBeforeBuilder_ != null) {
+          createdBeforeBuilder_.dispose();
+          createdBeforeBuilder_ = null;
+        }
         return this;
       }
 
@@ -12982,6 +15428,34 @@ public final class ProjectsOuterClass {
           nluAgentNames_.makeImmutable();
           result.nluAgentNames_ = nluAgentNames_;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.pageSize_ = pageSize_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          statuses_.makeImmutable();
+          result.statuses_ = statuses_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.displayNameContains_ = displayNameContains_;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.createdAfter_ = createdAfterBuilder_ == null
+              ? createdAfter_
+              : createdAfterBuilder_.build();
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.createdBefore_ = createdBeforeBuilder_ == null
+              ? createdBefore_
+              : createdBeforeBuilder_.build();
+          to_bitField0_ |= 0x00000010;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -13017,6 +15491,34 @@ public final class ProjectsOuterClass {
             nluAgentNames_.addAll(other.nluAgentNames_);
           }
           onChanged();
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
+        }
+        if (other.getPageSize() != 0) {
+          setPageSize(other.getPageSize());
+        }
+        if (!other.statuses_.isEmpty()) {
+          if (statuses_.isEmpty()) {
+            statuses_ = other.statuses_;
+            statuses_.makeImmutable();
+            bitField0_ |= 0x00000040;
+          } else {
+            ensureStatusesIsMutable();
+            statuses_.addAll(other.statuses_);
+          }
+          onChanged();
+        }
+        if (!other.getDisplayNameContains().isEmpty()) {
+          displayNameContains_ = other.displayNameContains_;
+          bitField0_ |= 0x00000080;
+          onChanged();
+        }
+        if (other.hasCreatedAfter()) {
+          mergeCreatedAfter(other.getCreatedAfter());
+        }
+        if (other.hasCreatedBefore()) {
+          mergeCreatedBefore(other.getCreatedBefore());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -13067,6 +15569,53 @@ public final class ProjectsOuterClass {
                 nluAgentNames_.add(s);
                 break;
               } // case 34
+              case 42: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              case 48: {
+                pageSize_ = input.readInt32();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 48
+              case 56: {
+                int tmpRaw = input.readEnum();
+                ensureStatusesIsMutable();
+                statuses_.addInt(tmpRaw);
+                break;
+              } // case 56
+              case 58: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureStatusesIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  statuses_.addInt(input.readEnum());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 58
+              case 66: {
+                displayNameContains_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 66
+              case 74: {
+                input.readMessage(
+                    internalGetCreatedAfterFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 74
+              case 82: {
+                input.readMessage(
+                    internalGetCreatedBeforeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000200;
+                break;
+              } // case 82
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -13158,8 +15707,10 @@ public final class ProjectsOuterClass {
       private java.lang.Object pageToken_ = "";
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13170,8 +15721,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13191,8 +15744,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13213,8 +15768,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13231,8 +15788,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13246,8 +15805,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. The next_page_token value returned from a previous list request.
-       * Example: "current_index-1--page_size-20"
+       * Optional. The &lt;code&gt;next_page_token&lt;/code&gt; of a previous response. OPAQUE: never construct or parse
+       * it (its format is internal and may change). Keep every other request field (filters, sorting,
+       * &lt;code&gt;page_size&lt;/code&gt;) unchanged while paging: a token sent with other filters or sorting is not
+       * guaranteed to be rejected and then returns that position of the other listing.
        * </pre>
        *
        * <code>optional string page_token = 2;</code>
@@ -13270,7 +15831,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13282,7 +15844,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13298,7 +15861,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13319,7 +15883,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13338,7 +15903,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13364,7 +15930,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13382,7 +15949,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13395,7 +15963,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13411,7 +15980,8 @@ public final class ProjectsOuterClass {
       /**
        * <pre>
        * Optional. Field to define the sorting of the list of VTSI projects in the response.
-       * If not specified, the default behavior is to have no sorting.
+       * Unset or &lt;code&gt;NO_VTSI_PROJECT_SORTING&lt;/code&gt;: by &lt;code&gt;display_name&lt;/code&gt;, ascending (ties by the
+       * project&amp;apos;s internal id), which is a stable order.
        * </pre>
        *
        * <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
@@ -13440,7 +16010,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13454,7 +16024,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13466,7 +16036,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13479,7 +16049,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13493,7 +16063,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13513,7 +16083,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13532,7 +16102,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13551,7 +16121,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13567,7 +16137,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Optional. Filter based on associated NLU agents.
+       * Optional. Only projects associated with at least one of these NLU agents.
        * Format: &lt;pre&gt;&lt;code&gt;projects/&amp;lt;Project ID&amp;gt;/agent&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
@@ -13584,6 +16154,913 @@ public final class ProjectsOuterClass {
         bitField0_ |= 0x00000008;
         onChanged();
         return this;
+      }
+
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the field paths to populate in every returned &lt;code&gt;VtsiProject&lt;/code&gt;,
+       * relative to the &lt;code&gt;VtsiProject&lt;/code&gt; message (no &lt;code&gt;vtsi_projects.&lt;/code&gt; prefix), e.g.
+       * &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;vtsi_project_status&lt;/code&gt;,
+       * &lt;code&gt;asterisk_configs.asterisk_configs_variables&lt;/code&gt;. Nested paths through singular message
+       * fields are allowed; a path below a repeated or map field is not. &lt;code&gt;name&lt;/code&gt; is always
+       * populated. Unset or empty returns every field the &lt;code&gt;vtsi_project_view&lt;/code&gt; populates. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; naming it. Applied after the
+       * &lt;code&gt;vtsi_project_view&lt;/code&gt; and the server&amp;apos;s role-based redaction, so it can only narrow the
+       * response and never populates a field that was left empty. Not part of the paging contract: a
+       * &lt;code&gt;page_token&lt;/code&gt; stays valid with another mask.
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
+      private int pageSize_ ;
+      /**
+       * <pre>
+       * Optional. Maximum number of projects per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Fewer projects than &lt;code&gt;page_size&lt;/code&gt; may be returned (e.g. after
+       * the authorization filter), and only an empty &lt;code&gt;next_page_token&lt;/code&gt; means the end of the list.
+       * </pre>
+       *
+       * <code>int32 page_size = 6;</code>
+       * @return The pageSize.
+       */
+      @java.lang.Override
+      public int getPageSize() {
+        return pageSize_;
+      }
+      /**
+       * <pre>
+       * Optional. Maximum number of projects per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Fewer projects than &lt;code&gt;page_size&lt;/code&gt; may be returned (e.g. after
+       * the authorization filter), and only an empty &lt;code&gt;next_page_token&lt;/code&gt; means the end of the list.
+       * </pre>
+       *
+       * <code>int32 page_size = 6;</code>
+       * @param value The pageSize to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPageSize(int value) {
+
+        pageSize_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Maximum number of projects per page. &lt;code&gt;0&lt;/code&gt; means the server default of 25;
+       * values above 1000 are clamped to 1000; negative values are rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;. Fewer projects than &lt;code&gt;page_size&lt;/code&gt; may be returned (e.g. after
+       * the authorization filter), and only an empty &lt;code&gt;next_page_token&lt;/code&gt; means the end of the list.
+       * </pre>
+       *
+       * <code>int32 page_size = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPageSize() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        pageSize_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList statuses_ = emptyIntList();
+      private void ensureStatusesIsMutable() {
+        if (!statuses_.isModifiable()) {
+          statuses_ = makeMutableCopy(statuses_);
+        }
+        bitField0_ |= 0x00000040;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @return A list containing the statuses.
+       */
+      public java.util.List<ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus> getStatusesList() {
+        return new com.google.protobuf.Internal.IntListAdapter<
+            ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus>(statuses_, statuses_converter_);
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @return The count of statuses.
+       */
+      public int getStatusesCount() {
+        return statuses_.size();
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param index The index of the element to return.
+       * @return The statuses at the given index.
+       */
+      public ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus getStatuses(int index) {
+        return statuses_converter_.convert(statuses_.getInt(index));
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param index The index to set the value at.
+       * @param value The statuses to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatuses(
+          int index, ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureStatusesIsMutable();
+        statuses_.setInt(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param value The statuses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStatuses(ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureStatusesIsMutable();
+        statuses_.addInt(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param values The statuses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStatuses(
+          java.lang.Iterable<? extends ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus> values) {
+        ensureStatusesIsMutable();
+        for (ondewo.vtsi.ProjectsOuterClass.VtsiProjectStatus value : values) {
+          statuses_.addInt(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatuses() {
+        statuses_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @return A list containing the enum numeric values on the wire for statuses.
+       */
+      public java.util.List<java.lang.Integer>
+      getStatusesValueList() {
+        statuses_.makeImmutable();
+        return statuses_;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of statuses at the given index.
+       */
+      public int getStatusesValue(int index) {
+        return statuses_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param index The index to set the value at.
+       * @param value The enum numeric value on the wire for statuses to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusesValue(
+          int index, int value) {
+        ensureStatusesIsMutable();
+        statuses_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param value The enum numeric value on the wire for statuses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStatusesValue(int value) {
+        ensureStatusesIsMutable();
+        statuses_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects in one of these statuses. &lt;code&gt;UNSPECIFIED&lt;/code&gt; is rejected with
+       * &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+       * @param values The enum numeric values on the wire for statuses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStatusesValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensureStatusesIsMutable();
+        for (int value : values) {
+          statuses_.addInt(value);
+        }
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object displayNameContains_ = "";
+      /**
+       * <pre>
+       * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+       * filter. At most 256 characters.
+       * </pre>
+       *
+       * <code>string display_name_contains = 8;</code>
+       * @return The displayNameContains.
+       */
+      public java.lang.String getDisplayNameContains() {
+        java.lang.Object ref = displayNameContains_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          displayNameContains_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+       * filter. At most 256 characters.
+       * </pre>
+       *
+       * <code>string display_name_contains = 8;</code>
+       * @return The bytes for displayNameContains.
+       */
+      public com.google.protobuf.ByteString
+          getDisplayNameContainsBytes() {
+        java.lang.Object ref = displayNameContains_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          displayNameContains_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+       * filter. At most 256 characters.
+       * </pre>
+       *
+       * <code>string display_name_contains = 8;</code>
+       * @param value The displayNameContains to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisplayNameContains(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        displayNameContains_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+       * filter. At most 256 characters.
+       * </pre>
+       *
+       * <code>string display_name_contains = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisplayNameContains() {
+        displayNameContains_ = getDefaultInstance().getDisplayNameContains();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Case-insensitive substring match against &lt;code&gt;display_name&lt;/code&gt;. Empty does not
+       * filter. At most 256 characters.
+       * </pre>
+       *
+       * <code>string display_name_contains = 8;</code>
+       * @param value The bytes for displayNameContains to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisplayNameContainsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        displayNameContains_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp createdAfter_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createdAfterBuilder_;
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       * @return Whether the createdAfter field is set.
+       */
+      public boolean hasCreatedAfter() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       * @return The createdAfter.
+       */
+      public com.google.protobuf.Timestamp getCreatedAfter() {
+        if (createdAfterBuilder_ == null) {
+          return createdAfter_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdAfter_;
+        } else {
+          return createdAfterBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public Builder setCreatedAfter(com.google.protobuf.Timestamp value) {
+        if (createdAfterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          createdAfter_ = value;
+        } else {
+          createdAfterBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public Builder setCreatedAfter(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (createdAfterBuilder_ == null) {
+          createdAfter_ = builderForValue.build();
+        } else {
+          createdAfterBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public Builder mergeCreatedAfter(com.google.protobuf.Timestamp value) {
+        if (createdAfterBuilder_ == null) {
+          if (((bitField0_ & 0x00000100) != 0) &&
+            createdAfter_ != null &&
+            createdAfter_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getCreatedAfterBuilder().mergeFrom(value);
+          } else {
+            createdAfter_ = value;
+          }
+        } else {
+          createdAfterBuilder_.mergeFrom(value);
+        }
+        if (createdAfter_ != null) {
+          bitField0_ |= 0x00000100;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public Builder clearCreatedAfter() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        createdAfter_ = null;
+        if (createdAfterBuilder_ != null) {
+          createdAfterBuilder_.dispose();
+          createdAfterBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getCreatedAfterBuilder() {
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return internalGetCreatedAfterFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getCreatedAfterOrBuilder() {
+        if (createdAfterBuilder_ != null) {
+          return createdAfterBuilder_.getMessageOrBuilder();
+        } else {
+          return createdAfter_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : createdAfter_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created at or after this instant.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_after = 9;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetCreatedAfterFieldBuilder() {
+        if (createdAfterBuilder_ == null) {
+          createdAfterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getCreatedAfter(),
+                  getParentForChildren(),
+                  isClean());
+          createdAfter_ = null;
+        }
+        return createdAfterBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp createdBefore_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> createdBeforeBuilder_;
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       * @return Whether the createdBefore field is set.
+       */
+      public boolean hasCreatedBefore() {
+        return ((bitField0_ & 0x00000200) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       * @return The createdBefore.
+       */
+      public com.google.protobuf.Timestamp getCreatedBefore() {
+        if (createdBeforeBuilder_ == null) {
+          return createdBefore_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : createdBefore_;
+        } else {
+          return createdBeforeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public Builder setCreatedBefore(com.google.protobuf.Timestamp value) {
+        if (createdBeforeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          createdBefore_ = value;
+        } else {
+          createdBeforeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public Builder setCreatedBefore(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (createdBeforeBuilder_ == null) {
+          createdBefore_ = builderForValue.build();
+        } else {
+          createdBeforeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public Builder mergeCreatedBefore(com.google.protobuf.Timestamp value) {
+        if (createdBeforeBuilder_ == null) {
+          if (((bitField0_ & 0x00000200) != 0) &&
+            createdBefore_ != null &&
+            createdBefore_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+            getCreatedBeforeBuilder().mergeFrom(value);
+          } else {
+            createdBefore_ = value;
+          }
+        } else {
+          createdBeforeBuilder_.mergeFrom(value);
+        }
+        if (createdBefore_ != null) {
+          bitField0_ |= 0x00000200;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public Builder clearCreatedBefore() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        createdBefore_ = null;
+        if (createdBeforeBuilder_ != null) {
+          createdBeforeBuilder_.dispose();
+          createdBeforeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getCreatedBeforeBuilder() {
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return internalGetCreatedBeforeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getCreatedBeforeOrBuilder() {
+        if (createdBeforeBuilder_ != null) {
+          return createdBeforeBuilder_.getMessageOrBuilder();
+        } else {
+          return createdBefore_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : createdBefore_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Only projects created strictly before this instant. A window whose start
+       * (&lt;code&gt;created_after&lt;/code&gt;) is not before its end is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp created_before = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          internalGetCreatedBeforeFieldBuilder() {
+        if (createdBeforeBuilder_ == null) {
+          createdBeforeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getCreatedBefore(),
+                  getParentForChildren(),
+                  isClean());
+          createdBefore_ = null;
+        }
+        return createdBeforeBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.ListVtsiProjectsRequest)
@@ -13643,8 +17120,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13653,8 +17129,7 @@ public final class ProjectsOuterClass {
         getVtsiProjectsList();
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13662,8 +17137,7 @@ public final class ProjectsOuterClass {
     ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProjects(int index);
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13671,8 +17145,7 @@ public final class ProjectsOuterClass {
     int getVtsiProjectsCount();
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13681,8 +17154,7 @@ public final class ProjectsOuterClass {
         getVtsiProjectsOrBuilderList();
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13692,9 +17164,8 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -13703,9 +17174,8 @@ public final class ProjectsOuterClass {
     java.lang.String getNextPageToken();
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -13762,8 +17232,7 @@ public final class ProjectsOuterClass {
     private java.util.List<ondewo.vtsi.ProjectsOuterClass.VtsiProject> vtsiProjects_;
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13774,8 +17243,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13787,8 +17255,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13799,8 +17266,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13811,8 +17277,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * The list of VTSI projects returned in the response.
-     * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      * </pre>
      *
      * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -13828,9 +17293,8 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object nextPageToken_ = "";
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -13851,9 +17315,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
      * </pre>
      *
      * <code>string next_page_token = 2;</code>
@@ -14258,8 +17721,7 @@ public final class ProjectsOuterClass {
 
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14273,8 +17735,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14288,8 +17749,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14303,8 +17763,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14325,8 +17784,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14344,8 +17802,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14365,8 +17822,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14387,8 +17843,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14406,8 +17861,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14425,8 +17879,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14445,8 +17898,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14463,8 +17915,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14481,8 +17932,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14493,8 +17943,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14508,8 +17957,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14524,8 +17972,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14536,8 +17983,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14549,8 +17995,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * The list of VTSI projects returned in the response.
-       * Use the &amp;apos;repeated&amp;apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+       * The VTSI projects of this page.
        * </pre>
        *
        * <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
@@ -14577,9 +18022,8 @@ public final class ProjectsOuterClass {
       private java.lang.Object nextPageToken_ = "";
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -14599,9 +18043,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -14622,9 +18065,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -14641,9 +18083,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -14657,9 +18098,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Token to retrieve the next page of results.
-       * This field is a string that holds a token for fetching the next page of results.
-       * If there are no more results in the list, this field will be empty.
+       * Token to retrieve the next page of results. Opaque (see
+       * &lt;code&gt;ListVtsiProjectsRequest.page_token&lt;/code&gt;). Empty when there are no more results.
        * </pre>
        *
        * <code>string next_page_token = 2;</code>
@@ -14789,7 +18229,7 @@ public final class ProjectsOuterClass {
   }
   /**
    * <pre>
-   * This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects.
+   * This protobuf message defines the sorting order for VTSI (Virtual Telephone System Integration) projects.
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.VtsiProjectSorting}
@@ -14842,7 +18282,7 @@ public final class ProjectsOuterClass {
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
        * <pre>
-       * No sorting
+       * The default order: by &lt;code&gt;display_name&lt;/code&gt;, ascending.
        * </pre>
        *
        * <code>NO_VTSI_PROJECT_SORTING = 0;</code>
@@ -14894,7 +18334,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * No sorting
+       * The default order: by &lt;code&gt;display_name&lt;/code&gt;, ascending.
        * </pre>
        *
        * <code>NO_VTSI_PROJECT_SORTING = 0;</code>
@@ -15272,7 +18712,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects.
+     * This protobuf message defines the sorting order for VTSI (Virtual Telephone System Integration) projects.
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.VtsiProjectSorting}
@@ -15647,7 +19087,10 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15656,7 +19099,10 @@ public final class ProjectsOuterClass {
     boolean hasVtsiProject();
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15665,7 +19111,10 @@ public final class ProjectsOuterClass {
     ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProject();
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15782,10 +19231,69 @@ public final class ProjectsOuterClass {
      * <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    boolean hasFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    com.google.protobuf.FieldMask getFieldMask();
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder();
+
+    /**
+     * <pre>
+     * Optional. Validate only: merge the update over the stored project and run every check of a real
+     * update (validation, authorization, the configuration render), and return the would-be project in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write nothing, touch no Asterisk, end no
+     * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     * (the project may change meanwhile). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 4;</code>
+     * @return The validateOnly.
+     */
+    boolean getValidateOnly();
   }
   /**
    * <pre>
-   * Request to updated VTSI project
+   * Request to update a VTSI project
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.UpdateVtsiProjectRequest}
@@ -15829,7 +19337,10 @@ public final class ProjectsOuterClass {
     private ondewo.vtsi.ProjectsOuterClass.VtsiProject vtsiProject_;
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15841,7 +19352,10 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15853,7 +19367,10 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Project Configs.
+     * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+     * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+     * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+     * ignored.
      * </pre>
      *
      * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -15985,6 +19502,81 @@ public final class ProjectsOuterClass {
       return updateMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : updateMask_;
     }
 
+    public static final int FIELD_MASK_FIELD_NUMBER = 3;
+    private com.google.protobuf.FieldMask fieldMask_;
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return Whether the fieldMask field is set.
+     */
+    @java.lang.Override
+    public boolean hasFieldMask() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return The fieldMask.
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMask getFieldMask() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+    /**
+     * <pre>
+     * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+     * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+     * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+     * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+     * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+     * </pre>
+     *
+     * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+      return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+    }
+
+    public static final int VALIDATE_ONLY_FIELD_NUMBER = 4;
+    private boolean validateOnly_ = false;
+    /**
+     * <pre>
+     * Optional. Validate only: merge the update over the stored project and run every check of a real
+     * update (validation, authorization, the configuration render), and return the would-be project in
+     * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write nothing, touch no Asterisk, end no
+     * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     * (the project may change meanwhile). Default &lt;code&gt;false&lt;/code&gt;.
+     * </pre>
+     *
+     * <code>bool validate_only = 4;</code>
+     * @return The validateOnly.
+     */
+    @java.lang.Override
+    public boolean getValidateOnly() {
+      return validateOnly_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -16005,6 +19597,12 @@ public final class ProjectsOuterClass {
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(2, getUpdateMask());
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(3, getFieldMask());
+      }
+      if (validateOnly_ != false) {
+        output.writeBool(4, validateOnly_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -16021,6 +19619,14 @@ public final class ProjectsOuterClass {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getUpdateMask());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFieldMask());
+      }
+      if (validateOnly_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, validateOnly_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -16047,6 +19653,13 @@ public final class ProjectsOuterClass {
         if (!getUpdateMask()
             .equals(other.getUpdateMask())) return false;
       }
+      if (hasFieldMask() != other.hasFieldMask()) return false;
+      if (hasFieldMask()) {
+        if (!getFieldMask()
+            .equals(other.getFieldMask())) return false;
+      }
+      if (getValidateOnly()
+          != other.getValidateOnly()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -16066,6 +19679,13 @@ public final class ProjectsOuterClass {
         hash = (37 * hash) + UPDATE_MASK_FIELD_NUMBER;
         hash = (53 * hash) + getUpdateMask().hashCode();
       }
+      if (hasFieldMask()) {
+        hash = (37 * hash) + FIELD_MASK_FIELD_NUMBER;
+        hash = (53 * hash) + getFieldMask().hashCode();
+      }
+      hash = (37 * hash) + VALIDATE_ONLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getValidateOnly());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -16165,7 +19785,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Request to updated VTSI project
+     * Request to update a VTSI project
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.UpdateVtsiProjectRequest}
@@ -16202,6 +19822,7 @@ public final class ProjectsOuterClass {
                 .alwaysUseFieldBuilders) {
           internalGetVtsiProjectFieldBuilder();
           internalGetUpdateMaskFieldBuilder();
+          internalGetFieldMaskFieldBuilder();
         }
       }
       @java.lang.Override
@@ -16218,6 +19839,12 @@ public final class ProjectsOuterClass {
           updateMaskBuilder_.dispose();
           updateMaskBuilder_ = null;
         }
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        validateOnly_ = false;
         return this;
       }
 
@@ -16264,6 +19891,15 @@ public final class ProjectsOuterClass {
               : updateMaskBuilder_.build();
           to_bitField0_ |= 0x00000002;
         }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fieldMask_ = fieldMaskBuilder_ == null
+              ? fieldMask_
+              : fieldMaskBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.validateOnly_ = validateOnly_;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -16284,6 +19920,12 @@ public final class ProjectsOuterClass {
         }
         if (other.hasUpdateMask()) {
           mergeUpdateMask(other.getUpdateMask());
+        }
+        if (other.hasFieldMask()) {
+          mergeFieldMask(other.getFieldMask());
+        }
+        if (other.getValidateOnly() != false) {
+          setValidateOnly(other.getValidateOnly());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -16325,6 +19967,18 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetFieldMaskFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 32: {
+                validateOnly_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -16347,7 +20001,10 @@ public final class ProjectsOuterClass {
           ondewo.vtsi.ProjectsOuterClass.VtsiProject, ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder, ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder> vtsiProjectBuilder_;
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16358,7 +20015,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16373,7 +20033,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16393,7 +20056,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16411,7 +20077,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16436,7 +20105,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16453,7 +20125,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16465,7 +20140,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16480,7 +20158,10 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project Configs.
+       * The project to update, identified by &lt;code&gt;vtsi_project.name&lt;/code&gt;
+       * (&lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;), carrying the new values. The
+       * output-only fields (&lt;code&gt;vtsi_project_status&lt;/code&gt;, the audit, counter and status fields) are
+       * ignored.
        * </pre>
        *
        * <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
@@ -16908,6 +20589,273 @@ public final class ProjectsOuterClass {
         return updateMaskBuilder_;
       }
 
+      private com.google.protobuf.FieldMask fieldMask_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> fieldMaskBuilder_;
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return Whether the fieldMask field is set.
+       */
+      public boolean hasFieldMask() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       * @return The fieldMask.
+       */
+      public com.google.protobuf.FieldMask getFieldMask() {
+        if (fieldMaskBuilder_ == null) {
+          return fieldMask_ == null ? com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        } else {
+          return fieldMaskBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          fieldMask_ = value;
+        } else {
+          fieldMaskBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder setFieldMask(
+          com.google.protobuf.FieldMask.Builder builderForValue) {
+        if (fieldMaskBuilder_ == null) {
+          fieldMask_ = builderForValue.build();
+        } else {
+          fieldMaskBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder mergeFieldMask(com.google.protobuf.FieldMask value) {
+        if (fieldMaskBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            fieldMask_ != null &&
+            fieldMask_ != com.google.protobuf.FieldMask.getDefaultInstance()) {
+            getFieldMaskBuilder().mergeFrom(value);
+          } else {
+            fieldMask_ = value;
+          }
+        } else {
+          fieldMaskBuilder_.mergeFrom(value);
+        }
+        if (fieldMask_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public Builder clearFieldMask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fieldMask_ = null;
+        if (fieldMaskBuilder_ != null) {
+          fieldMaskBuilder_.dispose();
+          fieldMaskBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMask.Builder getFieldMaskBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetFieldMaskFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      public com.google.protobuf.FieldMaskOrBuilder getFieldMaskOrBuilder() {
+        if (fieldMaskBuilder_ != null) {
+          return fieldMaskBuilder_.getMessageOrBuilder();
+        } else {
+          return fieldMask_ == null ?
+              com.google.protobuf.FieldMask.getDefaultInstance() : fieldMask_;
+        }
+      }
+      /**
+       * <pre>
+       * Optional. Partial response: the &lt;code&gt;VtsiProject&lt;/code&gt; field paths to populate in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, relative to the &lt;code&gt;VtsiProject&lt;/code&gt; (no
+       * &lt;code&gt;vtsi_project.&lt;/code&gt; prefix). Same convention as
+       * &lt;a href="index.html#ondewo.vtsi.GetVtsiProjectRequest"&gt;GetVtsiProjectRequest.field_mask&lt;/a&gt;; the
+       * &lt;code&gt;name&lt;/code&gt; of the response is always populated. Unset or empty returns every field. An
+       * unknown path is rejected with &lt;code&gt;INVALID_ARGUMENT&lt;/code&gt; before anything is written. A mask never
+       * changes what is updated (that is &lt;code&gt;update_mask&lt;/code&gt;).
+       * </pre>
+       *
+       * <code>.google.protobuf.FieldMask field_mask = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder> 
+          internalGetFieldMaskFieldBuilder() {
+        if (fieldMaskBuilder_ == null) {
+          fieldMaskBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.google.protobuf.FieldMask, com.google.protobuf.FieldMask.Builder, com.google.protobuf.FieldMaskOrBuilder>(
+                  getFieldMask(),
+                  getParentForChildren(),
+                  isClean());
+          fieldMask_ = null;
+        }
+        return fieldMaskBuilder_;
+      }
+
+      private boolean validateOnly_ ;
+      /**
+       * <pre>
+       * Optional. Validate only: merge the update over the stored project and run every check of a real
+       * update (validation, authorization, the configuration render), and return the would-be project in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write nothing, touch no Asterisk, end no
+       * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+       * (the project may change meanwhile). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 4;</code>
+       * @return The validateOnly.
+       */
+      @java.lang.Override
+      public boolean getValidateOnly() {
+        return validateOnly_;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: merge the update over the stored project and run every check of a real
+       * update (validation, authorization, the configuration render), and return the would-be project in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write nothing, touch no Asterisk, end no
+       * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+       * (the project may change meanwhile). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 4;</code>
+       * @param value The validateOnly to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValidateOnly(boolean value) {
+
+        validateOnly_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Optional. Validate only: merge the update over the stored project and run every check of a real
+       * update (validation, authorization, the configuration render), and return the would-be project in
+       * &lt;code&gt;UpdateVtsiProjectResponse.vtsi_project&lt;/code&gt;, but write nothing, touch no Asterisk, end no
+       * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+       * (the project may change meanwhile). Default &lt;code&gt;false&lt;/code&gt;.
+       * </pre>
+       *
+       * <code>bool validate_only = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValidateOnly() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        validateOnly_ = false;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.UpdateVtsiProjectRequest)
     }
 
@@ -16985,7 +20933,8 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -16994,7 +20943,8 @@ public final class ProjectsOuterClass {
     java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -17002,10 +20952,43 @@ public final class ProjectsOuterClass {
      */
     com.google.protobuf.ByteString
         getErrorMessageBytes();
+
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @return Whether the vtsiProject field is set.
+     */
+    boolean hasVtsiProject();
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @return The vtsiProject.
+     */
+    ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProject();
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     */
+    ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder getVtsiProjectOrBuilder();
   }
   /**
    * <pre>
-   * Request to updated VTSI project
+   * Response to the update of a VTSI project
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.UpdateVtsiProjectResponse}
@@ -17046,6 +21029,7 @@ public final class ProjectsOuterClass {
               ondewo.vtsi.ProjectsOuterClass.UpdateVtsiProjectResponse.class, ondewo.vtsi.ProjectsOuterClass.UpdateVtsiProjectResponse.Builder.class);
     }
 
+    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile java.lang.Object name_ = "";
@@ -17098,7 +21082,8 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -17119,7 +21104,8 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+     * description). Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -17138,6 +21124,50 @@ public final class ProjectsOuterClass {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int VTSI_PROJECT_FIELD_NUMBER = 3;
+    private ondewo.vtsi.ProjectsOuterClass.VtsiProject vtsiProject_;
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @return Whether the vtsiProject field is set.
+     */
+    @java.lang.Override
+    public boolean hasVtsiProject() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @return The vtsiProject.
+     */
+    @java.lang.Override
+    public ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProject() {
+      return vtsiProject_ == null ? ondewo.vtsi.ProjectsOuterClass.VtsiProject.getDefaultInstance() : vtsiProject_;
+    }
+    /**
+     * <pre>
+     * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+     * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+     * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+     * </pre>
+     *
+     * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     */
+    @java.lang.Override
+    public ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder getVtsiProjectOrBuilder() {
+      return vtsiProject_ == null ? ondewo.vtsi.ProjectsOuterClass.VtsiProject.getDefaultInstance() : vtsiProject_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -17160,6 +21190,9 @@ public final class ProjectsOuterClass {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, errorMessage_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getVtsiProject());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -17174,6 +21207,10 @@ public final class ProjectsOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(errorMessage_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, errorMessage_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getVtsiProject());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -17194,6 +21231,11 @@ public final class ProjectsOuterClass {
           .equals(other.getName())) return false;
       if (!getErrorMessage()
           .equals(other.getErrorMessage())) return false;
+      if (hasVtsiProject() != other.hasVtsiProject()) return false;
+      if (hasVtsiProject()) {
+        if (!getVtsiProject()
+            .equals(other.getVtsiProject())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -17209,6 +21251,10 @@ public final class ProjectsOuterClass {
       hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + ERROR_MESSAGE_FIELD_NUMBER;
       hash = (53 * hash) + getErrorMessage().hashCode();
+      if (hasVtsiProject()) {
+        hash = (37 * hash) + VTSI_PROJECT_FIELD_NUMBER;
+        hash = (53 * hash) + getVtsiProject().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -17308,7 +21354,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Request to updated VTSI project
+     * Response to the update of a VTSI project
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.UpdateVtsiProjectResponse}
@@ -17332,13 +21378,19 @@ public final class ProjectsOuterClass {
 
       // Construct using ondewo.vtsi.ProjectsOuterClass.UpdateVtsiProjectResponse.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetVtsiProjectFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -17346,6 +21398,11 @@ public final class ProjectsOuterClass {
         bitField0_ = 0;
         name_ = "";
         errorMessage_ = "";
+        vtsiProject_ = null;
+        if (vtsiProjectBuilder_ != null) {
+          vtsiProjectBuilder_.dispose();
+          vtsiProjectBuilder_ = null;
+        }
         return this;
       }
 
@@ -17385,6 +21442,14 @@ public final class ProjectsOuterClass {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.errorMessage_ = errorMessage_;
         }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.vtsiProject_ = vtsiProjectBuilder_ == null
+              ? vtsiProject_
+              : vtsiProjectBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -17408,6 +21473,9 @@ public final class ProjectsOuterClass {
           errorMessage_ = other.errorMessage_;
           bitField0_ |= 0x00000002;
           onChanged();
+        }
+        if (other.hasVtsiProject()) {
+          mergeVtsiProject(other.getVtsiProject());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -17445,6 +21513,13 @@ public final class ProjectsOuterClass {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    internalGetVtsiProjectFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -17557,7 +21632,8 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -17577,7 +21653,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -17598,7 +21675,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -17615,7 +21693,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -17629,7 +21708,8 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes (see the &lt;code&gt;Projects&lt;/code&gt; service
+       * description). Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -17644,6 +21724,181 @@ public final class ProjectsOuterClass {
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
+      }
+
+      private ondewo.vtsi.ProjectsOuterClass.VtsiProject vtsiProject_;
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.ProjectsOuterClass.VtsiProject, ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder, ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder> vtsiProjectBuilder_;
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       * @return Whether the vtsiProject field is set.
+       */
+      public boolean hasVtsiProject() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       * @return The vtsiProject.
+       */
+      public ondewo.vtsi.ProjectsOuterClass.VtsiProject getVtsiProject() {
+        if (vtsiProjectBuilder_ == null) {
+          return vtsiProject_ == null ? ondewo.vtsi.ProjectsOuterClass.VtsiProject.getDefaultInstance() : vtsiProject_;
+        } else {
+          return vtsiProjectBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public Builder setVtsiProject(ondewo.vtsi.ProjectsOuterClass.VtsiProject value) {
+        if (vtsiProjectBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          vtsiProject_ = value;
+        } else {
+          vtsiProjectBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public Builder setVtsiProject(
+          ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder builderForValue) {
+        if (vtsiProjectBuilder_ == null) {
+          vtsiProject_ = builderForValue.build();
+        } else {
+          vtsiProjectBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public Builder mergeVtsiProject(ondewo.vtsi.ProjectsOuterClass.VtsiProject value) {
+        if (vtsiProjectBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            vtsiProject_ != null &&
+            vtsiProject_ != ondewo.vtsi.ProjectsOuterClass.VtsiProject.getDefaultInstance()) {
+            getVtsiProjectBuilder().mergeFrom(value);
+          } else {
+            vtsiProject_ = value;
+          }
+        } else {
+          vtsiProjectBuilder_.mergeFrom(value);
+        }
+        if (vtsiProject_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public Builder clearVtsiProject() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        vtsiProject_ = null;
+        if (vtsiProjectBuilder_ != null) {
+          vtsiProjectBuilder_.dispose();
+          vtsiProjectBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder getVtsiProjectBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return internalGetVtsiProjectFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      public ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder getVtsiProjectOrBuilder() {
+        if (vtsiProjectBuilder_ != null) {
+          return vtsiProjectBuilder_.getMessageOrBuilder();
+        } else {
+          return vtsiProject_ == null ?
+              ondewo.vtsi.ProjectsOuterClass.VtsiProject.getDefaultInstance() : vtsiProject_;
+        }
+      }
+      /**
+       * <pre>
+       * The project after the update (with &lt;code&gt;validate_only&lt;/code&gt;: the would-be project), in the full
+       * view, redacted like &lt;code&gt;GetVtsiProject&lt;/code&gt; and narrowed by
+       * &lt;code&gt;UpdateVtsiProjectRequest.field_mask&lt;/code&gt;. Left unset by a 9.0.0 server.
+       * </pre>
+       *
+       * <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          ondewo.vtsi.ProjectsOuterClass.VtsiProject, ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder, ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder> 
+          internalGetVtsiProjectFieldBuilder() {
+        if (vtsiProjectBuilder_ == null) {
+          vtsiProjectBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              ondewo.vtsi.ProjectsOuterClass.VtsiProject, ondewo.vtsi.ProjectsOuterClass.VtsiProject.Builder, ondewo.vtsi.ProjectsOuterClass.VtsiProjectOrBuilder>(
+                  getVtsiProject(),
+                  getParentForChildren(),
+                  isClean());
+          vtsiProject_ = null;
+        }
+        return vtsiProjectBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:ondewo.vtsi.UpdateVtsiProjectResponse)
@@ -17724,7 +21979,8 @@ public final class ProjectsOuterClass {
   /**
    * <pre>
    * Request to delete a VTSI project
-   * If a deployed VTSI project was deleted then it was undeployed beforehand automatically
+   * A deployed VTSI project is undeployed automatically before it is deleted (see
+   * &lt;a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject"&gt;DeleteVtsiProject&lt;/a&gt;).
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.DeleteVtsiProjectRequest}
@@ -17970,7 +22226,8 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Request to delete a VTSI project
-     * If a deployed VTSI project was deleted then it was undeployed beforehand automatically
+     * A deployed VTSI project is undeployed automatically before it is deleted (see
+     * &lt;a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject"&gt;DeleteVtsiProject&lt;/a&gt;).
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.DeleteVtsiProjectRequest}
@@ -18279,7 +22536,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -18288,7 +22545,7 @@ public final class ProjectsOuterClass {
     java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -18300,7 +22557,6 @@ public final class ProjectsOuterClass {
   /**
    * <pre>
    * Response to delete a VTSI project
-   * If a deployed VTSI project was deleted then it was undeployed beforehand automatically
    * </pre>
    *
    * Protobuf type {@code ondewo.vtsi.DeleteVtsiProjectResponse}
@@ -18393,7 +22649,7 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -18414,7 +22670,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -18604,7 +22860,6 @@ public final class ProjectsOuterClass {
     /**
      * <pre>
      * Response to delete a VTSI project
-     * If a deployed VTSI project was deleted then it was undeployed beforehand automatically
      * </pre>
      *
      * Protobuf type {@code ondewo.vtsi.DeleteVtsiProjectResponse}
@@ -18853,7 +23108,7 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -18873,7 +23128,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -18894,7 +23149,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -18911,7 +23166,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -18925,7 +23180,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -19573,7 +23828,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -19582,7 +23837,7 @@ public final class ProjectsOuterClass {
     java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -19686,7 +23941,7 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -19707,7 +23962,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -20145,7 +24400,7 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -20165,7 +24420,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -20186,7 +24441,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -20203,7 +24458,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -20217,7 +24472,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -20291,7 +24546,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * Project name of the VTSI project.
+     * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20300,7 +24555,7 @@ public final class ProjectsOuterClass {
     java.lang.String getName();
     /**
      * <pre>
-     * Project name of the VTSI project.
+     * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20356,7 +24611,7 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object name_ = "";
     /**
      * <pre>
-     * Project name of the VTSI project.
+     * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20377,7 +24632,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * Project name of the VTSI project.
+     * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
      * </pre>
      *
      * <code>string name = 1;</code>
@@ -20699,7 +24954,7 @@ public final class ProjectsOuterClass {
       private java.lang.Object name_ = "";
       /**
        * <pre>
-       * Project name of the VTSI project.
+       * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -20719,7 +24974,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project name of the VTSI project.
+       * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -20740,7 +24995,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project name of the VTSI project.
+       * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -20757,7 +25012,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project name of the VTSI project.
+       * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -20771,7 +25026,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * Project name of the VTSI project.
+       * VTSI project name with which to perform the call of the form &lt;pre&gt;&lt;code&gt;projects/&amp;lt;project_uuid&amp;gt;/project&lt;/code&gt;&lt;/pre&gt;
        * </pre>
        *
        * <code>string name = 1;</code>
@@ -20865,7 +25120,7 @@ public final class ProjectsOuterClass {
 
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -20874,7 +25129,7 @@ public final class ProjectsOuterClass {
     java.lang.String getErrorMessage();
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -20978,7 +25233,7 @@ public final class ProjectsOuterClass {
     private volatile java.lang.Object errorMessage_ = "";
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -20999,7 +25254,7 @@ public final class ProjectsOuterClass {
     }
     /**
      * <pre>
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * </pre>
      *
      * <code>string error_message = 2;</code>
@@ -21437,7 +25692,7 @@ public final class ProjectsOuterClass {
       private java.lang.Object errorMessage_ = "";
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -21457,7 +25712,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -21478,7 +25733,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -21495,7 +25750,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -21509,7 +25764,7 @@ public final class ProjectsOuterClass {
       }
       /**
        * <pre>
-       * error message if there are any.
+       * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
        * </pre>
        *
        * <code>string error_message = 2;</code>
@@ -21677,122 +25932,143 @@ public final class ProjectsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\032ondewo/vtsi/projects.proto\022\013ondewo.vts" +
-      "i\032 google/protobuf/field_mask.proto\032\034goo" +
-      "gle/protobuf/struct.proto\032\037google/protob" +
-      "uf/timestamp.proto\"\235\004\n\013VtsiProject\022\014\n\004na" +
-      "me\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t\022\023\n\013max_ca" +
-      "llers\030\003 \001(\005\022\025\n\rmax_listeners\030\004 \001(\005\0226\n\020as" +
-      "terisk_configs\030\005 \001(\0132\034.ondewo.vtsi.Aster" +
-      "iskConfigs\022;\n\023vtsi_project_status\030\006 \001(\0162" +
-      "\036.ondewo.vtsi.VtsiProjectStatus\022\022\n\ncreat" +
-      "ed_by\030\007 \001(\t\022.\n\ncreated_at\030\010 \001(\0132\032.google" +
-      ".protobuf.Timestamp\022\023\n\013modified_by\030\t \001(\t" +
-      "\022/\n\013modified_at\030\n \001(\0132\032.google.protobuf." +
-      "Timestamp\022\026\n\016active_callers\030\013 \001(\005\022\030\n\020act" +
-      "ive_listeners\030\014 \001(\005\022\025\n\rasterisk_port\030\r \001" +
-      "(\005\022\027\n\017nlu_agent_names\030\016 \003(\t\022\030\n\020deployed_" +
-      "callers\030\017 \001(\005\022\032\n\022deployed_listeners\030\020 \001(" +
-      "\005\022\'\n\037transfer_phone_number_allowlist\030\021 \003" +
-      "(\t\"\354\003\n\030AsteriskConfigsVariables\022\032\n\022sip_t" +
-      "runk_username\030\001 \001(\t\022\032\n\022sip_trunk_passwor" +
-      "d\030\002 \001(\t\022\026\n\016sip_trunk_host\030\003 \001(\t\022\027\n\017trans" +
-      "fer_number\030\004 \001(\t\022\034\n\024transfer_number_host" +
-      "\030\005 \001(\t\022\036\n\026sip_trunk_phone_number\030\006 \001(\t\022;" +
-      "\n\023sip_trunk_transport\030\007 \001(\0162\036.ondewo.vts" +
-      "i.SipTrunkTransport\022\"\n\025sip_trunk_source_" +
-      "cidr\030\010 \001(\tH\000\210\001\001\022*\n\035sip_trunk_ca_certific" +
-      "ates_pem\030\t \001(\tH\001\210\001\001\022$\n\027sip_trunk_verify_" +
-      "server\030\n \001(\010H\002\210\001\001\022\036\n\026softphone_permit_ci" +
-      "drs\030\013 \003(\tB\030\n\026_sip_trunk_source_cidrB \n\036_" +
-      "sip_trunk_ca_certificates_pemB\032\n\030_sip_tr" +
-      "unk_verify_server\"\236\001\n\024AsteriskConfigsFil" +
-      "es\022\036\n\026pjsip_conf_file_string\030\001 \001(\t\022#\n\033ex" +
-      "tensions_conf_file_string\030\002 \001(\t\022\037\n\027queue" +
-      "s_conf_file_string\030\003 \001(\t\022 \n\030modules_conf" +
-      "_file_string\030\004 \001(\t\"\272\002\n\017AsteriskConfigs\022K" +
-      "\n\032asterisk_configs_variables\030\001 \001(\0132%.ond" +
-      "ewo.vtsi.AsteriskConfigsVariablesH\000\022C\n\026a" +
-      "sterisk_configs_files\030\002 \001(\0132!.ondewo.vts" +
-      "i.AsteriskConfigsFilesH\000\0220\n&asterisk_con" +
-      "figs_target_directory_name\030\003 \001(\tH\000\022\025\n\ras" +
-      "terisk_port\030\004 \001(\005\022\035\n\020asterisk_version\030\005 " +
-      "\001(\tH\001\210\001\001B\030\n\026asterisk_configs_oneofB\023\n\021_a" +
-      "sterisk_version\"a\n\030CreateVtsiProjectRequ" +
-      "est\022.\n\014vtsi_project\030\001 \001(\0132\030.ondewo.vtsi." +
-      "VtsiProject\022\025\n\rerror_message\030\002 \001(\t\"b\n\031Cr" +
-      "eateVtsiProjectResponse\022.\n\014vtsi_project\030" +
-      "\001 \001(\0132\030.ondewo.vtsi.VtsiProject\022\025\n\rerror" +
-      "_message\030\002 \001(\t\"^\n\025GetVtsiProjectRequest\022" +
-      "\014\n\004name\030\001 \001(\t\0227\n\021vtsi_project_view\030\002 \001(\016" +
-      "2\034.ondewo.vtsi.VtsiProjectView\"\360\001\n\027ListV" +
-      "tsiProjectsRequest\0227\n\021vtsi_project_view\030" +
-      "\001 \001(\0162\034.ondewo.vtsi.VtsiProjectView\022\027\n\np" +
-      "age_token\030\002 \001(\tH\000\210\001\001\022B\n\024vtsi_project_sor" +
-      "ting\030\003 \001(\0132\037.ondewo.vtsi.VtsiProjectSort" +
-      "ingH\001\210\001\001\022\027\n\017nlu_agent_names\030\004 \003(\tB\r\n\013_pa" +
-      "ge_tokenB\027\n\025_vtsi_project_sorting\"d\n\030Lis" +
-      "tVtsiProjectsResponse\022/\n\rvtsi_projects\030\001" +
-      " \003(\0132\030.ondewo.vtsi.VtsiProject\022\027\n\017next_p" +
-      "age_token\030\002 \001(\t\"\233\003\n\022VtsiProjectSorting\022S" +
-      "\n\rsorting_field\030\001 \001(\01627.ondewo.vtsi.Vtsi" +
-      "ProjectSorting.VtsiProjectSortingFieldH\000" +
-      "\210\001\001\022>\n\014sorting_mode\030\002 \001(\0162#.ondewo.vtsi." +
-      "VtsiProjectSortingModeH\001\210\001\001\"\314\001\n\027VtsiProj" +
-      "ectSortingField\022\033\n\027NO_VTSI_PROJECT_SORTI" +
-      "NG\020\000\022\035\n\031SORT_VTSI_PROJECT_BY_NAME\020\001\022%\n!S" +
-      "ORT_VTSI_PROJECT_BY_DISPLAY_NAME\020\002\022&\n\"SO" +
-      "RT_VTSI_PROJECT_BY_CREATION_DATE\020\003\022&\n\"SO" +
-      "RT_VTSI_PROJECT_BY_LAST_MODIFIED\020\004B\020\n\016_s" +
-      "orting_fieldB\017\n\r_sorting_mode\"{\n\030UpdateV" +
-      "tsiProjectRequest\022.\n\014vtsi_project\030\001 \001(\0132" +
-      "\030.ondewo.vtsi.VtsiProject\022/\n\013update_mask" +
-      "\030\002 \001(\0132\032.google.protobuf.FieldMask\"@\n\031Up" +
-      "dateVtsiProjectResponse\022\014\n\004name\030\001 \001(\t\022\025\n" +
-      "\rerror_message\030\002 \001(\t\"(\n\030DeleteVtsiProjec" +
-      "tRequest\022\014\n\004name\030\001 \001(\t\"@\n\031DeleteVtsiProj" +
-      "ectResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_messa" +
-      "ge\030\002 \001(\t\"(\n\030DeployVtsiProjectRequest\022\014\n\004" +
-      "name\030\001 \001(\t\"@\n\031DeployVtsiProjectResponse\022" +
-      "\014\n\004name\030\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t\"*\n\032" +
-      "UndeployVtsiProjectRequest\022\014\n\004name\030\001 \001(\t" +
-      "\"B\n\033UndeployVtsiProjectResponse\022\014\n\004name\030" +
-      "\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t*\213\001\n\021VtsiPro" +
+      "i\032 google/protobuf/field_mask.proto\032\037goo" +
+      "gle/protobuf/timestamp.proto\"\327\005\n\013VtsiPro" +
+      "ject\022\014\n\004name\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t" +
+      "\022\023\n\013max_callers\030\003 \001(\005\022\025\n\rmax_listeners\030\004" +
+      " \001(\005\0226\n\020asterisk_configs\030\005 \001(\0132\034.ondewo." +
+      "vtsi.AsteriskConfigs\022;\n\023vtsi_project_sta" +
+      "tus\030\006 \001(\0162\036.ondewo.vtsi.VtsiProjectStatu" +
+      "s\022\022\n\ncreated_by\030\007 \001(\t\022.\n\ncreated_at\030\010 \001(" +
+      "\0132\032.google.protobuf.Timestamp\022\023\n\013modifie" +
+      "d_by\030\t \001(\t\022/\n\013modified_at\030\n \001(\0132\032.google" +
+      ".protobuf.Timestamp\022\026\n\016active_callers\030\013 " +
+      "\001(\005\022\030\n\020active_listeners\030\014 \001(\005\022\025\n\rasteris" +
+      "k_port\030\r \001(\005\022\027\n\017nlu_agent_names\030\016 \003(\t\022\030\n" +
+      "\020deployed_callers\030\017 \001(\005\022\032\n\022deployed_list" +
+      "eners\030\020 \001(\005\022\'\n\037transfer_phone_number_all" +
+      "owlist\030\021 \003(\t\022\026\n\016status_message\030\022 \001(\t\0225\n\021" +
+      "status_changed_at\030\023 \001(\0132\032.google.protobu" +
+      "f.Timestamp\022E\n\030trunk_registration_state\030" +
+      "\024 \001(\0162#.ondewo.vtsi.TrunkRegistrationSta" +
+      "te\022\"\n\032asterisk_version_effective\030\025 \001(\t\"\354" +
+      "\003\n\030AsteriskConfigsVariables\022\032\n\022sip_trunk" +
+      "_username\030\001 \001(\t\022\032\n\022sip_trunk_password\030\002 " +
+      "\001(\t\022\026\n\016sip_trunk_host\030\003 \001(\t\022\027\n\017transfer_" +
+      "number\030\004 \001(\t\022\034\n\024transfer_number_host\030\005 \001" +
+      "(\t\022\036\n\026sip_trunk_phone_number\030\006 \001(\t\022;\n\023si" +
+      "p_trunk_transport\030\007 \001(\0162\036.ondewo.vtsi.Si" +
+      "pTrunkTransport\022\"\n\025sip_trunk_source_cidr" +
+      "\030\010 \001(\tH\000\210\001\001\022*\n\035sip_trunk_ca_certificates" +
+      "_pem\030\t \001(\tH\001\210\001\001\022$\n\027sip_trunk_verify_serv" +
+      "er\030\n \001(\010H\002\210\001\001\022\036\n\026softphone_permit_cidrs\030" +
+      "\013 \003(\tB\030\n\026_sip_trunk_source_cidrB \n\036_sip_" +
+      "trunk_ca_certificates_pemB\032\n\030_sip_trunk_" +
+      "verify_server\"\236\001\n\024AsteriskConfigsFiles\022\036" +
+      "\n\026pjsip_conf_file_string\030\001 \001(\t\022#\n\033extens" +
+      "ions_conf_file_string\030\002 \001(\t\022\037\n\027queues_co" +
+      "nf_file_string\030\003 \001(\t\022 \n\030modules_conf_fil" +
+      "e_string\030\004 \001(\t\"\272\002\n\017AsteriskConfigs\022K\n\032as" +
+      "terisk_configs_variables\030\001 \001(\0132%.ondewo." +
+      "vtsi.AsteriskConfigsVariablesH\000\022C\n\026aster" +
+      "isk_configs_files\030\002 \001(\0132!.ondewo.vtsi.As" +
+      "teriskConfigsFilesH\000\0220\n&asterisk_configs" +
+      "_target_directory_name\030\003 \001(\tH\000\022\025\n\rasteri" +
+      "sk_port\030\004 \001(\005\022\035\n\020asterisk_version\030\005 \001(\tH" +
+      "\001\210\001\001B\030\n\026asterisk_configs_oneofB\023\n\021_aster" +
+      "isk_version\"|\n\030CreateVtsiProjectRequest\022" +
+      ".\n\014vtsi_project\030\001 \001(\0132\030.ondewo.vtsi.Vtsi" +
+      "Project\022\031\n\rerror_message\030\002 \001(\tB\002\030\001\022\025\n\rva" +
+      "lidate_only\030\003 \001(\010\"b\n\031CreateVtsiProjectRe" +
+      "sponse\022.\n\014vtsi_project\030\001 \001(\0132\030.ondewo.vt" +
+      "si.VtsiProject\022\025\n\rerror_message\030\002 \001(\t\"\216\001" +
+      "\n\025GetVtsiProjectRequest\022\014\n\004name\030\001 \001(\t\0227\n" +
+      "\021vtsi_project_view\030\002 \001(\0162\034.ondewo.vtsi.V" +
+      "tsiProjectView\022.\n\nfield_mask\030\003 \001(\0132\032.goo" +
+      "gle.protobuf.FieldMask\"\353\003\n\027ListVtsiProje" +
+      "ctsRequest\0227\n\021vtsi_project_view\030\001 \001(\0162\034." +
+      "ondewo.vtsi.VtsiProjectView\022\027\n\npage_toke" +
+      "n\030\002 \001(\tH\000\210\001\001\022B\n\024vtsi_project_sorting\030\003 \001" +
+      "(\0132\037.ondewo.vtsi.VtsiProjectSortingH\001\210\001\001" +
+      "\022\027\n\017nlu_agent_names\030\004 \003(\t\022.\n\nfield_mask\030" +
+      "\005 \001(\0132\032.google.protobuf.FieldMask\022\021\n\tpag" +
+      "e_size\030\006 \001(\005\0220\n\010statuses\030\007 \003(\0162\036.ondewo." +
+      "vtsi.VtsiProjectStatus\022\035\n\025display_name_c" +
+      "ontains\030\010 \001(\t\0221\n\rcreated_after\030\t \001(\0132\032.g" +
+      "oogle.protobuf.Timestamp\0222\n\016created_befo" +
+      "re\030\n \001(\0132\032.google.protobuf.TimestampB\r\n\013" +
+      "_page_tokenB\027\n\025_vtsi_project_sorting\"d\n\030" +
+      "ListVtsiProjectsResponse\022/\n\rvtsi_project" +
+      "s\030\001 \003(\0132\030.ondewo.vtsi.VtsiProject\022\027\n\017nex" +
+      "t_page_token\030\002 \001(\t\"\233\003\n\022VtsiProjectSortin" +
+      "g\022S\n\rsorting_field\030\001 \001(\01627.ondewo.vtsi.V" +
+      "tsiProjectSorting.VtsiProjectSortingFiel" +
+      "dH\000\210\001\001\022>\n\014sorting_mode\030\002 \001(\0162#.ondewo.vt" +
+      "si.VtsiProjectSortingModeH\001\210\001\001\"\314\001\n\027VtsiP" +
+      "rojectSortingField\022\033\n\027NO_VTSI_PROJECT_SO" +
+      "RTING\020\000\022\035\n\031SORT_VTSI_PROJECT_BY_NAME\020\001\022%" +
+      "\n!SORT_VTSI_PROJECT_BY_DISPLAY_NAME\020\002\022&\n" +
+      "\"SORT_VTSI_PROJECT_BY_CREATION_DATE\020\003\022&\n" +
+      "\"SORT_VTSI_PROJECT_BY_LAST_MODIFIED\020\004B\020\n" +
+      "\016_sorting_fieldB\017\n\r_sorting_mode\"\302\001\n\030Upd" +
+      "ateVtsiProjectRequest\022.\n\014vtsi_project\030\001 " +
+      "\001(\0132\030.ondewo.vtsi.VtsiProject\022/\n\013update_" +
+      "mask\030\002 \001(\0132\032.google.protobuf.FieldMask\022." +
+      "\n\nfield_mask\030\003 \001(\0132\032.google.protobuf.Fie" +
+      "ldMask\022\025\n\rvalidate_only\030\004 \001(\010\"p\n\031UpdateV" +
+      "tsiProjectResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerro" +
+      "r_message\030\002 \001(\t\022.\n\014vtsi_project\030\003 \001(\0132\030." +
+      "ondewo.vtsi.VtsiProject\"(\n\030DeleteVtsiPro" +
+      "jectRequest\022\014\n\004name\030\001 \001(\t\"@\n\031DeleteVtsiP" +
+      "rojectResponse\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_me" +
+      "ssage\030\002 \001(\t\"(\n\030DeployVtsiProjectRequest\022" +
+      "\014\n\004name\030\001 \001(\t\"@\n\031DeployVtsiProjectRespon" +
+      "se\022\014\n\004name\030\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t\"" +
+      "*\n\032UndeployVtsiProjectRequest\022\014\n\004name\030\001 " +
+      "\001(\t\"B\n\033UndeployVtsiProjectResponse\022\014\n\004na" +
+      "me\030\001 \001(\t\022\025\n\rerror_message\030\002 \001(\t*\352\001\n\026Trun" +
+      "kRegistrationState\022(\n$TRUNK_REGISTRATION" +
+      "_STATE_UNSPECIFIED\020\000\022\'\n#TRUNK_REGISTRATI" +
+      "ON_STATE_REGISTERED\020\001\022)\n%TRUNK_REGISTRAT" +
+      "ION_STATE_UNREGISTERED\020\002\022%\n!TRUNK_REGIST" +
+      "RATION_STATE_REJECTED\020\003\022+\n\'TRUNK_REGISTR" +
+      "ATION_STATE_NOT_CONFIGURED\020\004*\236\001\n\021VtsiPro" +
       "jectStatus\022\017\n\013UNSPECIFIED\020\000\022\016\n\nUNDEPLOYE" +
       "D\020\001\022\014\n\010UPDATING\020\002\022\r\n\tDEPLOYING\020\003\022\014\n\010DEPL" +
       "OYED\020\004\022\017\n\013UNDEPLOYING\020\005\022\014\n\010DELETING\020\006\022\013\n" +
-      "\007DELETED\020\007*\217\001\n\021SipTrunkTransport\022#\n\037SIP_" +
-      "TRUNK_TRANSPORT_UNSPECIFIED\020\000\022\033\n\027SIP_TRU" +
-      "NK_TRANSPORT_TLS\020\001\022\033\n\027SIP_TRUNK_TRANSPOR" +
-      "T_UDP\020\002\022\033\n\027SIP_TRUNK_TRANSPORT_TCP\020\003*7\n\026" +
-      "VtsiProjectSortingMode\022\r\n\tASCENDING\020\000\022\016\n" +
-      "\nDESCENDING\020\001*\216\001\n\017VtsiProjectView\022!\n\035VTS" +
-      "I_PROJECT_VIEW_UNSPECIFIED\020\000\022\032\n\026VTSI_PRO" +
-      "JECT_VIEW_FULL\020\001\022\035\n\031VTSI_PROJECT_VIEW_SH" +
-      "ALLOW\020\002\022\035\n\031VTSI_PROJECT_VIEW_MINIMUM\020\0032\265" +
-      "\005\n\010Projects\022b\n\021CreateVtsiProject\022%.ondew" +
-      "o.vtsi.CreateVtsiProjectRequest\032&.ondewo" +
-      ".vtsi.CreateVtsiProjectResponse\022N\n\016GetVt" +
-      "siProject\022\".ondewo.vtsi.GetVtsiProjectRe" +
-      "quest\032\030.ondewo.vtsi.VtsiProject\022b\n\021Updat" +
-      "eVtsiProject\022%.ondewo.vtsi.UpdateVtsiPro" +
-      "jectRequest\032&.ondewo.vtsi.UpdateVtsiProj" +
-      "ectResponse\022b\n\021DeleteVtsiProject\022%.ondew" +
-      "o.vtsi.DeleteVtsiProjectRequest\032&.ondewo" +
-      ".vtsi.DeleteVtsiProjectResponse\022b\n\021Deplo" +
-      "yVtsiProject\022%.ondewo.vtsi.DeployVtsiPro" +
-      "jectRequest\032&.ondewo.vtsi.DeployVtsiProj" +
-      "ectResponse\022h\n\023UndeployVtsiProject\022\'.ond" +
-      "ewo.vtsi.UndeployVtsiProjectRequest\032(.on" +
-      "dewo.vtsi.UndeployVtsiProjectResponse\022_\n" +
-      "\020ListVtsiProjects\022$.ondewo.vtsi.ListVtsi" +
-      "ProjectsRequest\032%.ondewo.vtsi.ListVtsiPr" +
-      "ojectsResponseb\006proto3"
+      "\007DELETED\020\007\022\021\n\rDEPLOY_FAILED\020\010*\217\001\n\021SipTru" +
+      "nkTransport\022#\n\037SIP_TRUNK_TRANSPORT_UNSPE" +
+      "CIFIED\020\000\022\033\n\027SIP_TRUNK_TRANSPORT_TLS\020\001\022\033\n" +
+      "\027SIP_TRUNK_TRANSPORT_UDP\020\002\022\033\n\027SIP_TRUNK_" +
+      "TRANSPORT_TCP\020\003*7\n\026VtsiProjectSortingMod" +
+      "e\022\r\n\tASCENDING\020\000\022\016\n\nDESCENDING\020\001*\216\001\n\017Vts" +
+      "iProjectView\022!\n\035VTSI_PROJECT_VIEW_UNSPEC" +
+      "IFIED\020\000\022\032\n\026VTSI_PROJECT_VIEW_FULL\020\001\022\035\n\031V" +
+      "TSI_PROJECT_VIEW_SHALLOW\020\002\022\035\n\031VTSI_PROJE" +
+      "CT_VIEW_MINIMUM\020\0032\265\005\n\010Projects\022b\n\021Create" +
+      "VtsiProject\022%.ondewo.vtsi.CreateVtsiProj" +
+      "ectRequest\032&.ondewo.vtsi.CreateVtsiProje" +
+      "ctResponse\022N\n\016GetVtsiProject\022\".ondewo.vt" +
+      "si.GetVtsiProjectRequest\032\030.ondewo.vtsi.V" +
+      "tsiProject\022b\n\021UpdateVtsiProject\022%.ondewo" +
+      ".vtsi.UpdateVtsiProjectRequest\032&.ondewo." +
+      "vtsi.UpdateVtsiProjectResponse\022b\n\021Delete" +
+      "VtsiProject\022%.ondewo.vtsi.DeleteVtsiProj" +
+      "ectRequest\032&.ondewo.vtsi.DeleteVtsiProje" +
+      "ctResponse\022b\n\021DeployVtsiProject\022%.ondewo" +
+      ".vtsi.DeployVtsiProjectRequest\032&.ondewo." +
+      "vtsi.DeployVtsiProjectResponse\022h\n\023Undepl" +
+      "oyVtsiProject\022\'.ondewo.vtsi.UndeployVtsi" +
+      "ProjectRequest\032(.ondewo.vtsi.UndeployVts" +
+      "iProjectResponse\022_\n\020ListVtsiProjects\022$.o" +
+      "ndewo.vtsi.ListVtsiProjectsRequest\032%.ond" +
+      "ewo.vtsi.ListVtsiProjectsResponseb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.FieldMaskProto.getDescriptor(),
-          com.google.protobuf.StructProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_ondewo_vtsi_VtsiProject_descriptor =
@@ -21800,7 +26076,7 @@ public final class ProjectsOuterClass {
     internal_static_ondewo_vtsi_VtsiProject_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_VtsiProject_descriptor,
-        new java.lang.String[] { "Name", "DisplayName", "MaxCallers", "MaxListeners", "AsteriskConfigs", "VtsiProjectStatus", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "ActiveCallers", "ActiveListeners", "AsteriskPort", "NluAgentNames", "DeployedCallers", "DeployedListeners", "TransferPhoneNumberAllowlist", });
+        new java.lang.String[] { "Name", "DisplayName", "MaxCallers", "MaxListeners", "AsteriskConfigs", "VtsiProjectStatus", "CreatedBy", "CreatedAt", "ModifiedBy", "ModifiedAt", "ActiveCallers", "ActiveListeners", "AsteriskPort", "NluAgentNames", "DeployedCallers", "DeployedListeners", "TransferPhoneNumberAllowlist", "StatusMessage", "StatusChangedAt", "TrunkRegistrationState", "AsteriskVersionEffective", });
     internal_static_ondewo_vtsi_AsteriskConfigsVariables_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ondewo_vtsi_AsteriskConfigsVariables_fieldAccessorTable = new
@@ -21824,7 +26100,7 @@ public final class ProjectsOuterClass {
     internal_static_ondewo_vtsi_CreateVtsiProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_CreateVtsiProjectRequest_descriptor,
-        new java.lang.String[] { "VtsiProject", "ErrorMessage", });
+        new java.lang.String[] { "VtsiProject", "ErrorMessage", "ValidateOnly", });
     internal_static_ondewo_vtsi_CreateVtsiProjectResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_ondewo_vtsi_CreateVtsiProjectResponse_fieldAccessorTable = new
@@ -21836,13 +26112,13 @@ public final class ProjectsOuterClass {
     internal_static_ondewo_vtsi_GetVtsiProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_GetVtsiProjectRequest_descriptor,
-        new java.lang.String[] { "Name", "VtsiProjectView", });
+        new java.lang.String[] { "Name", "VtsiProjectView", "FieldMask", });
     internal_static_ondewo_vtsi_ListVtsiProjectsRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_ondewo_vtsi_ListVtsiProjectsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_ListVtsiProjectsRequest_descriptor,
-        new java.lang.String[] { "VtsiProjectView", "PageToken", "VtsiProjectSorting", "NluAgentNames", });
+        new java.lang.String[] { "VtsiProjectView", "PageToken", "VtsiProjectSorting", "NluAgentNames", "FieldMask", "PageSize", "Statuses", "DisplayNameContains", "CreatedAfter", "CreatedBefore", });
     internal_static_ondewo_vtsi_ListVtsiProjectsResponse_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_ondewo_vtsi_ListVtsiProjectsResponse_fieldAccessorTable = new
@@ -21860,13 +26136,13 @@ public final class ProjectsOuterClass {
     internal_static_ondewo_vtsi_UpdateVtsiProjectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_UpdateVtsiProjectRequest_descriptor,
-        new java.lang.String[] { "VtsiProject", "UpdateMask", });
+        new java.lang.String[] { "VtsiProject", "UpdateMask", "FieldMask", "ValidateOnly", });
     internal_static_ondewo_vtsi_UpdateVtsiProjectResponse_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_ondewo_vtsi_UpdateVtsiProjectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ondewo_vtsi_UpdateVtsiProjectResponse_descriptor,
-        new java.lang.String[] { "Name", "ErrorMessage", });
+        new java.lang.String[] { "Name", "ErrorMessage", "VtsiProject", });
     internal_static_ondewo_vtsi_DeleteVtsiProjectRequest_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_ondewo_vtsi_DeleteVtsiProjectRequest_fieldAccessorTable = new
@@ -21905,7 +26181,6 @@ public final class ProjectsOuterClass {
         new java.lang.String[] { "Name", "ErrorMessage", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.FieldMaskProto.getDescriptor();
-    com.google.protobuf.StructProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 
