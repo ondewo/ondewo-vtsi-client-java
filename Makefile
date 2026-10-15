@@ -136,8 +136,9 @@ MAVEN_REPO1_POM_URL=${MAVEN_REPO1_VERSION_URL}/${MAVEN_ARTIFACT_ID}-${ONDEWO_VTS
 MAVEN_REPO1_JAR_URL=${MAVEN_REPO1_VERSION_URL}/${MAVEN_ARTIFACT_ID}-${ONDEWO_VTSI_VERSION}.jar
 # release_verify polls repo1.maven.org this often, this far apart (20 x 30 s = 10 minutes): Central
 # reports PUBLISHED before every CDN node serves the files.
-RELEASE_VERIFY_ATTEMPTS?=20
-RELEASE_VERIFY_INTERVAL_S?=30
+# VERIFY_ATTEMPTS / VERIFY_INTERVAL_S are accepted as short aliases.
+RELEASE_VERIFY_ATTEMPTS?=$(or ${VERIFY_ATTEMPTS},20)
+RELEASE_VERIFY_INTERVAL_S?=$(or ${VERIFY_INTERVAL_S},30)
 # The only tools the release needs on the host; everything else runs in the utils image.
 RELEASE_HOST_TOOLS=docker git perl curl
 
@@ -150,6 +151,26 @@ RELEASE_HOST_TOOLS=docker git perl curl
 DEVOPS_ACCOUNT_GIT=ondewo-devops-accounts
 DEVOPS_ACCOUNT_GIT_URL?=git@bitbucket.org:ondewo/${DEVOPS_ACCOUNT_GIT}.git
 DEVOPS_ACCOUNT_CLONE_DIR?=./${DEVOPS_ACCOUNT_GIT}
+# release_preflight and release_verify are also run STANDALONE by ondewo-vtsi-api's release driver,
+# with nothing but an absolute DEVOPS_ACCOUNT_DIR in the environment. This shell prefix fills every
+# credential that is unset or still a placeholder from $$DEVOPS_ACCOUNT_DIR/account_*.env (anchored
+# `^NAME=`, the last such line) into the environment of the ONE recipe line it prefixes - so only the
+# step that uses them gets them, nothing persists, and no value is ever on a command line or echoed
+# (every line it prefixes is @-silent). A value already in the environment always wins. Pinned by
+# ReleaseCredentialsFromDevopsAccountDirTest.
+WITH_DEVOPS_ACCOUNT_DIR_CREDENTIALS=if [ -n "$$DEVOPS_ACCOUNT_DIR" ] && [ -d "$$DEVOPS_ACCOUNT_DIR" ]; then \
+	for spec in account_github.env:GITHUB_GH_TOKEN \
+		account_maven_central.env:MAVEN_CENTRAL_USERNAME account_maven_central.env:MAVEN_CENTRAL_PASSWORD \
+		account_maven_central.env:MAVEN_GPG_KEY_B64 account_maven_central.env:MAVEN_GPG_PASSPHRASE; do \
+		file=$${spec%%:*}; name=$${spec\#*:}; \
+		eval "value=\"\$$$$name\""; \
+		case "$$value" in \
+			""|ENTER_*) line=$$(grep -hE "^$$name=" "$$DEVOPS_ACCOUNT_DIR/$$file" 2>/dev/null | tail -n 1); \
+				if [ -n "$$line" ]; then set -a; eval "$$line"; set +a; fi;; \
+		esac; \
+	done; \
+fi;
+
 # Non-empty under `make -n` (see run_release_with_devops).
 MAKE_DRY_RUN=$(findstring n,$(firstword -$(MAKEFLAGS)))
 
@@ -392,11 +413,12 @@ release: ## Automate the entire release process - every step runs locally, CI pu
 
 release_preflight: ## Read-only: fail before anything is built, committed or pushed (tools, credentials, version, notes, branch)
 # Changes nothing anywhere - every probe is a GET or a local check; the only side effect is building
-# the local utils image the credential checks run in.
+# the local utils image the credential checks run in. Standalone, it reads the credentials from
+# DEVOPS_ACCOUNT_DIR (see WITH_DEVOPS_ACCOUNT_DIR_CREDENTIALS).
 	make check_release_host_tools
 	make check_no_devops_clone_in_workspace
-	make check_release_credentials
-	make validate_release_credentials_via_docker_image
+	@$(WITH_DEVOPS_ACCOUNT_DIR_CREDENTIALS) make check_release_credentials
+	@$(WITH_DEVOPS_ACCOUNT_DIR_CREDENTIALS) make validate_release_credentials_via_docker_image
 	make check_release_notes
 	make check_version_unreleased
 	make check_branch_up_to_date
@@ -405,7 +427,7 @@ release_preflight: ## Read-only: fail before anything is built, committed or pus
 release_verify: ## Read-only: fail unless the tag is on origin, the GitHub release has notes and repo1.maven.org serves the version
 	make check_tag_on_origin
 	make verify_maven_central_serves_version
-	make verify_github_release_via_docker_image
+	@$(WITH_DEVOPS_ACCOUNT_DIR_CREDENTIALS) make verify_github_release_via_docker_image
 	@echo "$(GREEN)[SUCCESS]$(NC) ${ONDEWO_VTSI_VERSION} is tagged, released on GitHub with notes, and served by Maven Central"
 
 check_release_host_tools: ## Assert the host has the only tools a release runs outside the utils image
@@ -476,7 +498,7 @@ verify_maven_central_serves_version: ## Poll repo1.maven.org until it serves the
 
 verify_github_release: check_gh_token ## Assert the GitHub release ${ONDEWO_VTSI_VERSION} exists and has a non-empty body (read-only, needs gh)
 	@body=$$(GH_TOKEN="$$GITHUB_GH_TOKEN" gh release view "${ONDEWO_VTSI_VERSION}" --repo "${GH_REPO_PATH}" --json body --jq .body) \
-		|| { echo "$(RED)[ERROR]$(NC) GitHub has no release ${ONDEWO_VTSI_VERSION} (see the gh error above)"; exit 1; }; \
+		|| { echo "$(RED)[ERROR]$(NC) gh cannot read the GitHub release ${ONDEWO_VTSI_VERSION}: GitHub refused GITHUB_GH_TOKEN (401) or the release does not exist (see the gh error above)"; exit 1; }; \
 	if [ -z "$$(printf '%s' "$$body" | tr -d '[:space:]')" ]; then \
 		echo "$(RED)[ERROR]$(NC) the GitHub release ${ONDEWO_VTSI_VERSION} has an EMPTY body"; exit 1; \
 	fi

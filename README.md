@@ -516,6 +516,13 @@ version. The order is pinned by `ReleaseOrderTest`.
    1. `release_verify` — read-only: the tag is on origin, `repo1.maven.org` serves the version,
       and `gh release view <version>` has a non-empty body. It can be run on its own at any time.
 
+`release_preflight` and `release_verify` can also run standalone, as `make release_all_clients` in
+`ondewo-vtsi-api` runs them: with only an absolute `DEVOPS_ACCOUNT_DIR` in the environment, each
+step that needs a credential reads every one that is unset (or still a placeholder) from
+`$DEVOPS_ACCOUNT_DIR/account_*.env` into that step's environment only — never onto a command line
+or into the output; a value already in the environment wins. `VERIFY_ATTEMPTS` /
+`VERIFY_INTERVAL_S` are accepted for `RELEASE_VERIFY_ATTEMPTS` / `RELEASE_VERIFY_INTERVAL_S`.
+
 Every step that needs maven, the JDK, gpg or the GitHub CLI runs in the
 `ondewo-vtsi-client-utils-java` image (`Dockerfile.utils`: `maven:3.9.16-eclipse-temurin-21` pinned by
 digest, gh 2.100.0 checked against a recorded sha256), built by `make build_utils_docker_image`

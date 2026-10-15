@@ -131,7 +131,9 @@ class ReleaseOrderTest {
                     "make check_version_unreleased",
                     "make check_branch_up_to_date"
                 }) {
-            assertTrue(preflight.contains(check), check + " is not part of release_preflight");
+            assertTrue(
+                    preflight.stream().anyMatch(line -> line.equals(check) || line.endsWith(" " + check)),
+                    check + " is not part of release_preflight");
         }
         assertTrue(
                 String.join("\n", recipe("check_version_unreleased"))
@@ -147,7 +149,8 @@ class ReleaseOrderTest {
                         "make verify_maven_central_serves_version",
                         "make verify_github_release_via_docker_image"),
                 recipe("release_verify").stream()
-                        .filter(line -> line.startsWith("make "))
+                        .filter(line -> line.contains("make "))
+                        .map(line -> line.substring(line.indexOf("make ")))
                         .collect(Collectors.toList()));
     }
 
