@@ -2,6 +2,15 @@
 
 *****************
 
+## Release ONDEWO VTSI Java Client 9.5.0
+
+### Improvements
+
+* Tracking API Version [9.5.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.5.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) )
+* Generated with ondewo-proto-compiler 5.17.0; runtime floors: protobuf-java 4.35.1, grpc-java 1.85.1, proto-google-common-protos 2.82.0.
+
+*****************
+
 ## Release ONDEWO VTSI Java Client 9.3.0
 
 ### Improvements

@@ -436,7 +436,9 @@ public final class ProjectsGrpc {
      * &lt;p&gt;An update of an &lt;code&gt;UNDEPLOYED&lt;/code&gt; project only writes it. An update of a
      * &lt;code&gt;DEPLOYED&lt;/code&gt; project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;nlu_agent_names&lt;/code&gt; and
-     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt; touch no Asterisk; a configuration change that Asterisk
+     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;, &lt;code&gt;warm_transfer_defaults&lt;/code&gt; and
+     * &lt;code&gt;transfer_target_directory&lt;/code&gt; touch no Asterisk; &lt;code&gt;ivr_menus_enabled&lt;/code&gt; only rewrites the
+     * inbound routes in the running Asterisk&amp;apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed &lt;code&gt;max_callers&lt;/code&gt;,
      * &lt;code&gt;max_listeners&lt;/code&gt;, Asterisk port, &lt;code&gt;asterisk_version&lt;/code&gt; or managed account), and
@@ -743,7 +745,9 @@ public final class ProjectsGrpc {
      * &lt;p&gt;An update of an &lt;code&gt;UNDEPLOYED&lt;/code&gt; project only writes it. An update of a
      * &lt;code&gt;DEPLOYED&lt;/code&gt; project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;nlu_agent_names&lt;/code&gt; and
-     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt; touch no Asterisk; a configuration change that Asterisk
+     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;, &lt;code&gt;warm_transfer_defaults&lt;/code&gt; and
+     * &lt;code&gt;transfer_target_directory&lt;/code&gt; touch no Asterisk; &lt;code&gt;ivr_menus_enabled&lt;/code&gt; only rewrites the
+     * inbound routes in the running Asterisk&amp;apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed &lt;code&gt;max_callers&lt;/code&gt;,
      * &lt;code&gt;max_listeners&lt;/code&gt;, Asterisk port, &lt;code&gt;asterisk_version&lt;/code&gt; or managed account), and
@@ -995,7 +999,9 @@ public final class ProjectsGrpc {
      * &lt;p&gt;An update of an &lt;code&gt;UNDEPLOYED&lt;/code&gt; project only writes it. An update of a
      * &lt;code&gt;DEPLOYED&lt;/code&gt; project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;nlu_agent_names&lt;/code&gt; and
-     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt; touch no Asterisk; a configuration change that Asterisk
+     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;, &lt;code&gt;warm_transfer_defaults&lt;/code&gt; and
+     * &lt;code&gt;transfer_target_directory&lt;/code&gt; touch no Asterisk; &lt;code&gt;ivr_menus_enabled&lt;/code&gt; only rewrites the
+     * inbound routes in the running Asterisk&amp;apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed &lt;code&gt;max_callers&lt;/code&gt;,
      * &lt;code&gt;max_listeners&lt;/code&gt;, Asterisk port, &lt;code&gt;asterisk_version&lt;/code&gt; or managed account), and
@@ -1242,7 +1248,9 @@ public final class ProjectsGrpc {
      * &lt;p&gt;An update of an &lt;code&gt;UNDEPLOYED&lt;/code&gt; project only writes it. An update of a
      * &lt;code&gt;DEPLOYED&lt;/code&gt; project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;nlu_agent_names&lt;/code&gt; and
-     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt; touch no Asterisk; a configuration change that Asterisk
+     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;, &lt;code&gt;warm_transfer_defaults&lt;/code&gt; and
+     * &lt;code&gt;transfer_target_directory&lt;/code&gt; touch no Asterisk; &lt;code&gt;ivr_menus_enabled&lt;/code&gt; only rewrites the
+     * inbound routes in the running Asterisk&amp;apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed &lt;code&gt;max_callers&lt;/code&gt;,
      * &lt;code&gt;max_listeners&lt;/code&gt;, Asterisk port, &lt;code&gt;asterisk_version&lt;/code&gt; or managed account), and
@@ -1491,7 +1499,9 @@ public final class ProjectsGrpc {
      * &lt;p&gt;An update of an &lt;code&gt;UNDEPLOYED&lt;/code&gt; project only writes it. An update of a
      * &lt;code&gt;DEPLOYED&lt;/code&gt; project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: &lt;code&gt;display_name&lt;/code&gt;, &lt;code&gt;nlu_agent_names&lt;/code&gt; and
-     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt; touch no Asterisk; a configuration change that Asterisk
+     * &lt;code&gt;transfer_phone_number_allowlist&lt;/code&gt;, &lt;code&gt;warm_transfer_defaults&lt;/code&gt; and
+     * &lt;code&gt;transfer_target_directory&lt;/code&gt; touch no Asterisk; &lt;code&gt;ivr_menus_enabled&lt;/code&gt; only rewrites the
+     * inbound routes in the running Asterisk&amp;apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed &lt;code&gt;max_callers&lt;/code&gt;,
      * &lt;code&gt;max_listeners&lt;/code&gt;, Asterisk port, &lt;code&gt;asterisk_version&lt;/code&gt; or managed account), and
