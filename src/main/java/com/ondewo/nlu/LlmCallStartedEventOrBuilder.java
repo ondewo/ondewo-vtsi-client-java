@@ -32,7 +32,8 @@ public interface LlmCallStartedEventOrBuilder extends
 
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 2;</code>
@@ -41,7 +42,8 @@ public interface LlmCallStartedEventOrBuilder extends
   java.lang.String getProvider();
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 2;</code>

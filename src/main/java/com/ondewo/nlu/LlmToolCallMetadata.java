@@ -61,7 +61,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object toolCallId_ = "";
   /**
    * <pre>
-   * Stable id assigned by the upstream framework (autogen / langchain).
+   * Stable id assigned by the upstream framework (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 1;</code>
@@ -82,7 +82,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Stable id assigned by the upstream framework (autogen / langchain).
+   * Stable id assigned by the upstream framework (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 1;</code>
@@ -977,7 +977,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object toolCallId_ = "";
     /**
      * <pre>
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 1;</code>
@@ -997,7 +997,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 1;</code>
@@ -1018,7 +1018,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 1;</code>
@@ -1035,7 +1035,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 1;</code>
@@ -1049,7 +1049,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 1;</code>

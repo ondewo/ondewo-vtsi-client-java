@@ -89,7 +89,8 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object provider_ = "";
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 1;</code>
@@ -110,7 +111,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 1;</code>
@@ -1285,7 +1287,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object teamName_ = "";
   /**
    * <pre>
-   * Autogen team display name owning the call.
+   * Display name of the agent team owning the call; empty for a single agent.
    * </pre>
    *
    * <code>string team_name = 36;</code>
@@ -1306,7 +1308,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Autogen team display name owning the call.
+   * Display name of the agent team owning the call; empty for a single agent.
    * </pre>
    *
    * <code>string team_name = 36;</code>
@@ -1332,7 +1334,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object teamId_ = "";
   /**
    * <pre>
-   * Autogen team identifier (UUID).
+   * Identifier (UUID) of the agent team owning the call.
    * </pre>
    *
    * <code>string team_id = 37;</code>
@@ -1353,7 +1355,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Autogen team identifier (UUID).
+   * Identifier (UUID) of the agent team owning the call.
    * </pre>
    *
    * <code>string team_id = 37;</code>
@@ -1379,7 +1381,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object agentRole_ = "";
   /**
    * <pre>
-   * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+   * Role tag of the agent that made the call inside its team.
    * </pre>
    *
    * <code>string agent_role = 38;</code>
@@ -1400,7 +1402,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+   * Role tag of the agent that made the call inside its team.
    * </pre>
    *
    * <code>string agent_role = 38;</code>
@@ -1426,7 +1428,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object senderAgent_ = "";
   /**
    * <pre>
-   * Name of the autogen agent that produced the message.
+   * Name of the agent that produced the message.
    * </pre>
    *
    * <code>string sender_agent = 39;</code>
@@ -1447,7 +1449,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Name of the autogen agent that produced the message.
+   * Name of the agent that produced the message.
    * </pre>
    *
    * <code>string sender_agent = 39;</code>
@@ -1473,7 +1475,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object recipientAgent_ = "";
   /**
    * <pre>
-   * Name of the autogen agent that received the message.
+   * Name of the agent that received the message.
    * </pre>
    *
    * <code>string recipient_agent = 40;</code>
@@ -1494,7 +1496,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Name of the autogen agent that received the message.
+   * Name of the agent that received the message.
    * </pre>
    *
    * <code>string recipient_agent = 40;</code>
@@ -1519,7 +1521,7 @@ private static final long serialVersionUID = 0L;
   private int turnIndex_ = 0;
   /**
    * <pre>
-   * Zero-based position of this LLM call inside the autogen &lt;code&gt;run_stream()&lt;/code&gt; sequence.
+   * Zero-based position of this LLM call inside the agent run&amp;apos;s sequence of LLM calls.
    * </pre>
    *
    * <code>int32 turn_index = 41;</code>
@@ -1534,7 +1536,8 @@ private static final long serialVersionUID = 0L;
   private int reflectionIterations_ = 0;
   /**
    * <pre>
-   * Number of reflection loops executed in &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this call.
+   * Deprecated: number of reflection loops of the removed AutoGen &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this
+   * call. No current agent runs reflection loops, so it is 0.
    * </pre>
    *
    * <code>int32 reflection_iterations = 42;</code>
@@ -1550,7 +1553,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object terminationReason_ = "";
   /**
    * <pre>
-   * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+   * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
    * </pre>
    *
    * <code>string termination_reason = 43;</code>
@@ -1571,7 +1574,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+   * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
    * </pre>
    *
    * <code>string termination_reason = 43;</code>
@@ -2401,7 +2404,7 @@ private static final long serialVersionUID = 0L;
    * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
    * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
    * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-   * which is the UPSTREAM framework's id (autogen / langchain).
+   * which is the UPSTREAM framework's id (e.g. langchain).
    * </pre>
    *
    * <code>string llm_call_id = 63;</code>
@@ -2426,7 +2429,7 @@ private static final long serialVersionUID = 0L;
    * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
    * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
    * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-   * which is the UPSTREAM framework's id (autogen / langchain).
+   * which is the UPSTREAM framework's id (e.g. langchain).
    * </pre>
    *
    * <code>string llm_call_id = 63;</code>
@@ -4632,7 +4635,8 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object provider_ = "";
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 1;</code>
@@ -4652,7 +4656,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 1;</code>
@@ -4673,7 +4678,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 1;</code>
@@ -4690,7 +4696,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 1;</code>
@@ -4704,7 +4711,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 1;</code>
@@ -8024,7 +8032,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object teamName_ = "";
     /**
      * <pre>
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      * </pre>
      *
      * <code>string team_name = 36;</code>
@@ -8044,7 +8052,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      * </pre>
      *
      * <code>string team_name = 36;</code>
@@ -8065,7 +8073,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      * </pre>
      *
      * <code>string team_name = 36;</code>
@@ -8082,7 +8090,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      * </pre>
      *
      * <code>string team_name = 36;</code>
@@ -8096,7 +8104,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      * </pre>
      *
      * <code>string team_name = 36;</code>
@@ -8116,7 +8124,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object teamId_ = "";
     /**
      * <pre>
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      * </pre>
      *
      * <code>string team_id = 37;</code>
@@ -8136,7 +8144,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      * </pre>
      *
      * <code>string team_id = 37;</code>
@@ -8157,7 +8165,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      * </pre>
      *
      * <code>string team_id = 37;</code>
@@ -8174,7 +8182,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      * </pre>
      *
      * <code>string team_id = 37;</code>
@@ -8188,7 +8196,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      * </pre>
      *
      * <code>string team_id = 37;</code>
@@ -8208,7 +8216,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object agentRole_ = "";
     /**
      * <pre>
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      * </pre>
      *
      * <code>string agent_role = 38;</code>
@@ -8228,7 +8236,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      * </pre>
      *
      * <code>string agent_role = 38;</code>
@@ -8249,7 +8257,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      * </pre>
      *
      * <code>string agent_role = 38;</code>
@@ -8266,7 +8274,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      * </pre>
      *
      * <code>string agent_role = 38;</code>
@@ -8280,7 +8288,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      * </pre>
      *
      * <code>string agent_role = 38;</code>
@@ -8300,7 +8308,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object senderAgent_ = "";
     /**
      * <pre>
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      * </pre>
      *
      * <code>string sender_agent = 39;</code>
@@ -8320,7 +8328,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      * </pre>
      *
      * <code>string sender_agent = 39;</code>
@@ -8341,7 +8349,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      * </pre>
      *
      * <code>string sender_agent = 39;</code>
@@ -8358,7 +8366,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      * </pre>
      *
      * <code>string sender_agent = 39;</code>
@@ -8372,7 +8380,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      * </pre>
      *
      * <code>string sender_agent = 39;</code>
@@ -8392,7 +8400,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object recipientAgent_ = "";
     /**
      * <pre>
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      * </pre>
      *
      * <code>string recipient_agent = 40;</code>
@@ -8412,7 +8420,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      * </pre>
      *
      * <code>string recipient_agent = 40;</code>
@@ -8433,7 +8441,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      * </pre>
      *
      * <code>string recipient_agent = 40;</code>
@@ -8450,7 +8458,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      * </pre>
      *
      * <code>string recipient_agent = 40;</code>
@@ -8464,7 +8472,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      * </pre>
      *
      * <code>string recipient_agent = 40;</code>
@@ -8484,7 +8492,7 @@ private static final long serialVersionUID = 0L;
     private int turnIndex_ ;
     /**
      * <pre>
-     * Zero-based position of this LLM call inside the autogen &lt;code&gt;run_stream()&lt;/code&gt; sequence.
+     * Zero-based position of this LLM call inside the agent run&amp;apos;s sequence of LLM calls.
      * </pre>
      *
      * <code>int32 turn_index = 41;</code>
@@ -8496,7 +8504,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Zero-based position of this LLM call inside the autogen &lt;code&gt;run_stream()&lt;/code&gt; sequence.
+     * Zero-based position of this LLM call inside the agent run&amp;apos;s sequence of LLM calls.
      * </pre>
      *
      * <code>int32 turn_index = 41;</code>
@@ -8512,7 +8520,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Zero-based position of this LLM call inside the autogen &lt;code&gt;run_stream()&lt;/code&gt; sequence.
+     * Zero-based position of this LLM call inside the agent run&amp;apos;s sequence of LLM calls.
      * </pre>
      *
      * <code>int32 turn_index = 41;</code>
@@ -8528,7 +8536,8 @@ private static final long serialVersionUID = 0L;
     private int reflectionIterations_ ;
     /**
      * <pre>
-     * Number of reflection loops executed in &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this
+     * call. No current agent runs reflection loops, so it is 0.
      * </pre>
      *
      * <code>int32 reflection_iterations = 42;</code>
@@ -8540,7 +8549,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Number of reflection loops executed in &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this
+     * call. No current agent runs reflection loops, so it is 0.
      * </pre>
      *
      * <code>int32 reflection_iterations = 42;</code>
@@ -8556,7 +8566,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Number of reflection loops executed in &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen &lt;code&gt;robust_assistant_agent&lt;/code&gt; for this
+     * call. No current agent runs reflection loops, so it is 0.
      * </pre>
      *
      * <code>int32 reflection_iterations = 42;</code>
@@ -8572,7 +8583,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object terminationReason_ = "";
     /**
      * <pre>
-     * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
      * </pre>
      *
      * <code>string termination_reason = 43;</code>
@@ -8592,7 +8603,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
      * </pre>
      *
      * <code>string termination_reason = 43;</code>
@@ -8613,7 +8624,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
      * </pre>
      *
      * <code>string termination_reason = 43;</code>
@@ -8630,7 +8641,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
      * </pre>
      *
      * <code>string termination_reason = 43;</code>
@@ -8644,7 +8655,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Autogen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt; string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen &lt;code&gt;TaskResult.stop_reason&lt;/code&gt;).
      * </pre>
      *
      * <code>string termination_reason = 43;</code>
@@ -11170,7 +11181,7 @@ private static final long serialVersionUID = 0L;
      * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
      * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      * </pre>
      *
      * <code>string llm_call_id = 63;</code>
@@ -11194,7 +11205,7 @@ private static final long serialVersionUID = 0L;
      * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
      * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      * </pre>
      *
      * <code>string llm_call_id = 63;</code>
@@ -11219,7 +11230,7 @@ private static final long serialVersionUID = 0L;
      * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
      * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      * </pre>
      *
      * <code>string llm_call_id = 63;</code>
@@ -11240,7 +11251,7 @@ private static final long serialVersionUID = 0L;
      * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
      * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      * </pre>
      *
      * <code>string llm_call_id = 63;</code>
@@ -11258,7 +11269,7 @@ private static final long serialVersionUID = 0L;
      * &lt;code&gt;llm_call_id&lt;/code&gt; (&lt;code&gt;LlmLlmCallStartedEvent&lt;/code&gt;,
      * &lt;code&gt;LlmToolCallStartedEvent&lt;/code&gt;, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from &lt;code&gt;run_id&lt;/code&gt; (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      * </pre>
      *
      * <code>string llm_call_id = 63;</code>
