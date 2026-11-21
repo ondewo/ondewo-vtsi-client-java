@@ -109,7 +109,8 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object provider_ = "";
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 2;</code>
@@ -130,7 +131,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+   * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+   * was removed).
    * </pre>
    *
    * <code>string provider = 2;</code>
@@ -797,7 +799,8 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object provider_ = "";
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 2;</code>
@@ -817,7 +820,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 2;</code>
@@ -838,7 +842,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 2;</code>
@@ -855,7 +860,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 2;</code>
@@ -869,7 +875,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      * </pre>
      *
      * <code>string provider = 2;</code>

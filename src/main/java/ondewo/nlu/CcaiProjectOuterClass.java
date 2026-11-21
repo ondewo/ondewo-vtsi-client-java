@@ -935,8 +935,11 @@ public final class CcaiProjectOuterClass extends com.google.protobuf.GeneratedFi
     CCAI_SERVICE_PROVIDER_MICROSOFT_AZURE_OPENAI(3),
     /**
      * <pre>
-     * Microsoft AutoGen as the CCAI service provider
-     * &lt;a href="https://github.com/microsoft/autogen"&gt;AutoGen&lt;/a&gt;
+     * Deprecated: Microsoft AutoGen as the CCAI service provider
+     * &lt;a href="https://github.com/microsoft/autogen"&gt;AutoGen&lt;/a&gt;.
+     * The server no longer runs AutoGen and refuses to create services with this provider; stored AutoGen
+     * services are migrated to AI Teams v2 (LangChain / LangGraph). The value is kept for wire
+     * compatibility and may still appear on data written before the migration.
      * </pre>
      *
      * <code>CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN = 4;</code>
@@ -1262,8 +1265,11 @@ public final class CcaiProjectOuterClass extends com.google.protobuf.GeneratedFi
     public static final int CCAI_SERVICE_PROVIDER_MICROSOFT_AZURE_OPENAI_VALUE = 3;
     /**
      * <pre>
-     * Microsoft AutoGen as the CCAI service provider
-     * &lt;a href="https://github.com/microsoft/autogen"&gt;AutoGen&lt;/a&gt;
+     * Deprecated: Microsoft AutoGen as the CCAI service provider
+     * &lt;a href="https://github.com/microsoft/autogen"&gt;AutoGen&lt;/a&gt;.
+     * The server no longer runs AutoGen and refuses to create services with this provider; stored AutoGen
+     * services are migrated to AI Teams v2 (LangChain / LangGraph). The value is kept for wire
+     * compatibility and may still appear on data written before the migration.
      * </pre>
      *
      * <code>CCAI_SERVICE_PROVIDER_MICROSOFT_AUTOGEN = 4;</code>

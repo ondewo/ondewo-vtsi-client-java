@@ -12,7 +12,7 @@ public interface LlmToolCallMetadataOrBuilder extends
 
   /**
    * <pre>
-   * Stable id assigned by the upstream framework (autogen / langchain).
+   * Stable id assigned by the upstream framework (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 1;</code>
@@ -21,7 +21,7 @@ public interface LlmToolCallMetadataOrBuilder extends
   java.lang.String getToolCallId();
   /**
    * <pre>
-   * Stable id assigned by the upstream framework (autogen / langchain).
+   * Stable id assigned by the upstream framework (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 1;</code>

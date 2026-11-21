@@ -503,9 +503,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+     * forwarded to the cloud providers. The duration is written either with a unit -
+     * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+     * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+     * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+     * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+     * break may not be longer than 60 seconds.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -538,56 +546,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
-     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
      * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
      * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
      * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-     * stripped and a warning is logged.&lt;/p&gt;
+     * stripped from the text without changing the delivery.&lt;/p&gt;
+     * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+     * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+     * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-     * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+     * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+     * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
      * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-     * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-     * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+     * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+     * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-     * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-     * &lt;code&gt;none&lt;/code&gt; (mild):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-     * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-     * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-     * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-     * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-     * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-     * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Nested combination (style + emphasis + prosody):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+     * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+     * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Nested combination (style + prosody):
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
      * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-     * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-     * text is kept as the spoken text and it should be always in English:
+     * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+     * as the spoken text and the instruction should always be written in English:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-     * brackets. They are compiled into the instruction and stripped from the spoken text. The
-     * supported tags are:
+     * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+     * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+     * instruction. Such a tag applies to everything that follows it until another tag or the
+     * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+     * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+     * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+     * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+     * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+     * in exactly the same way - switching from one spelling to the other never makes a style work
+     * that the voice cannot render.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+     * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+     * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+     * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+     * request.&lt;/p&gt;
+     * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+     * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+     * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+     * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-     * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-     * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-     * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-     * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-     * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-     * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-     * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+     * delivery only, and see the prosody table below for what little can still be varied on
+     * them.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+     * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+     * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+     * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+     * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+     * does not check this table either, so asking for a step a voice cannot render succeeds silently
+     * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+     * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+     * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
+     * &lt;ul&gt;
+     * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+     * rewriting the text, or pick another voice.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+     * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+     * control that works on it.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+     * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+     * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+     * every step of both dimensions.&lt;/li&gt;
      * &lt;/ul&gt;
+     *
+     * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+     * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+     * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+     * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+     * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
      * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
      * description directly instead of embedding it in the text.&lt;/p&gt;
      *
@@ -596,9 +669,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
      * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
      * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      * </pre>
@@ -636,9 +715,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+     * forwarded to the cloud providers. The duration is written either with a unit -
+     * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+     * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+     * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+     * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+     * break may not be longer than 60 seconds.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -671,56 +758,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
-     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
      * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
      * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
      * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-     * stripped and a warning is logged.&lt;/p&gt;
+     * stripped from the text without changing the delivery.&lt;/p&gt;
+     * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+     * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+     * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-     * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+     * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+     * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
      * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-     * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-     * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+     * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+     * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-     * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-     * &lt;code&gt;none&lt;/code&gt; (mild):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-     * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-     * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-     * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-     * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-     * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-     * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Nested combination (style + emphasis + prosody):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+     * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+     * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Nested combination (style + prosody):
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
      * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-     * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-     * text is kept as the spoken text and it should be always in English:
+     * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+     * as the spoken text and the instruction should always be written in English:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-     * brackets. They are compiled into the instruction and stripped from the spoken text. The
-     * supported tags are:
+     * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+     * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+     * instruction. Such a tag applies to everything that follows it until another tag or the
+     * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+     * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+     * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+     * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+     * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+     * in exactly the same way - switching from one spelling to the other never makes a style work
+     * that the voice cannot render.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+     * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+     * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+     * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+     * request.&lt;/p&gt;
+     * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+     * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+     * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+     * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-     * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-     * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-     * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-     * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-     * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-     * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-     * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+     * delivery only, and see the prosody table below for what little can still be varied on
+     * them.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+     * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+     * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+     * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+     * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+     * does not check this table either, so asking for a step a voice cannot render succeeds silently
+     * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+     * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+     * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
+     * &lt;ul&gt;
+     * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+     * rewriting the text, or pick another voice.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+     * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+     * control that works on it.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+     * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+     * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+     * every step of both dimensions.&lt;/li&gt;
      * &lt;/ul&gt;
+     *
+     * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+     * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+     * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+     * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+     * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
      * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
      * description directly instead of embedding it in the text.&lt;/p&gt;
      *
@@ -729,9 +881,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
      * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
      * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      * </pre>
@@ -850,9 +1008,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+     * forwarded to the cloud providers. The duration is written either with a unit -
+     * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+     * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+     * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+     * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+     * break may not be longer than 60 seconds.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -885,56 +1051,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
-     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
      * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
      * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
      * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-     * stripped and a warning is logged.&lt;/p&gt;
+     * stripped from the text without changing the delivery.&lt;/p&gt;
+     * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+     * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+     * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-     * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+     * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+     * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
      * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-     * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-     * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+     * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+     * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-     * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-     * &lt;code&gt;none&lt;/code&gt; (mild):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-     * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-     * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-     * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-     * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-     * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-     * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Nested combination (style + emphasis + prosody):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+     * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+     * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Nested combination (style + prosody):
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
      * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-     * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-     * text is kept as the spoken text and it should be always in English:
+     * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+     * as the spoken text and the instruction should always be written in English:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-     * brackets. They are compiled into the instruction and stripped from the spoken text. The
-     * supported tags are:
+     * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+     * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+     * instruction. Such a tag applies to everything that follows it until another tag or the
+     * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+     * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+     * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+     * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+     * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+     * in exactly the same way - switching from one spelling to the other never makes a style work
+     * that the voice cannot render.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+     * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+     * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+     * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+     * request.&lt;/p&gt;
+     * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+     * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+     * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+     * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-     * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-     * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-     * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-     * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-     * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-     * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-     * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+     * delivery only, and see the prosody table below for what little can still be varied on
+     * them.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+     * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+     * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+     * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+     * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+     * does not check this table either, so asking for a step a voice cannot render succeeds silently
+     * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+     * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+     * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
+     * &lt;ul&gt;
+     * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+     * rewriting the text, or pick another voice.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+     * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+     * control that works on it.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+     * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+     * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+     * every step of both dimensions.&lt;/li&gt;
      * &lt;/ul&gt;
+     *
+     * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+     * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+     * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+     * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+     * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
      * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
      * description directly instead of embedding it in the text.&lt;/p&gt;
      *
@@ -943,9 +1174,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
      * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
      * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      * </pre>
@@ -995,9 +1232,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+     * forwarded to the cloud providers. The duration is written either with a unit -
+     * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+     * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+     * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+     * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+     * break may not be longer than 60 seconds.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
      * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -1030,56 +1275,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      *
-     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
      * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
      * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
      * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-     * stripped and a warning is logged.&lt;/p&gt;
+     * stripped from the text without changing the delivery.&lt;/p&gt;
+     * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+     * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+     * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-     * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+     * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+     * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+     * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
      * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-     * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-     * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+     * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+     * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-     * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-     * &lt;code&gt;none&lt;/code&gt; (mild):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-     * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-     * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-     * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-     * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-     * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-     * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Nested combination (style + emphasis + prosody):
-     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+     * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+     * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Nested combination (style + prosody):
+     * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
      * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-     * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-     * text is kept as the spoken text and it should be always in English:
+     * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+     * as the spoken text and the instruction should always be written in English:
      * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-     * brackets. They are compiled into the instruction and stripped from the spoken text. The
-     * supported tags are:
+     * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+     * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+     * instruction. Such a tag applies to everything that follows it until another tag or the
+     * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+     * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+     * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+     * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+     * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+     * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+     * in exactly the same way - switching from one spelling to the other never makes a style work
+     * that the voice cannot render.&lt;/p&gt;
+     * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+     * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+     * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+     * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+     * request.&lt;/p&gt;
+     * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+     * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+     * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+     * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+     * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-     * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-     * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-     * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-     * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-     * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-     * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-     * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-     * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+     * delivery only, and see the prosody table below for what little can still be varied on
+     * them.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+     * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+     * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+     * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+     * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     *
+     * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+     * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+     * does not check this table either, so asking for a step a voice cannot render succeeds silently
+     * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+     * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+     * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+     * &lt;table&gt;
+     * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+     * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+     * &lt;/table&gt;
+     * &lt;p&gt;Notes on the table:&lt;/p&gt;
+     * &lt;ul&gt;
+     * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+     * rewriting the text, or pick another voice.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+     * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+     * control that works on it.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+     * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+     * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+     * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+     * every step of both dimensions.&lt;/li&gt;
      * &lt;/ul&gt;
+     *
+     * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+     * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+     * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+     * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+     * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
      * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
      * description directly instead of embedding it in the text.&lt;/p&gt;
      *
@@ -1088,9 +1398,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
      * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
      * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
      * &lt;ul&gt;
-     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+     * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+     * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+     * More information:
+     * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
      * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
      * &lt;/ul&gt;
      * </pre>
@@ -1529,9 +1845,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+       * forwarded to the cloud providers. The duration is written either with a unit -
+       * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+       * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+       * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+       * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+       * break may not be longer than 60 seconds.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -1564,56 +1888,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
-       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
        * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
        * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
        * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-       * stripped and a warning is logged.&lt;/p&gt;
+       * stripped from the text without changing the delivery.&lt;/p&gt;
+       * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+       * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+       * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-       * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+       * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+       * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
        * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-       * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-       * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+       * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+       * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-       * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-       * &lt;code&gt;none&lt;/code&gt; (mild):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-       * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-       * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-       * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-       * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-       * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-       * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Nested combination (style + emphasis + prosody):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+       * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+       * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Nested combination (style + prosody):
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
        * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-       * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-       * text is kept as the spoken text and it should be always in English:
+       * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+       * as the spoken text and the instruction should always be written in English:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-       * brackets. They are compiled into the instruction and stripped from the spoken text. The
-       * supported tags are:
+       * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+       * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+       * instruction. Such a tag applies to everything that follows it until another tag or the
+       * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+       * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;/ul&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+       * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+       * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+       * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+       * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+       * in exactly the same way - switching from one spelling to the other never makes a style work
+       * that the voice cannot render.&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+       * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+       * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+       * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+       * request.&lt;/p&gt;
+       * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+       * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+       * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+       * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-       * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-       * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-       * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-       * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-       * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-       * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-       * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+       * delivery only, and see the prosody table below for what little can still be varied on
+       * them.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+       * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+       * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+       * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+       * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
        * &lt;/ul&gt;
-       * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+       * does not check this table either, so asking for a step a voice cannot render succeeds silently
+       * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+       * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+       * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
+       * &lt;ul&gt;
+       * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+       * rewriting the text, or pick another voice.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+       * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+       * control that works on it.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+       * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+       * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+       * every step of both dimensions.&lt;/li&gt;
        * &lt;/ul&gt;
+       *
+       * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+       * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+       * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+       * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+       * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
        * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
        * description directly instead of embedding it in the text.&lt;/p&gt;
        *
@@ -1622,9 +2011,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
        * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
        * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        * </pre>
@@ -1673,9 +2068,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+       * forwarded to the cloud providers. The duration is written either with a unit -
+       * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+       * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+       * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+       * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+       * break may not be longer than 60 seconds.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -1708,56 +2111,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
-       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
        * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
        * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
        * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-       * stripped and a warning is logged.&lt;/p&gt;
+       * stripped from the text without changing the delivery.&lt;/p&gt;
+       * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+       * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+       * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-       * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+       * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+       * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
        * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-       * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-       * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+       * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+       * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-       * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-       * &lt;code&gt;none&lt;/code&gt; (mild):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-       * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-       * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-       * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-       * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-       * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-       * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Nested combination (style + emphasis + prosody):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+       * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+       * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Nested combination (style + prosody):
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
        * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-       * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-       * text is kept as the spoken text and it should be always in English:
+       * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+       * as the spoken text and the instruction should always be written in English:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-       * brackets. They are compiled into the instruction and stripped from the spoken text. The
-       * supported tags are:
+       * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+       * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+       * instruction. Such a tag applies to everything that follows it until another tag or the
+       * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+       * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;/ul&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+       * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+       * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+       * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+       * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+       * in exactly the same way - switching from one spelling to the other never makes a style work
+       * that the voice cannot render.&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+       * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+       * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+       * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+       * request.&lt;/p&gt;
+       * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+       * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+       * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+       * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-       * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-       * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-       * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-       * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-       * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-       * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-       * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+       * delivery only, and see the prosody table below for what little can still be varied on
+       * them.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+       * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+       * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+       * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+       * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
        * &lt;/ul&gt;
-       * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+       * does not check this table either, so asking for a step a voice cannot render succeeds silently
+       * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+       * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+       * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
+       * &lt;ul&gt;
+       * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+       * rewriting the text, or pick another voice.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+       * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+       * control that works on it.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+       * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+       * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+       * every step of both dimensions.&lt;/li&gt;
        * &lt;/ul&gt;
+       *
+       * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+       * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+       * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+       * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+       * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
        * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
        * description directly instead of embedding it in the text.&lt;/p&gt;
        *
@@ -1766,9 +2234,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
        * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
        * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        * </pre>
@@ -1818,9 +2292,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+       * forwarded to the cloud providers. The duration is written either with a unit -
+       * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+       * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+       * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+       * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+       * break may not be longer than 60 seconds.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -1853,56 +2335,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
-       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
        * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
        * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
        * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-       * stripped and a warning is logged.&lt;/p&gt;
+       * stripped from the text without changing the delivery.&lt;/p&gt;
+       * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+       * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+       * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-       * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+       * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+       * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
        * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-       * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-       * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+       * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+       * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-       * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-       * &lt;code&gt;none&lt;/code&gt; (mild):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-       * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-       * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-       * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-       * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-       * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-       * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Nested combination (style + emphasis + prosody):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+       * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+       * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Nested combination (style + prosody):
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
        * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-       * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-       * text is kept as the spoken text and it should be always in English:
+       * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+       * as the spoken text and the instruction should always be written in English:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-       * brackets. They are compiled into the instruction and stripped from the spoken text. The
-       * supported tags are:
+       * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+       * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+       * instruction. Such a tag applies to everything that follows it until another tag or the
+       * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+       * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;/ul&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+       * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+       * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+       * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+       * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+       * in exactly the same way - switching from one spelling to the other never makes a style work
+       * that the voice cannot render.&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+       * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+       * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+       * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+       * request.&lt;/p&gt;
+       * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+       * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+       * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+       * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-       * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-       * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-       * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-       * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-       * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-       * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-       * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+       * delivery only, and see the prosody table below for what little can still be varied on
+       * them.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+       * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+       * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+       * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+       * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
        * &lt;/ul&gt;
-       * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+       * does not check this table either, so asking for a step a voice cannot render succeeds silently
+       * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+       * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+       * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
+       * &lt;ul&gt;
+       * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+       * rewriting the text, or pick another voice.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+       * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+       * control that works on it.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+       * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+       * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+       * every step of both dimensions.&lt;/li&gt;
        * &lt;/ul&gt;
+       *
+       * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+       * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+       * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+       * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+       * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
        * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
        * description directly instead of embedding it in the text.&lt;/p&gt;
        *
@@ -1911,9 +2458,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
        * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
        * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        * </pre>
@@ -1959,9 +2512,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+       * forwarded to the cloud providers. The duration is written either with a unit -
+       * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+       * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+       * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+       * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+       * break may not be longer than 60 seconds.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -1994,56 +2555,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
-       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
        * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
        * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
        * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-       * stripped and a warning is logged.&lt;/p&gt;
+       * stripped from the text without changing the delivery.&lt;/p&gt;
+       * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+       * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+       * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-       * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+       * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+       * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
        * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-       * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-       * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+       * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+       * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-       * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-       * &lt;code&gt;none&lt;/code&gt; (mild):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-       * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-       * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-       * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-       * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-       * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-       * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Nested combination (style + emphasis + prosody):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+       * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+       * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Nested combination (style + prosody):
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
        * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-       * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-       * text is kept as the spoken text and it should be always in English:
+       * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+       * as the spoken text and the instruction should always be written in English:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-       * brackets. They are compiled into the instruction and stripped from the spoken text. The
-       * supported tags are:
+       * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+       * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+       * instruction. Such a tag applies to everything that follows it until another tag or the
+       * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+       * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;/ul&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+       * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+       * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+       * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+       * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+       * in exactly the same way - switching from one spelling to the other never makes a style work
+       * that the voice cannot render.&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+       * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+       * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+       * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+       * request.&lt;/p&gt;
+       * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+       * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+       * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+       * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-       * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-       * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-       * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-       * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-       * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-       * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-       * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+       * delivery only, and see the prosody table below for what little can still be varied on
+       * them.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+       * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+       * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+       * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+       * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
        * &lt;/ul&gt;
-       * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+       * does not check this table either, so asking for a step a voice cannot render succeeds silently
+       * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+       * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+       * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
+       * &lt;ul&gt;
+       * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+       * rewriting the text, or pick another voice.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+       * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+       * control that works on it.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+       * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+       * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+       * every step of both dimensions.&lt;/li&gt;
        * &lt;/ul&gt;
+       *
+       * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+       * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+       * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+       * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+       * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
        * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
        * description directly instead of embedding it in the text.&lt;/p&gt;
        *
@@ -2052,9 +2678,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
        * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
        * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        * </pre>
@@ -2097,9 +2729,17 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;3. Pauses / breaks&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Inserts a pause of the given duration into the spoken text. Supported by the local pipelines and
+       * forwarded to the cloud providers. The duration is written either with a unit -
+       * &lt;code&gt;ms&lt;/code&gt; for milliseconds, &lt;code&gt;s&lt;/code&gt; for seconds - or as a bare number, which is read as
+       * &lt;b&gt;seconds&lt;/b&gt;: &lt;code&gt;&amp;lt;break time=&amp;quot;0.5&amp;quot;/&amp;gt;&lt;/code&gt; is half a second. A bare number is
+       * therefore never milliseconds; &lt;code&gt;&amp;lt;break time=&amp;quot;2000&amp;quot;/&amp;gt;&lt;/code&gt; asks for 2000 seconds and
+       * is rejected with an error - write &lt;code&gt;&amp;lt;break time=&amp;quot;2000ms&amp;quot;/&amp;gt;&lt;/code&gt; instead. A single
+       * break may not be longer than 60 seconds.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Break tag (seconds): &lt;pre&gt;&lt;code&gt;I am going to take a 2 seconds break &amp;lt;break time=&amp;quot;2.0&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Break tag (milliseconds, cloud providers): &lt;pre&gt;&lt;code&gt;please wait &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; done&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Milliseconds: &lt;pre&gt;&lt;code&gt;Welcome to our service. &amp;lt;break time=&amp;quot;500ms&amp;quot;/&amp;gt; How can I help you today?&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds: &lt;pre&gt;&lt;code&gt;Please hold the line. &amp;lt;break time=&amp;quot;2s&amp;quot;/&amp;gt; Thank you for waiting.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Seconds without a unit: &lt;pre&gt;&lt;code&gt;Let me check that for you. &amp;lt;break time=&amp;quot;1.5&amp;quot;/&amp;gt; I found your booking.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
        * &lt;p&gt;&lt;b&gt;4. Phonemes / pronunciation control&lt;/b&gt;&lt;/p&gt;
@@ -2132,56 +2772,121 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * &lt;li&gt;German: &lt;pre&gt;&lt;code&gt;ah bindestrich sieben plus acht sternchen&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        *
-       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (emotion / style / prosody)&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;5. Voice control for qwen3-tts (style / prosody)&lt;/b&gt;&lt;/p&gt;
        * &lt;p&gt;These ONDEWO-namespaced tags are compiled into the model instruction and stripped from the
        * spoken text, so the transcription stays the plain sentence while the delivery changes. They only
        * take effect on the qwen3-tts &lt;b&gt;CustomVoice&lt;/b&gt; model; on the base and voicedesign models they are
-       * stripped and a warning is logged.&lt;/p&gt;
+       * stripped from the text without changing the delivery.&lt;/p&gt;
+       * &lt;p&gt;qwen3-tts is steered by a natural-language instruction rather than by numeric parameters, so
+       * every dimension has exactly &lt;b&gt;one step per direction&lt;/b&gt; and the values listed below are the
+       * whole vocabulary. Any other value is reported in the server log and then ignored.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Style - one of the five primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
-       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, &lt;code&gt;lively&lt;/code&gt;, or one of the accepted
-       * synonyms &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
+       * &lt;li&gt;Style - one of the four primary styles &lt;code&gt;apologetic&lt;/code&gt;, &lt;code&gt;calm&lt;/code&gt;,
+       * &lt;code&gt;empathetic&lt;/code&gt;, &lt;code&gt;firm&lt;/code&gt;, or one of the accepted synonyms
+       * &lt;code&gt;cheerful&lt;/code&gt; / &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;,
        * &lt;code&gt;sad&lt;/code&gt; / &lt;code&gt;sorrowful&lt;/code&gt;, &lt;code&gt;angry&lt;/code&gt; / &lt;code&gt;furious&lt;/code&gt;,
-       * &lt;code&gt;excited&lt;/code&gt;, &lt;code&gt;serious&lt;/code&gt;, &lt;code&gt;tender&lt;/code&gt; / &lt;code&gt;gentle&lt;/code&gt;.
-       * An unknown name falls back to &lt;code&gt;neutral&lt;/code&gt; and a warning is logged:
+       * &lt;code&gt;excited&lt;/code&gt;. An unknown name falls back to
+       * &lt;code&gt;neutral&lt;/code&gt;, which adds no style at all, and a warning is logged:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Emphasis - selects the intensity tier of the chosen style: &lt;code&gt;strong&lt;/code&gt; (intense),
-       * &lt;code&gt;moderate&lt;/code&gt; (the default when no emphasis is given) or &lt;code&gt;reduced&lt;/code&gt; /
-       * &lt;code&gt;none&lt;/code&gt; (mild):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;firm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;strong&amp;quot;&amp;gt;listen carefully&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;x-slow&lt;/code&gt;/&lt;code&gt;slow&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;fast&lt;/code&gt;/&lt;code&gt;x-fast&lt;/code&gt;
-       * or a percentage such as &lt;code&gt;+20%&lt;/code&gt;/&lt;code&gt;-20%&lt;/code&gt;/&lt;code&gt;120%&lt;/code&gt;),
-       * &lt;code&gt;pitch&lt;/code&gt; (&lt;code&gt;x-low&lt;/code&gt;/&lt;code&gt;low&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;high&lt;/code&gt;/&lt;code&gt;x-high&lt;/code&gt;,
-       * a semitone offset such as &lt;code&gt;+4st&lt;/code&gt;/&lt;code&gt;-4st&lt;/code&gt; or a percentage such as
-       * &lt;code&gt;+10%&lt;/code&gt;/&lt;code&gt;-10%&lt;/code&gt;) and
-       * &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;silent&lt;/code&gt;/&lt;code&gt;x-soft&lt;/code&gt;/&lt;code&gt;soft&lt;/code&gt;/&lt;code&gt;medium&lt;/code&gt;/&lt;code&gt;loud&lt;/code&gt;/&lt;code&gt;x-loud&lt;/code&gt;
-       * or a decibel offset such as &lt;code&gt;+6dB&lt;/code&gt;/&lt;code&gt;-6dB&lt;/code&gt;):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;+4st&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Nested combination (style + emphasis + prosody):
-       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;emphasis level=&amp;quot;moderate&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; pitch=&amp;quot;low&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/emphasis&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Prosody - &lt;code&gt;rate&lt;/code&gt; (&lt;code&gt;slow&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;fast&lt;/code&gt;)
+       * and &lt;code&gt;volume&lt;/code&gt; (&lt;code&gt;soft&lt;/code&gt; / &lt;code&gt;medium&lt;/code&gt; / &lt;code&gt;loud&lt;/code&gt;), where
+       * &lt;code&gt;medium&lt;/code&gt; means &amp;quot;leave it alone&amp;quot; and adds nothing.
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;loud&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Nested combination (style + prosody):
+       * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&amp;lt;prosody rate=&amp;quot;slow&amp;quot; volume=&amp;quot;soft&amp;quot;&amp;gt;hello there&amp;lt;/prosody&amp;gt;&amp;lt;/ondewo:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;li&gt;Free-form instruction (CustomVoice only) - describe the delivery in natural language in the
        * &lt;code&gt;instruction&lt;/code&gt; attribute. The attribute value is used verbatim as the model
-       * instruction and takes precedence over the style / emphasis / prosody tags; the wrapped inner
-       * text is kept as the spoken text and it should be always in English:
+       * instruction and takes precedence over the style / prosody tags; the wrapped inner text is kept
+       * as the spoken text and the instruction should always be written in English:
        * &lt;pre&gt;&lt;code&gt;&amp;lt;ondewo:instruct instruction=&amp;quot;speak slowly in a warm and reassuring tone&amp;quot;&amp;gt;hello there&amp;lt;/ondewo:instruct&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Inline audio tags (CustomVoice only) - emotional expressions / sound effects in square
-       * brackets. They are compiled into the instruction and stripped from the spoken text. The
-       * supported tags are:
+       * &lt;li&gt;Inline style tags (CustomVoice only) - the same style vocabulary written positionally in
+       * square brackets, so &lt;code&gt;[calm] hello there&lt;/code&gt; and the
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element compile to the identical
+       * instruction. Such a tag applies to everything that follows it until another tag or the
+       * &lt;code&gt;[Neutral]&lt;/code&gt; reset replaces it.
+       * &lt;pre&gt;&lt;code&gt;[excited] we shipped it. it works. [calm] now let us review.&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;/ul&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Styles supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;A style is rendered by the voice, not by the markup, and no voice renders all of them. The
+       * table below lists what each qwen3-tts speaker supports; the speaker is fixed by the pipeline
+       * selected through &lt;code&gt;RequestConfig.t2s_pipeline_id&lt;/code&gt;.&lt;/p&gt;
+       * &lt;p&gt;The table applies to &lt;b&gt;both&lt;/b&gt; ways of asking for a style. The
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;calm&amp;quot;&amp;gt;&lt;/code&gt; element and the inline
+       * &lt;code&gt;[calm]&lt;/code&gt; tag compile to the very same instruction, so they are limited by the voice
+       * in exactly the same way - switching from one spelling to the other never makes a style work
+       * that the voice cannot render.&lt;/p&gt;
+       * &lt;p&gt;&lt;b&gt;The server does not check your request against this table.&lt;/b&gt; If you ask a voice for a
+       * style it cannot render, the request still succeeds: audio is returned, no error is raised and
+       * nothing is written to the log. The only symptom is that the voice sounds exactly as it would
+       * have without the style. Use the table to choose a suitable voice &lt;i&gt;before&lt;/i&gt; sending the
+       * request.&lt;/p&gt;
+       * &lt;p&gt;This is not the same as writing a style name that does not exist, which &lt;b&gt;is&lt;/b&gt; reported:
+       * &lt;code&gt;&amp;lt;ondewo:style name=&amp;quot;bored&amp;quot;&amp;gt;&lt;/code&gt; logs a warning and falls back to no
+       * style, because &lt;code&gt;bored&lt;/code&gt; is outside the vocabulary listed further above. The silent
+       * case is a name that is in the vocabulary but beyond what the selected voice can do, for example
+       * &lt;code&gt;excited&lt;/code&gt; on &lt;code&gt;dylan&lt;/code&gt;.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;apologetic&lt;/th&gt;&lt;th&gt;calm&lt;/th&gt;&lt;th&gt;empathetic&lt;/th&gt;&lt;th&gt;firm&lt;/th&gt;&lt;th&gt;cheerful&lt;/th&gt;&lt;th&gt;sad&lt;/th&gt;&lt;th&gt;excited&lt;/th&gt;&lt;th&gt;angry&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Voice-related: &lt;code&gt;[laughs]&lt;/code&gt;, &lt;code&gt;[laughs harder]&lt;/code&gt;,
-       * &lt;code&gt;[starts laughing]&lt;/code&gt;, &lt;code&gt;[wheezing]&lt;/code&gt;, &lt;code&gt;[whispers]&lt;/code&gt;,
-       * &lt;code&gt;[sighs]&lt;/code&gt;, &lt;code&gt;[exhales]&lt;/code&gt;, &lt;code&gt;[sarcastic]&lt;/code&gt;,
-       * &lt;code&gt;[curious]&lt;/code&gt;, &lt;code&gt;[excited]&lt;/code&gt;, &lt;code&gt;[crying]&lt;/code&gt;,
-       * &lt;code&gt;[snorts]&lt;/code&gt;, &lt;code&gt;[mischievously]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Sound effects: &lt;code&gt;[gunshot]&lt;/code&gt;, &lt;code&gt;[applause]&lt;/code&gt;,
-       * &lt;code&gt;[clapping]&lt;/code&gt;, &lt;code&gt;[explosion]&lt;/code&gt;, &lt;code&gt;[swallows]&lt;/code&gt;,
-       * &lt;code&gt;[gulps]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Unique and special: &lt;code&gt;[sings]&lt;/code&gt;, &lt;code&gt;[woo]&lt;/code&gt;, &lt;code&gt;[fart]&lt;/code&gt;&lt;/li&gt;
-       * &lt;li&gt;Accent (variable form): &lt;code&gt;[strong &amp;lt;accent&amp;gt; accent]&lt;/code&gt;, e.g.
-       * &lt;code&gt;[strong French accent]&lt;/code&gt;&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; and &lt;code&gt;serena&lt;/code&gt; render no style at all - use them for neutral
+       * delivery only, and see the prosody table below for what little can still be varied on
+       * them.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ryan&lt;/code&gt; and &lt;code&gt;vivian&lt;/code&gt; cover the widest range, so they are the safest
+       * choice when the style is chosen at runtime rather than fixed in advance.&lt;/li&gt;
+       * &lt;li&gt;A synonym behaves exactly like its primary name, so &lt;code&gt;happy&lt;/code&gt; / &lt;code&gt;joyful&lt;/code&gt;
+       * work wherever &lt;code&gt;cheerful&lt;/code&gt; does, as do &lt;code&gt;sorrowful&lt;/code&gt; for &lt;code&gt;sad&lt;/code&gt;
+       * and &lt;code&gt;furious&lt;/code&gt; for &lt;code&gt;angry&lt;/code&gt;.&lt;/li&gt;
        * &lt;/ul&gt;
-       * &lt;pre&gt;&lt;code&gt;[whispers] hello there&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       *
+       * &lt;p&gt;&lt;b&gt;Prosody supported per voice&lt;/b&gt;&lt;/p&gt;
+       * &lt;p&gt;Rate and volume are limited per voice in the same way, and the same caveat applies: the server
+       * does not check this table either, so asking for a step a voice cannot render succeeds silently
+       * and leaves the delivery unchanged. Only the two steps of each dimension are listed -
+       * &lt;code&gt;medium&lt;/code&gt; (equally &lt;code&gt;default&lt;/code&gt;) is available on every voice, because it means
+       * &amp;quot;leave this dimension alone&amp;quot; and sends no instruction at all.&lt;/p&gt;
+       * &lt;table&gt;
+       * &lt;tr&gt;&lt;th&gt;Voice&lt;/th&gt;&lt;th&gt;rate slow&lt;/th&gt;&lt;th&gt;rate fast&lt;/th&gt;&lt;th&gt;volume soft&lt;/th&gt;&lt;th&gt;volume loud&lt;/th&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;aiden&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;dylan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;eric&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ono_anna&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;ryan&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;serena&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;sohee&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;uncle_fu&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;/tr&gt;
+       * &lt;tr&gt;&lt;td&gt;vivian&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;&amp;#10003;&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+       * &lt;/table&gt;
+       * &lt;p&gt;Notes on the table:&lt;/p&gt;
+       * &lt;ul&gt;
+       * &lt;li&gt;&lt;code&gt;uncle_fu&lt;/code&gt; does not respond to &lt;code&gt;rate&lt;/code&gt; at all - change its pace by
+       * rewriting the text, or pick another voice.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;dylan&lt;/code&gt; renders no style but does respond to &lt;code&gt;rate&lt;/code&gt; and to
+       * &lt;code&gt;volume=&amp;quot;soft&amp;quot;&lt;/code&gt;, so &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt; is the only delivery
+       * control that works on it.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;serena&lt;/code&gt; is the most constrained voice: &lt;code&gt;rate=&amp;quot;slow&amp;quot;&lt;/code&gt; is the
+       * one control it responds to, and no style, no &lt;code&gt;rate=&amp;quot;fast&amp;quot;&lt;/code&gt; and no volume
+       * step has any effect. Treat it as a fixed delivery that can only be slowed down.&lt;/li&gt;
+       * &lt;li&gt;&lt;code&gt;ono_anna&lt;/code&gt;, &lt;code&gt;ryan&lt;/code&gt;, &lt;code&gt;sohee&lt;/code&gt; and &lt;code&gt;aiden&lt;/code&gt; render
+       * every step of both dimensions.&lt;/li&gt;
        * &lt;/ul&gt;
+       *
+       * &lt;p&gt;Every control is positional - it colours exactly the text it wraps - and a delivery change may
+       * only land on a &lt;b&gt;sentence boundary&lt;/b&gt;. Markup wrapping part of a sentence is widened to the
+       * whole sentence, because a sentence fragment sent as a complete utterance makes the model
+       * hallucinate. Each delivery change also costs one additional inference call, so marking up whole
+       * sentences, or leaving the text unmarked, synthesises fastest.&lt;/p&gt;
        * &lt;p&gt;See also &lt;code&gt;RequestConfig.instruction&lt;/code&gt; for supplying the instruction / voice
        * description directly instead of embedding it in the text.&lt;/p&gt;
        *
@@ -2190,9 +2895,15 @@ public final class TextToSpeech extends com.google.protobuf.GeneratedFile {
        * behind the selected pipeline. Standard &lt;code&gt;&amp;lt;prosody&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;emphasis&amp;gt;&lt;/code&gt;
        * and &lt;code&gt;&amp;lt;break&amp;gt;&lt;/code&gt; are common to all three.&lt;/p&gt;
        * &lt;ul&gt;
-       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+       * &lt;li&gt;Google Cloud TTS: &lt;pre&gt;&lt;code&gt;&amp;lt;google:style name=&amp;quot;calm&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/google:style&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.cloud.google.com/text-to-speech/docs/ssml#styles"&gt;Google Cloud TTS - SSML styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Microsoft Azure: &lt;pre&gt;&lt;code&gt;&amp;lt;mstts:express-as style=&amp;quot;cheerful&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/mstts:express-as&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-voice"&gt;Microsoft Azure - speech synthesis markup, voice and speaking styles&lt;/a&gt;&lt;/li&gt;
+       * &lt;li&gt;Amazon Polly (whispered): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect name=&amp;quot;whispered&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+       * More information:
+       * &lt;a href="https://docs.aws.amazon.com/polly/latest/dg/whispered-tag.html"&gt;Amazon Polly - whispered speech with amazon:effect&lt;/a&gt;&lt;/li&gt;
        * &lt;li&gt;Amazon Polly (soft phonation): &lt;pre&gt;&lt;code&gt;&amp;lt;amazon:effect phonation=&amp;quot;soft&amp;quot;&amp;gt;please stay calm everything will be fine&amp;lt;/amazon:effect&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
        * &lt;/ul&gt;
        * </pre>

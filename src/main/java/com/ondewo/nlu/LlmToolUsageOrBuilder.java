@@ -160,7 +160,7 @@ public interface LlmToolUsageOrBuilder extends
   /**
    * <pre>
    * Stable id of the representative invocation, assigned by the upstream framework
-   * (autogen / langchain).
+   * (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 10;</code>
@@ -170,7 +170,7 @@ public interface LlmToolUsageOrBuilder extends
   /**
    * <pre>
    * Stable id of the representative invocation, assigned by the upstream framework
-   * (autogen / langchain).
+   * (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 10;</code>

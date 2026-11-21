@@ -310,7 +310,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * Stable id of the representative invocation, assigned by the upstream framework
-   * (autogen / langchain).
+   * (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 10;</code>
@@ -332,7 +332,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * Stable id of the representative invocation, assigned by the upstream framework
-   * (autogen / langchain).
+   * (e.g. langchain).
    * </pre>
    *
    * <code>string tool_call_id = 10;</code>
@@ -1640,7 +1640,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 10;</code>
@@ -1661,7 +1661,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 10;</code>
@@ -1683,7 +1683,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 10;</code>
@@ -1701,7 +1701,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 10;</code>
@@ -1716,7 +1716,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      * </pre>
      *
      * <code>string tool_call_id = 10;</code>
